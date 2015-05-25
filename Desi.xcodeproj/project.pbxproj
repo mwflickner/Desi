@@ -13,6 +13,8 @@
 		F1D9CD781B12F4CD0052F810 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1D9CD771B12F4CD0052F810 /* Images.xcassets */; };
 		F1D9CD7B1B12F4CD0052F810 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1D9CD791B12F4CD0052F810 /* LaunchScreen.xib */; };
 		F1D9CD871B12F4CD0052F810 /* DesiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD861B12F4CD0052F810 /* DesiTests.swift */; };
+		F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD921B12FB340052F810 /* DesiUser.swift */; };
+		F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD941B12FD910052F810 /* DesiGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		F1D9CD801B12F4CD0052F810 /* DesiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D9CD851B12F4CD0052F810 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1D9CD861B12F4CD0052F810 /* DesiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesiTests.swift; sourceTree = "<group>"; };
+		F1D9CD921B12FB340052F810 /* DesiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUser.swift; sourceTree = "<group>"; };
+		F1D9CD941B12FD910052F810 /* DesiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD721B12F4CD0052F810 /* ViewController.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F1D9CD941B12FD910052F810 /* DesiGroup.swift */,
+				F1D9CD921B12FB340052F810 /* DesiUser.swift */,
 				F1D9CD771B12F4CD0052F810 /* Images.xcassets */,
 				F1D9CD791B12F4CD0052F810 /* LaunchScreen.xib */,
 				F1D9CD6E1B12F4CD0052F810 /* Supporting Files */,
@@ -212,7 +218,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
 				F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */,
+				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
 				F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
