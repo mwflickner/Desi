@@ -3,7 +3,7 @@
 //  Desi
 //
 //  Created by Matthew Flickner on 5/24/15.
-//  Copyright (c) 2015 Sweg. All rights reserved.
+//  Copyright (c) 2015 Desi. All rights reserved.
 //
 
 import UIKit

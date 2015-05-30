@@ -2,48 +2,100 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8PF-6N-Rxi">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--My Desi Groups-->
         <scene sceneID="pmP-fB-iYO">
             <objects>
-                <tableViewController id="MRa-tU-Jcs" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uYa-gG-QON">
+                <tableViewController id="MRa-tU-Jcs" customClass="DesiGroupsTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uYa-gG-QON">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="sAv-gR-8Ma">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="aCK-Eg-UA2" style="IBUITableViewCellStyleDefault" id="iYu-Xm-dOK">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iYu-Xm-dOK" id="yhn-xx-W8B">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Group 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aCK-Eg-UA2">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DesiGroupCell" textLabel="aCK-Eg-UA2" detailTextLabel="nqj-tl-vLw" style="IBUITableViewCellStyleSubtitle" id="iYu-Xm-dOK">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iYu-Xm-dOK" id="yhn-xx-W8B">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aCK-Eg-UA2">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nqj-tl-vLw">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="MRa-tU-Jcs" id="p9f-1m-IxB"/>
                             <outlet property="delegate" destination="MRa-tU-Jcs" id="pcQ-q2-hdb"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Desi Groups" id="0Kh-oI-86i">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="WTZ-dW-PoW"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WTZ-dW-PoW">
+                            <connections>
+                                <segue destination="W31-pp-s2q" kind="presentation" id="GTU-C8-jWC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kck-EO-US6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1038" y="514"/>
+        </scene>
+        <!--New Desi Group-->
+        <scene sceneID="jtF-Ul-Fkn">
+            <objects>
+                <viewController id="xxF-3J-hjd" customClass="NewDesiGroupViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zhh-Qq-OKJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="0C7-Dq-xn2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8E9-Gx-5n3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Group Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QeQ-Sc-49d">
+                                <rect key="frame" x="16" y="285" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="QeQ-Sc-49d" secondAttribute="trailing" id="8Vj-Oh-NCG"/>
+                            <constraint firstItem="QeQ-Sc-49d" firstAttribute="leading" secondItem="8E9-Gx-5n3" secondAttribute="leadingMargin" id="MCT-Da-E0E"/>
+                            <constraint firstAttribute="centerY" secondItem="QeQ-Sc-49d" secondAttribute="centerY" id="g3h-S9-m7U"/>
+                            <constraint firstAttribute="centerX" secondItem="QeQ-Sc-49d" secondAttribute="centerX" id="oLj-uS-Za0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Desi Group" id="PGJ-oJ-XjP">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="keh-6E-nmM">
+                            <connections>
+                                <segue destination="3zK-8K-xdM" kind="unwind" unwindAction="cancelToDesiGroupsViewController:" id="DMZ-Cj-qt4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="R8t-m7-cTz">
+                            <connections>
+                                <segue destination="3zK-8K-xdM" kind="unwind" unwindAction="createNewDesiGroupDetail:" id="rr0-pc-qXI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JUA-9X-kM4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3zK-8K-xdM" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2566" y="514"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WFu-Hh-uQ3">
@@ -62,6 +114,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAx-3o-CQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="226" y="514"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="U91-3o-gqs">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="W31-pp-s2q" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hL9-YF-2Vs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xxF-3J-hjd" kind="relationship" relationship="rootViewController" id="I8d-Zn-HN9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ctB-pu-ehl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1754" y="514"/>
         </scene>
     </scenes>
 </document>
