@@ -61,6 +61,14 @@ class DesiGroupsTableViewController: UITableViewController {
                 return nil
         }
     }
+    
+    @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.

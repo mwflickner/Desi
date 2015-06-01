@@ -41,13 +41,6 @@ class NewDesiGroupTableViewController: UITableViewController {
         return 0
     }
     
-    @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
-        
-    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
