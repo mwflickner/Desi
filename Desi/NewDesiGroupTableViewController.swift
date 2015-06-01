@@ -10,7 +10,7 @@ import UIKit
 
 class NewDesiGroupTableViewController: UITableViewController {
 
-    @IBOutlet weak var newGroupNameTextField: UITextField!
+    @IBOutlet weak var newDesiGroupNameTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +26,16 @@ class NewDesiGroupTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    /*
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            newDesiGroupNameTextField.becomeFirstResponder()
+        }
+    }
+    */
 
     // MARK: - Table view data source
-
+    /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
@@ -40,6 +47,7 @@ class NewDesiGroupTableViewController: UITableViewController {
         // Return the number of rows in the section.
         return 0
     }
+    */
     
 
     /*
