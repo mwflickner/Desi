@@ -15,14 +15,16 @@ class DesiGroup: NSObject {
     var numberOfUsers: Int
     var theDesi: DesiUser
     var desiIndex: Int
+    var groupImg: Int
     
-    init(groupId: Int, groupName: String, users: [DesiUser]) {
+    init(groupId: Int, groupName: String, users: [DesiUser], groupImg: Int) {
         self.groupId = groupId
         self.groupName = groupName
         self.users = users
         self.numberOfUsers = users.count
         self.desiIndex = 0
         self.theDesi = users[desiIndex]
+        self.groupImg = groupImg
         super.init()
     }
     

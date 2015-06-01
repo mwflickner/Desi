@@ -1,16 +1,16 @@
 //
-//  DesiGroupsTableViewController.swift
+//  NewDesiGroupTableViewController.swift
 //  Desi
 //
-//  Created by Matthew Flickner on 5/25/15.
+//  Created by Matthew Flickner on 5/31/15.
 //  Copyright (c) 2015 Desi. All rights reserved.
 //
 
 import UIKit
 
-class DesiGroupsTableViewController: UITableViewController {
+class NewDesiGroupTableViewController: UITableViewController {
 
-    var myGroups: [DesiGroup] = groupData
+    @IBOutlet weak var newGroupNameTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,35 +32,32 @@ class DesiGroupsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return myGroups.count
+        return 0
     }
-
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-
-        // Configure the cell...
-        let group = myGroups[indexPath.row] as DesiGroup
-        cell.groupNameLabel.text = group.groupName
-        cell.groupSumLabel.text = group.theDesi.userName + " is the Desi"
-        cell.groupImgView.image = groupImage(group.groupImg)
-        return cell
+    @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
         
     }
     
-    func groupImage(imgNum: Int) -> UIImage? {
-        switch imgNum {
-            //add immages here to switch statement when we get group images
-            default:
-                return nil
-        }
+    @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
+        
     }
+
+    /*
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+
+        // Configure the cell...
+
+        return cell
+    }
+    */
 
     /*
     // Override to support conditional editing of the table view.

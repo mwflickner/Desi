@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
+		F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */; };
 		F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */; };
 		F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD721B12F4CD0052F810 /* ViewController.swift */; };
 		F1D9CD761B12F4CD0052F810 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D9CD741B12F4CD0052F810 /* Main.storyboard */; };
@@ -15,7 +17,6 @@
 		F1D9CD871B12F4CD0052F810 /* DesiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD861B12F4CD0052F810 /* DesiTests.swift */; };
 		F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD921B12FB340052F810 /* DesiUser.swift */; };
 		F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD941B12FD910052F810 /* DesiGroup.swift */; };
-		F1D9CD971B13E7340052F810 /* NewDesiGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD961B13E7340052F810 /* NewDesiGroupViewController.swift */; };
 		F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */; };
 		F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD9A1B1970090052F810 /* SampleData.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
+		F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDesiGroupTableViewController.swift; sourceTree = "<group>"; };
 		F1D9CD6B1B12F4CD0052F810 /* Desi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Desi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1D9CD6F1B12F4CD0052F810 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +46,6 @@
 		F1D9CD861B12F4CD0052F810 /* DesiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesiTests.swift; sourceTree = "<group>"; };
 		F1D9CD921B12FB340052F810 /* DesiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUser.swift; sourceTree = "<group>"; };
 		F1D9CD941B12FD910052F810 /* DesiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroup.swift; sourceTree = "<group>"; };
-		F1D9CD961B13E7340052F810 /* NewDesiGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDesiGroupViewController.swift; sourceTree = "<group>"; };
 		F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewController.swift; sourceTree = "<group>"; };
 		F1D9CD9A1B1970090052F810 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,8 +92,9 @@
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD721B12F4CD0052F810 /* ViewController.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */,
+				F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */,
 				F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */,
-				F1D9CD961B13E7340052F810 /* NewDesiGroupViewController.swift */,
 				F1D9CD941B12FD910052F810 /* DesiGroup.swift */,
 				F1D9CD9A1B1970090052F810 /* SampleData.swift */,
 				F1D9CD921B12FB340052F810 /* DesiUser.swift */,
@@ -227,10 +230,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
 				F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */,
 				F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */,
+				F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
-				F1D9CD971B13E7340052F810 /* NewDesiGroupViewController.swift in Sources */,
 				F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */,
 				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
 				F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */,
