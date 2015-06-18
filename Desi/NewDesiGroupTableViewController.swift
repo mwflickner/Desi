@@ -10,7 +10,12 @@ import UIKit
 
 class NewDesiGroupTableViewController: UITableViewController {
 
-    @IBOutlet weak var newDesiGroupNameTextField: UITextField!
+    
+    @IBOutlet weak var newGroupNameTextField: UITextField!
+    
+    var newGroup: DesiGroup!
+    
+    var newGroupUsers: [DesiUser] = [appUser]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,19 +25,26 @@ class NewDesiGroupTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    /*
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            newDesiGroupNameTextField.becomeFirstResponder()
+            newGroupNameTextField.becomeFirstResponder()
         }
     }
-    */
+
 
     // MARK: - Table view data source
     /*
@@ -95,14 +107,20 @@ class NewDesiGroupTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "createGroup" {
+            println("got here")
+            println(self.newGroupNameTextField.text)
+            newGroup = DesiGroup(groupId: 3, groupName: self.newGroupNameTextField.text, users: newGroupUsers, groupImg: 1)
+            println("group created")
+        }
     }
-    */
+
 
 }

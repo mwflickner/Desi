@@ -67,6 +67,14 @@ class DesiGroupsTableViewController: UITableViewController {
     }
     
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
+        if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
+            myGroups.append(newDesiGroupTableViewController.newGroup)
+            let indexPath = NSIndexPath(forRow: myGroups.count-1, inSection: 0)
+            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
+    
+    @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
         
     }
 
