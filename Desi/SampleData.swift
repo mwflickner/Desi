@@ -8,9 +8,9 @@
 
 import Foundation
 
-let mwflickner = DesiUser(userName: "mwflickner", firstName: "Matthew", lastName: "Flickner")
-let fratSutt = DesiUser(userName: "fratSutt", firstName: "Matt", lastName: "Sutton")
-let jhecht = DesiUser(userName: "jhecht", firstName: "Jessica", lastName: "Hecht")
+let mwflickner = DesiUser(userName: "mwflickner", firstName: "Matthew", lastName: "Flickner", userImg: 0)
+let fratSutt = DesiUser(userName: "fratSutt", firstName: "Matt", lastName: "Sutton", userImg: 0)
+let jhecht = DesiUser(userName: "jhecht", firstName: "Jessica", lastName: "Hecht", userImg: 0)
 
 let knoxUsers = [mwflickner,fratSutt]
 

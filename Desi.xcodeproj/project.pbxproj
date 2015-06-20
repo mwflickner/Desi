@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F19C0A8A1B33323600B3CD09 /* TheGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */; };
+		F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */; };
 		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
 		F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */; };
 		F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGroupTableViewController.swift; sourceTree = "<group>"; };
+		F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheDesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDesiGroupTableViewController.swift; sourceTree = "<group>"; };
 		F1D9CD6B1B12F4CD0052F810 /* Desi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Desi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +96,7 @@
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD721B12F4CD0052F810 /* ViewController.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */,
 				F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */,
 				F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */,
 				F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */,
@@ -241,6 +244,7 @@
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
 				F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */,
 				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
+				F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */,
 				F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

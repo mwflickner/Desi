@@ -9,13 +9,14 @@
 import UIKit
 
 class TheGroupTableViewController: UITableViewController {
-    var theGroup: DesiGroup!
     
+    var theGroup: DesiGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         println("groupName is \(self.theGroup.groupName)")
         self.navigationItem.title = self.theGroup.groupName
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,24 +34,26 @@ class TheGroupTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return 1
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
+        
         // Configure the cell...
+        cell.theDesiNameLabel.text = theGroup.theDesi.userName
+        cell.theDesiImg.image = theGroup.theDesi.userImage(theGroup.theDesi.userImg)
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.

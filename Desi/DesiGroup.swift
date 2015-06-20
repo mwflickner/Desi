@@ -55,6 +55,14 @@ class DesiGroup: NSObject {
         //need to throw an error if user not found
     }
     
+    func groupImage(imgNum: Int) -> UIImage? {
+        switch imgNum {
+            //add immages here to switch statement when we get group images
+        default:
+            return nil
+        }
+    }
+    
     func changeGroupName(newName: String){
         self.groupName = newName
     }

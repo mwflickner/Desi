@@ -50,18 +50,11 @@ class DesiGroupsTableViewController: UITableViewController {
         let group = myGroups[indexPath.row] as DesiGroup
         cell.groupNameLabel.text = group.groupName
         cell.groupSumLabel.text = group.theDesi.userName + " is the Desi"
-        cell.groupImgView.image = groupImage(group.groupImg)
+        cell.groupImgView.image = group.groupImage(group.groupImg)
         return cell
         
     }
     
-    func groupImage(imgNum: Int) -> UIImage? {
-        switch imgNum {
-            //add immages here to switch statement when we get group images
-            default:
-                return nil
-        }
-    }
     
     @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
         
@@ -138,7 +131,6 @@ class DesiGroupsTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             var aGroupView = nav.topViewController as! TheGroupTableViewController
             aGroupView.theGroup = groupAtIndexPath(path)
-            
         }
     }
     
