@@ -1,26 +1,26 @@
 //
-//  DesiGroupsTableViewController.swift
+//  TheGroupTableViewController.swift
 //  Desi
 //
-//  Created by Matthew Flickner on 5/25/15.
+//  Created by Matthew Flickner on 6/18/15.
 //  Copyright (c) 2015 Desi. All rights reserved.
 //
 
 import UIKit
 
-class DesiGroupsTableViewController: UITableViewController {
-
-    var myGroups: [DesiGroup] = groupData
-    var groupToGoTo: DesiGroup!
+class TheGroupTableViewController: UITableViewController {
+    var theGroup: DesiGroup!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        println("groupName is \(self.theGroup.groupName)")
+        self.navigationItem.title = self.theGroup.groupName
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+         //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+         //self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,51 +33,24 @@ class DesiGroupsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return myGroups.count
+        return 0
     }
 
-    
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
 
         // Configure the cell...
-        let group = myGroups[indexPath.row] as DesiGroup
-        cell.groupNameLabel.text = group.groupName
-        cell.groupSumLabel.text = group.theDesi.userName + " is the Desi"
-        cell.groupImgView.image = groupImage(group.groupImg)
+
         return cell
-        
     }
-    
-    func groupImage(imgNum: Int) -> UIImage? {
-        switch imgNum {
-            //add immages here to switch statement when we get group images
-            default:
-                return nil
-        }
-    }
-    
-    @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
-        if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
-            myGroups.append(newDesiGroupTableViewController.newGroup)
-            let indexPath = NSIndexPath(forRow: myGroups.count-1, inSection: 0)
-            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-    }
-    
-    @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
-        
-    }
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -113,34 +86,15 @@ class DesiGroupsTableViewController: UITableViewController {
         return true
     }
     */
-    
-    /*override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("Row \(indexPath.row) selected")
-        self.groupToGoTo = myGroups[indexPath.row]
-        println("Group = \(self.groupToGoTo.groupName)")
-        //performSegueWithIdentifier("loadGroup", sender: self)
-    }
-    */
-    
-    func groupAtIndexPath(indexPath: NSIndexPath) -> DesiGroup {
-        print("group is \(myGroups[indexPath.row].groupName)\n")
-        return myGroups[indexPath.row]
-    }
-    
+
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if segue.identifier == "loadGroup" {
-            let path = self.tableView.indexPathForSelectedRow()!
-            let nav = segue.destinationViewController as! UINavigationController
-            var aGroupView = nav.topViewController as! TheGroupTableViewController
-            aGroupView.theGroup = groupAtIndexPath(path)
-            
-        }
     }
-    
+    */
 
 }
