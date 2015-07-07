@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		F12052051B4B33F8004271BF /* OnDeckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */; };
 		F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */; };
+		F120520B1B4B6BE7004271BF /* GroupSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120520A1B4B6BE7004271BF /* GroupSettingsTableViewController.swift */; };
+		F120520D1B4C764E004271BF /* GroupActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120520C1B4C764E004271BF /* GroupActionsTableViewCell.swift */; };
+		F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */; };
+		F12052111B4C92BA004271BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052101B4C92BA004271BF /* LoginViewController.swift */; };
 		F19C0A8A1B33323600B3CD09 /* TheGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */; };
 		F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */; };
 		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
@@ -38,6 +42,10 @@
 /* Begin PBXFileReference section */
 		F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeckTableViewCell.swift; sourceTree = "<group>"; };
 		F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestOfGroupTableViewCell.swift; sourceTree = "<group>"; };
+		F120520A1B4B6BE7004271BF /* GroupSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupSettingsTableViewController.swift; sourceTree = "<group>"; };
+		F120520C1B4C764E004271BF /* GroupActionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupActionsTableViewCell.swift; sourceTree = "<group>"; };
+		F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		F12052101B4C92BA004271BF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGroupTableViewController.swift; sourceTree = "<group>"; };
 		F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheDesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
@@ -100,6 +108,10 @@
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD721B12F4CD0052F810 /* ViewController.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F12052101B4C92BA004271BF /* LoginViewController.swift */,
+				F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */,
+				F120520C1B4C764E004271BF /* GroupActionsTableViewCell.swift */,
+				F120520A1B4B6BE7004271BF /* GroupSettingsTableViewController.swift */,
 				F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */,
 				F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */,
 				F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */,
@@ -242,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
 				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
 				F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */,
 				F19C0A8A1B33323600B3CD09 /* TheGroupTableViewController.swift in Sources */,
@@ -249,8 +262,11 @@
 				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
 				F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
+				F120520B1B4B6BE7004271BF /* GroupSettingsTableViewController.swift in Sources */,
 				F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */,
+				F120520D1B4C764E004271BF /* GroupActionsTableViewCell.swift in Sources */,
 				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
+				F12052111B4C92BA004271BF /* LoginViewController.swift in Sources */,
 				F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */,
 				F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */,
 				F12052051B4B33F8004271BF /* OnDeckTableViewCell.swift in Sources */,

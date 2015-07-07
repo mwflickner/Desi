@@ -69,7 +69,11 @@ class DesiGroupsTableViewController: UITableViewController {
     }
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
-        
+        if let theGroupTableViewController = segue.sourceViewController as? TheGroupTableViewController {
+            var groupIndex = self.findGroupIndex(theGroupTableViewController.theGroup)
+            self.myGroups[groupIndex] = theGroupTableViewController.theGroup
+            self.tableView.reloadData()
+        }
     }
 
     /*
@@ -119,6 +123,27 @@ class DesiGroupsTableViewController: UITableViewController {
         print("group is \(myGroups[indexPath.row].groupName)\n")
         return myGroups[indexPath.row]
     }
+    
+    func findGroupIndex(group: DesiGroup) -> Int {
+        for var i = 0; i < myGroups.count; ++i {
+            if ((group.groupId == myGroups[i].groupId) && (group.groupName == myGroups[i].groupName)){
+                return i
+            }
+        }
+        return -1
+        //group not found
+    }
+    
+    /*
+    func findGroup(group: DesiGroup) -> DesiGroup {
+        for var i = 0; i < myGroups.count; ++i {
+            if ((group.groupId == myGroups[i].groupId) && (group.groupName == myGroups[i].groupName)){
+                return myGroups[i]
+            }
+        }
+        return nil
+    }
+    */
     
     // MARK: - Navigation
 
