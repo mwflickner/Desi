@@ -40,18 +40,48 @@ class TheGroupTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 1
+        return theGroup.numberOfUsers
     }
+    
+    /*
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath == 1 {
+            return 80
+        }
+        else {
+            return 44
+        }
+    }
+    */
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-        
-        // Configure the cell...
-        cell.theDesiNameLabel.text = theGroup.theDesi.userName
-        cell.theDesiImg.image = theGroup.theDesi.userImage(theGroup.theDesi.userImg)
+        println("Path is \(indexPath.row)")
+        if (indexPath.row == 0){
+            var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
+            desiCell.theDesiNameLabel.text = theGroup.theDesi.userName
+            desiCell.theDesiImg.image = theGroup.theDesi.userImage(theGroup.theDesi.userImg)
+            println("returning DesiCell")
+            return desiCell
+        }
+        if (indexPath.row == 1){
+            var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
+            var nextDesi: DesiUser = theGroup.getUserFromDesi(1)
+            onDeckCell.onDeckLabel.text = nextDesi.userName
+            onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
+            println("returning onDeckCell")
+            return onDeckCell
+        }
+        else {
+            var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroup", forIndexPath: indexPath) as! RestOfGroupTableViewCell
+            var user: DesiUser = theGroup.getUserFromDesi(indexPath.row)
+            restCell.restOfGroupLabel.text = user.userName
+            restCell.restOfGroupImg.image = user.userImage(user.userImg)
+            println("returning other cell")
+            return restCell
+        }
 
-        return cell
+        
     }
 
 

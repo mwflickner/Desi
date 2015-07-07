@@ -77,6 +77,18 @@ class DesiGroup: NSObject {
         self.theDesi = userAt(Int(arc4random_uniform(UInt32(numberOfUsers))))
     }
     
+    func getUserFromDesi(distFromDesi: Int) -> DesiUser {
+        //distFrom == 0 should return the Desi, 1 should return the next, 2 should return etc
+        var index = desiIndex
+        if (index < users.count - distFromDesi){
+            return self.userAt(index + distFromDesi)
+        }
+        else {
+            return self.userAt(index - (users.count - distFromDesi))
+        }
+    }
+    
+    
     func nextDesi(){
         ++self.desiIndex
         if (desiIndex < users.count){

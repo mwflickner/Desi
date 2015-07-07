@@ -12,7 +12,7 @@ let mwflickner = DesiUser(userName: "mwflickner", firstName: "Matthew", lastName
 let fratSutt = DesiUser(userName: "fratSutt", firstName: "Matt", lastName: "Sutton", userImg: 0)
 let jhecht = DesiUser(userName: "jhecht", firstName: "Jessica", lastName: "Hecht", userImg: 0)
 
-let knoxUsers = [mwflickner,fratSutt]
+let knoxUsers = [mwflickner,fratSutt, jhecht]
 
 let otherUsers = [mwflickner,jhecht]
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F12052051B4B33F8004271BF /* OnDeckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */; };
+		F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */; };
 		F19C0A8A1B33323600B3CD09 /* TheGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */; };
 		F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */; };
 		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeckTableViewCell.swift; sourceTree = "<group>"; };
+		F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestOfGroupTableViewCell.swift; sourceTree = "<group>"; };
 		F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheGroupTableViewController.swift; sourceTree = "<group>"; };
 		F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheDesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD721B12F4CD0052F810 /* ViewController.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */,
+				F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */,
 				F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */,
 				F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */,
 				F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */,
@@ -240,12 +246,14 @@
 				F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */,
 				F19C0A8A1B33323600B3CD09 /* TheGroupTableViewController.swift in Sources */,
 				F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */,
+				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
 				F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
 				F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */,
 				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
 				F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */,
 				F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */,
+				F12052051B4B33F8004271BF /* OnDeckTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +336,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -365,7 +373,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
