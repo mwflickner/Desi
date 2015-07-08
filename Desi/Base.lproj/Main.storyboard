@@ -318,7 +318,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bM9-ew-m5g">
                                 <rect key="frame" x="137" y="338" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxD-Yn-2Oq">
                                 <rect key="frame" x="252" y="376" width="104" height="38"/>
@@ -344,6 +344,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="password" destination="bM9-ew-m5g" id="fpq-jD-te1"/>
+                        <outlet property="username" destination="sAW-yb-j1r" id="j3a-Lq-BSt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igH-QB-LET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -385,12 +389,12 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KFO-HC-9we">
                                 <rect key="frame" x="16" y="214" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5qn-uA-gZj">
                                 <rect key="frame" x="16" y="252" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YR3-IJ-ieR">
                                 <rect key="frame" x="16" y="290" width="568" height="30"/>
@@ -432,6 +436,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="email1" destination="YR3-IJ-ieR" id="dEJ-MM-d4U"/>
+                        <outlet property="email2" destination="vuY-2c-wgr" id="CR1-Za-cSQ"/>
+                        <outlet property="firstName" destination="uhx-Di-Rrs" id="dfn-yM-aE4"/>
+                        <outlet property="lastName" destination="USo-wp-tZ4" id="Iva-N0-Pcp"/>
+                        <outlet property="password1" destination="KFO-HC-9we" id="bck-TY-RfB"/>
+                        <outlet property="password2" destination="5qn-uA-gZj" id="7fK-b4-IzI"/>
+                        <outlet property="phoneNumber" destination="8Oq-TM-jBm" id="IAP-Zu-2QX"/>
+                        <outlet property="username" destination="XMl-O9-oHl" id="sbX-NS-5dd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjH-uc-Sp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="abd-YK-coO" userLabel="Exit" sceneMemberID="exit"/>
@@ -516,6 +530,6 @@
         <image name="glyphicons-4-user" width="23" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IBW-FF-kgP"/>
+        <segue reference="5NW-Fn-hFv"/>
     </inferredMetricsTieBreakers>
 </document>
