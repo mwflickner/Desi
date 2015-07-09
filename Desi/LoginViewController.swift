@@ -28,6 +28,13 @@ class LoginViewController: UIViewController {
         
     }
     
+    func verifyUsername(name: String){
+        
+    }
+    
+    @IBAction func loginTapped(sender : AnyObject) {
+        println("login tapped")
+    }
 
     /*
     // MARK: - Navigation

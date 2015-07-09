@@ -328,6 +328,7 @@
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="loginTapped:" destination="BQg-er-EZC" eventType="touchUpInside" id="Ke5-GD-zCM"/>
                                     <segue destination="8PF-6N-Rxi" kind="show" id="5NW-Fn-hFv"/>
                                 </connections>
                             </button>
@@ -375,41 +376,57 @@
                                 <rect key="frame" x="16" y="176" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="usernameDone:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="CeG-FJ-wL5"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uhx-Di-Rrs">
                                 <rect key="frame" x="16" y="100" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="firstNameDone:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="ee3-hX-c6b"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USo-wp-tZ4">
                                 <rect key="frame" x="16" y="138" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="lastNameDone:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="p33-VH-7Vc"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KFO-HC-9we">
                                 <rect key="frame" x="16" y="214" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="password1Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="dcW-Tx-jU8"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5qn-uA-gZj">
                                 <rect key="frame" x="16" y="252" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="password2Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="azo-hf-RaV"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YR3-IJ-ieR">
                                 <rect key="frame" x="16" y="290" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="email1Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="KZ2-aO-aVd"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vuY-2c-wgr">
                                 <rect key="frame" x="16" y="328" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Oq-TM-jBm">
-                                <rect key="frame" x="16" y="366" width="568" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="email2Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="7Sm-uG-Jjx"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HrY-6R-iLu">
                                 <rect key="frame" x="277" y="442" width="46" height="30"/>
@@ -418,7 +435,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backTapped:" destination="rIi-Hs-U9p" eventType="touchUpInside" id="SgU-JE-9f6"/>
                                     <segue destination="abd-YK-coO" kind="unwind" unwindAction="backToLoginViewController:" id="dGD-Qn-aKQ"/>
                                 </connections>
                             </button>
@@ -430,6 +446,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="createTapped:" destination="rIi-Hs-U9p" eventType="touchUpInside" id="Xp6-0C-KHV"/>
                                     <segue destination="8PF-6N-Rxi" kind="show" id="IBW-FF-kgP"/>
                                 </connections>
                             </button>
@@ -437,13 +454,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="createButton" destination="gnJ-ZY-zed" id="PHM-VV-R4u"/>
                         <outlet property="email1" destination="YR3-IJ-ieR" id="dEJ-MM-d4U"/>
                         <outlet property="email2" destination="vuY-2c-wgr" id="CR1-Za-cSQ"/>
                         <outlet property="firstName" destination="uhx-Di-Rrs" id="dfn-yM-aE4"/>
                         <outlet property="lastName" destination="USo-wp-tZ4" id="Iva-N0-Pcp"/>
                         <outlet property="password1" destination="KFO-HC-9we" id="bck-TY-RfB"/>
                         <outlet property="password2" destination="5qn-uA-gZj" id="7fK-b4-IzI"/>
-                        <outlet property="phoneNumber" destination="8Oq-TM-jBm" id="IAP-Zu-2QX"/>
                         <outlet property="username" destination="XMl-O9-oHl" id="sbX-NS-5dd"/>
                     </connections>
                 </viewController>
@@ -530,6 +547,6 @@
         <image name="glyphicons-4-user" width="23" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5NW-Fn-hFv"/>
+        <segue reference="IBW-FF-kgP"/>
     </inferredMetricsTieBreakers>
 </document>
