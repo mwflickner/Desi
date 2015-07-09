@@ -50,7 +50,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Desi Groups" id="0Kh-oI-86i">
-                        <barButtonItem key="leftBarButtonItem" image="glyphicons-4-user" id="yNq-yh-yD1"/>
+                        <barButtonItem key="leftBarButtonItem" image="glyphicons-11-envelope" id="yNq-yh-yD1"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WTZ-dW-PoW">
                             <connections>
                                 <segue destination="Egn-ih-d8k" kind="presentation" id="keK-x3-2ll"/>
@@ -543,10 +543,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="glyphicons-11-envelope" width="24" height="16"/>
         <image name="glyphicons-281-settings" width="24" height="24"/>
-        <image name="glyphicons-4-user" width="23" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IBW-FF-kgP"/>
+        <segue reference="5NW-Fn-hFv"/>
     </inferredMetricsTieBreakers>
 </document>

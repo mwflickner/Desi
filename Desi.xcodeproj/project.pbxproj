@@ -27,6 +27,7 @@
 		F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD941B12FD910052F810 /* DesiGroup.swift */; };
 		F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */; };
 		F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD9A1B1970090052F810 /* SampleData.swift */; };
+		F1DCDBAA1B4F351200E4C048 /* Desi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		F1D9CD941B12FD910052F810 /* DesiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroup.swift; sourceTree = "<group>"; };
 		F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewController.swift; sourceTree = "<group>"; };
 		F1D9CD9A1B1970090052F810 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Desi.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				F1D9CD921B12FB340052F810 /* DesiUser.swift */,
 				F1D9CD771B12F4CD0052F810 /* Images.xcassets */,
 				F1D9CD791B12F4CD0052F810 /* LaunchScreen.xib */,
+				F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */,
 				F1D9CD6E1B12F4CD0052F810 /* Supporting Files */,
 			);
 			path = Desi;
@@ -262,6 +265,7 @@
 				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
 				F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
+				F1DCDBAA1B4F351200E4C048 /* Desi.xcdatamodeld in Sources */,
 				F120520B1B4B6BE7004271BF /* GroupSettingsTableViewController.swift in Sources */,
 				F1D9CD731B12F4CD0052F810 /* ViewController.swift in Sources */,
 				F120520D1B4C764E004271BF /* GroupActionsTableViewCell.swift in Sources */,
@@ -479,6 +483,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */,
+			);
+			currentVersion = F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */;
+			path = Desi.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F1D9CD631B12F4CD0052F810 /* Project object */;
 }

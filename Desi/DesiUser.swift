@@ -14,7 +14,6 @@ class DesiUser: NSObject {
     var firstName: String
     var lastName: String
     var userImg: Int
-    //var isDesi: Bool
     //var groupsIn: [DesiGroup]
     
     init(userName: String, firstName: String, lastName: String, userImg: Int) {
@@ -22,7 +21,6 @@ class DesiUser: NSObject {
         self.firstName = firstName
         self.lastName = lastName
         self.userImg = userImg
-        //self.isDesi = isDesi
         //self.groupsIn = groupsIn
     }
     
