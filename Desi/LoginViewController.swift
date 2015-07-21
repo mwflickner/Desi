@@ -13,10 +13,23 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var message: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        DesiUser.logOut()
+        var isThereUser = DesiUser.currentUser()?.username
+        if isThereUser != nil {
+            println("\(DesiUser.currentUser()!.username)")
+        }
+        else {
+            println("we good its nil")
+            
+        }
+        
+        self.activityIndicator.hidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -33,25 +46,33 @@ class LoginViewController: UIViewController {
         
     }
     
-    func login(){
-        DesiUser.logInWithUsernameInBackground(username.text, password: password.text) {
+    
+    @IBAction func signIn(sender: AnyObject) {
+            
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+            
+        var username1 = self.username.text
+        username1 = username1.lowercaseString
+            
+        var userPassword = self.password.text
+            
+        PFUser.logInWithUsernameInBackground(username1, password:userPassword) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
-                // Do stuff after successful login.
-                println("success")
-                self.performSegueWithIdentifier("LoginToDesiSegue", sender: nil)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.performSegueWithIdentifier("loginSegue", sender: self)
+                }
             } else {
-                // The login failed. Check error to see why.
-                println("\(error)")
+                self.activityIndicator.stopAnimating()
+                    
+                if let message1: AnyObject = error!.userInfo!["error"] {
+                    self.message = "\(message1)"
+                }
             }
-            
         }
     }
-    
-    @IBAction func loginTapped(sender : AnyObject) {
-        println("login tapped")
-        login()
-    }
+
 
     /*
     // MARK: - Navigation

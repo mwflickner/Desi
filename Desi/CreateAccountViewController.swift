@@ -217,7 +217,9 @@ class CreateAccountViewController: UIViewController {
         newUser.signUpInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
                 println("success")
-                self.performSegueWithIdentifier("createAccountSegue", sender: nil)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.performSegueWithIdentifier("createAccountSegue", sender: self)
+                }
             }
             else {
                 println("\(error)")

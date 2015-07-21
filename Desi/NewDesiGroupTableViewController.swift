@@ -28,18 +28,6 @@ class NewDesiGroupTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.newUserGroup.group = self.newGroup
         self.newUserGroup.user = DesiUser.currentUser()!
-        
-        
-        self.newUserGroup.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("usergroup saved")
-            } else {
-                // There was a problem, check error.description
-                println("UserGroup Error: \(error)")
-            }
-        })
 
         
         
@@ -62,6 +50,15 @@ class NewDesiGroupTableViewController: UITableViewController {
             newGroupNameTextField.becomeFirstResponder()
         }
     }
+    
+    @IBAction func logout(){
+        DesiUser.logOut()
+        var currentUser = DesiUser.currentUser() // this will now be nil
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
 
 
     // MARK: - Table view data source
@@ -176,6 +173,10 @@ class NewDesiGroupTableViewController: UITableViewController {
                 } else {
                     // There was a problem, check error.description
                     println("UserGroup Error: \(error)")
+                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                        self.newUserGroup.pinInBackground()
+                        self.newUserGroup.saveEventually()
+                    }
                 }
             })
             
