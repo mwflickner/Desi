@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import Parse
 
 class DesiGroupsTableViewController: UITableViewController {
 
-    var myGroups: [DesiGroup] = groupData
+    var myUserGroups: [DesiUserGroup]!
     var groupToGoTo: DesiGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        /*
+        let testObject = PFObject(className: "TestObject")
+        testObject["foo"] = "bar"
+        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            println("Object has been saved.")
+        }
+        */
+        println("\(DesiUser.currentUser()!.objectId)")
+        myUserGroups = DesiUser.currentUser()!.userGroups
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -39,7 +48,7 @@ class DesiGroupsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return myGroups.count
+        return myUserGroups.count
     }
 
     
@@ -47,10 +56,10 @@ class DesiGroupsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
 
         // Configure the cell...
-        let group = myGroups[indexPath.row] as DesiGroup
-        cell.groupNameLabel.text = group.groupName
-        cell.groupSumLabel.text = group.theDesi.userName + " is the Desi"
-        cell.groupImgView.image = group.groupImage(group.groupImg)
+        let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
+        cell.groupNameLabel.text = userGroup.group.groupName
+        cell.groupSumLabel.text = /*userGroup.group.theDesi.username*/ "Fuck you is the Desi"
+        //cell.groupImgView.image = group.groupImg
         return cell
         
     }
@@ -62,16 +71,16 @@ class DesiGroupsTableViewController: UITableViewController {
     
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
         if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
-            myGroups.append(newDesiGroupTableViewController.newGroup)
-            let indexPath = NSIndexPath(forRow: myGroups.count-1, inSection: 0)
+            myUserGroups.append(newDesiGroupTableViewController.newUserGroup)
+            let indexPath = NSIndexPath(forRow: myUserGroups.count-1, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
         if let theGroupTableViewController = segue.sourceViewController as? TheGroupTableViewController {
-            var groupIndex = self.findGroupIndex(theGroupTableViewController.theGroup)
-            self.myGroups[groupIndex] = theGroupTableViewController.theGroup
+            var groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroup)
+            self.myUserGroups[groupIndex] = theGroupTableViewController.userGroup
             self.tableView.reloadData()
         }
     }
@@ -119,14 +128,19 @@ class DesiGroupsTableViewController: UITableViewController {
     }
     */
     
-    func groupAtIndexPath(indexPath: NSIndexPath) -> DesiGroup {
-        print("group is \(myGroups[indexPath.row].groupName)\n")
-        return myGroups[indexPath.row]
+    func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
+        print("group is \(myUserGroups[indexPath.row].group.groupName)\n")
+        return myUserGroups[indexPath.row]
     }
     
-    func findGroupIndex(group: DesiGroup) -> Int {
-        for var i = 0; i < myGroups.count; ++i {
-            if ((group.groupId == myGroups[i].groupId) && (group.groupName == myGroups[i].groupName)){
+    func groupAtIndexPath(indexPath: NSIndexPath) -> DesiGroup {
+        print("group is \(myUserGroups[indexPath.row].group.groupName)\n")
+        return myUserGroups[indexPath.row].group
+    }
+    
+    func findUserGroupIndex(userGroup: DesiUserGroup) -> Int {
+        for var i = 0; i < myUserGroups.count; ++i {
+            if ((userGroup.objectId == myUserGroups[i].objectId) && (userGroup.group.groupName == myUserGroups[i].group.groupName)){
                 return i
             }
         }
@@ -156,6 +170,7 @@ class DesiGroupsTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             var aGroupView = nav.topViewController as! TheGroupTableViewController
             aGroupView.theGroup = groupAtIndexPath(path)
+            aGroupView.userGroup = userGroupAtIndexPath(path)
         }
     }
     

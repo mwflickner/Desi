@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import Parse
 
 class NewDesiGroupTableViewController: UITableViewController {
 
     
     @IBOutlet weak var newGroupNameTextField: UITextField!
     
-    var newGroup: DesiGroup!
+    var newGroup: DesiGroup = DesiGroup()
     
-    var newGroupUsers: [DesiUser] = [appUser]
+    var newUserGroup: DesiUserGroup = DesiUserGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,23 @@ class NewDesiGroupTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.newUserGroup.group = self.newGroup
+        self.newUserGroup.user = DesiUser.currentUser()!
+        
+        
+        self.newUserGroup.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("usergroup saved")
+            } else {
+                // There was a problem, check error.description
+                println("UserGroup Error: \(error)")
+            }
+        })
+
+        
+        
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
     }
@@ -115,10 +133,53 @@ class NewDesiGroupTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "createGroup" {
-            println("got here")
-            println(self.newGroupNameTextField.text)
-            newGroup = DesiGroup(groupId: 3, groupName: self.newGroupNameTextField.text, users: newGroupUsers, groupImg: 1)
-            println("group created")
+            
+            self.newUserGroup.username = DesiUser.currentUser()!.username
+            self.newUserGroup.isDesi = true
+            self.newUserGroup.isGroupAdmin = true
+            self.newUserGroup.groupPoints = 0
+            
+            
+            //DesiUser.currentUser()!.userGroups.append(newUserGroup)
+            
+            self.newGroup.groupName = self.newGroupNameTextField.text
+            
+            //new array for members and then assign the new UserGroup
+            
+            self.newGroup.groupMembers = [String]()
+            self.newGroup.groupMembers.append(self.newUserGroup.username)
+            self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
+            
+            self.newGroup.theDesi = self.newUserGroup
+            
+            //add the user group to the user's list of groups
+            //DesiUser.currentUser()!.userGroups.append(newUserGroup)
+            /*
+            DesiUser.currentUser()?.saveInBackgroundWithBlock({
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    // The object has been saved.
+                    println("user updated")
+                } else {
+                    // There was a problem, check error.description
+                    println("User Error: \(error)")
+                }
+            })
+            */
+            
+            
+            self.newUserGroup.saveInBackgroundWithBlock({
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    // The object has been saved.
+                    println("usergroup saved")
+                } else {
+                    // There was a problem, check error.description
+                    println("UserGroup Error: \(error)")
+                }
+            })
+            
+
         }
     }
 

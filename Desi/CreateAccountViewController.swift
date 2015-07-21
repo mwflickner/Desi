@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class CreateAccountViewController: UIViewController {
     
@@ -20,7 +21,6 @@ class CreateAccountViewController: UIViewController {
     @IBOutlet weak var createButton: UIButton!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //createButton.enabled = false
@@ -32,7 +32,7 @@ class CreateAccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    //user feedback on text fields
     func setErrorColor(textField: UITextField) {
         var errorColor : UIColor = UIColor.redColor()
         textField.layer.borderColor = errorColor.CGColor
@@ -45,59 +45,108 @@ class CreateAccountViewController: UIViewController {
         textField.layer.borderWidth = 1.5
     }
     
-    func nameCheck(nameField: UITextField) {
-        if nameField.text == "" {
-            setErrorColor(nameField)
-            //return false
+    //check the name fields
+    func nameCheck(nameField: UITextField) -> Bool {
+        if nameField.text != "" {
+            return true
         }
-        else {
-            setSuccessColor(nameField)
-            //return true
-        }
+        return false
     }
     
+    @IBAction func firstNameDone(sender: AnyObject) {
+        if nameCheck(self.firstName) {
+            setSuccessColor(self.firstName)
+            return
+        }
+        setErrorColor(self.firstName)
+    }
+    
+    @IBAction func lastNameDone(sender: AnyObject) {
+        if nameCheck(lastName){
+            setSuccessColor(lastName)
+            return
+        }
+        setErrorColor(lastName)
+    }
+    
+    //check the usernames
     func isValidUsername(testStr: String) -> Bool {
         let usernameRegEx = "^[a-z0-9_-]{3,16}$"
         let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
         return usernameTest.evaluateWithObject(testStr)
     }
     
-    func usernameCheck(usernameField: UITextField){
+    func usernameCheck(usernameField: UITextField) -> Bool{
         usernameField.text = usernameField.text.lowercaseString
         if isValidUsername(usernameField.text) {
             setSuccessColor(usernameField)
+            return true
         }
         else {
             setErrorColor(usernameField)
+            return false
         }
-        //still need to check database for other usernames
     }
     
+    @IBAction func usernameDone(sender : AnyObject) {
+        if (isValidUsername(self.username.text) && usernameCheck(self.username)){
+            setSuccessColor(self.username)
+            return
+        }
+        setErrorColor(username)
+    }
+    
+    // password functions
     func isValidPassword(testStr: String) -> Bool {
         let passwordRegEx = "^[a-z0-9_-]{6,256}$"
         let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluateWithObject(testStr)
     }
     
-    func passwordCheck(passwordField: UITextField){
-        if isValidPassword(passwordField.text){
-            setSuccessColor(passwordField)
-        }
-        else {
-            setErrorColor(passwordField)
-        }
-    }
     
-    func passwordsMatch(){
+    func passwordsMatch() -> Bool{
         println("passwords check")
         if password1.text == password2.text {
+            return true
+        }
+        return false
+    }
+    
+    @IBAction func password1Done(sender: AnyObject) {
+        if isValidPassword(password1.text) {
+            if(password2.text != ""){
+                if passwordsMatch(){
+                    setSuccessColor(password2)
+                }
+                else {
+                    setErrorColor(password2)
+                    setErrorColor(password1)
+                    return
+                }
+            }
             setSuccessColor(password1)
+            return
+        }
+        setErrorColor(password1)
+        
+    }
+    
+    @IBAction func password2Done(sender: AnyObject) {
+        if isValidPassword(password2.text) {
+            if(password1.text != ""){
+                if passwordsMatch(){
+                    setSuccessColor(password1)
+                }
+                else {
+                    setErrorColor(password2)
+                    setErrorColor(password1)
+                    return
+                }
+            }
             setSuccessColor(password2)
+            return
         }
-        else {
-            setErrorColor(password1)
-            setErrorColor(password2)
-        }
+        setErrorColor(password2)
     }
     
     func isValidEmail(testStr:String) -> Bool {
@@ -109,58 +158,32 @@ class CreateAccountViewController: UIViewController {
         return emailTest.evaluateWithObject(testStr)
     }
     
-    func emailCheck(email: UITextField){
+    func emailCheck(email: UITextField) -> Bool{
         if isValidEmail(email.text){
             println("email good")
             setSuccessColor(email)
+            return true
         }
-        else {
-            setErrorColor(email)
-            println("email bad")
-        }
+        setErrorColor(email)
+        println("email bad")
+        return false
+        
     }
     
-    func emailsMatch(){
+    func emailsMatch() -> Bool{
         if email1.text == email2.text {
             setSuccessColor(email1)
             setSuccessColor(email2)
             println("emails match")
-            //return true
+            return true
         }
-        else {
-            setErrorColor(email1)
-            setErrorColor(email2)
-            println("emails match")
-            //return false
-        }
+        setErrorColor(email1)
+        setErrorColor(email2)
+        println("emails match")
+        return false
     }
     
-    @IBAction func firstNameDone(sender: AnyObject) {
-        nameCheck(firstName)
-    }
     
-    @IBAction func lastNameDone(sender: AnyObject) {
-        nameCheck(lastName)
-    }
-    
-    @IBAction func usernameDone(sender : AnyObject) {
-        usernameCheck(username)
-    }
-    
-    @IBAction func password1Done(sender: AnyObject) {
-        passwordCheck(password1)
-        if(password2.text != ""){
-            passwordsMatch()
-        }
-        
-    }
-    
-    @IBAction func password2Done(sender: AnyObject) {
-        passwordCheck(password2)
-        if(password1.text != ""){
-            passwordsMatch()
-        }
-    }
     
     @IBAction func email1Done(sender: AnyObject) {
         println("email1 done")
@@ -168,6 +191,7 @@ class CreateAccountViewController: UIViewController {
         if(email2.text != ""){
             emailsMatch()
         }
+        //set the array in these functions
         
     }
     
@@ -180,16 +204,32 @@ class CreateAccountViewController: UIViewController {
     }
     
     
-    func enableButton(){
-        createButton.enabled = true
-    }
     
     func createAccount(){
-        
+        let newUser = DesiUser()
+        newUser.username = self.username.text
+        newUser.password = self.password1.text
+        newUser.email = self.email1.text
+        newUser.firstName = self.firstName.text
+        newUser.lastName = self.lastName.text
+        newUser.userGroups = [DesiUserGroup]()
+        newUser.desiPoints = 0
+        newUser.signUpInBackgroundWithBlock { (success, error) -> Void in
+            if error == nil {
+                println("success")
+                self.performSegueWithIdentifier("createAccountSegue", sender: nil)
+            }
+            else {
+                println("\(error)")
+                // Show the errorString somewhere and let the user try again.
+            }
+        }
     }
     
     @IBAction func createTapped(sender : AnyObject) {
         println("created tapped")
+        createAccount()
+        
     }
     
 
@@ -200,7 +240,14 @@ class CreateAccountViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "createAccountSegue") {
+            let nav = segue.destinationViewController as! UINavigationController
+            var groupsView = nav.topViewController as! DesiGroupsTableViewController
+            groupsView.myGroups = self.userGroups
+        }
+
     }
     */
+
 
 }

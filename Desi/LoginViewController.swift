@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class LoginViewController: UIViewController {
     
@@ -32,8 +33,24 @@ class LoginViewController: UIViewController {
         
     }
     
+    func login(){
+        DesiUser.logInWithUsernameInBackground(username.text, password: password.text) {
+            (user: PFUser?, error: NSError?) -> Void in
+            if user != nil {
+                // Do stuff after successful login.
+                println("success")
+                self.performSegueWithIdentifier("LoginToDesiSegue", sender: nil)
+            } else {
+                // The login failed. Check error to see why.
+                println("\(error)")
+            }
+            
+        }
+    }
+    
     @IBAction func loginTapped(sender : AnyObject) {
         println("login tapped")
+        login()
     }
 
     /*

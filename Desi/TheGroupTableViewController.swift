@@ -11,6 +11,7 @@ import UIKit
 class TheGroupTableViewController: UITableViewController {
     
     var theGroup: DesiGroup!
+    var userGroup: DesiUserGroup!
     
     @IBAction func wentOutTapped(sender : AnyObject) {
         println("button tapped")
@@ -65,22 +66,22 @@ class TheGroupTableViewController: UITableViewController {
         println("Path is \(indexPath.row)")
         if (indexPath.row == 0){
             var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-            if (appUser.userName == theGroup.theDesi.userName) {
+            if (DesiUser.currentUser()!.username == theGroup.theDesi) {
                 desiCell.theDesiNameLabel.text = "YOU are the Desi"
                 desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             }
             else {
-                desiCell.theDesiNameLabel.text = theGroup.theDesi.userName
+                desiCell.theDesiNameLabel.text = theGroup.theDesi.username
             }
-            desiCell.theDesiImg.image = theGroup.theDesi.userImage(theGroup.theDesi.userImg)
+            //desiCell.theDesiImg.image = theGroup.theDesi.userImg
             println("returning DesiCell")
             return desiCell
         }
         if (indexPath.row == 1){
             var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-            var nextDesi: DesiUser = theGroup.getUserFromDesi(1)
-            onDeckCell.onDeckLabel.text = nextDesi.userName
-            onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
+            var nextDesi: String = theGroup.getUserFromDesi(1)
+            onDeckCell.onDeckLabel.text = nextDesi
+            //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
             println("returning onDeckCell")
             return onDeckCell
         }
@@ -91,9 +92,9 @@ class TheGroupTableViewController: UITableViewController {
         }
         else {
             var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-            var user: DesiUser = theGroup.getUserFromDesi(indexPath.row)
-            restCell.restOfGroupLabel.text = user.userName
-            restCell.restOfGroupImg.image = user.userImage(user.userImg)
+            var userGroup: String = theGroup.getUserFromDesi(indexPath.row)
+            restCell.restOfGroupLabel.text = userGroup
+            //restCell.restOfGroupImg.image = userGroup.user.userImg
             println("returning other cell")
             return restCell
         }
