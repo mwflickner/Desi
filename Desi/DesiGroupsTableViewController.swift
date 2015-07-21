@@ -58,7 +58,7 @@ class DesiGroupsTableViewController: UITableViewController {
         // Configure the cell...
         let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
-        cell.groupSumLabel.text = /*userGroup.group.theDesi.username*/ "Fuck you is the Desi"
+        cell.groupSumLabel.text = userGroup.group.theDesi.username + " is the Desi"
         //cell.groupImgView.image = group.groupImg
         return cell
         

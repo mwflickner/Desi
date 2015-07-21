@@ -29,6 +29,16 @@ class NewDesiGroupTableViewController: UITableViewController {
         self.newUserGroup.group = self.newGroup
         self.newUserGroup.user = DesiUser.currentUser()!
 
+        self.newUserGroup.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("usergroup saved")
+            } else {
+                // There was a problem, check error.description
+                println("UserGroup Error: \(error)")
+            }
+        })
         
         
         var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
@@ -181,6 +191,10 @@ class NewDesiGroupTableViewController: UITableViewController {
             })
             
 
+        }
+        else {
+            self.newUserGroup.deleteInBackground()
+            self.newGroup.deleteInBackground()
         }
     }
 
