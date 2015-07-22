@@ -164,8 +164,8 @@ class NewDesiGroupTableViewController: UITableViewController {
             //add the user group to the user's list of groups
             DesiUser.currentUser()!.userGroups.append(newUserGroup.objectId!)
         
-            
-            
+            //store local first then update via network
+            self.newUserGroup.pinInBackground()
             self.newUserGroup.saveInBackgroundWithBlock({
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
@@ -175,7 +175,6 @@ class NewDesiGroupTableViewController: UITableViewController {
                     // There was a problem, check error.description
                     println("UserGroup Error: \(error)")
                     if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                        self.newUserGroup.pinInBackground()
                         self.newUserGroup.saveEventually()
                     }
                 }

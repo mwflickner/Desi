@@ -86,11 +86,7 @@ class LoginViewController: UIViewController {
             
             let query = DesiUserGroup.query()
             query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-            //query.cachePolicy = .CacheThenNetwork
             query!.includeKey("group.theDesi")
-            //query!.includeKey("group.theDesi")
-            //query!.includeKey("group."
-            //query!.includeKey("group"
             query!.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
 
@@ -100,7 +96,14 @@ class LoginViewController: UIViewController {
                         println("Successfully retrieved \(objects!.count) scores.")
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
-                            groupsView.myUserGroups = objects as? [DesiUserGroup]
+                            let userGroups = objects as? [DesiUserGroup]
+                            groupsView.myUserGroups = userGroups
+                            
+                            //store found userGroups in Localstore
+                            for userGroup in groupsView.myUserGroups {
+                                userGroup.pinInBackground()
+                            }
+                            
                             groupsView.tableView.reloadData()
                             
                         }
