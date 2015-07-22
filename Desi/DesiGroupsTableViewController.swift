@@ -23,8 +23,8 @@ class DesiGroupsTableViewController: UITableViewController {
             println("Object has been saved.")
         }
         */
-        println("\(DesiUser.currentUser()!.objectId)")
-        myUserGroups = DesiUser.currentUser()!.userGroups
+        var userGroupIds = DesiUser.currentUser()!.userGroups
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -48,6 +48,9 @@ class DesiGroupsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
+        if self.myUserGroups == nil {
+            return 0
+        }
         return myUserGroups.count
     }
 

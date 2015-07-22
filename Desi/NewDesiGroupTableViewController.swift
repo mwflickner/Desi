@@ -62,6 +62,8 @@ class NewDesiGroupTableViewController: UITableViewController {
     }
     
     @IBAction func logout(){
+        self.newUserGroup.deleteEventually()
+        self.newGroup.deleteEventually()
         DesiUser.logOut()
         var currentUser = DesiUser.currentUser() // this will now be nil
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -160,19 +162,8 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.newGroup.theDesi = self.newUserGroup
             
             //add the user group to the user's list of groups
-            //DesiUser.currentUser()!.userGroups.append(newUserGroup)
-            /*
-            DesiUser.currentUser()?.saveInBackgroundWithBlock({
-                (success: Bool, error: NSError?) -> Void in
-                if (success) {
-                    // The object has been saved.
-                    println("user updated")
-                } else {
-                    // There was a problem, check error.description
-                    println("User Error: \(error)")
-                }
-            })
-            */
+            DesiUser.currentUser()!.userGroups.append(newUserGroup.objectId!)
+        
             
             
             self.newUserGroup.saveInBackgroundWithBlock({
@@ -193,8 +184,8 @@ class NewDesiGroupTableViewController: UITableViewController {
 
         }
         else {
-            self.newUserGroup.deleteInBackground()
-            self.newGroup.deleteInBackground()
+            self.newUserGroup.deleteEventually()
+            self.newGroup.deleteEventually()
         }
     }
 

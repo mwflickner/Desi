@@ -24,7 +24,7 @@ class DesiUser: PFUser, PFSubclassing {
     @NSManaged var lastName: String
     @NSManaged var userImg: PFFile
     @NSManaged var desiPoints: Int
-    @NSManaged var userGroups: [DesiUserGroup]
+    @NSManaged var userGroups: [String]
     
     /*init(userName: String, firstName: String, lastName: String, userImg: Int) {
         self.userName = userName

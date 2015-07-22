@@ -212,7 +212,7 @@ class CreateAccountViewController: UIViewController {
         newUser.email = self.email1.text
         newUser.firstName = self.firstName.text
         newUser.lastName = self.lastName.text
-        newUser.userGroups = [DesiUserGroup]()
+        newUser.userGroups = [String]()
         newUser.desiPoints = 0
         newUser.signUpInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
@@ -235,7 +235,7 @@ class CreateAccountViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -245,11 +245,11 @@ class CreateAccountViewController: UIViewController {
         if (segue.identifier == "createAccountSegue") {
             let nav = segue.destinationViewController as! UINavigationController
             var groupsView = nav.topViewController as! DesiGroupsTableViewController
-            groupsView.myGroups = self.userGroups
+            groupsView.myUserGroups = [DesiUserGroup]()
         }
 
     }
-    */
+
 
 
 }

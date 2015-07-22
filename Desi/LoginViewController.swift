@@ -73,15 +73,48 @@ class LoginViewController: UIViewController {
         }
     }
 
-
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "loginSegue"){
+            let nav = segue.destinationViewController as! UINavigationController
+            var groupsView = nav.topViewController as! DesiGroupsTableViewController
+            
+            let query = DesiUserGroup.query()
+            query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
+            //query.cachePolicy = .CacheThenNetwork
+            query!.includeKey("group.theDesi")
+            //query!.includeKey("group.theDesi")
+            //query!.includeKey("group."
+            //query!.includeKey("group"
+            query!.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+
+                if error == nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) scores.")
+                        // Do something with the found objects
+                        if let objects = objects as? [PFObject] {
+                            groupsView.myUserGroups = objects as? [DesiUserGroup]
+                            groupsView.tableView.reloadData()
+                            
+                        }
+                    }
+                    
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                }
+            }
+
+        }
+        
     }
-    */
+
 
 }
