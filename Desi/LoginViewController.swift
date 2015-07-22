@@ -100,9 +100,7 @@ class LoginViewController: UIViewController {
                             groupsView.myUserGroups = userGroups
                             
                             //store found userGroups in Localstore
-                            for userGroup in groupsView.myUserGroups {
-                                userGroup.pinInBackground()
-                            }
+                            DesiUserGroup.pinAllInBackground(groupsView.myUserGroups, withName:"MyUserGroups")
                             
                             groupsView.tableView.reloadData()
                             

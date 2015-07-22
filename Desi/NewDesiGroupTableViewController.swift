@@ -62,6 +62,7 @@ class NewDesiGroupTableViewController: UITableViewController {
     }
     
     @IBAction func logout(){
+        DesiUserGroup.unpinAllObjectsInBackgroundWithName("MyUserGroups")
         self.newUserGroup.deleteEventually()
         self.newGroup.deleteEventually()
         DesiUser.logOut()
@@ -165,7 +166,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             DesiUser.currentUser()!.userGroups.append(newUserGroup.objectId!)
         
             //store local first then update via network
-            self.newUserGroup.pinInBackground()
+            self.newUserGroup.pinInBackgroundWithName("MyUserGroups")
             self.newUserGroup.saveInBackgroundWithBlock({
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
