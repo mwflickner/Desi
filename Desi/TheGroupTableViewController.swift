@@ -47,7 +47,7 @@ class TheGroupTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return theGroup.numberOfUsers + 1
+        return theGroup.numberOfUsers
     }
     
     /*
