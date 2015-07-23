@@ -16,46 +16,10 @@ class DesiGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        let testObject = PFObject(className: "TestObject")
-        testObject["foo"] = "bar"
-        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            println("Object has been saved.")
+        if (myUserGroups == nil){
+            println("yoo")
         }
-        */
-        
-        /*
-        let query = DesiUserGroup.query()
-        query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-        query!.includeKey("group.theDesi")
-        query!.fromLocalDatastore()
-        query!.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            
-            if error == nil {
-                dispatch_async(dispatch_get_main_queue()) {
-                    // The find succeeded.
-                    println("Successfully retrieved \(objects!.count) scores.")
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        let userGroups = objects as? [DesiUserGroup]
-                        self.myUserGroups = userGroups
-                        
-                        self.tableView.reloadData()
-                        
-                    }
-                }
-                
-            } else {
-                // Log details of the failure
-                println("Error: \(error!) \(error!.userInfo!)")
-            }
-        }
-        */
-
-        
-        
-        var userGroupIds = DesiUser.currentUser()!.userGroups
+        //var userGroupIds = DesiUser.currentUser()!.userGroups
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -80,21 +44,29 @@ class DesiGroupsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if self.myUserGroups == nil {
-            return 0
+        if myUserGroups != nil {
+            return self.myUserGroups.count + 1
         }
-        return myUserGroups.count
+        return 1
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if (indexPath.row == 0){
+            var mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
+            mainCell.usernameLabel.text = DesiUser.currentUser()!.username
+            mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiPoints)
+            self.tableView.rowHeight = 300
+            return mainCell
+        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-
         // Configure the cell...
-        let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
+        let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
         cell.groupSumLabel.text = userGroup.group.theDesi.username + " is the Desi"
         //cell.groupImgView.image = group.groupImg
+        self.tableView.rowHeight = 55
         return cell
         
     }
@@ -104,11 +76,10 @@ class DesiGroupsTableViewController: UITableViewController {
         
     }
     
-    
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
         if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
             myUserGroups.append(newDesiGroupTableViewController.newUserGroup)
-            let indexPath = NSIndexPath(forRow: myUserGroups.count-1, inSection: 0)
+            let indexPath = NSIndexPath(forRow: myUserGroups.count, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
@@ -165,13 +136,15 @@ class DesiGroupsTableViewController: UITableViewController {
     */
     
     func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
-        print("group is \(myUserGroups[indexPath.row].group.groupName)\n")
-        return myUserGroups[indexPath.row]
+        //-1 to account for the profile cell
+        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n")
+        return myUserGroups[indexPath.row - 1]
     }
     
     func groupAtIndexPath(indexPath: NSIndexPath) -> DesiGroup {
-        print("group is \(myUserGroups[indexPath.row].group.groupName)\n")
-        return myUserGroups[indexPath.row].group
+        //-1 to account for the profile cell
+        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n")
+        return myUserGroups[indexPath.row - 1].group
     }
     
     func findUserGroupIndex(userGroup: DesiUserGroup) -> Int {
@@ -208,6 +181,7 @@ class DesiGroupsTableViewController: UITableViewController {
             aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
         }
+        
     }
     
 

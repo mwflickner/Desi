@@ -66,7 +66,7 @@ class TheGroupTableViewController: UITableViewController {
         println("Path is \(indexPath.row)")
         if (indexPath.row == 0){
             var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-            if (DesiUser.currentUser()!.username == theGroup.theDesi) {
+            if (DesiUser.currentUser()!.username == theGroup.theDesi.username) {
                 desiCell.theDesiNameLabel.text = "YOU are the Desi"
                 desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             }

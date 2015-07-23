@@ -4,7 +4,120 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
-        <!--My Desi Groups-->
+        <!--User Settings Table View Controller-->
+        <scene sceneID="d7t-Sy-DVf">
+            <objects>
+                <tableViewController id="kKE-6V-ceX" customClass="UserSettingsTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="sM6-u6-DZi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fiD-N5-48v">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fiD-N5-48v" id="C6D-Ev-LDw">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kKE-6V-ceX" id="8TK-zb-hM3"/>
+                            <outlet property="delegate" destination="kKE-6V-ceX" id="xOv-8A-JiP"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="WZb-RB-VDh">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="DGU-pv-nm4">
+                            <connections>
+                                <segue destination="HWf-rA-OhG" kind="unwind" unwindAction="returnFromProfileSettingsViewController:" id="v7d-Jr-vmh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dvy-5P-g7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="HWf-rA-OhG" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1836" y="-227"/>
+        </scene>
+        <!--Guest Profile Table View Controller-->
+        <scene sceneID="E2G-Qe-HaN">
+            <objects>
+                <tableViewController id="jUj-BZ-LLo" customClass="GuestProfileTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aZx-xh-jPc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileMainCell" rowHeight="200" id="6jP-CM-p2O" customClass="ProfileMainTableViewCell" customModule="Desi" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6jP-CM-p2O" id="Zvw-Nc-Cd5">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aln-id-Qpy">
+                                            <rect key="frame" x="8" y="8" width="183" height="183"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vr0-mZ-c3Q">
+                                            <rect key="frame" x="199" y="8" width="164" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Desi Points Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oI6-nq-tfL">
+                                            <rect key="frame" x="199" y="46" width="153" height="27"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93m-Lj-tkY">
+                                            <rect key="frame" x="199" y="83" width="175" height="33"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <state key="normal" title="View Friends"/>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="desiPointsLabel" destination="oI6-nq-tfL" id="fGi-A3-azG"/>
+                                    <outlet property="profilePictureImageView" destination="aln-id-Qpy" id="0Dc-9X-O7u"/>
+                                    <outlet property="usernameLabel" destination="Vr0-mZ-c3Q" id="mIr-hq-9GJ"/>
+                                    <outlet property="viewFriendsButton" destination="93m-Lj-tkY" id="G7b-GD-Hg6"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ProfileGuestViewCell" rowHeight="55" id="iYu-Xm-dOK" customClass="ProfileGuestViewTableViewCell" customModule="Desi" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iYu-Xm-dOK" id="yhn-xx-W8B">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McI-EQ-hji">
+                                            <rect key="frame" x="8" y="12" width="300" height="30"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <state key="normal" title="Friend Button"/>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="friendButton" destination="McI-EQ-hji" id="vXB-cT-ckm"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XXJ-Ir-mrM">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XXJ-Ir-mrM" id="Oel-km-b0E">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jUj-BZ-LLo" id="iAq-Xz-Czx"/>
+                            <outlet property="delegate" destination="jUj-BZ-LLo" id="bn2-Z1-cGF"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="scq-4C-okA"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T6P-Od-cnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3428" y="-221"/>
+        </scene>
+        <!--Desi-->
         <scene sceneID="pmP-fB-iYO">
             <objects>
                 <tableViewController id="MRa-tU-Jcs" customClass="DesiGroupsTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
@@ -13,33 +126,68 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DesiGroupCell" rowHeight="55" id="iYu-Xm-dOK" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileMainCell" rowHeight="200" id="OXT-kE-JrQ" customClass="ProfileMainTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iYu-Xm-dOK" id="yhn-xx-W8B">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OXT-kE-JrQ" id="vdC-ef-gdb">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GroupName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9O-xW-fID">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pd6-uI-bfC">
+                                            <rect key="frame" x="8" y="8" width="183" height="183"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3R-6D-zvH">
+                                            <rect key="frame" x="199" y="8" width="164" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Desi Points Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0u-UE-HeS">
+                                            <rect key="frame" x="199" y="46" width="153" height="27"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZW-oW-AkJ">
+                                            <rect key="frame" x="199" y="83" width="175" height="33"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <state key="normal" title="View Friends"/>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="desiPointsLabel" destination="h0u-UE-HeS" id="bEt-dL-pSW"/>
+                                    <outlet property="profilePictureImageView" destination="Pd6-uI-bfC" id="HO5-Qo-sdl"/>
+                                    <outlet property="usernameLabel" destination="s3R-6D-zvH" id="Z0K-4B-9Vk"/>
+                                    <outlet property="viewFriendsButton" destination="mZW-oW-AkJ" id="INi-mx-f2I"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DesiGroupCell" rowHeight="55" id="Nyr-Fq-gNb" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nyr-Fq-gNb" id="K2z-VZ-CaQ">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GroupName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urq-IN-A2c">
                                             <rect key="frame" x="69" y="0.0" width="200" height="25"/>
                                             <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GroupSummary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ru-5p-wG0">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GroupSummary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKy-UO-Lq0">
                                             <rect key="frame" x="69" y="25" width="200" height="21"/>
                                             <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="102" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooU-zS-GLK">
+                                        <imageView userInteractionEnabled="NO" tag="102" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lxa-yW-Q0v">
                                             <rect key="frame" x="8" y="5" width="43" height="43"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="groupImgView" destination="ooU-zS-GLK" id="XAX-DD-EwJ"/>
-                                    <outlet property="groupNameLabel" destination="o9O-xW-fID" id="4fB-os-knA"/>
-                                    <outlet property="groupSumLabel" destination="3ru-5p-wG0" id="n0e-XB-YYt"/>
-                                    <segue destination="aqq-O5-5CE" kind="showDetail" identifier="loadGroup" id="rxd-rS-vIZ"/>
+                                    <outlet property="groupImgView" destination="Lxa-yW-Q0v" id="LfH-iq-nmV"/>
+                                    <outlet property="groupNameLabel" destination="urq-IN-A2c" id="BUo-CU-Thz"/>
+                                    <outlet property="groupSumLabel" destination="yKy-UO-Lq0" id="e8C-31-Msk"/>
+                                    <segue destination="aqq-O5-5CE" kind="showDetail" identifier="loadGroup" id="Ja7-1o-OBE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -49,8 +197,12 @@
                             <outlet property="delegate" destination="MRa-tU-Jcs" id="pcQ-q2-hdb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Desi Groups" id="0Kh-oI-86i">
-                        <barButtonItem key="leftBarButtonItem" image="glyphicons-4-user" id="yNq-yh-yD1"/>
+                    <navigationItem key="navigationItem" title="Desi" id="0Kh-oI-86i">
+                        <barButtonItem key="leftBarButtonItem" image="glyphicons-281-settings" id="yNq-yh-yD1">
+                            <connections>
+                                <segue destination="ks2-jW-zyh" kind="showDetail" identifier="openUserSettings" id="6WO-nW-jMY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WTZ-dW-PoW">
                             <connections>
                                 <segue destination="Egn-ih-d8k" kind="presentation" id="keK-x3-2ll"/>
@@ -187,7 +339,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rpS-at-ZrB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Rzl-In-E1P" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2678" y="1246"/>
+            <point key="canvasLocation" x="2638" y="514"/>
         </scene>
         <!--Group Settings Table View Controller-->
         <scene sceneID="J1d-gK-yQe">
@@ -237,7 +389,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bM1-cx-dRw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1th-V6-84f" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4240" y="607"/>
+            <point key="canvasLocation" x="3406" y="1334"/>
         </scene>
         <!--Create Group-->
         <scene sceneID="P3F-rV-tSO">
@@ -311,7 +463,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uGE-OY-VBu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yhB-r0-2JZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2678" y="514"/>
+            <point key="canvasLocation" x="1836" y="1334"/>
         </scene>
         <!--Entry Point View Controller-->
         <scene sceneID="HT4-Zk-3Xx">
@@ -526,7 +678,6 @@
         <!--Navigation Controller-->
         <scene sceneID="WFu-Hh-uQ3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aAx-3o-CQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8PF-6N-Rxi" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mgc-8C-8WF">
@@ -538,6 +689,7 @@
                         <segue destination="MRa-tU-Jcs" kind="relationship" relationship="rootViewController" id="yfa-lM-PSK"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aAx-3o-CQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="226" y="514"/>
         </scene>
@@ -557,7 +709,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6W8-Fs-881" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1866" y="514"/>
+            <point key="canvasLocation" x="1038" y="1334"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Jcu-cU-qNj">
@@ -575,7 +727,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UB4-K0-yjl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1866" y="1246"/>
+            <point key="canvasLocation" x="1836" y="514"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8ja-JD-Mjc">
@@ -593,12 +745,76 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97d-4q-Lk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3428" y="607"/>
+            <point key="canvasLocation" x="2638" y="1334"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bnT-25-VBx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ks2-jW-zyh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Raw-FZ-siP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kKE-6V-ceX" kind="relationship" relationship="rootViewController" id="MAb-6d-tBw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tOj-pU-SRp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DesiGroupCell" rowHeight="55" id="Zb5-nM-MyQ" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zb5-nM-MyQ" id="vCt-bw-23u">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GroupName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2P-7x-n6O">
+                                <rect key="frame" x="69" y="0.0" width="200" height="25"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GroupSummary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Mb-hs-XVP">
+                                <rect key="frame" x="69" y="25" width="200" height="21"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" tag="102" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ORN-oh-GBq">
+                                <rect key="frame" x="8" y="5" width="43" height="43"/>
+                            </imageView>
+                        </subviews>
+                    </tableViewCellContentView>
+                    <connections>
+                        <outlet property="groupImgView" destination="ORN-oh-GBq" id="LHU-PQ-DhB"/>
+                        <outlet property="groupNameLabel" destination="F2P-7x-n6O" id="pVv-qt-NYg"/>
+                        <outlet property="groupSumLabel" destination="8Mb-hs-XVP" id="tjR-mp-iWC"/>
+                    </connections>
+                </tableViewCell>
+            </objects>
+            <point key="canvasLocation" x="1038" y="-227"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Slf-TB-M6i">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k5O-gh-MWZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TjX-vp-1by">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jUj-BZ-LLo" kind="relationship" relationship="rootViewController" id="Clp-ki-X4g"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BjT-09-gtw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2638" y="-221"/>
         </scene>
     </scenes>
     <resources>
         <image name="glyphicons-281-settings" width="24" height="24"/>
-        <image name="glyphicons-4-user" width="23" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ggn-Fp-SxZ"/>
