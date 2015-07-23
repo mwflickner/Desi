@@ -23,6 +23,38 @@ class DesiGroupsTableViewController: UITableViewController {
             println("Object has been saved.")
         }
         */
+        
+        /*
+        let query = DesiUserGroup.query()
+        query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
+        query!.includeKey("group.theDesi")
+        query!.fromLocalDatastore()
+        query!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    println("Successfully retrieved \(objects!.count) scores.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let userGroups = objects as? [DesiUserGroup]
+                        self.myUserGroups = userGroups
+                        
+                        self.tableView.reloadData()
+                        
+                    }
+                }
+                
+            } else {
+                // Log details of the failure
+                println("Error: \(error!) \(error!.userInfo!)")
+            }
+        }
+        */
+
+        
+        
         var userGroupIds = DesiUser.currentUser()!.userGroups
         
         // Uncomment the following line to preserve selection between presentations
