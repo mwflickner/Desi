@@ -8,18 +8,33 @@
         <scene sceneID="d7t-Sy-DVf">
             <objects>
                 <tableViewController id="kKE-6V-ceX" customClass="UserSettingsTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="sM6-u6-DZi">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="sM6-u6-DZi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fiD-N5-48v">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fiD-N5-48v" id="C6D-Ev-LDw">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <sections>
+                            <tableViewSection headerTitle="LogoutSection" id="rtz-7f-J91">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="qn2-VI-geb">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qn2-VI-geb" id="psQ-uP-cak">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLn-dp-Wm8">
+                                                    <rect key="frame" x="8" y="7" width="397" height="30"/>
+                                                    <state key="normal" title="Logout">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="logout" destination="kKE-6V-ceX" eventType="touchUpInside" id="e0r-bX-9KX"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="kKE-6V-ceX" id="8TK-zb-hM3"/>
                             <outlet property="delegate" destination="kKE-6V-ceX" id="xOv-8A-JiP"/>
@@ -28,7 +43,7 @@
                     <navigationItem key="navigationItem" id="WZb-RB-VDh">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="DGU-pv-nm4">
                             <connections>
-                                <segue destination="HWf-rA-OhG" kind="unwind" unwindAction="returnFromProfileSettingsViewController:" id="v7d-Jr-vmh"/>
+                                <segue destination="HWf-rA-OhG" kind="unwind" unwindAction="cancelToDesiGroupsViewController:" id="4pX-YY-ZX2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -98,12 +113,6 @@
                                 <connections>
                                     <outlet property="friendButton" destination="McI-EQ-hji" id="vXB-cT-ckm"/>
                                 </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XXJ-Ir-mrM">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XXJ-Ir-mrM" id="Oel-km-b0E">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -200,7 +209,7 @@
                     <navigationItem key="navigationItem" title="Desi" id="0Kh-oI-86i">
                         <barButtonItem key="leftBarButtonItem" image="glyphicons-281-settings" id="yNq-yh-yD1">
                             <connections>
-                                <segue destination="ks2-jW-zyh" kind="showDetail" identifier="openUserSettings" id="6WO-nW-jMY"/>
+                                <segue destination="ks2-jW-zyh" kind="showDetail" id="FW2-DL-5cu"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WTZ-dW-PoW">
@@ -412,27 +421,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="3Au-gJ-eha">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="4nB-nh-5uN">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4nB-nh-5uN" id="G4A-sU-Ue7">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDa-Ur-zVd">
-                                                    <rect key="frame" x="8" y="7" width="397" height="30"/>
-                                                    <state key="normal" title="Logout">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="logout" destination="gQG-8X-jF9" eventType="touchUpInside" id="MmL-94-veA"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>

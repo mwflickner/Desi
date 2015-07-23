@@ -61,16 +61,7 @@ class NewDesiGroupTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func logout(){
-        DesiUserGroup.unpinAllObjectsInBackgroundWithName("MyUserGroups")
-        self.newUserGroup.deleteEventually()
-        self.newGroup.deleteEventually()
-        DesiUser.logOut()
-        var currentUser = DesiUser.currentUser() // this will now be nil
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
+    
     
 
 

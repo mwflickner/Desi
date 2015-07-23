@@ -30,13 +30,22 @@ class UserSettingsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return 1
+    }
+    
+    @IBAction func logout(){
+        DesiUserGroup.unpinAllObjectsInBackgroundWithName("MyUserGroups")
+        DesiUser.logOut()
+        var currentUser = DesiUser.currentUser() // this will now be nil
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+        self.presentViewController(vc, animated: true, completion: nil)
     }
 
     /*
