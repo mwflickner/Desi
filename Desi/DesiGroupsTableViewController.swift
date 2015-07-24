@@ -12,18 +12,18 @@ import Parse
 class DesiGroupsTableViewController: UITableViewController {
 
     var myUserGroups: [DesiUserGroup]!
-    var groupToGoTo: DesiGroup!
+    var hmm = DesiUser.currentUser()?.password
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (myUserGroups == nil){
+        
+        if (self.myUserGroups == nil){
             println("yoo")
         }
         //var userGroupIds = DesiUser.currentUser()!.userGroups
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -78,7 +78,7 @@ class DesiGroupsTableViewController: UITableViewController {
     
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
         if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
-            myUserGroups.append(newDesiGroupTableViewController.newUserGroup)
+            myUserGroups.append(newDesiGroupTableViewController.myNewUserGroup)
             let indexPath = NSIndexPath(forRow: myUserGroups.count, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
@@ -180,6 +180,24 @@ class DesiGroupsTableViewController: UITableViewController {
             var aGroupView = nav.topViewController as! TheGroupTableViewController
             aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
+            
+            //gotta fix this
+            if aGroupView.userGroup.user != DesiUser.currentUser() {
+                aGroupView.userGroup.user = DesiUser.currentUser()!
+                aGroupView.userGroup.saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        // The object has been saved.
+                        println("usergroup added user pointer")
+                    } else {
+                        // There was a problem, check error.description
+                        println("UserGroup Error: \(error)")
+                        if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                            aGroupView.userGroup.saveEventually()
+                        }
+                    }
+                })
+            }
         }
         
     }

@@ -47,7 +47,7 @@ class TheGroupTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return theGroup.numberOfUsers
+        return theGroup.numberOfUsers + 1
     }
     
     /*
@@ -78,12 +78,14 @@ class TheGroupTableViewController: UITableViewController {
             return desiCell
         }
         if (indexPath.row == 1){
-            var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-            var nextDesi: String = theGroup.getUserFromDesi(1)
-            onDeckCell.onDeckLabel.text = nextDesi
-            //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
-            println("returning onDeckCell")
-            return onDeckCell
+            if theGroup.numberOfUsers > 1 {
+                var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
+                var nextDesi: String = theGroup.getUserFromDesi(1)
+                onDeckCell.onDeckLabel.text = nextDesi
+                //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
+                println("returning onDeckCell")
+                return onDeckCell
+            }
         }
         if (indexPath.row >= theGroup.numberOfUsers){
             var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell

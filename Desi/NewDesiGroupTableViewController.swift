@@ -13,10 +13,13 @@ class NewDesiGroupTableViewController: UITableViewController {
 
     
     @IBOutlet weak var newGroupNameTextField: UITextField!
+    @IBOutlet weak var userToAdd: UITextField!
     
     var newGroup: DesiGroup = DesiGroup()
+    var myNewUserGroup: DesiUserGroup = DesiUserGroup()
+    var userGroups: [DesiUserGroup]!
     
-    var newUserGroup: DesiUserGroup = DesiUserGroup()
+    var newGroupUsernames: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +29,11 @@ class NewDesiGroupTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        self.newUserGroup.group = self.newGroup
-        self.newUserGroup.user = DesiUser.currentUser()!
+        newGroupUsernames = [String]()
+        self.myNewUserGroup.group = self.newGroup
+        self.myNewUserGroup.user = DesiUser.currentUser()!
 
-        self.newUserGroup.saveInBackgroundWithBlock({
+        self.myNewUserGroup.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
@@ -61,8 +65,10 @@ class NewDesiGroupTableViewController: UITableViewController {
         }
     }
     
-    
-    
+    @IBAction func addUserToGroup(sender: AnyObject){
+        self.newGroupUsernames.append(self.userToAdd.text)
+        self.userToAdd.text = ""
+    }
 
 
     // MARK: - Table view data source
@@ -135,30 +141,26 @@ class NewDesiGroupTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "createGroup" {
             
-            self.newUserGroup.username = DesiUser.currentUser()!.username
-            self.newUserGroup.isDesi = true
-            self.newUserGroup.isGroupAdmin = true
-            self.newUserGroup.groupPoints = 0
+            self.myNewUserGroup.username = DesiUser.currentUser()!.username
+            self.myNewUserGroup.isDesi = true
+            self.myNewUserGroup.isGroupAdmin = true
+            self.myNewUserGroup.groupPoints = 0
             
-            
-            //DesiUser.currentUser()!.userGroups.append(newUserGroup)
             
             self.newGroup.groupName = self.newGroupNameTextField.text
             
-            //new array for members and then assign the new UserGroup
-            
-            self.newGroup.groupMembers = [String]()
-            self.newGroup.groupMembers.append(self.newUserGroup.username)
+            self.newGroup.groupMembers = self.newGroupUsernames
+            self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)
             self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
             
-            self.newGroup.theDesi = self.newUserGroup
+            self.newGroup.theDesi = self.myNewUserGroup
             
             //add the user group to the user's list of groups
-            DesiUser.currentUser()!.userGroups.append(newUserGroup.objectId!)
+            DesiUser.currentUser()!.userGroups.append(myNewUserGroup.objectId!)
         
             //store local first then update via network
-            self.newUserGroup.pinInBackgroundWithName("MyUserGroups")
-            self.newUserGroup.saveInBackgroundWithBlock({
+            self.myNewUserGroup.pinInBackgroundWithName("MyUserGroups")
+            self.myNewUserGroup.saveInBackgroundWithBlock({
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
                     // The object has been saved.
@@ -167,15 +169,37 @@ class NewDesiGroupTableViewController: UITableViewController {
                     // There was a problem, check error.description
                     println("UserGroup Error: \(error)")
                     if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                        self.newUserGroup.saveEventually()
+                        self.myNewUserGroup.saveEventually()
                     }
                 }
             })
             
+            for username in newGroupUsernames {
+                var newUG = DesiUserGroup()
+                newUG.username = username
+                newUG.isDesi = false
+                newUG.isGroupAdmin = false
+                newUG.groupPoints = 0
+                newUG.group = self.newGroup
+                newUG.saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        // The object has been saved.
+                        println("guest usergroup saved")
+                    } else {
+                        // There was a problem, check error.description
+                        println("UserGroup Error: \(error)")
+                        if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                            newUG.saveEventually()
+                        }
+                    }
+                })
+            }
+            
 
         }
         else {
-            self.newUserGroup.deleteEventually()
+            self.myNewUserGroup.deleteEventually()
             self.newGroup.deleteEventually()
         }
     }
