@@ -847,34 +847,45 @@
             </objects>
             <point key="canvasLocation" x="1836" y="-227"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Friend List Table View Controller-->
         <scene sceneID="k5e-pX-y5E">
             <objects>
-                <tableViewController id="vux-3X-G9x" sceneMemberID="viewController">
+                <tableViewController id="vux-3X-G9x" customClass="FriendListTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="I5D-Vg-NVU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="60" id="4Gq-kR-LrP">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="60" id="4Gq-kR-LrP" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Gq-kR-LrP" id="h9j-SE-fPy">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gkr-lK-frm">
-                                            <rect key="frame" x="8" y="8" width="84" height="23"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FirstNameLastName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gkr-lK-frm">
+                                            <rect key="frame" x="8" y="8" width="157" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhX-ao-Kqq">
+                                            <rect key="frame" x="8" y="30" width="110" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DesiPoints Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RE-ST-IIs">
-                                            <rect key="frame" x="153" y="30" width="129" height="21"/>
+                                            <rect key="frame" x="126" y="30" width="129" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="desiPointsLabel" destination="1RE-ST-IIs" id="tut-CL-mgC"/>
+                                    <outlet property="nameLabel" destination="Gkr-lK-frm" id="gB2-Nj-Gyt"/>
+                                    <outlet property="usernameLabel" destination="KhX-ao-Kqq" id="dVa-VX-TlZ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -882,9 +893,17 @@
                             <outlet property="delegate" destination="vux-3X-G9x" id="vN8-NE-7QV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="2xj-fJ-lEJ"/>
+                    <navigationItem key="navigationItem" id="2xj-fJ-lEJ">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="4ek-84-StH">
+                            <connections>
+                                <segue destination="qgo-j4-8ev" kind="unwind" unwindAction="cancelToDesiGroupsViewController:" id="bKi-nq-ROW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="A6w-qS-bXQ"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sC2-4S-X4P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="qgo-j4-8ev" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1836" y="-962"/>
         </scene>
@@ -923,6 +942,84 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cqi-Mz-EQ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1038" y="-227"/>
+        </scene>
+        <!--Friend List Table View Controller-->
+        <scene sceneID="Szj-V7-tWZ">
+            <objects>
+                <tableViewController id="SWP-xn-7Hm" customClass="FriendListTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="bUj-SI-tav">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="60" id="XnW-iZ-JvY" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XnW-iZ-JvY" id="RO6-6E-Ub6">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FirstNameLastName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzT-G4-spK">
+                                            <rect key="frame" x="8" y="8" width="157" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tux-ds-A7Y">
+                                            <rect key="frame" x="8" y="30" width="110" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DesiPoints Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttF-h1-Vwf">
+                                            <rect key="frame" x="126" y="30" width="129" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="desiPointsLabel" destination="ttF-h1-Vwf" id="U8O-aC-d0q"/>
+                                    <outlet property="nameLabel" destination="qzT-G4-spK" id="hwY-0e-SXS"/>
+                                    <outlet property="usernameLabel" destination="Tux-ds-A7Y" id="5tb-O2-QJn"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="SWP-xn-7Hm" id="Xtu-tL-Zo7"/>
+                            <outlet property="delegate" destination="SWP-xn-7Hm" id="DKa-xx-pGo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="8gE-sY-4r0">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="LDg-2O-YAc">
+                            <connections>
+                                <segue destination="n9c-ut-8B6" kind="unwind" unwindAction="cancelToDesiGroupsViewController:" id="jkl-3p-kJU"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="rXe-7p-XdV"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LGw-9c-14N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="n9c-ut-8B6" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3406" y="-962"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="k8L-67-Wgp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LRw-lj-lz9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rAR-2B-ULF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SWP-xn-7Hm" kind="relationship" relationship="rootViewController" id="wrJ-HW-VDq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Iz-VP-l36" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2632" y="-962"/>
         </scene>
     </scenes>
     <resources>
