@@ -125,7 +125,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T6P-Od-cnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4154" y="-227"/>
+            <point key="canvasLocation" x="3406" y="-962"/>
         </scene>
         <!--Desi-->
         <scene sceneID="pmP-fB-iYO">
@@ -162,7 +162,7 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <state key="normal" title="View Friends"/>
                                             <connections>
-                                                <segue destination="bMH-U4-7sf" kind="showDetail" id="2vA-h4-lrb"/>
+                                                <segue destination="bMH-U4-7sf" kind="showDetail" identifier="ViewFriendListSegue" id="2vA-h4-lrb"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -848,7 +848,7 @@
             </objects>
             <point key="canvasLocation" x="1836" y="-227"/>
         </scene>
-        <!--Desi Friend List View Controller-->
+        <!--My Friends-->
         <scene sceneID="AiB-ic-QUf">
             <objects>
                 <viewController id="cK0-Ds-P6K" customClass="DesiFriendListViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
@@ -912,15 +912,15 @@
                             <constraint firstItem="msR-kv-0wJ" firstAttribute="top" secondItem="OtO-bp-DYl" secondAttribute="bottom" id="i0l-AU-fhe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dD0-4v-MZ6">
+                    <navigationItem key="navigationItem" title="My Friends" id="dD0-4v-MZ6">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="NR6-YL-QJi">
                             <connections>
                                 <segue destination="k7X-sl-axj" kind="unwind" unwindAction="cancelToDesiGroupsViewController:" id="dfT-u7-v1G"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="blx-RK-Sl9">
+                        <barButtonItem key="rightBarButtonItem" image="glyphicons-7-user-add" id="blx-RK-Sl9">
                             <connections>
-                                <segue destination="LRw-lj-lz9" kind="presentation" id="Cg2-kc-eRy"/>
+                                <segue destination="LRw-lj-lz9" kind="presentation" identifier="GoToFriendAddSegue" id="Cg2-kc-eRy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -950,41 +950,23 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BjT-09-gtw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3406" y="-233"/>
+            <point key="canvasLocation" x="2638" y="-962"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Find Friends-->
         <scene sceneID="Szj-V7-tWZ">
             <objects>
-                <tableViewController id="SWP-xn-7Hm" sceneMemberID="viewController">
+                <tableViewController id="SWP-xn-7Hm" customClass="FindFriendsTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="bUj-SI-tav">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="Bn2-M3-sAq">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="AjF-ot-bUe">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="SWP-xn-7Hm" id="faE-U0-3N2"/>
-                            </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" rowHeight="60" id="XnW-iZ-JvY" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XnW-iZ-JvY" id="RO6-6E-Ub6">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wp4-3s-8Gf">
-                                            <rect key="frame" x="287" y="15" width="63" height="30"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" title="Search">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="60" id="K28-DH-S86" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" rowHeight="60" id="K28-DH-S86" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K28-DH-S86" id="bJU-m0-q6H">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1007,9 +989,19 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POJ-OF-MUI">
+                                            <rect key="frame" x="286" y="18" width="28" height="24"/>
+                                            <state key="normal" image="glyphicons-7-user-add">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addFriend:" destination="SWP-xn-7Hm" eventType="touchUpInside" id="7hI-Gv-epm"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="addButton" destination="POJ-OF-MUI" id="3nl-Uz-pwa"/>
                                     <outlet property="desiPointsLabel" destination="hbw-KN-T5S" id="BkR-BZ-h5n"/>
                                     <outlet property="nameLabel" destination="4qk-Mg-G1R" id="FNj-QL-NIH"/>
                                     <outlet property="usernameLabel" destination="0Cs-Q6-lc2" id="sAz-VQ-rCv"/>
@@ -1021,30 +1013,21 @@
                             <outlet property="delegate" destination="SWP-xn-7Hm" id="DKa-xx-pGo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="8gE-sY-4r0">
+                    <navigationItem key="navigationItem" title="Find Friends" id="8gE-sY-4r0">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="LDg-2O-YAc">
                             <connections>
-                                <segue destination="n9c-ut-8B6" kind="unwind" unwindAction="cancelToFriendsListViewController:" id="3Qs-WY-Aps"/>
+                                <segue destination="n9c-ut-8B6" kind="unwind" unwindAction="backToDesiFriendListViewController:" id="5ZW-F1-LfE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchDisplayController" destination="DaT-94-Vhz" id="eQi-A6-yaM"/>
+                        <outlet property="searchBar" destination="AjF-ot-bUe" id="yk1-a0-5pc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGw-9c-14N" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="n9c-ut-8B6" userLabel="Exit" sceneMemberID="exit"/>
-                <searchDisplayController id="DaT-94-Vhz">
-                    <connections>
-                        <outlet property="delegate" destination="SWP-xn-7Hm" id="JCK-Kw-puw"/>
-                        <outlet property="searchBar" destination="Bn2-M3-sAq" id="YSV-Gs-FdD"/>
-                        <outlet property="searchContentsController" destination="SWP-xn-7Hm" id="zUP-bz-cYm"/>
-                        <outlet property="searchResultsDataSource" destination="SWP-xn-7Hm" id="2M3-ie-r2Y"/>
-                        <outlet property="searchResultsDelegate" destination="SWP-xn-7Hm" id="rmf-zb-YoN"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="3406" y="-962"/>
+            <point key="canvasLocation" x="2638" y="-1692"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k8L-67-Wgp">
@@ -1062,7 +1045,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Iz-VP-l36" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2632" y="-962"/>
+            <point key="canvasLocation" x="1836" y="-1692"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JBa-X9-dS0">
@@ -1085,6 +1068,7 @@
     </scenes>
     <resources>
         <image name="glyphicons-281-settings" width="24" height="24"/>
+        <image name="glyphicons-7-user-add" width="28" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ggn-Fp-SxZ"/>

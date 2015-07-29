@@ -53,6 +53,8 @@ class GuestProfileTableViewController: UITableViewController {
         
         let guestCell = tableView.dequeueReusableCellWithIdentifier("ProfileGuestViewCell", forIndexPath: indexPath) as! ProfileGuestViewTableViewCell
         // Configure the cell...
+        
+        //gotta change this soon
         for friendId in DesiUser.currentUser()!.friends{
             if friendId == theProfile.objectId {
                 guestCell.friendButton.setTitle("Unfriend", forState: UIControlState.Normal)

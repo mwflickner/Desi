@@ -13,6 +13,10 @@ class DesiFriendTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var desiPointsLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    //@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    //var isFriend = false
 
     override func awakeFromNib() {
         super.awakeFromNib()

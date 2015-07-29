@@ -20,7 +20,9 @@ class DesiFriendship: PFObject, PFSubclassing {
     }
     
     @NSManaged var user1: DesiUser
+    @NSManaged var username1: String
     @NSManaged var user2: DesiUser
+    @NSManaged var username2: String
     @NSManaged var friendshipAccepted: Bool
     
     

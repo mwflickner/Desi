@@ -12,7 +12,6 @@ import Parse
 class DesiGroupsTableViewController: UITableViewController {
 
     var myUserGroups: [DesiUserGroup]!
-    var hmm = DesiUser.currentUser()?.password
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,7 +180,7 @@ class DesiGroupsTableViewController: UITableViewController {
             aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
             
-            //gotta fix this
+            //user has never been in group before
             if aGroupView.userGroup.user != DesiUser.currentUser() {
                 aGroupView.userGroup.user = DesiUser.currentUser()!
                 aGroupView.userGroup.saveInBackgroundWithBlock({
@@ -198,6 +197,39 @@ class DesiGroupsTableViewController: UITableViewController {
                     }
                 })
             }
+        }
+        
+        if segue.identifier == "ViewFriendListSegue" {
+            let nav = segue.destinationViewController as! UINavigationController
+            let friendsList = nav.topViewController as! DesiFriendListViewController
+            
+            let queryLocal = DesiFriendship.query()
+            queryLocal!.whereKey("username1", equalTo: DesiUser.currentUser()!.username!)
+            queryLocal!.whereKey("username2", equalTo: DesiUser.currentUser()!.username!)
+            queryLocal!.fromLocalDatastore()
+            queryLocal!.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    // dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    println("Successfully retrieved \(objects!.count) friends.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let friendships = objects as? [DesiFriendship]
+                        friendsList.myFriends = friendships
+                        
+                        friendsList.tableView.reloadData()
+                        
+                    }
+                    //}
+                    
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                }
+            }
+
         }
         
     }
