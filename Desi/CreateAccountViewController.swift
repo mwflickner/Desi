@@ -214,7 +214,10 @@ class CreateAccountViewController: UIViewController {
         newUser.lastName = self.lastName.text
         newUser.userGroups = [String]()
         newUser.desiPoints = 0
-        newUser.friends = [String]()
+        newUser.friendList = DesiFriendList()
+        newUser.friendList.friendships = [String]()
+        newUser.friendList.numberOfFriends = 0
+        newUser.friendList.owner = newUser.username!
         newUser.signUpInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
                 println("success")

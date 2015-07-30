@@ -202,34 +202,89 @@ class DesiGroupsTableViewController: UITableViewController {
         if segue.identifier == "ViewFriendListSegue" {
             let nav = segue.destinationViewController as! UINavigationController
             let friendsList = nav.topViewController as! DesiFriendListViewController
-            
-            let queryLocal = DesiFriendship.query()
-            queryLocal!.whereKey("username1", equalTo: DesiUser.currentUser()!.username!)
-            queryLocal!.whereKey("username2", equalTo: DesiUser.currentUser()!.username!)
-            queryLocal!.fromLocalDatastore()
-            queryLocal!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    // dispatch_async(dispatch_get_main_queue()) {
-                    // The find succeeded.
-                    println("Successfully retrieved \(objects!.count) friends.")
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        let friendships = objects as? [DesiFriendship]
-                        friendsList.myFriends = friendships
-                        
-                        friendsList.tableView.reloadData()
-                        
+            let friendQuery = DesiFriendship.query()
+            friendQuery!.includeKey("user1")
+            friendQuery!.includeKey("user2")
+            if DesiUser.currentUser()!.friendList.numberOfFriends != 0 {
+                friendsList.myFriends = [DesiFriendship]()
+                if friendsList.myFriends != nil {
+                    if friendsList.myFriends.count == DesiUser.currentUser()!.friendList.numberOfFriends {
+                        friendQuery!.fromLocalDatastore()
                     }
-                    //}
+                }
+                
+                for friendshipId in DesiUser.currentUser()!.friendList.friendships {
+                    friendQuery!.whereKey("objectId", equalTo: friendshipId)
+                    var objects: NSArray = friendQuery!.findObjects()!
+                    //if let objects = objects as? [PFObject] {
+                        let friendships = objects as! [DesiFriendship]
+                        for friend in friendships {
+                            friendsList.myFriends.append(friend)
+                        }
                     
-                } else {
-                    // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                        //friendsList.tableView.reloadData()
+                   // }
+                    
+                   /* friendQuery!.findObjects {
+                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        
+                        if error == nil {
+                            // dispatch_async(dispatch_get_main_queue()) {
+                            // The find succeeded.
+                            println("Successfully retrieved \(objects!.count) friends.")
+                            // Do something with the found objects
+                            
+                                
+                            }
+                            //}
+                            
+                        } else {
+                            // Log details of the failure
+                            println("Error: \(error!) \(error!.userInfo!)")
+                        }
+                    }
+                    */
+                    
                 }
             }
-
+            else {
+                println("no friends")
+            }
+            
+            
+            
+                /*if friendsList.myFriends == nil {
+                        let queryLocal = DesiFriendship.query()
+                        queryLocal!.whereKey("objectId", equalTo: DesiUser.currentUser()!.objectId!)
+                        queryLocal!.fromLocalDatastore()
+                        queryLocal!.findObjectsInBackgroundWithBlock {
+                            (objects: [AnyObject]?, error: NSError?) -> Void in
+                            
+                            if error == nil {
+                                // dispatch_async(dispatch_get_main_queue()) {
+                                // The find succeeded.
+                                println("Successfully retrieved \(objects!.count) friends.")
+                                // Do something with the found objects
+                                if let objects = objects as? [PFObject] {
+                                    let friendships = objects as? [DesiFriendship]
+                                    friendsList.myFriends = friendships
+                                    
+                                    friendsList.tableView.reloadData()
+                                    
+                                }
+                                //}
+                                
+                            } else {
+                                // Log details of the failure
+                                println("Error: \(error!) \(error!.userInfo!)")
+                            }
+                    }
+                }
+                */
+            
+            
+            
+            
         }
         
     }

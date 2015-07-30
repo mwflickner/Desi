@@ -52,6 +52,10 @@ class EntryPointViewController: UIViewController {
         if (segue.identifier == "openToGroupsSegue") {
             let nav = segue.destinationViewController as! UINavigationController
             var groupsView = nav.topViewController as! DesiGroupsTableViewController
+            let userQuery = DesiUser.query()
+            userQuery!.includeKey("friendList")
+            userQuery!.getObjectInBackgroundWithId(DesiUser.currentUser()!.objectId!)
+            
             let queryLocal = DesiUserGroup.query()
             queryLocal!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
             queryLocal!.includeKey("group.theDesi")

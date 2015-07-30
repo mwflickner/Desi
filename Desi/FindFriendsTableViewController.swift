@@ -94,36 +94,53 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
     
     @IBAction func addFriend(sender: AnyObject){
         var newFriendship = DesiFriendship()
-        newFriendship.user1 = DesiUser.currentUser()!
-        newFriendship.username1 = DesiUser.currentUser()!.username!
-        
-        //let path = self.tableView.indexPathForSelectedRow()!
-        var newFriend = userAtRow(sender.tag)
-        
-        newFriendship.user2 = newFriend
-        newFriendship.username2 = newFriend.username!
-        //newFriendship.user2.friends.append(DesiUser.currentUser()!.username!)
-        
-        newFriendship.friendshipAccepted = false
-        
-        DesiUser.currentUser()!.friends.append(newFriendship.user2.username!)
-
-        
-        //save the new friendship to network and local
-        newFriendship.pinInBackgroundWithName("MyFriends")
+        if self.myFriends == nil {
+            self.myFriends = [DesiFriendship]()
+        }
         newFriendship.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
+                newFriendship.user1 = DesiUser.currentUser()!
+                newFriendship.username1 = DesiUser.currentUser()!.username!
+                
+                //let path = self.tableView.indexPathForSelectedRow()!
+                var newFriend = self.userAtRow(sender.tag)
+                
+                newFriendship.user2 = newFriend
+                newFriendship.username2 = newFriend.username!
+                //newFriendship.user2.friends.append(DesiUser.currentUser()!.username!)
+                
+                newFriendship.friendshipAccepted = false
+                
+                DesiUser.currentUser()!.friendList.friendships.append(newFriendship.objectId!)
+                ++DesiUser.currentUser()!.friendList.numberOfFriends
+                
+                newFriendship.user2.friendList.friendships.append(newFriendship.objectId!)
+                ++newFriendship.user2.friendList.numberOfFriends
+                
+                //save the new friendship to network and local
+                newFriendship.pinInBackgroundWithName("MyFriends")
+                newFriendship.saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        println("friendship updated")
+                    }
+                    else {
+                        println("friendship couldn't be updated")
+                    }
+                })
+                
                 self.myFriends.insert(newFriendship, atIndex: 0)
                 println("friendship saved")
                 
-
+                
                 //send a push notification to other user here
                 
                 //reload the table
                 self.tableView.reloadData()
-            
+                
+                
                 
             }
             else {
@@ -134,7 +151,7 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
                 }
             }
         })
-        
+
         //will allow for quick navigation back to friends list
         //self.myFriends.insert(newFriendship, atIndex: 0)
         
@@ -163,12 +180,14 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
         cell.nameLabel.text = results[indexPath.row].firstName + " " + results[indexPath.row].lastName
         cell.usernameLabel.text = results[indexPath.row].username
         cell.desiPointsLabel.text = "Desi Points: " + String(results[indexPath.row].desiPoints)
-        for friendship in myFriends {
-            if ((results[indexPath.row].objectId == friendship.user1.objectId) || (results[indexPath.row].objectId == friendship.user2.objectId)){
-                let image = UIImage(named: "glyphicons-194-circle-ok") as UIImage?
-                cell.addButton.setImage(image, forState: .Normal)
-                cell.addButton.tag = indexPath.row
-                cell.addButton.enabled = false
+        if myFriends != nil {
+            for friendship in myFriends {
+                if ((results[indexPath.row].objectId == friendship.user1.objectId) || (results[indexPath.row].objectId == friendship.user2.objectId)){
+                    let image = UIImage(named: "glyphicons-194-circle-ok") as UIImage?
+                    cell.addButton.setImage(image, forState: .Normal)
+                    cell.addButton.tag = indexPath.row
+                    cell.addButton.enabled = false
+                }
             }
         }
         

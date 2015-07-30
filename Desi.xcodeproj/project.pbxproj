@@ -51,6 +51,7 @@
 		F1DCDBAA1B4F351200E4C048 /* Desi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */; };
 		F1EB82241B681B800028AD55 /* DesiFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */; };
 		F1EB82261B6831D70028AD55 /* FindFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82251B6831D70028AD55 /* FindFriendsTableViewController.swift */; };
+		F1EB82281B6AB7C00028AD55 /* DesiFriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82271B6AB7C00028AD55 /* DesiFriendList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Desi.xcdatamodel; sourceTree = "<group>"; };
 		F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendListViewController.swift; sourceTree = "<group>"; };
 		F1EB82251B6831D70028AD55 /* FindFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewController.swift; sourceTree = "<group>"; };
+		F1EB82271B6AB7C00028AD55 /* DesiFriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 				F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */,
 				F1D9CD921B12FB340052F810 /* DesiUser.swift */,
 				F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */,
+				F1EB82271B6AB7C00028AD55 /* DesiFriendList.swift */,
 				F11DBC2C1B6307CB00B21A2C /* DesiFriendship.swift */,
 				F1D9CD941B12FD910052F810 /* DesiGroup.swift */,
 				F1D9CD9A1B1970090052F810 /* SampleData.swift */,
@@ -368,6 +371,7 @@
 				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
 				F11DBC171B5DB69A00B21A2C /* EntryPointViewController.swift in Sources */,
 				F11DBC1B1B61846B00B21A2C /* ProfileMainTableViewCell.swift in Sources */,
+				F1EB82281B6AB7C00028AD55 /* DesiFriendList.swift in Sources */,
 				F12052111B4C92BA004271BF /* LoginViewController.swift in Sources */,
 				F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */,
 				F11DBC1F1B619FF000B21A2C /* GuestProfileTableViewController.swift in Sources */,

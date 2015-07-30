@@ -14,6 +14,7 @@ class DesiFriendListViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    var myFriendList = DesiUser.currentUser()!.friendList
     var myFriends: [DesiFriendship]!
     var filteredFriends: [DesiFriendship] = []
     var searchOn: Bool = false
@@ -28,6 +29,7 @@ class DesiFriendListViewController: UIViewController, UITableViewDataSource, UIT
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        
         
         /*
         self.myFriends = [DesiFriendship]()
@@ -116,7 +118,7 @@ class DesiFriendListViewController: UIViewController, UITableViewDataSource, UIT
         }
         else {
             if myFriends == nil {
-                return 0
+               return 0
             }
             return myFriends.count
         }

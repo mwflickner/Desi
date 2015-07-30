@@ -55,7 +55,7 @@ class GuestProfileTableViewController: UITableViewController {
         // Configure the cell...
         
         //gotta change this soon
-        for friendId in DesiUser.currentUser()!.friends{
+        for friendId in DesiUser.currentUser()!.friendList.friendships{
             if friendId == theProfile.objectId {
                 guestCell.friendButton.setTitle("Unfriend", forState: UIControlState.Normal)
                 return guestCell

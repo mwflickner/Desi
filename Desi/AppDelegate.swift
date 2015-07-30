@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DesiUserGroup.registerSubclass()
         DesiGroup.registerSubclass()
         DesiFriendship.registerSubclass()
+        DesiFriendList.registerSubclass()
         
         // [Optional] Power your app with Local Datastore. For more info, go to
         // https://parse.com/docs/ios_guide#localdatastore/iOS
