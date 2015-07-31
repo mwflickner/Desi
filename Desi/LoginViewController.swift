@@ -82,7 +82,7 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "loginSegue"){
             let nav = segue.destinationViewController as! UINavigationController
-            var groupsView = nav.topViewController as! DesiGroupsTableViewController
+            var homeView = nav.topViewController as! DesiHomeViewController
             
             let query = DesiUserGroup.query()
             query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
@@ -97,12 +97,12 @@ class LoginViewController: UIViewController {
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let userGroups = objects as? [DesiUserGroup]
-                            groupsView.myUserGroups = userGroups
+                            homeView.myUserGroups = userGroups
                             
                             //store found userGroups in Localstore
-                            DesiUserGroup.pinAllInBackground(groupsView.myUserGroups, withName:"MyUserGroups")
+                            DesiUserGroup.pinAllInBackground(homeView.myUserGroups, withName:"MyUserGroups")
                             
-                            groupsView.tableView.reloadData()
+                            homeView.tableView.reloadData()
                             
                         }
                     }

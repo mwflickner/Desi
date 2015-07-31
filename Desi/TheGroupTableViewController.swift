@@ -13,15 +13,18 @@ class TheGroupTableViewController: UITableViewController {
     
     var theGroup: DesiGroup!
     var userGroup: DesiUserGroup!
+    @IBOutlet weak var button: UIButton!
     
     @IBAction func wentOutTapped(sender : AnyObject) {
         println("button tapped")
+        //sender.enabled = false
         self.theGroup.nextDesi()
         self.theGroup.theDesi.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
                 println("new Desi saved")
+                //sender.enabled = true
                 self.tableView.reloadData()
             } else {
                 // There was a problem, check error.description

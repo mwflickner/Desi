@@ -51,7 +51,7 @@ class EntryPointViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "openToGroupsSegue") {
             let nav = segue.destinationViewController as! UINavigationController
-            var groupsView = nav.topViewController as! DesiGroupsTableViewController
+            var homeView = nav.topViewController as! DesiHomeViewController
             let userQuery = DesiUser.query()
             userQuery!.includeKey("friendList")
             userQuery!.getObjectInBackgroundWithId(DesiUser.currentUser()!.objectId!)
@@ -70,9 +70,9 @@ class EntryPointViewController: UIViewController {
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let userGroups = objects as? [DesiUserGroup]
-                            groupsView.myUserGroups = userGroups
+                            homeView.myUserGroups = userGroups
                             
-                            groupsView.tableView.reloadData()
+                            homeView.tableView.reloadData()
                             
                         }
                     //}
@@ -96,9 +96,9 @@ class EntryPointViewController: UIViewController {
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let userGroups = objects as? [DesiUserGroup]
-                            groupsView.myUserGroups = userGroups
+                            homeView.myUserGroups = userGroups
                         
-                            groupsView.tableView.reloadData()
+                            homeView.tableView.reloadData()
                         
                         }
                     }

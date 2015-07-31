@@ -249,8 +249,8 @@ class CreateAccountViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "createAccountSegue") {
             let nav = segue.destinationViewController as! UINavigationController
-            var groupsView = nav.topViewController as! DesiGroupsTableViewController
-            groupsView.myUserGroups = [DesiUserGroup]()
+            var homeView = nav.topViewController as! DesiHomeViewController
+            homeView.myUserGroups = [DesiUserGroup]()
         }
 
     }

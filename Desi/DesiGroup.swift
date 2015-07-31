@@ -21,6 +21,7 @@ class DesiGroup: PFObject, PFSubclassing {
     
     @NSManaged var groupName: String
     @NSManaged var groupMembers: [String]
+    
     @NSManaged var numberOfUsers: Int
     @NSManaged var theDesi: DesiUserGroup!
     @NSManaged var desiIndex: Int
