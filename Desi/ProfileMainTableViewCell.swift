@@ -11,6 +11,7 @@ import UIKit
 class ProfileMainTableViewCell: UITableViewCell {
 
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var desiPointsLabel: UILabel!
     @IBOutlet weak var viewFriendsButton: UIButton!
     

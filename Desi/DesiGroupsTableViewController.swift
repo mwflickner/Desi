@@ -54,10 +54,11 @@ class DesiGroupsTableViewController: UITableViewController {
         if (indexPath.row == 0){
             var mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
             mainCell.usernameLabel.text = DesiUser.currentUser()!.username
+            mainCell.nameLabel.text = DesiUser.currentUser()!.firstName + " " + DesiUser.currentUser()!.lastName
             mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiPoints)
             mainCell.viewFriendsButton.enabled = false
             mainCell.viewFriendsButton.hidden = true
-            self.tableView.rowHeight = 300
+            self.tableView.rowHeight = 200
             return mainCell
         }
         
@@ -67,7 +68,7 @@ class DesiGroupsTableViewController: UITableViewController {
         cell.groupNameLabel.text = userGroup.group.groupName
         cell.groupSumLabel.text = userGroup.group.theDesi.username + " is the Desi"
         //cell.groupImgView.image = group.groupImg
-        self.tableView.rowHeight = 55
+        self.tableView.rowHeight = 60
         return cell
         
     }
