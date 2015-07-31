@@ -55,6 +55,8 @@ class DesiGroupsTableViewController: UITableViewController {
             var mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
             mainCell.usernameLabel.text = DesiUser.currentUser()!.username
             mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiPoints)
+            mainCell.viewFriendsButton.enabled = false
+            mainCell.viewFriendsButton.hidden = true
             self.tableView.rowHeight = 300
             return mainCell
         }

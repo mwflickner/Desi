@@ -155,8 +155,10 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.newGroup.groupMembers = membersCell.usersToAdd
             self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)
             self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
-            
+        
             self.newGroup.theDesi = self.myNewUserGroup
+            self.newGroup.setDesiIndex()
+            
             
             //add the user group to the user's list of groups
             DesiUser.currentUser()!.userGroups.append(myNewUserGroup.objectId!)

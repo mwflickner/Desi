@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class TheGroupTableViewController: UITableViewController {
     
@@ -15,8 +16,36 @@ class TheGroupTableViewController: UITableViewController {
     
     @IBAction func wentOutTapped(sender : AnyObject) {
         println("button tapped")
-        theGroup.nextDesi()
-        self.tableView.reloadData()
+        self.theGroup.nextDesi()
+        self.theGroup.theDesi.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("new Desi saved")
+                self.tableView.reloadData()
+            } else {
+                // There was a problem, check error.description
+                println("usergroup error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        })
+        /*
+        self.theGroup.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("group saved")
+            } else {
+                // There was a problem, check error.description
+                println("group error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        })
+        */
     }
     
     override func viewDidLoad() {

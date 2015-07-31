@@ -26,19 +26,6 @@ class DesiGroup: PFObject, PFSubclassing {
     @NSManaged var desiIndex: Int
     @NSManaged var groupImg: PFFile
     
-    /*init(groupId: Int, groupName: String, users: [DesiUser], groupImg: Int) {
-        self.groupId = groupId
-        self.groupName = groupName
-        self.users = users
-        self.numberOfUsers = users.count
-        self.desiIndex = 0
-        self.theDesi = users[desiIndex]
-        self.groupImg = groupImg
-        super.init()
-    }
-    */
-    
-    
     
     func addMember(newMember: DesiUserGroup){
         self.groupMembers.append(newMember.username)
@@ -81,16 +68,29 @@ class DesiGroup: PFObject, PFSubclassing {
         self.groupName = newName
     }
     
+    func setDesiIndex() {
+        for var i = 0; i < self.groupMembers.count ; ++i {
+            if self.groupMembers[i] == self.theDesi.username {
+                self.desiIndex = i
+            }
+        }
+    }
+    
     func userSwap(index1: Int, index2: Int){
         var temp = self.groupMembers[index1]
         self.groupMembers[index1] = self.groupMembers[index2]
         self.groupMembers[index2] = temp
     }
-    /*
-    func randomDesi(){
-        self.theDesi = userAt(Int(arc4random_uniform(UInt32(numberOfUsers))))
-    }
-    */
+    
+    /*func randomDesi(){
+        for username in self.groupMembers {
+            if username == userAt(Int(arc4random_uniform(UInt32(numberOfUsers)))){
+                username
+            }
+            
+        }
+    }*/
+
     
     func getUserFromDesi(distFromDesi: Int) -> String {
         //distFrom == 0 should return the Desi, 1 should return the next, 2 should return etc
@@ -105,13 +105,85 @@ class DesiGroup: PFObject, PFSubclassing {
     
     
     func nextDesi(){
+        
         ++self.desiIndex
+        self.theDesi!.isDesi = false
+        self.theDesi!.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("old Desi saved")
+            } else {
+                // There was a problem, check error.description
+                println("UserGroup Error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theDesi.saveEventually()
+                }
+            }
+        })
         if (desiIndex < groupMembers.count){
-            //self.theDesi = groupMembers[desiIndex]
+            var desiQuery = DesiUserGroup.query()
+            desiQuery!.includeKey("group.objectId")
+            desiQuery!.whereKey("username", equalTo: self.groupMembers[desiIndex])
+            desiQuery!.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) scores. Swag.")
+                        // Do something with the found objects
+                        if let objects = objects as? [PFObject] {
+                            let userGroups = objects as! [DesiUserGroup]
+                            for ug in userGroups {
+                                println("\(ug.group.objectId)")
+                                if ug.group.objectId == self.objectId {
+                                    self.theDesi = ug
+                                    ug.isDesi = true
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!)")
+                }
+            }
+
+            
         }
         else {
-            //self.theDesi = groupMembers[0]
-            //self.desiIndex = 0
+            var desiQuery = DesiUserGroup.query()
+            desiQuery!.includeKey("group.objectId")
+            desiQuery!.whereKey("username", equalTo: self.groupMembers[0])
+            println("beginning else query")
+            desiQuery!.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) scores. Swag.")
+                        // Do something with the found objects
+                        if let objects = objects as? [PFObject] {
+                            let userGroups = objects as! [DesiUserGroup]
+                            for ug in userGroups {
+                                if ug.group.objectId == self.objectId {
+                                    self.theDesi = ug
+                                    ug.isDesi = true
+                                }
+                            }
+                        }
+                    }
+                    
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!)")
+                }
+            }
+            self.desiIndex = 0
         }
         
     }
