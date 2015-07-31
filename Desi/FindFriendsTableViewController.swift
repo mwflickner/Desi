@@ -55,9 +55,11 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
         search(searchText: searchText)
     }
     
+    
     func search(searchText: String? = nil){
         let query = DesiUser.query()
         query!.whereKey("username", containsString: searchText)
+        query!.includeKey("friendList")
         if (searchText != "") {
             query!.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
@@ -93,31 +95,42 @@ class FindFriendsTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     @IBAction func addFriend(sender: AnyObject){
+        let path = self.tableView.indexPathForSelectedRow()!
         var newFriendship = DesiFriendship()
         if self.myFriends == nil {
             self.myFriends = [DesiFriendship]()
         }
+        println("about to save")
         newFriendship.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
+                println("we back nigga")
                 // The object has been saved.
                 newFriendship.user1 = DesiUser.currentUser()!
                 newFriendship.username1 = DesiUser.currentUser()!.username!
-                
+                println("step1")
                 //let path = self.tableView.indexPathForSelectedRow()!
-                var newFriend = self.userAtRow(sender.tag)
+                var newFriend = self.userAtIndexPath(path)
+                println("\(newFriend.username)")
                 
                 newFriendship.user2 = newFriend
                 newFriendship.username2 = newFriend.username!
-                //newFriendship.user2.friends.append(DesiUser.currentUser()!.username!)
+                println("step 3")
                 
                 newFriendship.friendshipAccepted = false
                 
-                DesiUser.currentUser()!.friendList.friendships.append(newFriendship.objectId!)
+                DesiUser.currentUser()!.friendList.friendships.append(newFriendship)
+                DesiUser.currentUser()!.friendList.friendshipsIds.append(newFriendship.objectId!)
                 ++DesiUser.currentUser()!.friendList.numberOfFriends
+                println("step 4")
                 
-                newFriendship.user2.friendList.friendships.append(newFriendship.objectId!)
+                newFriend.friendList.friendships.append(newFriendship)
+                 println("step 5")
+                
+                newFriend.friendList.friendshipsIds.append(newFriendship.objectId!)
                 ++newFriendship.user2.friendList.numberOfFriends
+                
+               println("step6")
                 
                 //save the new friendship to network and local
                 newFriendship.pinInBackgroundWithName("MyFriends")

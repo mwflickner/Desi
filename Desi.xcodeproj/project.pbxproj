@@ -52,6 +52,7 @@
 		F1EB82241B681B800028AD55 /* DesiFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */; };
 		F1EB82261B6831D70028AD55 /* FindFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82251B6831D70028AD55 /* FindFriendsTableViewController.swift */; };
 		F1EB82281B6AB7C00028AD55 /* DesiFriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82271B6AB7C00028AD55 /* DesiFriendList.swift */; };
+		F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendListViewController.swift; sourceTree = "<group>"; };
 		F1EB82251B6831D70028AD55 /* FindFriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsTableViewController.swift; sourceTree = "<group>"; };
 		F1EB82271B6AB7C00028AD55 /* DesiFriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendList.swift; sourceTree = "<group>"; };
+		F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersToAddTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			children = (
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */,
 				F1EB82251B6831D70028AD55 /* FindFriendsTableViewController.swift */,
 				F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */,
 				F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */,
@@ -353,6 +356,7 @@
 			files = (
 				F11DBC2B1B62CFC400B21A2C /* DesiFriendTableViewCell.swift in Sources */,
 				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
+				F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */,
 				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
 				F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */,
 				F11DBC2D1B6307CB00B21A2C /* DesiFriendship.swift in Sources */,

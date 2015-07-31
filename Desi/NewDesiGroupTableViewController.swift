@@ -14,12 +14,13 @@ class NewDesiGroupTableViewController: UITableViewController {
     
     @IBOutlet weak var newGroupNameTextField: UITextField!
     @IBOutlet weak var userToAdd: UITextField!
+    @IBOutlet weak var membersCell: GroupMembersToAddTableViewCell!
     
     var newGroup: DesiGroup = DesiGroup()
     var myNewUserGroup: DesiUserGroup = DesiUserGroup()
     var userGroups: [DesiUserGroup]!
     
-    var newGroupUsernames: [String]!
+    //var newGroupUsernames: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ class NewDesiGroupTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        newGroupUsernames = [String]()
+        //newGroupUsernames = [String]()
         self.myNewUserGroup.group = self.newGroup
         self.myNewUserGroup.user = DesiUser.currentUser()!
 
@@ -66,7 +67,9 @@ class NewDesiGroupTableViewController: UITableViewController {
     }
     
     @IBAction func addUserToGroup(sender: AnyObject){
-        self.newGroupUsernames.append(self.userToAdd.text)
+        membersCell.usersToAdd.append(self.userToAdd.text)
+        //self.newGroupUsernames.append(self.userToAdd.text)
+        membersCell.tableView.reloadData()
         self.userToAdd.text = ""
     }
 
@@ -149,7 +152,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             
             self.newGroup.groupName = self.newGroupNameTextField.text
             
-            self.newGroup.groupMembers = self.newGroupUsernames
+            self.newGroup.groupMembers = membersCell.usersToAdd
             self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)
             self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
             
@@ -174,7 +177,7 @@ class NewDesiGroupTableViewController: UITableViewController {
                 }
             })
             
-            for username in newGroupUsernames {
+            for username in membersCell.usersToAdd {
                 var newUG = DesiUserGroup()
                 newUG.username = username
                 newUG.isDesi = false

@@ -19,8 +19,8 @@ class DesiFriendListViewController: UIViewController, UITableViewDataSource, UIT
     var filteredFriends: [DesiFriendship] = []
     var searchOn: Bool = false
     
-    var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
-    var filtered:[String] = []
+    //var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
+    //var filtered:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

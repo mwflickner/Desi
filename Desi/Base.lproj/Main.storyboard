@@ -434,7 +434,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupMembersCell" rowHeight="150" id="Dl0-MS-bDE">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupMembersCell" rowHeight="150" id="Dl0-MS-bDE" customClass="GroupMembersToAddTableViewCell" customModule="Desi" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dl0-MS-bDE" id="r1t-dJ-WaA">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -449,16 +449,40 @@
                                                     <rect key="frame" x="146" y="8" width="446" height="133"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
-                                                        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7ZG-jC-NkB">
+                                                        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserToAddCell" id="7ZG-jC-NkB" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7ZG-jC-NkB" id="Kud-wq-cxx">
                                                                 <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggO-jA-aGC">
+                                                                        <rect key="frame" x="8" y="11" width="98" height="21"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4K-NV-Iaf">
+                                                                        <rect key="frame" x="121" y="9" width="42" height="26"/>
+                                                                        <state key="normal" image="glyphicons-193-circle-remove">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="removeUserFromList:" destination="Dl0-MS-bDE" eventType="touchUpInside" id="APo-l5-E6B"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
                                                             </tableViewCellContentView>
+                                                            <connections>
+                                                                <outlet property="addButton" destination="Y4K-NV-Iaf" id="kWG-Bc-Jch"/>
+                                                                <outlet property="usernameLabel" destination="ggO-jA-aGC" id="VnU-4X-DKB"/>
+                                                            </connections>
                                                         </tableViewCell>
                                                     </prototypes>
                                                 </tableView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="tableView" destination="XAp-0j-9nv" id="gVN-ck-lwa"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchForUserCell" rowHeight="100" id="QfS-61-l5f">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -510,6 +534,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="membersCell" destination="Dl0-MS-bDE" id="4Pt-TL-MT7"/>
                         <outlet property="newGroupNameTextField" destination="iag-Zc-KIb" id="aNN-RW-aP5"/>
                         <outlet property="userToAdd" destination="ND5-hF-E1A" id="nZG-Xi-Qfd"/>
                     </connections>
@@ -1067,6 +1092,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="glyphicons-193-circle-remove" width="26" height="26"/>
         <image name="glyphicons-281-settings" width="24" height="24"/>
         <image name="glyphicons-7-user-add" width="28" height="24"/>
     </resources>

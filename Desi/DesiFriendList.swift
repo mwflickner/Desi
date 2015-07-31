@@ -21,7 +21,8 @@ class DesiFriendList: PFObject, PFSubclassing {
     
     @NSManaged var owner: String
     //@NSManaged var ownerId: String
-    @NSManaged var friendships: [String]
+    @NSManaged var friendshipsIds: [String]
+    @NSManaged var friendships: [DesiFriendship]
     @NSManaged var numberOfFriends: Int
     
     

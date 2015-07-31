@@ -205,6 +205,9 @@ class DesiGroupsTableViewController: UITableViewController {
             let friendQuery = DesiFriendship.query()
             friendQuery!.includeKey("user1")
             friendQuery!.includeKey("user2")
+            //friendQuery!.limit = 10
+            //friendQuery!.whereKey(DesiUser.currentUser()!.username, containedIn: )
+            //DesiUser.currentUser()!.friendList.numberOfFriends
             if DesiUser.currentUser()!.friendList.numberOfFriends != 0 {
                 friendsList.myFriends = [DesiFriendship]()
                 if friendsList.myFriends != nil {
@@ -213,7 +216,7 @@ class DesiGroupsTableViewController: UITableViewController {
                     }
                 }
                 
-                for friendshipId in DesiUser.currentUser()!.friendList.friendships {
+                /*for friendshipId in DesiUser.currentUser()!.friendList.friendships {
                     friendQuery!.whereKey("objectId", equalTo: friendshipId)
                     var objects: NSArray = friendQuery!.findObjects()!
                     //if let objects = objects as? [PFObject] {
@@ -224,8 +227,9 @@ class DesiGroupsTableViewController: UITableViewController {
                     
                         //friendsList.tableView.reloadData()
                    // }
+                */
                     
-                   /* friendQuery!.findObjects {
+                   friendQuery!.findObjectsInBackgroundWithBlock {
                         (objects: [AnyObject]?, error: NSError?) -> Void in
                         
                         if error == nil {
@@ -233,17 +237,21 @@ class DesiGroupsTableViewController: UITableViewController {
                             // The find succeeded.
                             println("Successfully retrieved \(objects!.count) friends.")
                             // Do something with the found objects
+                            if let objects = objects as? [PFObject] {
+                                let friendships = objects as! [DesiFriendship]
+                                for friend in friendships {
+                                    friendsList.myFriends.append(friend)
+                                    friendsList.tableView.reloadData()
+                                }
                             
-                                
+                            
                             }
-                            //}
-                            
-                        } else {
-                            // Log details of the failure
-                            println("Error: \(error!) \(error!.userInfo!)")
+                            else {
+                                // Log details of the failure
+                                println("Error: \(error!) \(error!.userInfo!)")
+                            }
                         }
                     }
-                    */
                     
                 }
             }
@@ -285,7 +293,7 @@ class DesiGroupsTableViewController: UITableViewController {
             
             
             
-        }
+        
         
     }
     
