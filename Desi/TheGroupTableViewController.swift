@@ -13,43 +13,6 @@ class TheGroupTableViewController: UITableViewController {
     
     var theGroup: DesiGroup!
     var userGroup: DesiUserGroup!
-    @IBOutlet weak var button: UIButton!
-    
-    @IBAction func wentOutTapped(sender : AnyObject) {
-        println("button tapped")
-        //sender.enabled = false
-        self.theGroup.nextDesi()
-        self.theGroup.theDesi.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("new Desi saved")
-                //sender.enabled = true
-                self.tableView.reloadData()
-            } else {
-                // There was a problem, check error.description
-                println("usergroup error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
-                }
-            }
-        })
-        /*
-        self.theGroup.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("group saved")
-            } else {
-                // There was a problem, check error.description
-                println("group error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
-                }
-            }
-        })
-        */
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,13 +36,24 @@ class TheGroupTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return theGroup.numberOfUsers + 1
+        if section == 0 {
+            if DesiUser.currentUser()!.username == theGroup.theDesi.username {
+                return theGroup.numberOfUsers + 1
+            }
+            else {
+                return theGroup.numberOfUsers
+            }
+        }
+        else {
+            return 1
+        }
+        
     }
     
     /*
@@ -96,45 +70,84 @@ class TheGroupTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         println("Path is \(indexPath.row)")
-        if (indexPath.row == 0){
-            var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-            if (DesiUser.currentUser()!.username == theGroup.theDesi.username) {
-                desiCell.theDesiNameLabel.text = "YOU are the Desi"
-                desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        if indexPath.section == 0 {
+            if (indexPath.row == 0){
+                var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
+                if (DesiUser.currentUser()!.username == theGroup.theDesi.username) {
+                    desiCell.theDesiNameLabel.text = "YOU are the Desi"
+                    desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                }
+                else {
+                    desiCell.theDesiNameLabel.text = theGroup.theDesi.username
+                }
+                //desiCell.theDesiImg.image = theGroup.theDesi.userImg
+                println("returning DesiCell")
+                return desiCell
+            }
+            if (indexPath.row == 1){
+                if theGroup.numberOfUsers > 1 {
+                    var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
+                    var nextDesi: String = theGroup.getUserFromDesi(1)
+                    onDeckCell.onDeckLabel.text = nextDesi
+                    //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
+                    println("returning onDeckCell")
+                    return onDeckCell
+                }
+            }
+            if (indexPath.row >= theGroup.numberOfUsers && DesiUser.currentUser()?.username == theGroup.theDesi.username){
+                //if  {
+                var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
+                groupActionCell.actionButton.addTarget(self, action: "wentOutTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+                println("returning button cell")
+                return groupActionCell
+                //}
+                
             }
             else {
-                desiCell.theDesiNameLabel.text = theGroup.theDesi.username
+                var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
+                var userGroup: String = theGroup.getUserFromDesi(indexPath.row)
+                restCell.restOfGroupLabel.text = userGroup
+                //restCell.restOfGroupImg.image = userGroup.user.userImg
+                println("returning other cell")
+                return restCell
             }
-            //desiCell.theDesiImg.image = theGroup.theDesi.userImg
-            println("returning DesiCell")
-            return desiCell
+
         }
-        if (indexPath.row == 1){
-            if theGroup.numberOfUsers > 1 {
-                var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-                var nextDesi: String = theGroup.getUserFromDesi(1)
-                onDeckCell.onDeckLabel.text = nextDesi
-                //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
-                println("returning onDeckCell")
-                return onDeckCell
-            }
-        }
-        if (indexPath.row >= theGroup.numberOfUsers){
+        else {
             var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
+            groupActionCell.actionButton.setTitle("Volunteer", forState: UIControlState.Normal)
+            groupActionCell.actionButton.addTarget(self, action: "volunteerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
             println("returning button cell")
             return groupActionCell
         }
-        else {
-            var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-            var userGroup: String = theGroup.getUserFromDesi(indexPath.row)
-            restCell.restOfGroupLabel.text = userGroup
-            //restCell.restOfGroupImg.image = userGroup.user.userImg
-            println("returning other cell")
-            return restCell
-        }
-
+        
         
     }
+    
+    @IBAction func wentOutTapped(sender: UIButton) {
+        sender.enabled = false
+        self.theGroup.nextDesi()
+        self.theGroup.theDesi.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("new Desi saved")
+                sender.enabled = true
+                self.tableView.reloadData()
+            } else {
+                // There was a problem, check error.description
+                println("usergroup error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        })
+    }
+    
+    @IBAction func volunteerTapped(sender: UIButton) {
+        println("volunteer tapped")
+    }
+    
     
     @IBAction func backToTheGroupViewController(segue:UIStoryboardSegue) {
         

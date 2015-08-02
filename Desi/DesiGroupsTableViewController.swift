@@ -11,7 +11,7 @@ import Parse
 
 class DesiGroupsTableViewController: UITableViewController {
 
-    var myUserGroups: [DesiUserGroup]!
+    /*var myUserGroups: [DesiUserGroup]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -299,6 +299,7 @@ class DesiGroupsTableViewController: UITableViewController {
         
         
     }
-    
+    */
 
 }
+

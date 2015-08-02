@@ -85,8 +85,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
         if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
             myUserGroups.append(newDesiGroupTableViewController.myNewUserGroup)
-            let indexPath = NSIndexPath(forRow: myUserGroups.count, inSection: 0)
-            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            self.tableView.reloadData()
         }
     }
     

@@ -10,21 +10,29 @@ import UIKit
 import Parse
 
 class NewDesiGroupTableViewController: UITableViewController {
+    /*
+    var homeButton : UIBarButtonItem = UIBarButtonItem(title: "LeftButtonTitle", style: UIBarButtonItemStyle.Plain, target: self, action: "")
+    
+    var logButton : UIBarButtonItem = UIBarButtonItem(title: "RigthButtonTitle", style: UIBarButtonItemStyle.Plain, target: self, action: "")
+    
+    self.navigationItem.leftBarButtonItem = homeButton
+    */
 
     
-    @IBOutlet weak var newGroupNameTextField: UITextField!
-    @IBOutlet weak var userToAdd: UITextField!
-    @IBOutlet weak var membersCell: GroupMembersToAddTableViewCell!
+    //@IBOutlet weak var newGroupNameTextField: UITextField!
+    //@IBOutlet weak var userToAdd: UITextField!
     
     var newGroup: DesiGroup = DesiGroup()
     var myNewUserGroup: DesiUserGroup = DesiUserGroup()
     var userGroups: [DesiUserGroup]!
+    var usersToAdd = [String]()
     
     //var newGroupUsernames: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.navigationItem.rightBarButtonItem!.enabled = false
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -60,46 +68,115 @@ class NewDesiGroupTableViewController: UITableViewController {
         view.endEditing(true)
     }
     
+    /*
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             newGroupNameTextField.becomeFirstResponder()
         }
     }
+    */
     
-    @IBAction func addUserToGroup(sender: AnyObject){
-        membersCell.usersToAdd.append(self.userToAdd.text)
-        //self.newGroupUsernames.append(self.userToAdd.text)
-        membersCell.tableView.reloadData()
-        self.userToAdd.text = ""
-    }
-
 
     // MARK: - Table view data source
-    /*
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        if section == 0 {
+            return 2
+        }
+        else {
+            return self.usersToAdd.count
+        }
     }
-    */
     
-
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("newGroupNameCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                cell.label.text = "Group Name:"
+                cell.textField.addTarget(self, action: "checkNewGroupName:", forControlEvents: UIControlEvents.EditingChanged)
+                tableView.rowHeight = 44
+                return cell
+            }
+            else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("searchForUserCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+                tableView.rowHeight = 100
+                cell.textField.addTarget(self, action: "enableAdd:", forControlEvents: UIControlEvents.EditingChanged)
+                cell.button.enabled = false
+                cell.button.addTarget(self, action: "addUserToGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+                return cell
+            }
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("UserToAddCell", forIndexPath: indexPath) as! DesiFriendTableViewCell
+        cell.addButton.tag = indexPath.row
+        cell.usernameLabel.text = usersToAdd[indexPath.row]
+        cell.addButton.addTarget(self, action: "removeUserFromGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+        tableView.rowHeight = 44
         return cell
     }
-    */
+    
+    func isValidUsername(testStr: String) -> Bool {
+        let usernameRegEx = "^[a-z0-9_-]{4,16}$"
+        let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
+        return usernameTest.evaluateWithObject(testStr)
+    }
+    
+    @IBAction func enableAdd(sender: UITextField) {
+        let indexPath = NSIndexPath(forRow:1, inSection:0)
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+        if isValidUsername(sender.text){
+            cell.button.enabled = true
+        }
+        else {
+            cell.button.enabled = false
+        }
+    }
+    
+    @IBAction func addUserToGroup(sender: UIButton){
+        println("add pressed")
+        let indexPath = NSIndexPath(forRow:1, inSection:0)
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+        if cell.textField.text != "" {
+            self.usersToAdd.append(cell.textField.text)
+            cell.textField.text = ""
+            //limit group size to 10
+            if self.usersToAdd.count > 9 {
+                sender.enabled = false
+            }
+            self.tableView.reloadData()
+        }
+        
+        
+    }
+    
+    @IBAction func removeUserFromGroup(sender: UIButton){
+        self.usersToAdd.removeAtIndex(sender.tag)
+        self.tableView.reloadData()
+    }
+    
+    @IBAction func checkNewGroupName(sender: UITextField){
+        let indexPath = NSIndexPath(forRow:0, inSection:0)
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+        if cell.textField.text == "" {
+            self.navigationItem.rightBarButtonItem!.enabled = false
+        }
+        else {
+            self.navigationItem.rightBarButtonItem!.enabled = true
+        }
+        
+    }
 
+
+
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -150,9 +227,11 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.myNewUserGroup.groupPoints = 0
             
             
-            self.newGroup.groupName = self.newGroupNameTextField.text
+            let indexPath = NSIndexPath(forRow:0, inSection:0)
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+            self.newGroup.groupName = cell.textField.text
             
-            self.newGroup.groupMembers = membersCell.usersToAdd
+            self.newGroup.groupMembers = self.usersToAdd
             self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)
             self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
         
@@ -179,7 +258,7 @@ class NewDesiGroupTableViewController: UITableViewController {
                 }
             })
             
-            for username in membersCell.usersToAdd {
+            for username in self.usersToAdd {
                 var newUG = DesiUserGroup()
                 newUG.username = username
                 newUG.isDesi = false

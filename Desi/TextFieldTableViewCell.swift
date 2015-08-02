@@ -1,17 +1,19 @@
 //
-//  GroupActionsTableViewCell.swift
+//  TextFieldTableViewCell.swift
 //  Desi
 //
-//  Created by Matthew Flickner on 7/7/15.
+//  Created by Matthew Flickner on 7/31/15.
 //  Copyright (c) 2015 Desi. All rights reserved.
 //
 
 import UIKit
 
-class GroupActionsTableViewCell: UITableViewCell {
+class TextFieldTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var actionButton: UIButton!
-    
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var button: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

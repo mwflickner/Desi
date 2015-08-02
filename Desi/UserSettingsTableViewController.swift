@@ -10,6 +10,8 @@ import UIKit
 
 class UserSettingsTableViewController: UITableViewController {
 
+    @IBOutlet weak var logoutButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,9 +41,11 @@ class UserSettingsTableViewController: UITableViewController {
         return 1
     }
     
-    @IBAction func logout(){
-        DesiUserGroup.unpinAllObjectsInBackgroundWithName("MyUserGroups")
-        DesiFriendship.unpinAllObjectsInBackgroundWithName("MyFriends")
+    @IBAction func logout(sender: AnyObject){
+        //DesiUserGroup.unpinAllObjectsInBackgroundWithName("MyUserGroups")
+        //DesiFriendship.unpinAllObjectsInBackgroundWithName("MyFriends")
+        DesiUserGroup.unpinAllObjectsInBackground()
+        DesiFriendship.unpinAllObjectsInBackground()
         DesiUser.logOut()
         var currentUser = DesiUser.currentUser() // this will now be nil
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

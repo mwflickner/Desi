@@ -71,7 +71,7 @@ class CreateAccountViewController: UIViewController {
     
     //check the usernames
     func isValidUsername(testStr: String) -> Bool {
-        let usernameRegEx = "^[a-z0-9_-]{3,16}$"
+        let usernameRegEx = "^[a-z0-9_-]{4,16}$"
         let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
         return usernameTest.evaluateWithObject(testStr)
     }

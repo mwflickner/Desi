@@ -72,7 +72,7 @@ class EntryPointViewController: UIViewController {
                             let userGroups = objects as? [DesiUserGroup]
                             homeView.myUserGroups = userGroups
                             
-                            homeView.tableView.reloadData()
+                            //homeView.tableView.reloadData()
                             
                         }
                     //}
