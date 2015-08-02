@@ -132,7 +132,8 @@ class NewDesiGroupTableViewController: UITableViewController {
     @IBAction func enableAdd(sender: UITextField) {
         let indexPath = NSIndexPath(forRow:1, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
-        if isValidUsername(sender.text){
+        removeErrorColor(cell.textField)
+        if isValidUsername(sender.text) && self.usersToAdd.count < 10 {
             cell.button.enabled = true
         }
         else {
@@ -140,19 +141,60 @@ class NewDesiGroupTableViewController: UITableViewController {
         }
     }
     
+    func setErrorColor(textField: UITextField) {
+        var errorColor : UIColor = UIColor.redColor()
+        textField.layer.borderColor = errorColor.CGColor
+        textField.layer.borderWidth = 1.5
+    }
+    
+    func removeErrorColor(textField: UITextField) {
+        textField.layer.borderColor = nil
+        textField.layer.borderWidth = 0
+    }
+    
     @IBAction func addUserToGroup(sender: UIButton){
         println("add pressed")
         let indexPath = NSIndexPath(forRow:1, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
-        if cell.textField.text != "" {
-            self.usersToAdd.append(cell.textField.text)
-            cell.textField.text = ""
-            //limit group size to 10
-            if self.usersToAdd.count > 9 {
-                sender.enabled = false
+        var query = DesiUser.query()
+        query!.whereKey("username", equalTo: cell.textField.text)
+        query!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    println("Successfully retrieved \(objects!.count) scores. Swag.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let users = objects as? [DesiUser]
+                        if users!.count == 0 {
+                            //set error color
+                            self.setErrorColor(cell.textField)
+                            sender.enabled = false
+                        }
+                        else {
+                            self.usersToAdd.append(cell.textField.text)
+                            cell.textField.text = ""
+                            //limit group size to 10
+                            if self.usersToAdd.count > 9 {
+                                sender.enabled = false
+                            }
+                            self.tableView.reloadData()
+
+                        }
+                        
+                        
+                    }
+                }
+                
+            } else {
+                // Log details of the failure
+                println("Error: \(error!) \(error!.userInfo!)")
             }
-            self.tableView.reloadData()
         }
+        
+        
         
         
     }
