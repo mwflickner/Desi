@@ -103,6 +103,37 @@ class DesiGroup: PFObject, PFSubclassing {
         }
     }
     
+    func volunteer(userGroup: DesiUserGroup) {
+        self.theDesi.isDesi = false
+        self.theDesi.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("old Desi saved")
+                println("about to start loop")
+                userGroup.isDesi == true
+                self.theDesi = userGroup
+                
+                //edits members array
+                for var i = 0; i < self.groupMembers.count; ++i {
+                    if self.groupMembers[i] == userGroup.username {
+                        self.userSwap(self.desiIndex, index2: i)
+                        self.theDesi = userGroup
+                        break
+                    }
+                }
+                println("basically done")
+                
+            } else {
+                // There was a problem, check error.description
+                println("UserGroup Error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theDesi.saveEventually()
+                }
+            }
+        })
+    }
+    
     
     func nextDesi(){
         

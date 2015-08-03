@@ -16,7 +16,7 @@ class TheGroupTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("groupName is \(self.theGroup.groupName)")
+        println("ugName is \(self.userGroup.username)")
         self.navigationItem.title = self.theGroup.groupName
         
         // Uncomment the following line to preserve selection between presentations
@@ -36,6 +36,9 @@ class TheGroupTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
+        if DesiUser.currentUser()!.username == theGroup.theDesi.username{
+            return 1
+        }
         return 2
     }
 
@@ -74,6 +77,7 @@ class TheGroupTableViewController: UITableViewController {
             if (indexPath.row == 0){
                 var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
                 if (DesiUser.currentUser()!.username == theGroup.theDesi.username) {
+                    println("swag")
                     desiCell.theDesiNameLabel.text = "YOU are the Desi"
                     desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 }
@@ -95,31 +99,32 @@ class TheGroupTableViewController: UITableViewController {
                 }
             }
             if (indexPath.row >= theGroup.numberOfUsers && DesiUser.currentUser()?.username == theGroup.theDesi.username){
-                //if  {
+                
                 var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
+                groupActionCell.actionButton.setTitle("Went Out", forState: UIControlState.Normal)
+                groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
                 groupActionCell.actionButton.addTarget(self, action: "wentOutTapped:", forControlEvents: UIControlEvents.TouchUpInside)
                 println("returning button cell")
                 return groupActionCell
-                //}
+               
                 
             }
-            else {
-                var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-                var userGroup: String = theGroup.getUserFromDesi(indexPath.row)
-                restCell.restOfGroupLabel.text = userGroup
-                //restCell.restOfGroupImg.image = userGroup.user.userImg
-                println("returning other cell")
-                return restCell
-            }
+            
+            var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
+            var userGroup: String = theGroup.getUserFromDesi(indexPath.row)
+            restCell.restOfGroupLabel.text = userGroup
+            //restCell.restOfGroupImg.image = userGroup.user.userImg
+            println("returning other cell")
+            return restCell
+
 
         }
-        else {
-            var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
-            groupActionCell.actionButton.setTitle("Volunteer", forState: UIControlState.Normal)
-            groupActionCell.actionButton.addTarget(self, action: "volunteerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-            println("returning button cell")
-            return groupActionCell
-        }
+        var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
+        groupActionCell.actionButton.setTitle("Volunteer", forState: UIControlState.Normal)
+        groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+        groupActionCell.actionButton.addTarget(self, action: "volunteerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        println("returning button cell")
+        return groupActionCell
         
         
     }
@@ -146,6 +151,53 @@ class TheGroupTableViewController: UITableViewController {
     
     @IBAction func volunteerTapped(sender: UIButton) {
         println("volunteer tapped")
+        sender.enabled = false
+        self.theGroup.theDesi.isDesi = false
+        self.theGroup.theDesi.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("old Desi saved")
+                println("about to start loop")
+                self.userGroup.isDesi == true
+                self.theGroup.theDesi = self.userGroup
+                
+                //edits members array
+                for var i = 0; i < self.theGroup.groupMembers.count; ++i {
+                    if self.theGroup.groupMembers[i] == self.userGroup.username {
+                        self.theGroup.userSwap(self.theGroup.desiIndex, index2: i)
+                        break
+                    }
+                }
+                println("basically done")
+                
+                println("here")
+                self.userGroup.saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        // The object has been saved.
+                        println("new Desi saved")
+                        sender.enabled = true
+                        self.tableView.reloadData()
+                    }
+                    else {
+                        // There was a problem, check error.description
+                        println("usergroup error: \(error)")
+                        if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                            self.theGroup.theDesi.saveEventually()
+                        }
+                    }
+                })
+                
+            } else {
+                // There was a problem, check error.description
+                println("UserGroup Error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        })
+    
     }
     
     

@@ -17,8 +17,12 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
+        //self.navigationController!.navigationBar.barTintColor = UIColor.blueColor()
+        //self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
         if (self.myUserGroups == nil){
             println("yoo")
