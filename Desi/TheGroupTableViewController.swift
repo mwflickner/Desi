@@ -256,6 +256,7 @@ class TheGroupTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             var settingsView = nav.topViewController as! GroupSettingsTableViewController
             settingsView.theGroup = self.theGroup
+            settingsView.userGroup = self.userGroup
         }
     }
 

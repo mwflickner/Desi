@@ -11,6 +11,7 @@ import UIKit
 class GroupSettingsTableViewController: UITableViewController {
     
     var theGroup: DesiGroup!
+    var userGroup: DesiUserGroup!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,24 +35,48 @@ class GroupSettingsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        if userGroup.isGroupAdmin {
+            return 2
+        }
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        if section == 0 {
+            return 2
+        }
+        return 1
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("bigButtonCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                cell.button.setTitle("View Members", forState: UIControlState.Normal)
+                cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+                cell.button.addTarget(self, action: "viewMembers:", forControlEvents: UIControlEvents.TouchUpInside)
+                return cell
+            }
+            cell.button.setTitle("Leave Group", forState: UIControlState.Normal)
+            cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+            cell.button.addTarget(self, action: "leaveGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+            return cell
+        }
+        else {
+            cell.button.setTitle("Delete Group", forState: UIControlState.Normal)
+            cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+            cell.button.addTarget(self, action: "deleteGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+        }
+        
+        
         // Configure the cell...
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
