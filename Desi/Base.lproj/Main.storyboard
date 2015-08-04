@@ -281,6 +281,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mkh-wz-Vhz" id="L9p-c9-L00">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="1th-V6-84f" kind="unwind" identifier="leaveGroupFromSettingsSegue" trigger="accessoryAction" unwindAction="leaveGroupFromSettings:" id="K5Y-9G-wRM"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gNl-MU-eBq">
                                 <autoresizingMask key="autoresizingMask"/>

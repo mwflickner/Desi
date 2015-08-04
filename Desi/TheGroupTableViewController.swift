@@ -139,7 +139,8 @@ class TheGroupTableViewController: UITableViewController {
                 println("new Desi saved")
                 sender.enabled = true
                 self.tableView.reloadData()
-            } else {
+            }
+            else {
                 // There was a problem, check error.description
                 println("usergroup error: \(error)")
                 if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {

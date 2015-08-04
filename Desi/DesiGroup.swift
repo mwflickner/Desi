@@ -137,7 +137,8 @@ class DesiGroup: PFObject, PFSubclassing {
     
     func nextDesi(){
         
-        ++self.desiIndex
+        self.desiIndex = (++self.desiIndex)%self.numberOfUsers
+        println("index is \(self.desiIndex)")
         self.theDesi!.isDesi = false
         self.theDesi!.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in

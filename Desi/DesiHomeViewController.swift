@@ -101,6 +101,33 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    @IBAction func leaveGroupFromSettings(segue:UIStoryboardSegue){
+        if let groupSettingsViewController = segue.sourceViewController as? GroupSettingsTableViewController {
+            for var i = 0; i < self.myUserGroups.count; ++i {
+                if self.myUserGroups[i].objectId == groupSettingsViewController.userGroup.objectId {
+                    self.myUserGroups.removeAtIndex(i)
+                    println("ug removed")
+                    break
+                }
+            }
+            // delete the userGroup
+            groupSettingsViewController.userGroup.deleteInBackgroundWithBlock{
+                (success: Bool, error: NSError?) -> Void in
+                if success {
+                    // group deleted
+                    println("deleted")
+                    //sender.enabled = true
+                    self.tableView.reloadData()
+                }
+                else {
+                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                        groupSettingsViewController.userGroup.deleteEventually()
+                    }
+                }
+            }
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

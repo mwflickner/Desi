@@ -156,6 +156,10 @@ class NewDesiGroupTableViewController: UITableViewController {
         println("add pressed")
         let indexPath = NSIndexPath(forRow:1, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+        if cell.textField.text == DesiUser.currentUser()?.username{
+            self.setErrorColor(cell.textField)
+            return
+        }
         var query = DesiUser.query()
         query!.whereKey("username", equalTo: cell.textField.text)
         query!.findObjectsInBackgroundWithBlock {
@@ -188,7 +192,8 @@ class NewDesiGroupTableViewController: UITableViewController {
                     }
                 }
                 
-            } else {
+            }
+            else {
                 // Log details of the failure
                 println("Error: \(error!) \(error!.userInfo!)")
             }

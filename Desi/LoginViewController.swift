@@ -47,8 +47,8 @@ class LoginViewController: UIViewController {
     }
     
     
-    @IBAction func signIn(sender: AnyObject) {
-            
+    @IBAction func signIn(sender: UIButton) {
+        sender.enabled = false
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
             
@@ -68,6 +68,7 @@ class LoginViewController: UIViewController {
                     
                 if let message1: AnyObject = error!.userInfo!["error"] {
                     self.message = "\(message1)"
+                    sender.enabled = true
                 }
             }
         }

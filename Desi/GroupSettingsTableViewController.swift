@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class GroupSettingsTableViewController: UITableViewController {
     
@@ -16,6 +17,7 @@ class GroupSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         println("groupName is \(self.theGroup.groupName)")
+        println("\(DesiUser.currentUser()?.username)")
         self.navigationItem.title = "Group Settings"
 
         // Uncomment the following line to preserve selection between presentations
@@ -69,12 +71,69 @@ class GroupSettingsTableViewController: UITableViewController {
             cell.button.setTitle("Delete Group", forState: UIControlState.Normal)
             cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
             cell.button.addTarget(self, action: "deleteGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+            return cell
+        }
+    }
+    
+    @IBAction func viewMembers(sender: UIButton){
+        println("view")
+        //performSegueWithIdentifier("goToViewGroupMembers", sender: self)
+    }
+    
+    @IBAction func leaveGroup(sender: UIButton){
+        sender.enabled = false
+        if self.userGroup.isDesi {
+            theGroup.nextDesi()
+            self.theGroup.theDesi.saveInBackgroundWithBlock({
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    // The object has been saved.
+                    println("new Desi saved")
+                }
+                else {
+                    // There was a problem, check error.description
+                    println("usergroup error: \(error)")
+                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                        self.theGroup.theDesi.saveEventually()
+                    }
+                }
+            })
+        }
+        // remove username from group members
+        for var i = 0; i < self.theGroup.groupMembers.count; ++i {
+            println("group : \(theGroup.groupMembers[i]) current user: \(DesiUser.currentUser()?.username)")
+            if theGroup.groupMembers[i] == DesiUser.currentUser()?.username {
+                theGroup.groupMembers.removeAtIndex(i)
+                (--theGroup.numberOfUsers)%theGroup.groupMembers.count
+                break
+            }
         }
         
+        // remove usergroup from the user's list of groups
+        for var i = 0; i < DesiUser.currentUser()?.userGroups.count; ++i{
+            println("user : \(DesiUser.currentUser()?.userGroups[i]) self.userGroup: \(self.userGroup.objectId)")
+            if DesiUser.currentUser()?.userGroups[i] == self.userGroup.objectId{
+                DesiUser.currentUser()!.userGroups.removeAtIndex(i)
+                break
+            }
+        }
+        self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+        /*
+        // delete the userGroup
+        self.userGroup.deleteInBackgroundWithBlock{
+            (success: Bool, error: NSError?) -> Void in
+            if success {
+                // group deleted
+                sender.enabled = true
+                self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+            }
+            else {
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        }*/
         
-        // Configure the cell...
-
-        return cell
     }
 
 
@@ -113,14 +172,17 @@ class GroupSettingsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "leaveGroupFromSettingsSegue" {
+            //print yo whats up
+        }
     }
-    */
+
 
 }
