@@ -20,6 +20,7 @@ class GroupSettingsTableViewController: UITableViewController {
         println("\(DesiUser.currentUser()?.username)")
         self.navigationItem.title = "Group Settings"
 
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -83,28 +84,16 @@ class GroupSettingsTableViewController: UITableViewController {
     @IBAction func leaveGroup(sender: UIButton){
         sender.enabled = false
         if self.userGroup.isDesi {
-            theGroup.nextDesi()
-            self.theGroup.theDesi.saveInBackgroundWithBlock({
-                (success: Bool, error: NSError?) -> Void in
-                if (success) {
-                    // The object has been saved.
-                    println("new Desi saved")
-                }
-                else {
-                    // There was a problem, check error.description
-                    println("usergroup error: \(error)")
-                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                        self.theGroup.theDesi.saveEventually()
-                    }
-                }
-            })
+            println("got here")
+            self.theGroup.nextDesi()
         }
         // remove username from group members
         for var i = 0; i < self.theGroup.groupMembers.count; ++i {
             println("group : \(theGroup.groupMembers[i]) current user: \(DesiUser.currentUser()?.username)")
             if theGroup.groupMembers[i] == DesiUser.currentUser()?.username {
+                println("removing")
                 theGroup.groupMembers.removeAtIndex(i)
-                (--theGroup.numberOfUsers)%theGroup.groupMembers.count
+                --theGroup.numberOfUsers
                 break
             }
         }
@@ -117,7 +106,40 @@ class GroupSettingsTableViewController: UITableViewController {
                 break
             }
         }
-        self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+        self.theGroup.theDesi.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("new Desi saved, hopefully group updated")
+                self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+            }
+            else {
+                // There was a problem, check error.description
+                println("usergroup error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        })
+        
+        /*self.theGroup.saveInBackgroundWithBlock({
+            (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
+                println("group updated")
+                self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+            }
+            else {
+                // There was a problem, check error.description
+                println("group error: \(error)")
+                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                    self.theGroup.theDesi.saveEventually()
+                }
+            }
+        })
+        */
+        
+        //self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
         /*
         // delete the userGroup
         self.userGroup.deleteInBackgroundWithBlock{

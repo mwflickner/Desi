@@ -118,6 +118,24 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     println("deleted")
                     //sender.enabled = true
                     self.tableView.reloadData()
+                    groupSettingsViewController.theGroup.nextDesi()
+                    groupSettingsViewController.theGroup.theDesi.saveInBackgroundWithBlock({
+                        (success: Bool, error: NSError?) -> Void in
+                        if (success) {
+                            // The object has been saved.
+                            println("round2")
+                            self.tableView.reloadData()
+                           // self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+                        }
+                        else {
+                            // There was a problem, check error.description
+                            println("usergroup error: \(error)")
+                            if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                                groupSettingsViewController.theGroup.theDesi.saveEventually()
+                            }
+                        }
+                    })
+                    
                 }
                 else {
                     if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
