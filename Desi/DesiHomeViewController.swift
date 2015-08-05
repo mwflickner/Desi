@@ -110,6 +110,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     break
                 }
             }
+            var oldUG = groupSettingsViewController.userGroup
             // delete the userGroup
             groupSettingsViewController.userGroup.deleteInBackgroundWithBlock{
                 (success: Bool, error: NSError?) -> Void in
@@ -119,6 +120,9 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     //sender.enabled = true
                     self.tableView.reloadData()
                     groupSettingsViewController.theGroup.nextDesi()
+                    if oldUG.isGroupAdmin {
+                        groupSettingsViewController.theGroup.theDesi.isGroupAdmin = true
+                    }
                     groupSettingsViewController.theGroup.theDesi.saveInBackgroundWithBlock({
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {

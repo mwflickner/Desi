@@ -46,7 +46,6 @@
 		F1D9CD871B12F4CD0052F810 /* DesiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD861B12F4CD0052F810 /* DesiTests.swift */; };
 		F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD921B12FB340052F810 /* DesiUser.swift */; };
 		F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD941B12FD910052F810 /* DesiGroup.swift */; };
-		F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */; };
 		F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD9A1B1970090052F810 /* SampleData.swift */; };
 		F1DCDBAA1B4F351200E4C048 /* Desi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */; };
 		F1EB82241B681B800028AD55 /* DesiFriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */; };
@@ -112,7 +111,6 @@
 		F1D9CD861B12F4CD0052F810 /* DesiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesiTests.swift; sourceTree = "<group>"; };
 		F1D9CD921B12FB340052F810 /* DesiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUser.swift; sourceTree = "<group>"; };
 		F1D9CD941B12FD910052F810 /* DesiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroup.swift; sourceTree = "<group>"; };
-		F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewController.swift; sourceTree = "<group>"; };
 		F1D9CD9A1B1970090052F810 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Desi.xcdatamodel; sourceTree = "<group>"; };
 		F1EB82231B681B7F0028AD55 /* DesiFriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendListViewController.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 				F11DBC161B5DB69A00B21A2C /* EntryPointViewController.swift */,
 				F12052101B4C92BA004271BF /* LoginViewController.swift */,
 				F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */,
-				F1D9CD981B13E87C0052F810 /* DesiGroupsTableViewController.swift */,
 				F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */,
 				F19C0A891B33323600B3CD09 /* TheGroupTableViewController.swift */,
 				F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */,
@@ -367,7 +364,6 @@
 				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
 				F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */,
 				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
-				F1D9CD991B13E87C0052F810 /* DesiGroupsTableViewController.swift in Sources */,
 				F11DBC2D1B6307CB00B21A2C /* DesiFriendship.swift in Sources */,
 				F19C0A8A1B33323600B3CD09 /* TheGroupTableViewController.swift in Sources */,
 				F1EB82261B6831D70028AD55 /* FindFriendsTableViewController.swift in Sources */,

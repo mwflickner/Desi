@@ -106,7 +106,8 @@ class GroupSettingsTableViewController: UITableViewController {
                 break
             }
         }
-        self.theGroup.theDesi.saveInBackgroundWithBlock({
+        self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+        /*self.theGroup.theDesi.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
@@ -121,6 +122,7 @@ class GroupSettingsTableViewController: UITableViewController {
                 }
             }
         })
+        */
         
         /*self.theGroup.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in

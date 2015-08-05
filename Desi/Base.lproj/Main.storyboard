@@ -16,14 +16,15 @@
                         <sections>
                             <tableViewSection headerTitle="LogoutSection" id="rtz-7f-J91">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="qn2-VI-geb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qn2-VI-geb">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qn2-VI-geb" id="psQ-uP-cak">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLn-dp-Wm8">
-                                                    <rect key="frame" x="8" y="7" width="397" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLn-dp-Wm8">
+                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <state key="normal" title="Logout">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -31,6 +32,12 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vLn-dp-Wm8" firstAttribute="trailing" secondItem="psQ-uP-cak" secondAttribute="trailingMargin" id="Ghz-NM-yUO"/>
+                                                <constraint firstAttribute="centerX" secondItem="vLn-dp-Wm8" secondAttribute="centerX" id="V2Z-qZ-u6l"/>
+                                                <constraint firstItem="vLn-dp-Wm8" firstAttribute="leading" secondItem="psQ-uP-cak" secondAttribute="leadingMargin" id="V3x-6i-CSa"/>
+                                                <constraint firstAttribute="centerY" secondItem="vLn-dp-Wm8" secondAttribute="centerY" id="wTD-d8-HpO"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -299,6 +306,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cs-sJ-Hjr">
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <state key="normal" title="Button">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
