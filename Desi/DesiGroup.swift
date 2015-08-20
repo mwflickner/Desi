@@ -25,6 +25,7 @@ class DesiGroup: PFObject, PFSubclassing {
     @NSManaged var theDesi: DesiUserGroup!
     @NSManaged var desiIndex: Int
     @NSManaged var groupImg: PFFile
+    @NSManaged var groupTasks: [DesiTask]
     
     
     func addMember(newMember: DesiUserGroup){

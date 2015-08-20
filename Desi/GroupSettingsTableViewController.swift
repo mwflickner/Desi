@@ -107,57 +107,14 @@ class GroupSettingsTableViewController: UITableViewController {
             }
         }
         self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-        /*self.theGroup.theDesi.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("new Desi saved, hopefully group updated")
-                self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-            }
-            else {
-                // There was a problem, check error.description
-                println("usergroup error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
-                }
-            }
-        })
-        */
         
-        /*self.theGroup.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("group updated")
-                self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-            }
-            else {
-                // There was a problem, check error.description
-                println("group error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
-                }
-            }
-        })
-        */
-        
-        //self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-        /*
-        // delete the userGroup
-        self.userGroup.deleteInBackgroundWithBlock{
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                // group deleted
-                sender.enabled = true
-                self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-            }
-            else {
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
-                }
-            }
-        }*/
-        
+    }
+    
+    @IBAction func deleteGroup(sender: UIButton){
+        sender.enabled = false
+        for ug in self.theGroup.groupMembers {
+            
+        }
     }
 
 
