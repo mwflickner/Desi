@@ -288,24 +288,24 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)
             self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
             
-            var intialTask = DesiTask()
-            intialTask.taskName = "Designated Driving"
-            intialTask.members = self.newGroup.groupMembers
-            intialTask.desiIndex = 0
-            intialTask.groupId = self.newGroup.objectId!
+            self.newTask.taskName = "Designated Driving"
+            self.newTask.members = self.newGroup.groupMembers
+            self.newTask.desiIndex = 0
+            self.newTask.groupId = self.newGroup.objectId!
+            self.newTask.theDesi = DesiUser.currentUser()!.username!
             
             
-            var newUserGroupTask = DesiUserGroupTask()
-            newUserGroupTask.userGroup = self.myNewUserGroup
-            newUserGroupTask.task = intialTask
-            newUserGroupTask.isDesi = true
-            newUserGroupTask.groupId = self.newGroup.objectId!
-            newUserGroupTask.taskId = self.newTask.objectId!
+            
+            self.newUserGroupTask.userGroup = self.myNewUserGroup
+            self.newUserGroupTask.task = self.newTask
+            self.newUserGroupTask.isDesi = true
+            self.newUserGroupTask.groupId = self.newGroup.objectId!
+            self.newUserGroupTask.taskId = self.newTask.objectId!
             
             //intialTask.theDesi = newUserGroupTask
             
-            newUserGroupTask.pinInBackgroundWithName("MyUserGroupsTasks")
-            newUserGroupTask.saveInBackgroundWithBlock({
+            self.newUserGroupTask.pinInBackgroundWithName("MyUserGroupsTasks")
+            self.newUserGroupTask.saveInBackgroundWithBlock({
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
                     // The object has been saved.
@@ -315,7 +315,7 @@ class NewDesiGroupTableViewController: UITableViewController {
                     println("UserGroupTask Error: \(error)")
                     
                     if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                        newUserGroupTask.saveEventually()
+                        self.newUserGroupTask.saveEventually()
                     }
                 }
             })
@@ -349,10 +349,11 @@ class NewDesiGroupTableViewController: UITableViewController {
                 newUG.group = self.newGroup
                 
                 var newUGT = DesiUserGroupTask()
-                newUGT.task = intialTask
+                newUGT.task = self.newTask
                 newUGT.userGroup = newUG
                 newUGT.isDesi = false
                 newUGT.groupId = self.newGroup.objectId!
+                newUGT.taskId = self.newTask.objectId!
                 
                 newUGT.saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
@@ -372,8 +373,11 @@ class NewDesiGroupTableViewController: UITableViewController {
 
         }
         else {
-            self.myNewUserGroup.deleteEventually()
+            //eventually use Parse cloud here later to cascade delete
+            self.newUserGroupTask.deleteEventually()
             self.newGroup.deleteEventually()
+            self.newTask.deleteEventually()
+            self.myNewUserGroup.deleteEventually()
         }
     }
 

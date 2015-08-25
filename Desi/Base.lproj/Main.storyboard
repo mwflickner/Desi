@@ -259,7 +259,7 @@
                     <navigationItem key="navigationItem" id="Db8-ue-2DD">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="xKx-ve-KAP">
                             <connections>
-                                <segue destination="Rzl-In-E1P" kind="unwind" unwindAction="backtoDesiGroupsViewController:" id="10d-cx-hpl"/>
+                                <segue destination="Rzl-In-E1P" kind="unwind" unwindAction="backToGroupsViewController:" id="M2h-S7-iPx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="glyphicons-281-settings" id="eWG-la-u7Q">
@@ -346,34 +346,40 @@
         <scene sceneID="NIU-1X-4Uq">
             <objects>
                 <tableViewController id="bKd-KZ-MoS" customClass="GroupTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mt5-mK-TiI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mt5-mK-TiI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="Gtx-hV-XpS" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="80" id="Gtx-hV-XpS" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gtx-hV-XpS" id="1Yo-32-kxh">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2T-I8-v6f">
-                                            <rect key="frame" x="211" y="8" width="179" height="34"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2T-I8-v6f">
+                                            <rect key="frame" x="217" y="8" width="166" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Info Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym8-7N-fPu">
-                                            <rect key="frame" x="242" y="50" width="116" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Info Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym8-7N-fPu">
+                                            <rect key="frame" x="242" y="43" width="116" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerX" secondItem="t2T-I8-v6f" secondAttribute="centerX" id="0nb-MW-vRO"/>
+                                        <constraint firstItem="Ym8-7N-fPu" firstAttribute="top" secondItem="t2T-I8-v6f" secondAttribute="bottom" constant="8" id="Ati-mv-NZX"/>
+                                        <constraint firstItem="t2T-I8-v6f" firstAttribute="top" secondItem="1Yo-32-kxh" secondAttribute="topMargin" id="EB1-x0-fhu"/>
+                                        <constraint firstAttribute="centerX" secondItem="Ym8-7N-fPu" secondAttribute="centerX" id="IZu-n6-4Lx"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="groupNameLabel" destination="t2T-I8-v6f" id="zlv-i3-Xxx"/>
                                     <outlet property="groupSumLabel" destination="Ym8-7N-fPu" id="CQt-k8-q9Q"/>
-                                    <segue destination="aqq-O5-5CE" kind="showDetail" id="Ia3-vt-xAk"/>
+                                    <segue destination="aqq-O5-5CE" kind="showDetail" identifier="loadTask" id="Ia3-vt-xAk"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

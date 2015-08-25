@@ -24,17 +24,11 @@ class DesiUserGroupTask: PFObject, PFSubclassing {
     @NSManaged var groupId: String
     @NSManaged var taskId: String
     
-    func setDesiIndex() {
-        for var i = 0; i < self.task.members.count; ++i {
-            if (self.isDesi && self.task.members[i] == self.userGroup.username) {
-                self.task.desiIndex = i
-            }
-        }
-    }
     
     
     
     
+    /*
     
     func dutyCompleted(){
         
@@ -86,5 +80,5 @@ class DesiUserGroupTask: PFObject, PFSubclassing {
             }
         }
 
-   
+   */
 }

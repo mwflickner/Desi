@@ -240,7 +240,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             var aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
-            var taskQuery = DesiUserGroupTask.query()
+            var taskQuery = DesiTask.query()
             taskQuery!.whereKey("groupId", equalTo: aGroupView.userGroup.group.objectId!)
             taskQuery!.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in

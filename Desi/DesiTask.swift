@@ -30,12 +30,20 @@ class DesiTask: PFObject, PFSubclassing {
         self.members[index2] = temp
     }
     
+    func setDesiIndex() {
+        for var i = 0; i < self.members.count; ++i {
+            if (self.members[i] == self.theDesi) {
+                self.desiIndex = i
+            }
+        }
+    }
+    
     func userAt(index: Int) -> String{
         return self.members[index]
         //more to this
     }
     
-    func indexofUser(username: String) -> Int{
+    func indexOfUser(username: String) -> Int{
         for var i = 0; i < members.count; ++i{
             if(username == self.members[i]){
                 return i
@@ -57,10 +65,6 @@ class DesiTask: PFObject, PFSubclassing {
     }
     
                 
-    
-        //}
-        
-    }
 
     
 }

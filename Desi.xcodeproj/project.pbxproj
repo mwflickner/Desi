@@ -49,7 +49,6 @@
 		F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD921B12FB340052F810 /* DesiUser.swift */; };
 		F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD941B12FD910052F810 /* DesiGroup.swift */; };
 		F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD9A1B1970090052F810 /* SampleData.swift */; };
-		F1DCDBAA1B4F351200E4C048 /* Desi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */; };
 		F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */; };
 		F1EB822C1B6BE29A0028AD55 /* DesiHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */; };
 		F1EB822E1B6C0E440028AD55 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822D1B6C0E440028AD55 /* TextFieldTableViewCell.swift */; };
@@ -113,7 +112,6 @@
 		F1D9CD921B12FB340052F810 /* DesiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUser.swift; sourceTree = "<group>"; };
 		F1D9CD941B12FD910052F810 /* DesiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroup.swift; sourceTree = "<group>"; };
 		F1D9CD9A1B1970090052F810 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
-		F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Desi.xcdatamodel; sourceTree = "<group>"; };
 		F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersToAddTableViewCell.swift; sourceTree = "<group>"; };
 		F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiHomeViewController.swift; sourceTree = "<group>"; };
 		F1EB822D1B6C0E440028AD55 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -226,7 +224,6 @@
 				F1D9CD9A1B1970090052F810 /* SampleData.swift */,
 				F1D9CD771B12F4CD0052F810 /* Images.xcassets */,
 				F1D9CD791B12F4CD0052F810 /* LaunchScreen.xib */,
-				F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */,
 				F1D9CD6E1B12F4CD0052F810 /* Supporting Files */,
 			);
 			path = Desi;
@@ -369,7 +366,6 @@
 				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
 				F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
-				F1DCDBAA1B4F351200E4C048 /* Desi.xcdatamodeld in Sources */,
 				F11DBC211B61AB6300B21A2C /* UserSettingsTableViewController.swift in Sources */,
 				F1F73EF51B6E9247003F88C2 /* DesiNaviagtionController.swift in Sources */,
 				F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */,
@@ -603,19 +599,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F1DCDBA81B4F351200E4C048 /* Desi.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */,
-			);
-			currentVersion = F1DCDBA91B4F351200E4C048 /* Desi.xcdatamodel */;
-			path = Desi.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = F1D9CD631B12F4CD0052F810 /* Project object */;
 }

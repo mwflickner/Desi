@@ -13,11 +13,11 @@ class TaskTableViewController: UITableViewController {
     var theTask: DesiTask!
     var ugTasks: [DesiUserGroupTask]!
     var myUgTask: DesiUserGroupTask!
+    var desiUgTask: DesiUserGroupTask!
     var userGroup: DesiUserGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("ugName is \(self.userGroup.username)")
         self.navigationItem.title = self.theTask.taskName
         
         // Uncomment the following line to preserve selection between presentations
@@ -37,7 +37,7 @@ class TaskTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        if DesiUser.currentUser()!.username == self.theTask.theDesi {
+        if DesiUser.currentUser()!.username == self.theTask.theDesi{
             return 1
         }
         return 2
@@ -46,7 +46,13 @@ class TaskTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return self.theTask.members.count
+        if section == 0 {
+            if self.theTask.theDesi == DesiUser.currentUser()?.username{
+                return self.theTask.members.count + 1
+            }
+            return self.theTask.members.count
+        }
+        return 1
         
     }
     
@@ -123,30 +129,6 @@ class TaskTableViewController: UITableViewController {
     @IBAction func wentOutTapped(sender: UIButton) {
         sender.enabled = false
         
-        
-        self.ugTask.task.nextDesi()
-        self.ugTask.task.theDesi.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("new Desi saved")
-                sender.enabled = true
-                self.tableView.reloadData()
-            }
-            else {
-                // There was a problem, check error.description
-                println("usergroup error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.ugTask.task.theDesi.saveEventually()
-                }
-            }
-        })
-    }
-    
-    @IBAction func volunteerTapped(sender: UIButton) {
-        println("volunteer tapped")
-        sender.enabled = false
-        
         for ugt in self.ugTasks {
             if ugt.isDesi{
                 ugt.isDesi = false
@@ -163,14 +145,15 @@ class TaskTableViewController: UITableViewController {
         }
         
         for var i = 0; i < self.ugTasks.count; ++i {
-            if self.ugTasks[i].userGroup.username == DesiUser.currentUser()?.username {
-                self.ugTasks[i].isDesi = true
-                self.ugTasks[i].task.theDesi = self.ugTasks[i].userGroup.username
-                self.theTask.userSwap(self.theTask.desiIndex, index2: i)
-                self.ugTasks[i].saveInBackgroundWithBlock({
+            if self.theTask.members[(self.theTask.desiIndex + 1)%theTask.members.count] == ugTasks[i].userGroup.username {
+                ugTasks[i].isDesi = true
+                self.theTask.theDesi = self.ugTasks[i].userGroup.username
+                self.theTask.desiIndex = (theTask.desiIndex + 1)%(theTask.members.count)
+                ugTasks[i].saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
                     if success {
                         println("newDesi updated")
+                        sender.enabled = true
                         self.tableView.reloadData()
                     }
                     else {
@@ -178,6 +161,55 @@ class TaskTableViewController: UITableViewController {
                     }
                 })
                 break
+            }
+        }
+        
+    }
+    
+    @IBAction func volunteerTapped(sender: UIButton) {
+        println("volunteer tapped")
+        sender.enabled = false
+        for var i = 0; i < self.ugTasks.count; ++i {
+            println("ugt \(self.ugTasks[i].objectId)")
+        }
+        
+        for ugt in self.ugTasks {
+            println("for loop?")
+            if ugt.isDesi{
+                println("if?")
+                ugt.isDesi = false
+                ugt.saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if success {
+                        println("oldDesi updated")
+                    }
+                    else {
+                        println("oldDesi error")
+                    }
+                })
+            }
+        }
+        self.theTask.theDesi = DesiUser.currentUser()!.username!
+        self.theTask.setDesiIndex()
+        
+        println("hello?")
+        for var i = 0; i < self.ugTasks.count; ++i {
+            if self.ugTasks[i].userGroup.username == self.theTask.theDesi {
+                self.ugTasks[i].isDesi = true
+                //self.theTask.userSwap(self.theTask.desiIndex, index2: i)
+                println("users swapped")
+                self.ugTasks[i].saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if success {
+                        println("newDesi updated")
+                        sender.enabled = true
+                        self.tableView.reloadData()
+                    }
+                    else {
+                        println("newDesi error")
+                    }
+                })
+                
             }
         }
     

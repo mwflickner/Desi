@@ -51,13 +51,15 @@ class GroupTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
         taskCell.groupNameLabel.text = self.tasks[indexPath.row].taskName
-        //taskCell.groupSumLabel.text = self.tasks[indexPath.row].theDesi.userGroup.username + "is the Desi"
-        
+        taskCell.groupSumLabel.text = self.tasks[indexPath.row].theDesi + " is the Desi"
         // Configure the cell...
 
         return taskCell
     }
 
+    @IBAction func backToGroupsViewController(segue:UIStoryboardSegue) {
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -106,20 +108,21 @@ class GroupTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             var aTaskView = nav.topViewController as! TaskTableViewController
             aTaskView.userGroup = self.userGroup
-            aTaskView.task = self.tasks[path.row]
+            aTaskView.theTask = self.tasks[path.row]
             var ugTaskQuery = DesiUserGroupTask.query()
-            ugTaskQuery!.whereKey("taskId", equalTo: aTaskView.task.objectId!)
+            ugTaskQuery!.includeKey("userGroup.group")
+            ugTaskQuery!.whereKey("taskId", equalTo: aTaskView.theTask.objectId!)
             ugTaskQuery!.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
                 
                 if error == nil {
                     dispatch_async(dispatch_get_main_queue()) {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores.")
+                        println("Successfully retrieved \(objects!.count) ugTasks.")
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let ugTasks = objects as? [DesiUserGroupTask]
-                            aTaskView.tasks = tasks
+                            aTaskView.ugTasks = ugTasks
                             
                             //store found userGroups in Localstore
                             
