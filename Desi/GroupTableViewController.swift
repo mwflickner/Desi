@@ -1,20 +1,23 @@
 //
-//  GuestProfileTableViewController.swift
+//  GroupTableViewController.swift
 //  Desi
 //
-//  Created by Matthew Flickner on 7/23/15.
+//  Created by Matthew Flickner on 8/20/15.
 //  Copyright (c) 2015 Desi. All rights reserved.
 //
 
 import UIKit
+import Parse
 
-class GuestProfileTableViewController: UITableViewController {
+class GroupTableViewController: UITableViewController {
+
+    //var theGroup: DesiGroup!
+    var userGroup: DesiUserGroup!
+    var tasks: [DesiTask]!
     
-    var theProfile: DesiUser!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.title = self.userGroup.group.groupName
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,35 +41,23 @@ class GuestProfileTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 2
+        if tasks != nil {
+            return tasks.count
+        }
+        return 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let guestCell = tableView.dequeueReusableCellWithIdentifier("ProfileGuestViewCell", forIndexPath: indexPath) as! ProfileGuestViewTableViewCell
+        let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
+        taskCell.groupNameLabel.text = self.tasks[indexPath.row].taskName
+        //taskCell.groupSumLabel.text = self.tasks[indexPath.row].theDesi.userGroup.username + "is the Desi"
+        
+        // Configure the cell...
 
-        /*
-        if (indexPath.row == 0){
-            var mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
-            mainCell.usernameLabel.text = theProfile.username
-            mainCell.desiPointsLabel.text = "Desi Points: " + String(theProfile.desiPoints)
-            self.tableView.rowHeight = 300
-            return mainCell
-        }
-        
-                // Configure the cell...
-        
-        //gotta change this soon
-        for friendId in DesiUser.currentUser()!.friendList.friendships{
-            if friendId == theProfile.objectId {
-                guestCell.friendButton.setTitle("Unfriend", forState: UIControlState.Normal)
-                return guestCell
-            }
-        }
-        guestCell.friendButton.setTitle("Add Friend", forState: UIControlState.Normal)*/
-        return guestCell
+        return taskCell
     }
-    
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -103,14 +94,49 @@ class GuestProfileTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "loadTask" {
+            let path = self.tableView.indexPathForSelectedRow()!
+            let nav = segue.destinationViewController as! UINavigationController
+            var aTaskView = nav.topViewController as! TaskTableViewController
+            aTaskView.userGroup = self.userGroup
+            aTaskView.task = self.tasks[path.row]
+            var ugTaskQuery = DesiUserGroupTask.query()
+            ugTaskQuery!.whereKey("taskId", equalTo: aTaskView.task.objectId!)
+            ugTaskQuery!.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) scores.")
+                        // Do something with the found objects
+                        if let objects = objects as? [PFObject] {
+                            let ugTasks = objects as? [DesiUserGroupTask]
+                            aTaskView.tasks = tasks
+                            
+                            //store found userGroups in Localstore
+                            
+                            aTaskView.tableView.reloadData()
+                            
+                        }
+                    }
+                    
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                }
+            }
+
+        }
+        
     }
-    */
+
 
 }

@@ -81,6 +81,7 @@ class GroupSettingsTableViewController: UITableViewController {
         //performSegueWithIdentifier("goToViewGroupMembers", sender: self)
     }
     
+    /*
     @IBAction func leaveGroup(sender: UIButton){
         sender.enabled = false
         if self.userGroup.isDesi {
@@ -109,6 +110,7 @@ class GroupSettingsTableViewController: UITableViewController {
         self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
         
     }
+    */
     
     @IBAction func deleteGroup(sender: UIButton){
         sender.enabled = false

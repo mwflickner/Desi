@@ -74,7 +74,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         // Configure the cell...
         let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
-        cell.groupSumLabel.text = userGroup.group.theDesi.username + " is the Desi"
+        //cell.groupSumLabel.text =
         //cell.groupImgView.image = group.groupImg
         self.tableView.rowHeight = 60
         return cell
@@ -94,7 +94,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
-        if let theGroupTableViewController = segue.sourceViewController as? TheGroupTableViewController {
+        if let theGroupTableViewController = segue.sourceViewController as? GroupTableViewController {
             var groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroup)
             self.myUserGroups[groupIndex] = theGroupTableViewController.userGroup
             self.tableView.reloadData()
@@ -102,6 +102,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func leaveGroupFromSettings(segue:UIStoryboardSegue){
+        /*
         if let groupSettingsViewController = segue.sourceViewController as? GroupSettingsTableViewController {
             for var i = 0; i < self.myUserGroups.count; ++i {
                 if self.myUserGroups[i].objectId == groupSettingsViewController.userGroup.objectId {
@@ -148,6 +149,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
+        */
     }
     
     /*
@@ -235,10 +237,36 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if segue.identifier == "loadGroup" {
             let path = self.tableView.indexPathForSelectedRow()!
             let nav = segue.destinationViewController as! UINavigationController
-            var aGroupView = nav.topViewController as! TheGroupTableViewController
-            aGroupView.theGroup = groupAtIndexPath(path)
+            var aGroupView = nav.topViewController as! GroupTableViewController
+            //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
-            
+            var taskQuery = DesiUserGroupTask.query()
+            taskQuery!.whereKey("groupId", equalTo: aGroupView.userGroup.group.objectId!)
+            taskQuery!.findObjectsInBackgroundWithBlock {
+                (objects: [AnyObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // The find succeeded.
+                        println("Successfully retrieved \(objects!.count) scores.")
+                        // Do something with the found objects
+                        if let objects = objects as? [PFObject] {
+                            let tasks = objects as? [DesiTask]
+                            aGroupView.tasks = tasks
+                            
+                            //store found userGroups in Localstore
+                            
+                            aGroupView.tableView.reloadData()
+                            
+                        }
+                    }
+                    
+                } else {
+                    // Log details of the failure
+                    println("Error: \(error!) \(error!.userInfo!)")
+                }
+            }
+
             //user has never been in group before
             if aGroupView.userGroup.user != DesiUser.currentUser() {
                 aGroupView.userGroup.user = DesiUser.currentUser()!

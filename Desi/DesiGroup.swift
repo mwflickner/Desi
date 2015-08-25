@@ -22,10 +22,9 @@ class DesiGroup: PFObject, PFSubclassing {
     @NSManaged var groupName: String
     @NSManaged var groupMembers: [String]
     @NSManaged var numberOfUsers: Int
-    @NSManaged var theDesi: DesiUserGroup!
-    @NSManaged var desiIndex: Int
+    @NSManaged var taskNames: [String]
+    @NSManaged var taskIds: [String]
     @NSManaged var groupImg: PFFile
-    @NSManaged var groupTasks: [DesiTask]
     
     
     func addMember(newMember: DesiUserGroup){
@@ -42,20 +41,7 @@ class DesiGroup: PFObject, PFSubclassing {
     }
     */
     
-    func userAt(index: Int) -> String{
-        return self.groupMembers[index]
-        //more to this
-    }
     
-    func indexofUser(username: String) -> Int{
-        for var i = 0; i < numberOfUsers; ++i{
-            if(username == self.groupMembers[i]){
-                return i
-            }
-        }
-        return -1
-        //need to throw an error if user not found
-    }
     
     func groupImage(imgNum: Int) -> UIImage? {
         switch imgNum {
@@ -68,20 +54,7 @@ class DesiGroup: PFObject, PFSubclassing {
     func changeGroupName(newName: String){
         self.groupName = newName
     }
-    
-    func setDesiIndex() {
-        for var i = 0; i < self.groupMembers.count ; ++i {
-            if self.groupMembers[i] == self.theDesi.username {
-                self.desiIndex = i
-            }
-        }
-    }
-    
-    func userSwap(index1: Int, index2: Int){
-        var temp = self.groupMembers[index1]
-        self.groupMembers[index1] = self.groupMembers[index2]
-        self.groupMembers[index2] = temp
-    }
+
     
     /*func randomDesi(){
         for username in self.groupMembers {
@@ -92,134 +65,6 @@ class DesiGroup: PFObject, PFSubclassing {
         }
     }*/
 
-    
-    func getUserFromDesi(distFromDesi: Int) -> String {
-        //distFrom == 0 should return the Desi, 1 should return the next, 2 should return etc
-        var index = desiIndex
-        if (index < groupMembers.count - distFromDesi){
-            return self.userAt(index + distFromDesi)
-        }
-        else {
-            return self.userAt(index - (groupMembers.count - distFromDesi))
-        }
-    }
-    
-    func volunteer(userGroup: DesiUserGroup) {
-        self.theDesi.isDesi = false
-        self.theDesi.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("old Desi saved")
-                println("about to start loop")
-                userGroup.isDesi == true
-                self.theDesi = userGroup
-                
-                //edits members array
-                for var i = 0; i < self.groupMembers.count; ++i {
-                    if self.groupMembers[i] == userGroup.username {
-                        self.userSwap(self.desiIndex, index2: i)
-                        self.theDesi = userGroup
-                        break
-                    }
-                }
-                println("basically done")
-                
-            } else {
-                // There was a problem, check error.description
-                println("UserGroup Error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theDesi.saveEventually()
-                }
-            }
-        })
-    }
-    
-    
-    func nextDesi(){
-        
-        self.desiIndex = (++self.desiIndex)%self.numberOfUsers
-        println("index is \(self.desiIndex)")
-        self.theDesi!.isDesi = false
-        self.theDesi!.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("old Desi saved")
-            } else {
-                // There was a problem, check error.description
-                println("UserGroup Error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theDesi.saveEventually()
-                }
-            }
-        })
-        if (desiIndex < groupMembers.count){
-            var desiQuery = DesiUserGroup.query()
-            desiQuery!.includeKey("group.objectId")
-            desiQuery!.whereKey("username", equalTo: self.groupMembers[desiIndex])
-            desiQuery!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores. Swag.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let userGroups = objects as! [DesiUserGroup]
-                            for ug in userGroups {
-                                println("\(ug.group.objectId)")
-                                if ug.group.objectId == self.objectId {
-                                    self.theDesi = ug
-                                    ug.isDesi = true
-                                }
-                            }
-                            
-                        }
-                    }
-                    
-                } else {
-                    // Log details of the failure
-                    println("Error: \(error!)")
-                }
-            }
-
-            
-        }
-        else {
-            var desiQuery = DesiUserGroup.query()
-            desiQuery!.includeKey("group.objectId")
-            desiQuery!.whereKey("username", equalTo: self.groupMembers[0])
-            println("beginning else query")
-            desiQuery!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores. Swag.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let userGroups = objects as! [DesiUserGroup]
-                            for ug in userGroups {
-                                if ug.group.objectId == self.objectId {
-                                    self.theDesi = ug
-                                    ug.isDesi = true
-                                }
-                            }
-                        }
-                    }
-                    
-                } else {
-                    // Log details of the failure
-                    println("Error: \(error!)")
-                }
-            }
-            self.desiIndex = 0
-        }
-        
-    }
     
 }
 

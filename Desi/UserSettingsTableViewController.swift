@@ -45,7 +45,6 @@ class UserSettingsTableViewController: UITableViewController {
         //DesiUserGroup.unpinAllObjectsInBackgroundWithName("MyUserGroups")
         //DesiFriendship.unpinAllObjectsInBackgroundWithName("MyFriends")
         DesiUserGroup.unpinAllObjectsInBackground()
-        DesiFriendship.unpinAllObjectsInBackground()
         DesiUser.logOut()
         var currentUser = DesiUser.currentUser() // this will now be nil
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -9,15 +9,16 @@
 import UIKit
 import Parse
 
-class TheGroupTableViewController: UITableViewController {
-    
-    var theGroup: DesiGroup!
+class TaskTableViewController: UITableViewController {
+    var theTask: DesiTask!
+    var ugTasks: [DesiUserGroupTask]!
+    var myUgTask: DesiUserGroupTask!
     var userGroup: DesiUserGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         println("ugName is \(self.userGroup.username)")
-        self.navigationItem.title = self.theGroup.groupName
+        self.navigationItem.title = self.theTask.taskName
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,7 +37,7 @@ class TheGroupTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        if DesiUser.currentUser()!.username == theGroup.theDesi.username{
+        if DesiUser.currentUser()!.username == self.theTask.theDesi {
             return 1
         }
         return 2
@@ -45,17 +46,7 @@ class TheGroupTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if section == 0 {
-            if DesiUser.currentUser()!.username == theGroup.theDesi.username {
-                return theGroup.numberOfUsers + 1
-            }
-            else {
-                return theGroup.numberOfUsers
-            }
-        }
-        else {
-            return 1
-        }
+        return self.theTask.members.count
         
     }
     
@@ -76,29 +67,29 @@ class TheGroupTableViewController: UITableViewController {
         if indexPath.section == 0 {
             if (indexPath.row == 0){
                 var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-                if (DesiUser.currentUser()!.username == theGroup.theDesi.username) {
+                if (DesiUser.currentUser()!.username == self.theTask.theDesi) {
                     println("swag")
                     desiCell.theDesiNameLabel.text = "YOU are the Desi"
                     desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 }
                 else {
-                    desiCell.theDesiNameLabel.text = theGroup.theDesi.username
+                    desiCell.theDesiNameLabel.text = self.theTask.theDesi
                 }
                 //desiCell.theDesiImg.image = theGroup.theDesi.userImg
                 println("returning DesiCell")
                 return desiCell
             }
             if (indexPath.row == 1){
-                if theGroup.numberOfUsers > 1 {
+                if self.theTask.members.count > 1 {
                     var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-                    var nextDesi: String = theGroup.getUserFromDesi(1)
+                    var nextDesi: String = self.theTask.getUserFromDesi(1)
                     onDeckCell.onDeckLabel.text = nextDesi
                     //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
                     println("returning onDeckCell")
                     return onDeckCell
                 }
             }
-            if (indexPath.row >= theGroup.numberOfUsers && DesiUser.currentUser()?.username == theGroup.theDesi.username){
+            if (indexPath.row >= self.theTask.members.count && DesiUser.currentUser()?.username == self.theTask.theDesi){
                 
                 var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
                 groupActionCell.actionButton.setTitle("Went Out", forState: UIControlState.Normal)
@@ -111,7 +102,7 @@ class TheGroupTableViewController: UITableViewController {
             }
             
             var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-            var userGroup: String = theGroup.getUserFromDesi(indexPath.row)
+            var userGroup: String = self.theTask.getUserFromDesi(indexPath.row)
             restCell.restOfGroupLabel.text = userGroup
             //restCell.restOfGroupImg.image = userGroup.user.userImg
             println("returning other cell")
@@ -131,8 +122,10 @@ class TheGroupTableViewController: UITableViewController {
     
     @IBAction func wentOutTapped(sender: UIButton) {
         sender.enabled = false
-        self.theGroup.nextDesi()
-        self.theGroup.theDesi.saveInBackgroundWithBlock({
+        
+        
+        self.ugTask.task.nextDesi()
+        self.ugTask.task.theDesi.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
@@ -144,7 +137,7 @@ class TheGroupTableViewController: UITableViewController {
                 // There was a problem, check error.description
                 println("usergroup error: \(error)")
                 if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
+                    self.ugTask.task.theDesi.saveEventually()
                 }
             }
         })
@@ -153,51 +146,40 @@ class TheGroupTableViewController: UITableViewController {
     @IBAction func volunteerTapped(sender: UIButton) {
         println("volunteer tapped")
         sender.enabled = false
-        self.theGroup.theDesi.isDesi = false
-        self.theGroup.theDesi.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                println("old Desi saved")
-                println("about to start loop")
-                self.userGroup.isDesi == true
-                self.theGroup.theDesi = self.userGroup
-                
-                //edits members array
-                for var i = 0; i < self.theGroup.groupMembers.count; ++i {
-                    if self.theGroup.groupMembers[i] == self.userGroup.username {
-                        self.theGroup.userSwap(self.theGroup.desiIndex, index2: i)
-                        break
-                    }
-                }
-                println("basically done")
-                
-                println("here")
-                self.userGroup.saveInBackgroundWithBlock({
+        
+        for ugt in self.ugTasks {
+            if ugt.isDesi{
+                ugt.isDesi = false
+                ugt.saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
-                    if (success) {
-                        // The object has been saved.
-                        println("new Desi saved")
-                        sender.enabled = true
+                    if success {
+                        println("oldDesi updated")
+                    }
+                    else {
+                        println("oldDesi error")
+                    }
+                })
+            }
+        }
+        
+        for var i = 0; i < self.ugTasks.count; ++i {
+            if self.ugTasks[i].userGroup.username == DesiUser.currentUser()?.username {
+                self.ugTasks[i].isDesi = true
+                self.ugTasks[i].task.theDesi = self.ugTasks[i].userGroup.username
+                self.theTask.userSwap(self.theTask.desiIndex, index2: i)
+                self.ugTasks[i].saveInBackgroundWithBlock({
+                    (success: Bool, error: NSError?) -> Void in
+                    if success {
+                        println("newDesi updated")
                         self.tableView.reloadData()
                     }
                     else {
-                        // There was a problem, check error.description
-                        println("usergroup error: \(error)")
-                        if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                            self.theGroup.theDesi.saveEventually()
-                        }
+                        println("newDesi error")
                     }
                 })
-                
-            } else {
-                // There was a problem, check error.description
-                println("UserGroup Error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                    self.theGroup.theDesi.saveEventually()
-                }
+                break
             }
-        })
+        }
     
     }
     
@@ -253,12 +235,14 @@ class TheGroupTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        /*
         if (segue.identifier == "GoToSettings"){
             let nav = segue.destinationViewController as! UINavigationController
             var settingsView = nav.topViewController as! GroupSettingsTableViewController
             settingsView.theGroup = self.theGroup
             settingsView.userGroup = self.userGroup
         }
+        */
     }
 
 

@@ -24,6 +24,8 @@ class NewDesiGroupTableViewController: UITableViewController {
     
     var newGroup: DesiGroup = DesiGroup()
     var myNewUserGroup: DesiUserGroup = DesiUserGroup()
+    var newUserGroupTask: DesiUserGroupTask = DesiUserGroupTask()
+    var newTask: DesiTask = DesiTask()
     var userGroups: [DesiUserGroup]!
     var usersToAdd = [String]()
     
@@ -41,8 +43,13 @@ class NewDesiGroupTableViewController: UITableViewController {
         //newGroupUsernames = [String]()
         self.myNewUserGroup.group = self.newGroup
         self.myNewUserGroup.user = DesiUser.currentUser()!
+        
+        self.newUserGroupTask.userGroup = self.myNewUserGroup
+        self.newUserGroupTask.task = self.newTask
+        
+        
 
-        self.myNewUserGroup.saveInBackgroundWithBlock({
+        self.newUserGroupTask.saveInBackgroundWithBlock({
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
@@ -269,7 +276,6 @@ class NewDesiGroupTableViewController: UITableViewController {
         if segue.identifier == "createGroup" {
             
             self.myNewUserGroup.username = DesiUser.currentUser()!.username
-            self.myNewUserGroup.isDesi = true
             self.myNewUserGroup.isGroupAdmin = true
             self.myNewUserGroup.groupPoints = 0
             
@@ -281,17 +287,47 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.newGroup.groupMembers = self.usersToAdd
             self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)
             self.newGroup.numberOfUsers = self.newGroup.groupMembers.count
-        
-            self.newGroup.theDesi = self.myNewUserGroup
-            self.newGroup.setDesiIndex()
+            
+            var intialTask = DesiTask()
+            intialTask.taskName = "Designated Driving"
+            intialTask.members = self.newGroup.groupMembers
+            intialTask.desiIndex = 0
+            intialTask.groupId = self.newGroup.objectId!
+            
+            
+            var newUserGroupTask = DesiUserGroupTask()
+            newUserGroupTask.userGroup = self.myNewUserGroup
+            newUserGroupTask.task = intialTask
+            newUserGroupTask.isDesi = true
+            newUserGroupTask.groupId = self.newGroup.objectId!
+            newUserGroupTask.taskId = self.newTask.objectId!
+            
+            //intialTask.theDesi = newUserGroupTask
+            
+            newUserGroupTask.pinInBackgroundWithName("MyUserGroupsTasks")
+            newUserGroupTask.saveInBackgroundWithBlock({
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    // The object has been saved.
+                    println("usergrouptask saved")
+                } else {
+                    // There was a problem, check error.description
+                    println("UserGroupTask Error: \(error)")
+                    
+                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
+                        newUserGroupTask.saveEventually()
+                    }
+                }
+            })
             
             
             //add the user group to the user's list of groups
             DesiUser.currentUser()!.userGroups.append(myNewUserGroup.objectId!)
         
             //store local first then update via network
-            self.myNewUserGroup.pinInBackgroundWithName("MyUserGroups")
-            self.myNewUserGroup.saveInBackgroundWithBlock({
+            /*
+            newUserGroupTask.pinInBackgroundWithName("MyUserGroupsTasks")
+            newUserGroupTask.saveInBackgroundWithBlock({
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
                     // The object has been saved.
@@ -303,25 +339,31 @@ class NewDesiGroupTableViewController: UITableViewController {
                         self.myNewUserGroup.saveEventually()
                     }
                 }
-            })
+            })*/
             
             for username in self.usersToAdd {
                 var newUG = DesiUserGroup()
                 newUG.username = username
-                newUG.isDesi = false
                 newUG.isGroupAdmin = false
                 newUG.groupPoints = 0
                 newUG.group = self.newGroup
-                newUG.saveInBackgroundWithBlock({
+                
+                var newUGT = DesiUserGroupTask()
+                newUGT.task = intialTask
+                newUGT.userGroup = newUG
+                newUGT.isDesi = false
+                newUGT.groupId = self.newGroup.objectId!
+                
+                newUGT.saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
                     if (success) {
                         // The object has been saved.
-                        println("guest usergroup saved")
+                        println("guest usergrouptask saved")
                     } else {
                         // There was a problem, check error.description
-                        println("UserGroup Error: \(error)")
+                        println("UserGroupTask Error: \(error)")
                         if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                            newUG.saveEventually()
+                            newUGT.saveEventually()
                         }
                     }
                 })
