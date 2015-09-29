@@ -25,7 +25,7 @@ class DesiTask: PFObject, PFSubclassing {
     @NSManaged var groupId : String
     
     func userSwap(index1: Int, index2: Int){
-        var temp = self.members[index1]
+        let temp = self.members[index1]
         self.members[index1] = self.members[index2]
         self.members[index2] = temp
     }
@@ -55,7 +55,7 @@ class DesiTask: PFObject, PFSubclassing {
     
     func getUserFromDesi(distFromDesi: Int) -> String {
         //distFrom == 0 should return the Desi, 1 should return the next, 2 should return etc
-        var index = self.desiIndex
+        let index = self.desiIndex
         if (index < self.members.count - distFromDesi){
             return self.userAt(index + distFromDesi)
         }

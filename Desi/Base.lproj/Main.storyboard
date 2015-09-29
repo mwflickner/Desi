@@ -227,11 +227,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSo-Q7-u2i">
-                                            <rect key="frame" x="50" y="22" width="500" height="36"/>
+                                            <rect key="frame" x="50" y="8" width="500" height="63"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="36" id="oXf-7X-iaB"/>
-                                                <constraint firstAttribute="width" constant="500" id="vm9-OT-0sK"/>
+                                                <constraint firstAttribute="height" constant="63" id="N9I-Hu-OQl"/>
                                             </constraints>
                                             <state key="normal" title="Action Button">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -239,10 +238,10 @@
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="NSo-Q7-u2i" secondAttribute="centerY" id="elx-m8-ZQP"/>
-                                        <constraint firstItem="NSo-Q7-u2i" firstAttribute="leading" secondItem="7ZG-Dj-IKi" secondAttribute="leadingMargin" constant="42" id="fpm-9e-HUZ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="NSo-Q7-u2i" secondAttribute="trailing" constant="42" id="g7I-uu-YZA"/>
-                                        <constraint firstAttribute="centerX" secondItem="NSo-Q7-u2i" secondAttribute="centerX" id="we3-WM-gBN"/>
+                                        <constraint firstItem="NSo-Q7-u2i" firstAttribute="leading" secondItem="7ZG-Dj-IKi" secondAttribute="leadingMargin" constant="42" id="2IZ-ou-Jze"/>
+                                        <constraint firstAttribute="centerY" secondItem="NSo-Q7-u2i" secondAttribute="centerY" id="705-d2-nxL"/>
+                                        <constraint firstAttribute="centerX" secondItem="NSo-Q7-u2i" secondAttribute="centerX" id="ZJk-Rf-YLY"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="NSo-Q7-u2i" secondAttribute="trailing" constant="42" id="k48-21-ex7"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -259,14 +258,10 @@
                     <navigationItem key="navigationItem" id="Db8-ue-2DD">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="xKx-ve-KAP">
                             <connections>
-                                <segue destination="Rzl-In-E1P" kind="unwind" unwindAction="backToGroupsViewController:" id="M2h-S7-iPx"/>
+                                <segue destination="Rzl-In-E1P" kind="unwind" unwindAction="backToGroupViewController:" id="pym-AJ-VCD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="glyphicons-281-settings" id="eWG-la-u7Q">
-                            <connections>
-                                <segue destination="shj-bV-P12" kind="presentation" identifier="GoToSettings" id="Xmq-4T-gsA"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="glyphicons-281-settings" id="eWG-la-u7Q"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rpS-at-ZrB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -332,7 +327,7 @@
                     <navigationItem key="navigationItem" id="WGu-r0-UjV">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="sEj-fz-hQv">
                             <connections>
-                                <segue destination="1th-V6-84f" kind="unwind" unwindAction="backToTheGroupViewController:" id="L6H-HC-pyG"/>
+                                <segue destination="1th-V6-84f" kind="unwind" unwindAction="cancelToGroupVC:" id="5W6-9t-DGw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -351,6 +346,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="createTaskCell" rowHeight="80" id="MS8-iH-nvk" customClass="TextFieldTableViewCell" customModule="Desi" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MS8-iH-nvk" id="iwo-0e-ke0">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHU-NT-z5Y">
+                                            <rect key="frame" x="492" y="24" width="100" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="UgR-yC-rEi"/>
+                                            </constraints>
+                                            <state key="normal" title="Create!">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f2Z-bw-gjX">
+                                            <rect key="frame" x="8" y="24" width="476" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="f2Z-bw-gjX" firstAttribute="leading" secondItem="iwo-0e-ke0" secondAttribute="leadingMargin" id="DdE-ob-o2v"/>
+                                        <constraint firstAttribute="centerY" secondItem="iHU-NT-z5Y" secondAttribute="centerY" id="K9B-ul-zk6"/>
+                                        <constraint firstItem="iHU-NT-z5Y" firstAttribute="leading" secondItem="f2Z-bw-gjX" secondAttribute="trailing" constant="8" id="XWj-oo-BDK"/>
+                                        <constraint firstAttribute="centerY" secondItem="f2Z-bw-gjX" secondAttribute="centerY" id="tyT-hu-9Ow"/>
+                                        <constraint firstItem="iHU-NT-z5Y" firstAttribute="trailing" secondItem="iwo-0e-ke0" secondAttribute="trailingMargin" id="zsa-ZP-zq7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="iHU-NT-z5Y" id="xLb-O0-6uF"/>
+                                    <outlet property="textField" destination="f2Z-bw-gjX" id="SXv-2n-izs"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="80" id="Gtx-hV-XpS" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gtx-hV-XpS" id="1Yo-32-kxh">
@@ -368,15 +397,24 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxR-P0-dLQ">
+                                            <rect key="frame" x="566" y="27" width="26" height="26"/>
+                                            <state key="normal" image="glyphicons-193-circle-remove">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="centerX" secondItem="t2T-I8-v6f" secondAttribute="centerX" id="0nb-MW-vRO"/>
+                                        <constraint firstItem="fxR-P0-dLQ" firstAttribute="trailing" secondItem="1Yo-32-kxh" secondAttribute="trailingMargin" id="7H0-qS-0Fg"/>
                                         <constraint firstItem="Ym8-7N-fPu" firstAttribute="top" secondItem="t2T-I8-v6f" secondAttribute="bottom" constant="8" id="Ati-mv-NZX"/>
                                         <constraint firstItem="t2T-I8-v6f" firstAttribute="top" secondItem="1Yo-32-kxh" secondAttribute="topMargin" id="EB1-x0-fhu"/>
                                         <constraint firstAttribute="centerX" secondItem="Ym8-7N-fPu" secondAttribute="centerX" id="IZu-n6-4Lx"/>
+                                        <constraint firstAttribute="centerY" secondItem="fxR-P0-dLQ" secondAttribute="centerY" id="PHg-fj-dc9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="button" destination="fxR-P0-dLQ" id="lb5-8g-Ttw"/>
                                     <outlet property="groupNameLabel" destination="t2T-I8-v6f" id="zlv-i3-Xxx"/>
                                     <outlet property="groupSumLabel" destination="Ym8-7N-fPu" id="CQt-k8-q9Q"/>
                                     <segue destination="aqq-O5-5CE" kind="showDetail" identifier="loadTask" id="Ia3-vt-xAk"/>
@@ -392,6 +430,11 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="vnr-LT-EEq">
                             <connections>
                                 <segue destination="tiT-Wx-XQ4" kind="unwind" unwindAction="backtoDesiGroupsViewController:" id="eaH-xM-WP3"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="glyphicons-137-cogwheel" id="73Q-uY-hxJ">
+                            <connections>
+                                <segue destination="shj-bV-P12" kind="presentation" identifier="GoToGroupSettings" id="O5j-CY-ns9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1380,10 +1423,10 @@
             </objects>
             <point key="canvasLocation" x="292" y="514"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="H7T-uP-dK2">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CCO-6L-Axb" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CCO-6L-Axb" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GU6-Im-bZC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

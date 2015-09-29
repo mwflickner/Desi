@@ -12,7 +12,7 @@ class DesiNaviagtionController: UINavigationController, UIViewControllerTransiti
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var color = UIColor(netHex:0x6FA1FE)
+        let color = UIColor(netHex:0x6FA1FE)
         self.navigationBar.barTintColor = color
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         // Do any additional setup after loading the view.

@@ -48,7 +48,7 @@ class UserSettingsTableViewController: UITableViewController {
         DesiUser.logOut()
         var currentUser = DesiUser.currentUser() // this will now be nil
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as! UIViewController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") 
         self.presentViewController(vc, animated: true, completion: nil)
     }
 

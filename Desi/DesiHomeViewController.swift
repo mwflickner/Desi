@@ -25,7 +25,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         //self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
         if (self.myUserGroups == nil){
-            println("yoo")
+            print("yoo")
         }
         //var userGroupIds = DesiUser.currentUser()!.userGroups
         
@@ -60,7 +60,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (indexPath.row == 0){
-            var mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
+            let mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
             mainCell.usernameLabel.text = DesiUser.currentUser()!.username
             mainCell.nameLabel.text = DesiUser.currentUser()!.firstName + " " + DesiUser.currentUser()!.lastName
             mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiPoints)
@@ -74,8 +74,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         // Configure the cell...
         let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
-        //cell.groupSumLabel.text =
-        //cell.groupImgView.image = group.groupImg
+        cell.groupSumLabel.text = String(self.myUserGroups[indexPath.row - 1].group.groupMembers.count) + " members"        //cell.groupImgView.image = group.groupImg
         self.tableView.rowHeight = 60
         return cell
         
@@ -95,7 +94,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
         if let theGroupTableViewController = segue.sourceViewController as? GroupTableViewController {
-            var groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroup)
+            let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroup)
             self.myUserGroups[groupIndex] = theGroupTableViewController.userGroup
             self.tableView.reloadData()
         }
@@ -197,13 +196,13 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
         //-1 to account for the profile cell
-        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n")
+        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
         return myUserGroups[indexPath.row - 1]
     }
     
     func groupAtIndexPath(indexPath: NSIndexPath) -> DesiGroup {
         //-1 to account for the profile cell
-        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n")
+        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
         return myUserGroups[indexPath.row - 1].group
     }
     
@@ -235,20 +234,39 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "loadGroup" {
-            let path = self.tableView.indexPathForSelectedRow()!
+            let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
             var aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
             var taskQuery = DesiTask.query()
             taskQuery!.whereKey("groupId", equalTo: aGroupView.userGroup.group.objectId!)
+            
+            var userGroupQuery = DesiUserGroup.query()
+            userGroupQuery!.whereKey("groupId", equalTo: userGroupAtIndexPath(path).group.objectId!)
+            
             taskQuery!.findObjectsInBackgroundWithBlock {
                 (objects: [AnyObject]?, error: NSError?) -> Void in
                 
                 if error == nil {
+                    userGroupQuery?.findObjectsInBackgroundWithBlock {
+                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        if error == nil {
+                            dispatch_async(dispatch_get_main_queue()){
+                                if let objects = objects as? [PFObject]{
+                                    let userGroups = objects as? [DesiUserGroup]
+                                    aGroupView.userGroups = userGroups
+                                    print("done")
+                                }
+                            }
+                        }
+                        else {
+                            print("error: \(error!) \(error!.userInfo)")
+                        }
+                    }
                     dispatch_async(dispatch_get_main_queue()) {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores.")
+                        print("Successfully retrieved \(objects!.count) scores.")
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let tasks = objects as? [DesiTask]
@@ -263,7 +281,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                 } else {
                     // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo)")
                 }
             }
 
@@ -274,10 +292,10 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     (success: Bool, error: NSError?) -> Void in
                     if (success) {
                         // The object has been saved.
-                        println("usergroup added user pointer")
+                        print("usergroup added user pointer")
                     } else {
                         // There was a problem, check error.description
-                        println("UserGroup Error: \(error)")
+                        print("UserGroup Error: \(error)")
                         if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
                             aGroupView.userGroup.saveEventually()
                         }

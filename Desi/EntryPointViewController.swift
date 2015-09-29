@@ -14,7 +14,7 @@ class EntryPointViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        println("view loaded")
+        print("view loaded")
     }
 
     
@@ -28,16 +28,16 @@ class EntryPointViewController: UIViewController {
     }
     
     func go(){
-        var currentUser = DesiUser.currentUser()
-        println("got here")
+        let currentUser = DesiUser.currentUser()
+        print("got here")
         if currentUser != nil {
             // Do stuff with the user
             self.performSegueWithIdentifier("openToGroupsSegue", sender: nil)
-            println("go to groups")
+            print("go to groups")
         } else {
             // Show the signup or login screen
             self.performSegueWithIdentifier("openToLoginSegue", sender: nil)
-            println("go to login")
+            print("go to login")
         }
     }
     
@@ -66,7 +66,7 @@ class EntryPointViewController: UIViewController {
                 if error == nil {
                    // dispatch_async(dispatch_get_main_queue()) {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores. Swag.")
+                        print("Successfully retrieved \(objects!.count) scores. Swag.")
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let userGroups = objects as? [DesiUserGroup]
@@ -79,7 +79,7 @@ class EntryPointViewController: UIViewController {
                     
                 } else {
                     // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo)")
                 }
             }
             
@@ -92,7 +92,7 @@ class EntryPointViewController: UIViewController {
                 if error == nil {
                     dispatch_async(dispatch_get_main_queue()) {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores. Swag.")
+                        print("Successfully retrieved \(objects!.count) scores. Swag.")
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let userGroups = objects as? [DesiUserGroup]
@@ -105,7 +105,7 @@ class EntryPointViewController: UIViewController {
                     
                 } else {
                     // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo)")
                 }
             }
             

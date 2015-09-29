@@ -34,13 +34,13 @@ class CreateAccountViewController: UIViewController {
     
     //user feedback on text fields
     func setErrorColor(textField: UITextField) {
-        var errorColor : UIColor = UIColor.redColor()
+        let errorColor : UIColor = UIColor.redColor()
         textField.layer.borderColor = errorColor.CGColor
         textField.layer.borderWidth = 1.5
     }
     
     func setSuccessColor(textField: UITextField) {
-        var successColor : UIColor = UIColor( red: 0.3, green: 0.5, blue:0.3, alpha: 1.0 )
+        let successColor : UIColor = UIColor( red: 0.3, green: 0.5, blue:0.3, alpha: 1.0 )
         textField.layer.borderColor = successColor.CGColor
         textField.layer.borderWidth = 1.5
     }
@@ -105,7 +105,7 @@ class CreateAccountViewController: UIViewController {
     
     
     func passwordsMatch() -> Bool{
-        println("passwords check")
+        print("passwords check")
         if password1.text == password2.text {
             return true
         }
@@ -154,18 +154,18 @@ class CreateAccountViewController: UIViewController {
         let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        println("email valid ran")
+        print("email valid ran")
         return emailTest.evaluateWithObject(testStr)
     }
     
     func emailCheck(email: UITextField) -> Bool{
         if isValidEmail(email.text){
-            println("email good")
+            print("email good")
             setSuccessColor(email)
             return true
         }
         setErrorColor(email)
-        println("email bad")
+        print("email bad")
         return false
         
     }
@@ -174,19 +174,19 @@ class CreateAccountViewController: UIViewController {
         if email1.text == email2.text {
             setSuccessColor(email1)
             setSuccessColor(email2)
-            println("emails match")
+            print("emails match")
             return true
         }
         setErrorColor(email1)
         setErrorColor(email2)
-        println("emails match")
+        print("emails match")
         return false
     }
     
     
     
     @IBAction func email1Done(sender: AnyObject) {
-        println("email1 done")
+        print("email1 done")
         emailCheck(email1)
         if(email2.text != ""){
             emailsMatch()
@@ -196,7 +196,7 @@ class CreateAccountViewController: UIViewController {
     }
     
     @IBAction func email2Done(sender: AnyObject) {
-        println("email2 done")
+        print("email2 done")
         emailCheck(email2)
         if(email1.text != ""){
             emailsMatch()
@@ -216,20 +216,20 @@ class CreateAccountViewController: UIViewController {
         newUser.desiPoints = 0
         newUser.signUpInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
-                println("success")
+                print("success")
                 dispatch_async(dispatch_get_main_queue()) {
                     self.performSegueWithIdentifier("createAccountSegue", sender: self)
                 }
             }
             else {
-                println("\(error)")
+                print("\(error)")
                 // Show the errorString somewhere and let the user try again.
             }
         }
     }
     
     @IBAction func createTapped(sender : AnyObject) {
-        println("created tapped")
+        print("created tapped")
         createAccount()
         
     }
@@ -244,7 +244,7 @@ class CreateAccountViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "createAccountSegue") {
             let nav = segue.destinationViewController as! UINavigationController
-            var homeView = nav.topViewController as! DesiHomeViewController
+            let homeView = nav.topViewController as! DesiHomeViewController
             homeView.myUserGroups = [DesiUserGroup]()
         }
 

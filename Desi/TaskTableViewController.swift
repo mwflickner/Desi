@@ -69,12 +69,12 @@ class TaskTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("Path is \(indexPath.row)")
+        print("Path is \(indexPath.row)")
         if indexPath.section == 0 {
             if (indexPath.row == 0){
-                var desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
+                let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
                 if (DesiUser.currentUser()!.username == self.theTask.theDesi) {
-                    println("swag")
+                    print("swag")
                     desiCell.theDesiNameLabel.text = "YOU are the Desi"
                     desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 }
@@ -82,45 +82,45 @@ class TaskTableViewController: UITableViewController {
                     desiCell.theDesiNameLabel.text = self.theTask.theDesi
                 }
                 //desiCell.theDesiImg.image = theGroup.theDesi.userImg
-                println("returning DesiCell")
+                print("returning DesiCell")
                 return desiCell
             }
             if (indexPath.row == 1){
                 if self.theTask.members.count > 1 {
-                    var onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-                    var nextDesi: String = self.theTask.getUserFromDesi(1)
+                    let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
+                    let nextDesi: String = self.theTask.getUserFromDesi(1)
                     onDeckCell.onDeckLabel.text = nextDesi
                     //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
-                    println("returning onDeckCell")
+                    print("returning onDeckCell")
                     return onDeckCell
                 }
             }
             if (indexPath.row >= self.theTask.members.count && DesiUser.currentUser()?.username == self.theTask.theDesi){
                 
-                var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
-                groupActionCell.actionButton.setTitle("Went Out", forState: UIControlState.Normal)
+                let groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
+                groupActionCell.actionButton.setTitle("Task Completed", forState: UIControlState.Normal)
                 groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
                 groupActionCell.actionButton.addTarget(self, action: "wentOutTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-                println("returning button cell")
+                print("returning button cell")
                 return groupActionCell
                
                 
             }
             
-            var restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-            var userGroup: String = self.theTask.getUserFromDesi(indexPath.row)
+            let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
+            let userGroup: String = self.theTask.getUserFromDesi(indexPath.row)
             restCell.restOfGroupLabel.text = userGroup
             //restCell.restOfGroupImg.image = userGroup.user.userImg
-            println("returning other cell")
+            print("returning other cell")
             return restCell
 
 
         }
-        var groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
+        let groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
         groupActionCell.actionButton.setTitle("Volunteer", forState: UIControlState.Normal)
         groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
         groupActionCell.actionButton.addTarget(self, action: "volunteerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        println("returning button cell")
+        print("returning button cell")
         return groupActionCell
         
         
@@ -135,10 +135,10 @@ class TaskTableViewController: UITableViewController {
                 ugt.saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
                     if success {
-                        println("oldDesi updated")
+                        print("oldDesi updated")
                     }
                     else {
-                        println("oldDesi error")
+                        print("oldDesi error")
                     }
                 })
             }
@@ -152,12 +152,12 @@ class TaskTableViewController: UITableViewController {
                 ugTasks[i].saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
                     if success {
-                        println("newDesi updated")
+                        print("newDesi updated")
                         sender.enabled = true
                         self.tableView.reloadData()
                     }
                     else {
-                        println("newDesi error")
+                        print("newDesi error")
                     }
                 })
                 break
@@ -167,24 +167,24 @@ class TaskTableViewController: UITableViewController {
     }
     
     @IBAction func volunteerTapped(sender: UIButton) {
-        println("volunteer tapped")
+        print("volunteer tapped")
         sender.enabled = false
         for var i = 0; i < self.ugTasks.count; ++i {
-            println("ugt \(self.ugTasks[i].objectId)")
+            print("ugt \(self.ugTasks[i].objectId)")
         }
         
         for ugt in self.ugTasks {
-            println("for loop?")
+            print("for loop?")
             if ugt.isDesi{
-                println("if?")
+                print("if?")
                 ugt.isDesi = false
                 ugt.saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
                     if success {
-                        println("oldDesi updated")
+                        print("oldDesi updated")
                     }
                     else {
-                        println("oldDesi error")
+                        print("oldDesi error")
                     }
                 })
             }
@@ -192,21 +192,21 @@ class TaskTableViewController: UITableViewController {
         self.theTask.theDesi = DesiUser.currentUser()!.username!
         self.theTask.setDesiIndex()
         
-        println("hello?")
+        print("hello?")
         for var i = 0; i < self.ugTasks.count; ++i {
             if self.ugTasks[i].userGroup.username == self.theTask.theDesi {
                 self.ugTasks[i].isDesi = true
                 //self.theTask.userSwap(self.theTask.desiIndex, index2: i)
-                println("users swapped")
+                print("users swapped")
                 self.ugTasks[i].saveInBackgroundWithBlock({
                     (success: Bool, error: NSError?) -> Void in
                     if success {
-                        println("newDesi updated")
+                        print("newDesi updated")
                         sender.enabled = true
                         self.tableView.reloadData()
                     }
                     else {
-                        println("newDesi error")
+                        print("newDesi error")
                     }
                 })
                 
@@ -216,9 +216,6 @@ class TaskTableViewController: UITableViewController {
     }
     
     
-    @IBAction func backToTheGroupViewController(segue:UIStoryboardSegue) {
-        
-    }
     
     @IBAction func updateDesiGroupSettings(segue:UIStoryboardSegue) {
         
@@ -268,12 +265,7 @@ class TaskTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         /*
-        if (segue.identifier == "GoToSettings"){
-            let nav = segue.destinationViewController as! UINavigationController
-            var settingsView = nav.topViewController as! GroupSettingsTableViewController
-            settingsView.theGroup = self.theGroup
-            settingsView.userGroup = self.userGroup
-        }
+        
         */
     }
 

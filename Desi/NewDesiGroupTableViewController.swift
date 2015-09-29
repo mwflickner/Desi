@@ -53,15 +53,15 @@ class NewDesiGroupTableViewController: UITableViewController {
             (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
-                println("usergroup saved")
+                print("usergroup saved")
             } else {
                 // There was a problem, check error.description
-                println("UserGroup Error: \(error)")
+                print("UserGroup Error: \(error)")
             }
         })
         
         
-        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
     }
 
@@ -149,7 +149,7 @@ class NewDesiGroupTableViewController: UITableViewController {
     }
     
     func setErrorColor(textField: UITextField) {
-        var errorColor : UIColor = UIColor.redColor()
+        let errorColor : UIColor = UIColor.redColor()
         textField.layer.borderColor = errorColor.CGColor
         textField.layer.borderWidth = 1.5
     }
@@ -160,7 +160,7 @@ class NewDesiGroupTableViewController: UITableViewController {
     }
     
     @IBAction func addUserToGroup(sender: UIButton){
-        println("add pressed")
+        print("add pressed")
         let indexPath = NSIndexPath(forRow:1, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
         if cell.textField.text == DesiUser.currentUser()?.username{
@@ -175,7 +175,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             if error == nil {
                 dispatch_async(dispatch_get_main_queue()) {
                     // The find succeeded.
-                    println("Successfully retrieved \(objects!.count) scores. Swag.")
+                    print("Successfully retrieved \(objects!.count) scores. Swag.")
                     // Do something with the found objects
                     if let objects = objects as? [PFObject] {
                         let users = objects as? [DesiUser]
@@ -202,7 +202,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             }
             else {
                 // Log details of the failure
-                println("Error: \(error!) \(error!.userInfo!)")
+                print("Error: \(error!) \(error!.userInfo)")
             }
         }
         
@@ -278,6 +278,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.myNewUserGroup.username = DesiUser.currentUser()!.username
             self.myNewUserGroup.isGroupAdmin = true
             self.myNewUserGroup.groupPoints = 0
+            self.myNewUserGroup.groupId = self.newGroup.objectId!
             
             
             let indexPath = NSIndexPath(forRow:0, inSection:0)
@@ -309,10 +310,10 @@ class NewDesiGroupTableViewController: UITableViewController {
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
                     // The object has been saved.
-                    println("usergrouptask saved")
+                    print("usergrouptask saved")
                 } else {
                     // There was a problem, check error.description
-                    println("UserGroupTask Error: \(error)")
+                    print("UserGroupTask Error: \(error)")
                     
                     if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
                         self.newUserGroupTask.saveEventually()
@@ -342,13 +343,14 @@ class NewDesiGroupTableViewController: UITableViewController {
             })*/
             
             for username in self.usersToAdd {
-                var newUG = DesiUserGroup()
+                let newUG = DesiUserGroup()
                 newUG.username = username
                 newUG.isGroupAdmin = false
                 newUG.groupPoints = 0
                 newUG.group = self.newGroup
+                newUG.groupId = self.newGroup.objectId!
                 
-                var newUGT = DesiUserGroupTask()
+                let newUGT = DesiUserGroupTask()
                 newUGT.task = self.newTask
                 newUGT.userGroup = newUG
                 newUGT.isDesi = false
@@ -359,10 +361,10 @@ class NewDesiGroupTableViewController: UITableViewController {
                     (success: Bool, error: NSError?) -> Void in
                     if (success) {
                         // The object has been saved.
-                        println("guest usergrouptask saved")
+                        print("guest usergrouptask saved")
                     } else {
                         // There was a problem, check error.description
-                        println("UserGroupTask Error: \(error)")
+                        print("UserGroupTask Error: \(error)")
                         if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
                             newUGT.saveEventually()
                         }

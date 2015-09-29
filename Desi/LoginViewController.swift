@@ -20,12 +20,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         DesiUser.logOut()
-        var isThereUser = DesiUser.currentUser()?.username
+        let isThereUser = DesiUser.currentUser()?.username
         if isThereUser != nil {
-            println("\(DesiUser.currentUser()!.username)")
+            print("\(DesiUser.currentUser()!.username)")
         }
         else {
-            println("we good its nil")
+            print("we good its nil")
             
         }
         
@@ -53,11 +53,11 @@ class LoginViewController: UIViewController {
         activityIndicator.startAnimating()
             
         var username1 = self.username.text
-        username1 = username1.lowercaseString
+        username1 = username1!.lowercaseString
             
         var userPassword = self.password.text
             
-        PFUser.logInWithUsernameInBackground(username1, password:userPassword) {
+        PFUser.logInWithUsernameInBackground(username1!, password:userPassword!) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 dispatch_async(dispatch_get_main_queue()) {
@@ -66,7 +66,7 @@ class LoginViewController: UIViewController {
             } else {
                 self.activityIndicator.stopAnimating()
                     
-                if let message1: AnyObject = error!.userInfo!["error"] {
+                if let message1: AnyObject = error!.userInfo["error"] {
                     self.message = "\(message1)"
                     sender.enabled = true
                 }
@@ -94,7 +94,7 @@ class LoginViewController: UIViewController {
                 if error == nil {
                     dispatch_async(dispatch_get_main_queue()) {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) scores.")
+                        print("Successfully retrieved \(objects!.count) scores.")
                         // Do something with the found objects
                         if let objects = objects as? [PFObject] {
                             let userGroups = objects as? [DesiUserGroup]
@@ -110,7 +110,7 @@ class LoginViewController: UIViewController {
                     
                 } else {
                     // Log details of the failure
-                    println("Error: \(error!) \(error!.userInfo!)")
+                    print("Error: \(error!) \(error!.userInfo)")
                 }
             }
 

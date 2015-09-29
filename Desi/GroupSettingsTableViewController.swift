@@ -11,14 +11,14 @@ import Parse
 
 class GroupSettingsTableViewController: UITableViewController {
     
-    var theGroup: DesiGroup!
+    var tasks: [DesiTask]!
     var userGroup: DesiUserGroup!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("groupName is \(self.theGroup.groupName)")
-        println("\(DesiUser.currentUser()?.username)")
-        self.navigationItem.title = "Group Settings"
+        print("groupName is \(self.userGroup.group.groupName)")
+        print("\(DesiUser.currentUser()?.username)")
+        self.navigationItem.title = "\(self.userGroup.group.groupName) Settings"
 
 
         // Uncomment the following line to preserve selection between presentations
@@ -77,13 +77,23 @@ class GroupSettingsTableViewController: UITableViewController {
     }
     
     @IBAction func viewMembers(sender: UIButton){
-        println("view")
+        print("view")
         //performSegueWithIdentifier("goToViewGroupMembers", sender: self)
     }
     
     /*
     @IBAction func leaveGroup(sender: UIButton){
         sender.enabled = false
+        for task in self.tasks {
+            if task.theDesi == DesiUser.currentUser()!.username {
+                //go to next Desi in task
+                //query for next UGT based on new Desi's username and taskID
+                //set that UGT to isDesi to true
+            }
+            //query for user's UGT for given task (use taskID)
+            //remove user from task.members
+        }
+        
         if self.userGroup.isDesi {
             println("got here")
             self.theGroup.nextDesi()
@@ -111,13 +121,14 @@ class GroupSettingsTableViewController: UITableViewController {
         
     }
     */
-    
+
+    //this function will need cloud code
+    /*
     @IBAction func deleteGroup(sender: UIButton){
         sender.enabled = false
-        for ug in self.theGroup.groupMembers {
-            
-        }
+        
     }
+    */
 
 
     /*
