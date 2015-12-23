@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
         var username1 = self.username.text
         username1 = username1!.lowercaseString
             
-        var userPassword = self.password.text
+        let userPassword = self.password.text
             
         PFUser.logInWithUsernameInBackground(username1!, password:userPassword!) {
             (user: PFUser?, error: NSError?) -> Void in
@@ -83,7 +83,7 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "loginSegue"){
             let nav = segue.destinationViewController as! UINavigationController
-            var homeView = nav.topViewController as! DesiHomeViewController
+            let homeView = nav.topViewController as! DesiHomeViewController
             
             let query = DesiUserGroup.query()
             query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)

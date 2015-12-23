@@ -140,7 +140,7 @@ class NewDesiGroupTableViewController: UITableViewController {
         let indexPath = NSIndexPath(forRow:1, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
         removeErrorColor(cell.textField)
-        if isValidUsername(sender.text) && self.usersToAdd.count < 10 {
+        if isValidUsername(sender.text!) && self.usersToAdd.count < 10 {
             cell.button.enabled = true
         }
         else {
@@ -167,8 +167,8 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.setErrorColor(cell.textField)
             return
         }
-        var query = DesiUser.query()
-        query!.whereKey("username", equalTo: cell.textField.text)
+        let query = DesiUser.query()
+        query!.whereKey("username", equalTo: cell.textField.text!)
         query!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             
@@ -185,7 +185,7 @@ class NewDesiGroupTableViewController: UITableViewController {
                             sender.enabled = false
                         }
                         else {
-                            self.usersToAdd.append(cell.textField.text)
+                            self.usersToAdd.append(cell.textField.text!)
                             cell.textField.text = ""
                             //limit group size to 10
                             if self.usersToAdd.count > 9 {
@@ -283,7 +283,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             
             let indexPath = NSIndexPath(forRow:0, inSection:0)
             let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
-            self.newGroup.groupName = cell.textField.text
+            self.newGroup.groupName = cell.textField.text!
             
             self.newGroup.groupMembers = self.usersToAdd
             self.newGroup.groupMembers.insert(self.myNewUserGroup.username, atIndex: 0)

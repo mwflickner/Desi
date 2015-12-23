@@ -236,13 +236,13 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if segue.identifier == "loadGroup" {
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
-            var aGroupView = nav.topViewController as! GroupTableViewController
+            let aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
-            var taskQuery = DesiTask.query()
+            let taskQuery = DesiTask.query()
             taskQuery!.whereKey("groupId", equalTo: aGroupView.userGroup.group.objectId!)
             
-            var userGroupQuery = DesiUserGroup.query()
+            let userGroupQuery = DesiUserGroup.query()
             userGroupQuery!.whereKey("groupId", equalTo: userGroupAtIndexPath(path).group.objectId!)
             
             taskQuery!.findObjectsInBackgroundWithBlock {

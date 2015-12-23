@@ -51,7 +51,7 @@ class EntryPointViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "openToGroupsSegue") {
             let nav = segue.destinationViewController as! UINavigationController
-            var homeView = nav.topViewController as! DesiHomeViewController
+            let homeView = nav.topViewController as! DesiHomeViewController
             let userQuery = DesiUser.query()
             userQuery!.includeKey("friendList")
             userQuery!.getObjectInBackgroundWithId(DesiUser.currentUser()!.objectId!)

@@ -77,8 +77,8 @@ class CreateAccountViewController: UIViewController {
     }
     
     func usernameCheck(usernameField: UITextField) -> Bool{
-        usernameField.text = usernameField.text.lowercaseString
-        if isValidUsername(usernameField.text) {
+        usernameField.text = usernameField.text!.lowercaseString
+        if isValidUsername(usernameField.text!) {
             setSuccessColor(usernameField)
             return true
         }
@@ -89,7 +89,7 @@ class CreateAccountViewController: UIViewController {
     }
     
     @IBAction func usernameDone(sender : AnyObject) {
-        if (isValidUsername(self.username.text) && usernameCheck(self.username)){
+        if (isValidUsername(self.username.text!) && usernameCheck(self.username)){
             setSuccessColor(self.username)
             return
         }
@@ -113,7 +113,7 @@ class CreateAccountViewController: UIViewController {
     }
     
     @IBAction func password1Done(sender: AnyObject) {
-        if isValidPassword(password1.text) {
+        if isValidPassword(password1.text!) {
             if(password2.text != ""){
                 if passwordsMatch(){
                     setSuccessColor(password2)
@@ -132,7 +132,7 @@ class CreateAccountViewController: UIViewController {
     }
     
     @IBAction func password2Done(sender: AnyObject) {
-        if isValidPassword(password2.text) {
+        if isValidPassword(password2.text!) {
             if(password1.text != ""){
                 if passwordsMatch(){
                     setSuccessColor(password1)
@@ -159,7 +159,7 @@ class CreateAccountViewController: UIViewController {
     }
     
     func emailCheck(email: UITextField) -> Bool{
-        if isValidEmail(email.text){
+        if isValidEmail(email.text!){
             print("email good")
             setSuccessColor(email)
             return true
@@ -210,8 +210,8 @@ class CreateAccountViewController: UIViewController {
         newUser.username = self.username.text
         newUser.password = self.password1.text
         newUser.email = self.email1.text
-        newUser.firstName = self.firstName.text
-        newUser.lastName = self.lastName.text
+        newUser.firstName = self.firstName.text!
+        newUser.lastName = self.lastName.text!
         newUser.userGroups = [String]()
         newUser.desiPoints = 0
         newUser.signUpInBackgroundWithBlock { (success, error) -> Void in

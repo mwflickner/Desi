@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class DesiUser: PFUser, PFSubclassing {
+class DesiUser: PFUser {
     
     override class func initialize() {
         registerSubclass()

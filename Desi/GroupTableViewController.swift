@@ -162,7 +162,7 @@ class GroupTableViewController: UITableViewController {
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
         
         let newTask: DesiTask = DesiTask()
-        newTask.taskName = cell.textField.text
+        newTask.taskName = cell.textField.text!
         cell.textField.text = ""
         newTask.members = self.userGroup.group.groupMembers
         newTask.theDesi = DesiUser.currentUser()!.username!
@@ -292,7 +292,7 @@ class GroupTableViewController: UITableViewController {
         if segue.identifier == "loadTask" {
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
-            var aTaskView = nav.topViewController as! TaskTableViewController
+            let aTaskView = nav.topViewController as! TaskTableViewController
             aTaskView.userGroup = self.userGroup
             
             if path.section == 1 {
@@ -303,7 +303,7 @@ class GroupTableViewController: UITableViewController {
             }
             
             
-            var ugTaskQuery = DesiUserGroupTask.query()
+            let ugTaskQuery = DesiUserGroupTask.query()
             ugTaskQuery!.includeKey("userGroup.group")
             ugTaskQuery!.whereKey("taskId", equalTo: aTaskView.theTask.objectId!)
             ugTaskQuery!.findObjectsInBackgroundWithBlock {
@@ -334,7 +334,7 @@ class GroupTableViewController: UITableViewController {
         }
         if (segue.identifier == "GoToGroupSettings"){
             let nav = segue.destinationViewController as! UINavigationController
-            var settingsView = nav.topViewController as! GroupSettingsTableViewController
+            let settingsView = nav.topViewController as! GroupSettingsTableViewController
             settingsView.tasks = self.tasks
             settingsView.userGroup = self.userGroup
         }
