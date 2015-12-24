@@ -10,6 +10,8 @@ import UIKit
 
 class GroupActionsTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var actionButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

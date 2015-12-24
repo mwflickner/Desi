@@ -7,53 +7,41 @@
 //
 
 import UIKit
+import Parse
 
-class DesiGroup: NSObject {
-    var groupId: Int
-    var groupName: String
-    var users: [DesiUser]
-    var numberOfUsers: Int
-    var theDesi: DesiUser
-    var desiIndex: Int
-    var groupImg: Int
+class DesiGroup: PFObject, PFSubclassing {
     
-    init(groupId: Int, groupName: String, users: [DesiUser], groupImg: Int) {
-        self.groupId = groupId
-        self.groupName = groupName
-        self.users = users
-        self.numberOfUsers = users.count
-        self.desiIndex = 0
-        self.theDesi = users[desiIndex]
-        self.groupImg = groupImg
-        super.init()
+    override class func initialize() {
+        registerSubclass()
     }
     
-    
-    func addMember(newMember: DesiUser){
-        self.users.append(newMember)
+    class func parseClassName() -> String {
+        return "DesiGroup"
     }
     
+    @NSManaged var groupName: String
+    @NSManaged var groupMembers: [String]
+    @NSManaged var numberOfUsers: Int
+    @NSManaged var taskNames: [String]
+    @NSManaged var taskIds: [String]
+    @NSManaged var groupImg: PFFile
+    
+    
+    func addMember(newMember: DesiUserGroup){
+        self.groupMembers.append(newMember.username)
+    }
+    
+    /*
     func removeMember(member: String){
-        for user in self.users{
-            if(user.userName == member){
-                users.removeAtIndex((indexofUser(member)))
+        for groupies in self.groupMembers{
+            if(groupies.user.username == member){
+                groupMembers.removeAtIndex((indexofUser(member)))
             }
         }
     }
+    */
     
-    func userAt(index: Int) -> DesiUser{
-        return self.users[index]
-    }
     
-    func indexofUser(username: String) -> Int{
-        for var i = 0; i < numberOfUsers; ++i{
-            if(username == self.users[i].userName){
-                return i
-            }
-        }
-        return -1
-        //need to throw an error if user not found
-    }
     
     func groupImage(imgNum: Int) -> UIImage? {
         switch imgNum {
@@ -66,39 +54,19 @@ class DesiGroup: NSObject {
     func changeGroupName(newName: String){
         self.groupName = newName
     }
+
     
-    func userSwap(index1: Int, index2: Int){
-        var temp = self.users[index1]
-        self.users[index1] = self.users[index2]
-        self.users[index2] = temp
-    }
-    
-    func randomDesi(){
-        self.theDesi = userAt(Int(arc4random_uniform(UInt32(numberOfUsers))))
-    }
-    
-    func getUserFromDesi(distFromDesi: Int) -> DesiUser {
-        //distFrom == 0 should return the Desi, 1 should return the next, 2 should return etc
-        var index = desiIndex
-        if (index < users.count - distFromDesi){
-            return self.userAt(index + distFromDesi)
+    /*func randomDesi(){
+        for username in self.groupMembers {
+            if username == userAt(Int(arc4random_uniform(UInt32(numberOfUsers)))){
+                username
+            }
+            
         }
-        else {
-            return self.userAt(index - (users.count - distFromDesi))
-        }
-    }
+    }*/
+
     
-    
-    func nextDesi(){
-        ++self.desiIndex
-        if (desiIndex < users.count){
-            self.theDesi = users[desiIndex]
-        }
-        else {
-            self.theDesi = users[0]
-            self.desiIndex = 0
-        }
-        
-    }
 }
+
+//all of these functions need to update after being called
 

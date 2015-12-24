@@ -13,6 +13,7 @@ class DesiGroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var groupSumLabel: UILabel!
     @IBOutlet weak var groupImgView: UIImageView!
+    @IBOutlet weak var button: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

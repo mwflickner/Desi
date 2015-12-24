@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DesiGroup" syncable="YES">
+        <attribute name="group_desi" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="group_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="group_name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -19,8 +20,8 @@
         <attribute name="user_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DesiUser" positionX="-63" positionY="-18" width="128" height="135"/>
-        <element name="DesiGroup" positionX="-45" positionY="45" width="128" height="75"/>
-        <element name="UserGroup" positionX="-27" positionY="63" width="128" height="105"/>
+        <element name="DesiGroup" positionX="-182" positionY="-225" width="128" height="88"/>
+        <element name="DesiUser" positionX="-396" positionY="-153" width="128" height="135"/>
+        <element name="UserGroup" positionX="16" positionY="-132" width="128" height="105"/>
     </elements>
 </model>

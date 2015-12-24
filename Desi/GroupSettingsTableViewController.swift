@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import Parse
 
 class GroupSettingsTableViewController: UITableViewController {
     
-    var theGroup: DesiGroup!
+    var tasks: [DesiTask]!
+    var userGroup: DesiUserGroup!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("groupName is \(self.theGroup.groupName)")
-        self.navigationItem.title = "Group Settings"
+        print("groupName is \(self.userGroup.group.groupName)")
+        print("\(DesiUser.currentUser()?.username)")
+        self.navigationItem.title = "\(self.userGroup.group.groupName) Settings"
+
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -34,24 +38,98 @@ class GroupSettingsTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        if userGroup.isGroupAdmin {
+            return 2
+        }
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        if section == 0 {
+            return 2
+        }
+        return 1
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
-        return cell
+        let cell = tableView.dequeueReusableCellWithIdentifier("bigButtonCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                cell.button.setTitle("View Members", forState: UIControlState.Normal)
+                cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+                cell.button.addTarget(self, action: "viewMembers:", forControlEvents: UIControlEvents.TouchUpInside)
+                return cell
+            }
+            cell.button.setTitle("Leave Group", forState: UIControlState.Normal)
+            cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+            cell.button.addTarget(self, action: "leaveGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+            return cell
+        }
+        else {
+            cell.button.setTitle("Delete Group", forState: UIControlState.Normal)
+            cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+            cell.button.addTarget(self, action: "deleteGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+            return cell
+        }
+    }
+    
+    @IBAction func viewMembers(sender: UIButton){
+        print("view")
+        //performSegueWithIdentifier("goToViewGroupMembers", sender: self)
+    }
+    
+    /*
+    @IBAction func leaveGroup(sender: UIButton){
+        sender.enabled = false
+        for task in self.tasks {
+            if task.theDesi == DesiUser.currentUser()!.username {
+                //go to next Desi in task
+                //query for next UGT based on new Desi's username and taskID
+                //set that UGT to isDesi to true
+            }
+            //query for user's UGT for given task (use taskID)
+            //remove user from task.members
+        }
+        
+        if self.userGroup.isDesi {
+            println("got here")
+            self.theGroup.nextDesi()
+        }
+        // remove username from group members
+        for var i = 0; i < self.theGroup.groupMembers.count; ++i {
+            println("group : \(theGroup.groupMembers[i]) current user: \(DesiUser.currentUser()?.username)")
+            if theGroup.groupMembers[i] == DesiUser.currentUser()?.username {
+                println("removing")
+                theGroup.groupMembers.removeAtIndex(i)
+                --theGroup.numberOfUsers
+                break
+            }
+        }
+        
+        // remove usergroup from the user's list of groups
+        for var i = 0; i < DesiUser.currentUser()?.userGroups.count; ++i{
+            println("user : \(DesiUser.currentUser()?.userGroups[i]) self.userGroup: \(self.userGroup.objectId)")
+            if DesiUser.currentUser()?.userGroups[i] == self.userGroup.objectId{
+                DesiUser.currentUser()!.userGroups.removeAtIndex(i)
+                break
+            }
+        }
+        self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
+        
     }
     */
+
+    //this function will need cloud code
+    /*
+    @IBAction func deleteGroup(sender: UIButton){
+        sender.enabled = false
+        
+    }
+    */
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -88,14 +166,17 @@ class GroupSettingsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "leaveGroupFromSettingsSegue" {
+            //print yo whats up
+        }
     }
-    */
+
 
 }

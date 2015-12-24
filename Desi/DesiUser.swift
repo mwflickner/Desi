@@ -7,29 +7,34 @@
 //
 
 import UIKit
+import Parse
 
-class DesiUser: NSObject {
-    var userName: String
-    //var password: String
-    var firstName: String
-    var lastName: String
-    var userImg: Int
-    //var groupsIn: [DesiGroup]
+class DesiUser: PFUser {
     
-    init(userName: String, firstName: String, lastName: String, userImg: Int) {
+    override class func initialize() {
+        registerSubclass()
+    }
+    
+    /*class func parseClassName() -> String {
+        return "DesiUser"
+    }
+    */
+    
+    @NSManaged var firstName: String
+    @NSManaged var lastName: String
+    @NSManaged var userImg: PFFile
+    @NSManaged var desiPoints: Int
+    @NSManaged var userGroups: [String]
+    
+    
+    /*init(userName: String, firstName: String, lastName: String, userImg: Int) {
         self.userName = userName
         self.firstName = firstName
         self.lastName = lastName
         self.userImg = userImg
         //self.groupsIn = groupsIn
     }
+    */
     
-    func userImage(imgNum: Int) -> UIImage? {
-        switch imgNum {
-            //add immages here to switch statement when we get user images
-        default:
-            return nil
-        }
-    }
     
 }
