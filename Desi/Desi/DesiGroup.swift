@@ -20,15 +20,15 @@ class DesiGroup: PFObject, PFSubclassing {
     }
     
     @NSManaged var groupName: String
-    @NSManaged var groupMembers: [String]
+    //@NSManaged var groupMembers: [String]
     @NSManaged var numberOfUsers: Int
-    @NSManaged var taskNames: [String]
-    @NSManaged var taskIds: [String]
+    //@NSManaged var taskNames: [String]
+    //@NSManaged var taskIds: [String]
     @NSManaged var groupImg: PFFile
     
     
     func addMember(newMember: DesiUserGroup){
-        self.groupMembers.append(newMember.username)
+        //self.groupMembers.append(newMember.username)
     }
     
     /*

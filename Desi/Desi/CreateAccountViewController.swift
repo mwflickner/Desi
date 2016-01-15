@@ -212,8 +212,8 @@ class CreateAccountViewController: UIViewController {
         newUser.email = self.email1.text
         newUser.firstName = self.firstName.text!
         newUser.lastName = self.lastName.text!
-        newUser.userGroups = [String]()
-        newUser.desiPoints = 0
+        //newUser.userGroups = [String]()
+        newUser.desiScore = 0
         newUser.signUpInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
                 print("success")
@@ -231,7 +231,6 @@ class CreateAccountViewController: UIViewController {
     @IBAction func createTapped(sender : AnyObject) {
         print("created tapped")
         createAccount()
-        
     }
     
 

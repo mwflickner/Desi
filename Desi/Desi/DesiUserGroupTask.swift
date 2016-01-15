@@ -21,8 +21,8 @@ class DesiUserGroupTask: PFObject, PFSubclassing {
     @NSManaged var userGroup: DesiUserGroup
     @NSManaged var task: DesiTask
     @NSManaged var isDesi: Bool
-    @NSManaged var groupId: String
-    @NSManaged var taskId: String
+    //@NSManaged var groupId: String
+    //@NSManaged var taskId: String
     
     
     

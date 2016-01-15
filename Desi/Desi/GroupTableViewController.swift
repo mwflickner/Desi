@@ -281,6 +281,52 @@ class GroupTableViewController: UITableViewController {
         return true
     }
     */
+    
+    func getUserGroupTasks(){
+        let userGroupTaskQuery = DesiUserGroupTask.query()
+        taskQuery!.whereKey("groupId", equalTo: self.userGroup.group.objectId!)
+        
+        let userGroupQuery = DesiUserGroup.query()
+        userGroupQuery!.whereKey("groupId", equalTo: userGroupAtIndexPath(path).group.objectId!)
+        
+        taskQuery!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                userGroupQuery?.findObjectsInBackgroundWithBlock {
+                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                    if error == nil {
+                        dispatch_async(dispatch_get_main_queue()){
+                            if let objects = objects as? [PFObject]{
+                                let userGroups = objects as? [DesiUserGroup]
+                                self.userGroups = userGroups
+                                print("done")
+                            }
+                        }
+                    }
+                    else {
+                        print("error: \(error!) \(error!.userInfo)")
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    print("Successfully retrieved \(objects!.count) scores.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let tasks = objects as? [DesiTask]
+                        self.tasks = tasks
+                        //store found userGroups in Localstore
+                        self.tableView.reloadData()
+                    }
+                }
+                
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+
+    }
 
     
     // MARK: - Navigation

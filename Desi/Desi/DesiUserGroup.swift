@@ -21,12 +21,13 @@ class DesiUserGroup: PFObject, PFSubclassing {
     
     @NSManaged var user: DesiUser
     @NSManaged var group: DesiGroup
-    @NSManaged var username: String!
-    //@NSManaged var userId: String
-    @NSManaged var groupId: String
-    //@NSManaged var isDesi: Bool
+    
+    //@NSManaged var username: String!
+    
+    //@NSManaged var userId: String?
+    //@NSManaged var groupId: String?
     @NSManaged var isGroupAdmin: Bool
-    @NSManaged var groupPoints: Int
+    @NSManaged var points: Int
     //@NSManaged var userGroupTasks:
     
     

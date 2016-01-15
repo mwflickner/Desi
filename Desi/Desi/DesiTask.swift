@@ -18,12 +18,13 @@ class DesiTask: PFObject, PFSubclassing {
         return "DesiTask"
     }
     
-    @NSManaged var theDesi: String
+    //@NSManaged var theDesi: String
     @NSManaged var taskName: String
-    @NSManaged var members: [String]
-    @NSManaged var desiIndex: Int
-    @NSManaged var groupId : String
-    
+    //@NSManaged var members: [String]
+    //@NSManaged var desiIndex: Int
+    //@NSManaged var groupId : String
+   
+    /*
     func userSwap(index1: Int, index2: Int){
         let temp = self.members[index1]
         self.members[index1] = self.members[index2]
@@ -63,6 +64,7 @@ class DesiTask: PFObject, PFSubclassing {
             return self.userAt(index - (self.members.count - distFromDesi))
         }
     }
+    */
     
                 
 

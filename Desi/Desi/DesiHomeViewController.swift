@@ -63,7 +63,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
             mainCell.usernameLabel.text = DesiUser.currentUser()!.username
             mainCell.nameLabel.text = DesiUser.currentUser()!.firstName + " " + DesiUser.currentUser()!.lastName
-            mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiPoints)
+            mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiScore)
             mainCell.viewFriendsButton.enabled = false
             mainCell.viewFriendsButton.hidden = true
             self.tableView.rowHeight = 200
@@ -74,7 +74,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         // Configure the cell...
         let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
-        cell.groupSumLabel.text = String(self.myUserGroups[indexPath.row - 1].group.groupMembers.count) + " members"        //cell.groupImgView.image = group.groupImg
+        cell.groupSumLabel.text = String(self.myUserGroups[indexPath.row - 1].group.numberOfUsers) + " members"        //cell.groupImgView.image = group.groupImg
         self.tableView.rowHeight = 60
         return cell
         
@@ -216,16 +216,62 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         //group not found
     }
     
-    /*
-    func findGroup(group: DesiGroup) -> DesiGroup {
-    for var i = 0; i < myGroups.count; ++i {
-    if ((group.groupId == myGroups[i].groupId) && (group.groupName == myGroups[i].groupName)){
-    return myGroups[i]
+    
+    func getUserGroups(){
+        let query = DesiUserGroup.query()
+        query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
+        query!.includeKey("group.groupName")
+        query!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            if error == nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    print("Successfully retrieved \(objects!.count) scores.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let userGroups = objects as? [DesiUserGroup]
+                        self.myUserGroups = userGroups
+                        
+                        //store found userGroups in Localstore
+                        DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
+                        self.tableView.reloadData()
+                    }
+                }
+                
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
     }
+    
+    func getLocalUserGroups(){
+        let queryLocal = DesiUserGroup.query()
+        queryLocal!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
+        queryLocal!.includeKey("group.theDesi")
+        queryLocal!.fromLocalDatastore()
+        queryLocal!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // dispatch_async(dispatch_get_main_queue()) {
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) scores. Swag.")
+                // Do something with the found objects
+                if let objects = objects as? [PFObject] {
+                    let userGroups = objects as? [DesiUserGroup]
+                    self.myUserGroups = userGroups
+                    self.tableView.reloadData()
+                }
+            }
+            else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+
     }
-    return nil
-    }
-    */
+
     
     // MARK: - Navigation
     
@@ -239,6 +285,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
+            
+            /*
             let taskQuery = DesiTask.query()
             taskQuery!.whereKey("groupId", equalTo: aGroupView.userGroup.group.objectId!)
             
@@ -284,7 +332,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     print("Error: \(error!) \(error!.userInfo)")
                 }
             }
-
+            */
+            
             //user has never been in group before
             if aGroupView.userGroup.user != DesiUser.currentUser() {
                 aGroupView.userGroup.user = DesiUser.currentUser()!

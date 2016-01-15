@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9gR-l9-3Kk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9gR-l9-3Kk">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -696,7 +696,7 @@
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="signIn:" destination="BQg-er-EZC" eventType="touchUpInside" id="Tve-8C-O1u"/>
+                                    <action selector="loginPressed:" destination="BQg-er-EZC" eventType="touchUpInside" id="Vss-gK-c6R"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="desiAppIcon1" translatesAutoresizingMaskIntoConstraints="NO" id="MH8-FX-I3T">
@@ -750,8 +750,9 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="9qe-yi-0ng" id="Ga7-iN-8ey"/>
-                        <outlet property="password" destination="bM9-ew-m5g" id="fpq-jD-te1"/>
-                        <outlet property="username" destination="sAW-yb-j1r" id="j3a-Lq-BSt"/>
+                        <outlet property="loginButton" destination="rxD-Yn-2Oq" id="fX0-AF-7RN"/>
+                        <outlet property="passwordTextField" destination="bM9-ew-m5g" id="oPs-9e-uh1"/>
+                        <outlet property="usernameTextField" destination="sAW-yb-j1r" id="Mts-Wz-fXK"/>
                         <segue destination="4C5-Am-zAi" kind="show" identifier="loginSegue" id="UeY-ru-xdO"/>
                     </connections>
                 </viewController>
@@ -1488,6 +1489,6 @@
         <image name="glyphicons-7-user-add" width="28" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NcN-4m-tMP"/>
+        <segue reference="UeY-ru-xdO"/>
     </inferredMetricsTieBreakers>
 </document>
