@@ -219,8 +219,10 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func getUserGroups(){
         let query = DesiUserGroup.query()
-        query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-        query!.includeKey("group.groupName")
+        query!.includeKey("user")
+        query!.includeKey("group")
+        query!.whereKey("user", equalTo: DesiUser.currentUser()!)
+        print("about to get UserGroups")
         query!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
@@ -247,21 +249,22 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func getLocalUserGroups(){
         let queryLocal = DesiUserGroup.query()
-        queryLocal!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-        queryLocal!.includeKey("group.theDesi")
+        queryLocal!.includeKey("group")
+        queryLocal!.includeKey("user")
+        queryLocal!.whereKey("user", equalTo: DesiUser.currentUser()!)
         queryLocal!.fromLocalDatastore()
         queryLocal!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
-            
             if error == nil {
-                // dispatch_async(dispatch_get_main_queue()) {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) scores. Swag.")
-                // Do something with the found objects
-                if let objects = objects as? [PFObject] {
-                    let userGroups = objects as? [DesiUserGroup]
-                    self.myUserGroups = userGroups
-                    self.tableView.reloadData()
+                dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    print("Successfully retrieved \(objects!.count) scores. Swag.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let userGroups = objects as? [DesiUserGroup]
+                        self.myUserGroups = userGroups
+                        //self.tableView.reloadData()
+                    }
                 }
             }
             else {
@@ -285,54 +288,9 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
+            aGroupView.getUserGroupTasks()
             
-            /*
-            let taskQuery = DesiTask.query()
-            taskQuery!.whereKey("groupId", equalTo: aGroupView.userGroup.group.objectId!)
             
-            let userGroupQuery = DesiUserGroup.query()
-            userGroupQuery!.whereKey("groupId", equalTo: userGroupAtIndexPath(path).group.objectId!)
-            
-            taskQuery!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    userGroupQuery?.findObjectsInBackgroundWithBlock {
-                        (objects: [AnyObject]?, error: NSError?) -> Void in
-                        if error == nil {
-                            dispatch_async(dispatch_get_main_queue()){
-                                if let objects = objects as? [PFObject]{
-                                    let userGroups = objects as? [DesiUserGroup]
-                                    aGroupView.userGroups = userGroups
-                                    print("done")
-                                }
-                            }
-                        }
-                        else {
-                            print("error: \(error!) \(error!.userInfo)")
-                        }
-                    }
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        print("Successfully retrieved \(objects!.count) scores.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let tasks = objects as? [DesiTask]
-                            aGroupView.tasks = tasks
-                            
-                            //store found userGroups in Localstore
-                            
-                            aGroupView.tableView.reloadData()
-                            
-                        }
-                    }
-                    
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
-            }
-            */
             
             //user has never been in group before
             if aGroupView.userGroup.user != DesiUser.currentUser() {

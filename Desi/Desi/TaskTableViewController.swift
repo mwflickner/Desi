@@ -37,21 +37,21 @@ class TaskTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        if DesiUser.currentUser()!.username == self.theTask.theDesi{
-            return 1
-        }
+        //if DesiUser.currentUser()!.username == self.theTask.theDesi{
+        //    return 1
+        //}
         return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        if section == 0 {
-            if self.theTask.theDesi == DesiUser.currentUser()?.username{
-                return self.theTask.members.count + 1
-            }
-            return self.theTask.members.count
-        }
+        //if section == 0 {
+        //    if self.theTask.theDesi == DesiUser.currentUser()?.username{
+        //        return self.theTask.members.count + 1
+        //    }
+        //    return self.theTask.members.count
+        //}
         return 1
         
     }
@@ -67,7 +67,7 @@ class TaskTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         print("Path is \(indexPath.row)")
         if indexPath.section == 0 {
@@ -125,6 +125,7 @@ class TaskTableViewController: UITableViewController {
         
         
     }
+
     
     @IBAction func wentOutTapped(sender: UIButton) {
         sender.enabled = false
@@ -214,6 +215,7 @@ class TaskTableViewController: UITableViewController {
         }
     
     }
+    */
     
     
     
@@ -256,6 +258,36 @@ class TaskTableViewController: UITableViewController {
         return true
     }
     */
+    
+    func getUserGroupTasks(){
+        let ugTaskQuery = DesiUserGroupTask.query()
+        ugTaskQuery!.includeKey("userGroup.group")
+        ugTaskQuery!.whereKey("taskId", equalTo: self.theTask.objectId!)
+        ugTaskQuery!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    // The find succeeded.
+                    print("Successfully retrieved \(objects!.count) ugTasks.")
+                    // Do something with the found objects
+                    if let objects = objects as? [PFObject] {
+                        let ugTasks = objects as? [DesiUserGroupTask]
+                        self.ugTasks = ugTasks
+                        
+                        //store found userGroups in Localstore
+                        
+                        self.tableView.reloadData()
+                        
+                    }
+                }
+                
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+    }
 
     
     // MARK: - Navigation

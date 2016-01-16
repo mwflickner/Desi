@@ -274,7 +274,7 @@ class NewDesiGroupTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "createGroup" {
-            
+           /*
             self.myNewUserGroup.username = DesiUser.currentUser()!.username
             self.myNewUserGroup.isGroupAdmin = true
             self.myNewUserGroup.groupPoints = 0
@@ -302,7 +302,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.newUserGroupTask.isDesi = true
             self.newUserGroupTask.groupId = self.newGroup.objectId!
             self.newUserGroupTask.taskId = self.newTask.objectId!
-            
+
             //intialTask.theDesi = newUserGroupTask
             
             self.newUserGroupTask.pinInBackgroundWithName("MyUserGroupsTasks")
@@ -371,9 +371,10 @@ class NewDesiGroupTableViewController: UITableViewController {
                     }
                 })
             }
-            
+             */
 
         }
+
         else {
             //eventually use Parse cloud here later to cascade delete
             self.newUserGroupTask.deleteEventually()
@@ -382,6 +383,7 @@ class NewDesiGroupTableViewController: UITableViewController {
             self.myNewUserGroup.deleteEventually()
         }
     }
+
 
 
 }

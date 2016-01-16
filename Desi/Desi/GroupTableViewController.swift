@@ -13,14 +13,17 @@ class GroupTableViewController: UITableViewController {
 
     //var theGroup: DesiGroup!
     var userGroup: DesiUserGroup!
-    var tasks: [DesiTask]!
-    var userGroups: [DesiUserGroup]!
-    var myTasks = [DesiTask]()
-    var otherTasks = [DesiTask]()
+    //var tasks: [DesiTask]?
+    var userGroupTasks: [DesiUserGroupTask]?
+    
+    var myUserGroupTasks = [DesiUserGroupTask]()
+    var myDesiTasks = [DesiUserGroupTask]()
+    var myOtherTasks = [DesiUserGroupTask]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.userGroup.group.groupName
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -36,100 +39,75 @@ class GroupTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        if self.tasks != nil {
+        if self.myUserGroupTasks.count != 0 {
             return 3
         }
         return 1
-        
     }
     
     override func tableView( tableView: UITableView,  titleForHeaderInSection section: Int) -> String {
         switch(section) {
         case 0: return "New Task"
-           // break
         case 1:  return "My Tasks"
-            //break
         case 2: return "Other Tasks"
-            //break
         default:  return ""
-            //break
         }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section
-        self.myTasks = [DesiTask]()
-        self.otherTasks = [DesiTask]()
-        if self.tasks != nil {
-            for task in self.tasks {
-                if task.theDesi == DesiUser.currentUser()!.username {
-                    self.myTasks.append(task)
-                }
-                else {
-                    self.otherTasks.append(task)
-                }
-            }
+        if self.myUserGroupTasks.count != 0 {
             if section == 0 {
                 return 1
             }
             if section == 1 {
-                return self.myTasks.count
+                return self.myDesiTasks.count
                 
             }
-            return self.otherTasks.count
+            return self.myOtherTasks.count
         }
         return 1
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.tasks != nil {
-            if indexPath.section == 0 {
-                let createTaskCell = tableView.dequeueReusableCellWithIdentifier("createTaskCell", forIndexPath: indexPath) as! TextFieldTableViewCell
-                createTaskCell.button.setTitle("Create!", forState: UIControlState.Normal)
-                createTaskCell.button.addTarget(self, action: "createNewTask:", forControlEvents: UIControlEvents.TouchUpInside)
-                return createTaskCell
-
-            }
-            if indexPath.section == 1 {
-                let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-                taskCell.groupNameLabel.text = self.myTasks[indexPath.row].taskName
+        
+        func setUpTaskCell(isDesi: Bool) -> DesiGroupsTableViewCell {
+            let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
+            taskCell.groupNameLabel.text = self.myUserGroupTasks[indexPath.row].task.taskName
+            if isDesi {
                 taskCell.groupSumLabel.text = "You're up!"
-                if !self.userGroup.isGroupAdmin {
-                    taskCell.button.hidden = true
-                }
-                else {
-                    taskCell.button.addTarget(self, action: "deleteTask:", forControlEvents: UIControlEvents.TouchUpInside)
-                    taskCell.button.tag = 100 + indexPath.row
-                }
-                return taskCell
-                
             }
             else {
-                let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-                taskCell.groupNameLabel.text = self.otherTasks[indexPath.row].taskName
-                taskCell.groupSumLabel.text = self.otherTasks[indexPath.row].theDesi + "'s up!"
-                if !self.userGroup.isGroupAdmin {
-                    taskCell.button.hidden = true
-                }
-                else {
-                    taskCell.button.addTarget(self, action: "deleteTask:", forControlEvents: UIControlEvents.TouchUpInside)
-                    taskCell.button.tag = 200 + indexPath.row
-                }
-                return taskCell
+                taskCell.groupSumLabel.text = "You are not the Desi"
             }
-            
+            return taskCell
         }
-        else {
+        
+        func setUpCreateTaskCell() -> TextFieldTableViewCell {
             let createTaskCell = tableView.dequeueReusableCellWithIdentifier("createTaskCell", forIndexPath: indexPath) as! TextFieldTableViewCell
             createTaskCell.button.setTitle("Create!", forState: UIControlState.Normal)
             createTaskCell.button.addTarget(self, action: "createNewTask:", forControlEvents: UIControlEvents.TouchUpInside)
             return createTaskCell
         }
         
+        if self.myUserGroupTasks.count != 0 {
+            if indexPath.section == 0 {
+                return setUpCreateTaskCell()
+            }
+            if indexPath.section == 1 {
+                return setUpTaskCell(true)
+            }
+            else {
+                return setUpTaskCell(false)
+            }
+            
+        }
+        else {
+            return setUpCreateTaskCell()
+        }
+
     }
    /*
     @IBAction func deleteTask(sender: UIButton){
@@ -149,7 +127,7 @@ class GroupTableViewController: UITableViewController {
         
     }
 */
-    
+    /*
     @IBAction func createNewTask(sender: UIButton){
         sender.enabled = false
         var indexPath: NSIndexPath
@@ -217,13 +195,10 @@ class GroupTableViewController: UITableViewController {
                 }
             }
         })
-    
-        
-        
-        
-        
     }
-
+    */
+    
+    /*
     @IBAction func backToGroupViewController(segue:UIStoryboardSegue) {
         if let theTaskTableViewController = segue.sourceViewController as? TaskTableViewController {
             let taskIndex = self.findTaskIndex(theTaskTableViewController.theTask)
@@ -232,20 +207,12 @@ class GroupTableViewController: UITableViewController {
         }
 
     }
+    */
     
     @IBAction func cancelToGroupVC(segue:UIStoryboardSegue){
         
     }
     
-    func findTaskIndex(task: DesiTask) -> Int {
-        for var i = 0; i < tasks.count; ++i {
-            if (task.objectId == tasks[i].objectId){
-                return i
-            }
-        }
-        return -1
-        //group not found
-    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -283,40 +250,25 @@ class GroupTableViewController: UITableViewController {
     */
     
     func getUserGroupTasks(){
-        let userGroupTaskQuery = DesiUserGroupTask.query()
-        taskQuery!.whereKey("groupId", equalTo: self.userGroup.group.objectId!)
-        
-        let userGroupQuery = DesiUserGroup.query()
-        userGroupQuery!.whereKey("groupId", equalTo: userGroupAtIndexPath(path).group.objectId!)
-        
-        taskQuery!.findObjectsInBackgroundWithBlock {
+        let ugTaskQuery = DesiUserGroupTask.query()
+        ugTaskQuery!.includeKey("userGroup.group")
+        ugTaskQuery!.whereKey("userGroup.group", equalTo: self.userGroup.objectId!)
+        ugTaskQuery!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             
             if error == nil {
-                userGroupQuery?.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
-                    if error == nil {
-                        dispatch_async(dispatch_get_main_queue()){
-                            if let objects = objects as? [PFObject]{
-                                let userGroups = objects as? [DesiUserGroup]
-                                self.userGroups = userGroups
-                                print("done")
-                            }
-                        }
-                    }
-                    else {
-                        print("error: \(error!) \(error!.userInfo)")
-                    }
-                }
                 dispatch_async(dispatch_get_main_queue()) {
                     // The find succeeded.
-                    print("Successfully retrieved \(objects!.count) scores.")
+                    print("Successfully retrieved \(objects!.count) ugTasks.")
                     // Do something with the found objects
                     if let objects = objects as? [PFObject] {
-                        let tasks = objects as? [DesiTask]
-                        self.tasks = tasks
+                        let ugTasks = objects as? [DesiUserGroupTask]
+                        self.userGroupTasks = ugTasks
+                        
                         //store found userGroups in Localstore
+                        
                         self.tableView.reloadData()
+                        
                     }
                 }
                 
@@ -326,6 +278,17 @@ class GroupTableViewController: UITableViewController {
             }
         }
 
+    }
+    
+    func filterTasks(){
+        for ugTask in self.myUserGroupTasks {
+            if ugTask.isDesi {
+                self.myDesiTasks.append(ugTask)
+            }
+            else {
+                self.myOtherTasks.append(ugTask)
+            }
+        }
     }
 
     
@@ -342,46 +305,17 @@ class GroupTableViewController: UITableViewController {
             aTaskView.userGroup = self.userGroup
             
             if path.section == 1 {
-                aTaskView.theTask = self.myTasks[path.row]
+                aTaskView.theTask = self.myDesiTasks[path.row].task
             }
             else if path.section == 2 {
-                aTaskView.theTask = self.otherTasks[path.row]
+                aTaskView.theTask = self.myOtherTasks[path.row].task
             }
-            
-            
-            let ugTaskQuery = DesiUserGroupTask.query()
-            ugTaskQuery!.includeKey("userGroup.group")
-            ugTaskQuery!.whereKey("taskId", equalTo: aTaskView.theTask.objectId!)
-            ugTaskQuery!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        print("Successfully retrieved \(objects!.count) ugTasks.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let ugTasks = objects as? [DesiUserGroupTask]
-                            aTaskView.ugTasks = ugTasks
-                            
-                            //store found userGroups in Localstore
-                            
-                            aTaskView.tableView.reloadData()
-                            
-                        }
-                    }
-                    
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
-            }
-
         }
+        
         if (segue.identifier == "GoToGroupSettings"){
             let nav = segue.destinationViewController as! UINavigationController
             let settingsView = nav.topViewController as! GroupSettingsTableViewController
-            settingsView.tasks = self.tasks
+            //settingsView.tasks = self.tasks
             settingsView.userGroup = self.userGroup
         }
         
