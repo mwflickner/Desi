@@ -219,7 +219,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func getUserGroups(){
         let query = DesiUserGroup.query()
-        query!.includeKey("user")
         query!.includeKey("group")
         query!.whereKey("user", equalTo: DesiUser.currentUser()!)
         print("about to get UserGroups")
@@ -239,7 +238,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.tableView.reloadData()
                     }
                 }
-                
             } else {
                 // Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
@@ -250,7 +248,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func getLocalUserGroups(){
         let queryLocal = DesiUserGroup.query()
         queryLocal!.includeKey("group")
-        queryLocal!.includeKey("user")
         queryLocal!.whereKey("user", equalTo: DesiUser.currentUser()!)
         queryLocal!.fromLocalDatastore()
         queryLocal!.findObjectsInBackgroundWithBlock {
@@ -272,7 +269,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 print("Error: \(error!) \(error!.userInfo)")
             }
         }
-
     }
 
     

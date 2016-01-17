@@ -10,11 +10,13 @@ import UIKit
 import Parse
 
 class TaskTableViewController: UITableViewController {
-    var theTask: DesiTask!
-    var ugTasks: [DesiUserGroupTask]!
+    
+    var userGroup: DesiUserGroup!
+    var taskUserGroupTasks: [DesiUserGroupTask]!
+    
     var myUgTask: DesiUserGroupTask!
     var desiUgTask: DesiUserGroupTask!
-    var userGroup: DesiUserGroup!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
