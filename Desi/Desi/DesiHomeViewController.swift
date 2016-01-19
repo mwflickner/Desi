@@ -13,26 +13,22 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
     @IBOutlet weak var tableView: UITableView!
     
-    var myUserGroups: [DesiUserGroup]!
+    var myUserGroups = [DesiUserGroup]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        self.getLocalUserGroups()
         
         //self.navigationController!.navigationBar.barTintColor = UIColor.blueColor()
         //self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
-        if (self.myUserGroups == nil){
+        if (self.myUserGroups.count == 0){
             print("yoo")
         }
-        //var userGroupIds = DesiUser.currentUser()!.userGroups
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,18 +39,11 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        if myUserGroups != nil {
-            return self.myUserGroups.count + 1
-        }
-        return 1
+        return self.myUserGroups.count + 1
     }
     
     
@@ -66,20 +55,59 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiScore)
             mainCell.viewFriendsButton.enabled = false
             mainCell.viewFriendsButton.hidden = true
-            self.tableView.rowHeight = 200
             return mainCell
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-        // Configure the cell...
         let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
-        cell.groupSumLabel.text = String(self.myUserGroups[indexPath.row - 1].group.numberOfUsers) + " members"        //cell.groupImgView.image = group.groupImg
-        self.tableView.rowHeight = 60
+        cell.groupSumLabel.text = String(self.myUserGroups[indexPath.row - 1].group.numberOfUsers) + " members"
+        //cell.groupImgView.image = group.groupImage
         return cell
-        
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 200
+        }
+        return 60
+    }
+    
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    // Return NO if you do not want the specified item to be editable.
+    return true
+    }
+    */
+    
+    /*
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+    }
+    */
+    
+    func findUserGroupIndex(userGroup: DesiUserGroup) -> Int {
+        for var i = 0; i < myUserGroups.count; ++i {
+            if ((userGroup.objectId == myUserGroups[i].objectId)){
+                return i
+            }
+        }
+        return -1
+        //group not found
+    }
+    
+    func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
+        //-1 to account for the profile cell
+        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
+        return myUserGroups[indexPath.row - 1]
+    }
     
     @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
         
@@ -151,71 +179,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         */
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
-    /*override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    println("Row \(indexPath.row) selected")
-    self.groupToGoTo = myGroups[indexPath.row]
-    println("Group = \(self.groupToGoTo.groupName)")
-    //performSegueWithIdentifier("loadGroup", sender: self)
-    }
-    */
-    
-    func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
-        //-1 to account for the profile cell
-        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
-        return myUserGroups[indexPath.row - 1]
-    }
-    
-    func groupAtIndexPath(indexPath: NSIndexPath) -> DesiGroup {
-        //-1 to account for the profile cell
-        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
-        return myUserGroups[indexPath.row - 1].group
-    }
-    
-    func findUserGroupIndex(userGroup: DesiUserGroup) -> Int {
-        for var i = 0; i < myUserGroups.count; ++i {
-            if ((userGroup.objectId == myUserGroups[i].objectId) && (userGroup.group.groupName == myUserGroups[i].group.groupName)){
-                return i
-            }
-        }
-        return -1
-        //group not found
-    }
-    
     
     func getUserGroups(){
         let query = DesiUserGroup.query()
@@ -225,18 +188,16 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         query!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
-                dispatch_async(dispatch_get_main_queue()) {
-                    // The find succeeded.
-                    print("Successfully retrieved \(objects!.count) scores.")
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        let userGroups = objects as? [DesiUserGroup]
-                        self.myUserGroups = userGroups
-                        
-                        //store found userGroups in Localstore
-                        DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
-                        self.tableView.reloadData()
-                    }
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) scores.")
+                // Do something with the found objects
+                if let objects = objects as? [PFObject] {
+                    let userGroups = objects as? [DesiUserGroup]
+                    self.myUserGroups = userGroups!
+                    
+                    //store found userGroups in Localstore
+                    DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
+                    self.tableView.reloadData()
                 }
             } else {
                 // Log details of the failure
@@ -253,15 +214,13 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         queryLocal!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
-                dispatch_async(dispatch_get_main_queue()) {
-                    // The find succeeded.
-                    print("Successfully retrieved \(objects!.count) scores. Swag.")
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        let userGroups = objects as? [DesiUserGroup]
-                        self.myUserGroups = userGroups
-                        //self.tableView.reloadData()
-                    }
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) scores. Swag.")
+                // Do something with the found objects
+                if let objects = objects as? [PFObject] {
+                    let userGroups = objects as? [DesiUserGroup]
+                    self.myUserGroups = userGroups!
+                    self.tableView.reloadData()
                 }
             }
             else {
@@ -285,9 +244,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.userGroup = userGroupAtIndexPath(path)
             aGroupView.getUserGroupTasks()
-            
-            
-            
+
             //user has never been in group before
             if aGroupView.userGroup.user != DesiUser.currentUser() {
                 aGroupView.userGroup.user = DesiUser.currentUser()!

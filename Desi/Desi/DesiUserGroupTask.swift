@@ -18,16 +18,11 @@ class DesiUserGroupTask: PFObject, PFSubclassing {
         return "DesiUserGroupTask"
     }
     
-    @NSManaged var userGroup: DesiUserGroup
-    @NSManaged var task: DesiTask
+    @NSManaged var userGroup: DesiUserGroup!
+    @NSManaged var task: DesiTask!
     @NSManaged var isDesi: Bool
-    //@NSManaged var groupId: String
-    //@NSManaged var taskId: String
-    
-    
-    
-    
-    
+    @NSManaged var nextUp: DesiUserGroupTask?
+
     /*
     
     func dutyCompleted(){

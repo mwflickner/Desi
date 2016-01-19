@@ -53,7 +53,7 @@ class EntryPointViewController: UIViewController {
             //let userQuery = DesiUser.query()
             //userQuery!.includeKey("friendList")
             //userQuery!.getObjectInBackgroundWithId(DesiUser.currentUser()!.objectId!)
-            homeView.getLocalUserGroups()
+            //homeView.getLocalUserGroups()
             homeView.getUserGroups()
         }
         

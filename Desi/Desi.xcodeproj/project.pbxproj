@@ -37,7 +37,7 @@
 		F168679D1B853BC4005D69F3 /* DesiUserGroupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168679C1B853BC4005D69F3 /* DesiUserGroupTask.swift */; };
 		F168679F1B8686B1005D69F3 /* DesiTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168679E1B8686B1005D69F3 /* DesiTask.swift */; };
 		F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */; };
-		F19C0A8A1B33323600B3CD09 /* TaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TaskTableViewController.swift */; };
+		F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TaskViewController.swift */; };
 		F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */; };
 		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
 		F1C220ED1B1BD75300D628CA /* NewDesiGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */; };
@@ -96,7 +96,7 @@
 		F168679C1B853BC4005D69F3 /* DesiUserGroupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroupTask.swift; sourceTree = "<group>"; };
 		F168679E1B8686B1005D69F3 /* DesiTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTask.swift; sourceTree = "<group>"; };
 		F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
-		F19C0A891B33323600B3CD09 /* TaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewController.swift; sourceTree = "<group>"; };
+		F19C0A891B33323600B3CD09 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		F19C0A8B1B35ECE300B3CD09 /* TheDesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheDesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDesiGroupTableViewController.swift; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 				F12052101B4C92BA004271BF /* LoginViewController.swift */,
 				F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */,
 				F1C220EC1B1BD75300D628CA /* NewDesiGroupTableViewController.swift */,
-				F19C0A891B33323600B3CD09 /* TaskTableViewController.swift */,
+				F19C0A891B33323600B3CD09 /* TaskViewController.swift */,
 				F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */,
 				F120520C1B4C764E004271BF /* GroupActionsTableViewCell.swift */,
 				F120520A1B4B6BE7004271BF /* GroupSettingsTableViewController.swift */,
@@ -361,7 +361,7 @@
 				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
 				F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */,
 				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
-				F19C0A8A1B33323600B3CD09 /* TaskTableViewController.swift in Sources */,
+				F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */,
 				F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */,
 				F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */,
 				F1EB822E1B6C0E440028AD55 /* TextFieldTableViewCell.swift in Sources */,

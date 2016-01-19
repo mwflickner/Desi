@@ -288,7 +288,7 @@ class GroupTableViewController: UITableViewController {
         if segue.identifier == "loadTask" {
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
-            let aTaskView = nav.topViewController as! TaskTableViewController
+            let aTaskView = nav.topViewController as! TaskViewController
             aTaskView.userGroup = self.userGroup
             
             if path.section == 1 {
