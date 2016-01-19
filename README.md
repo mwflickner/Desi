@@ -26,7 +26,7 @@ In order to function as intended, Desi must have the following features.
 * Group Admins (have all of the abilities of a standard user and the following)
   * Add/Remove Users from Group
   * Assign Group Members to a Task
-``* Delete a group
+  * Delete a group
   * Delete a Task within a Group
 
 ### Advanced/Ideal Features
