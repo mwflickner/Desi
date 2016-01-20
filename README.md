@@ -8,7 +8,7 @@ The idea for Desi came from the minds of Matthew Flickner, Trevor Ergas, and Mat
 The purpose of Desi (short for Designinator) is to help a group of people manage their responsibilities. An example would be a group roommates using Desi to manage and delegate their household chores.
 
 ### Justifications
-I got into programming to improve the lives of others and Desi is a product that I believe has the ability to make people's lives easier. It is an application that I myself would use and believe in and building it follows my passion of mobile development and really gives me the chance to flex and furhter my Swift and iOS abilities.
+I got into programming to improve the lives of others and Desi is a product that I believe has the ability to make people's lives easier. It is an application that I myself would use and believe in and building it follows my passion of mobile development and really gives me the chance to flex and further my Swift and iOS development abilities.
 
 ### How It Works
 A user of the app belongs to a group with other users. With each group, there are tasks that group members can create, each of which has a specific user responsible for completing that task. That person is called the Desi. Points are awarded to the Desi upon completion of his task. Users who are not the Desi can volunteer to complete a task and earn double points. Points can be used as a payment for the Desi to opt-out of his task.
