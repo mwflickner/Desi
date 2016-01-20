@@ -36,6 +36,7 @@ These are features that would improve Desi beyond it's basic functional requirem
   * Have a Friend List
   * Add/Remove Friends
   * Have User Profile
+  * View a feed of all tasks that their friends are completing
 
 ## Technolgies
 * Swift
