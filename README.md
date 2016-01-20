@@ -33,7 +33,7 @@ In order to function as intended, Desi must have the following features.
   * Delete a Task within a Group
 
 ### Advanced/Ideal Features
-These are features that would improve Desi beyond it's basic functional requirements.
+These are features that would improve Desi beyond its basic functional requirements.
 * Users
   * Login with Facebook
   * Have a Friend List
