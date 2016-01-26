@@ -72,6 +72,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UserToAddCell", forIndexPath: indexPath) as! DesiFriendTableViewCell
         cell.usernameLabel.text = self.newUserGroups[indexPath.row].user.username
+        cell.desiPointsLabel.text = String(self.newUserGroups[indexPath.row].user.desiScore)
         return cell
     }
     
@@ -93,6 +94,8 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    
+    
     func userInGroupAlready() -> Bool {
         for member in self.newUserGroups {
             if self.memberToAddTextField.text == member.user.username {
@@ -103,7 +106,6 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         }
         return false
     }
-    
     
     @IBAction func enableAdd(sender: UITextField) {
         if isValidUsername(sender.text!) {

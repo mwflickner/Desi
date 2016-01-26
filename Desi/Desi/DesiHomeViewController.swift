@@ -115,7 +115,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
         if let newGroupViewController = segue.sourceViewController as? NewGroupViewController {
             myUserGroups.append(newGroupViewController.myNewUserGroup)
-            print(newGroupViewController.myNewUserGroup.group.groupName)
+            DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
             self.tableView.reloadData()
         }
     }
@@ -184,7 +184,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let query = DesiUserGroup.query()
         query!.includeKey("group")
         query!.whereKey("user", equalTo: DesiUser.currentUser()!)
-        print("about to get UserGroups")
         query!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
