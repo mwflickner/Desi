@@ -61,7 +61,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
         let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
-        cell.groupSumLabel.text = String(self.myUserGroups[indexPath.row - 1].group.numberOfUsers) + " members"
         //cell.groupImgView.image = group.groupImage
         return cell
     }
@@ -114,8 +113,9 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
-        if let newDesiGroupTableViewController = segue.sourceViewController as? NewDesiGroupTableViewController {
-            myUserGroups.append(newDesiGroupTableViewController.myNewUserGroup)
+        if let newGroupViewController = segue.sourceViewController as? NewGroupViewController {
+            myUserGroups.append(newGroupViewController.myNewUserGroup)
+            print(newGroupViewController.myNewUserGroup.group.groupName)
             self.tableView.reloadData()
         }
     }

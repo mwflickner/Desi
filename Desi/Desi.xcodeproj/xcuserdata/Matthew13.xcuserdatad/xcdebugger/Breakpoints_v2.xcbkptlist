@@ -9,130 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Desi/NewDesiGroupTableViewController.swift"
-            timestampString = "460178254.526918"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "NewDesiGroupTableViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Desi.NewDesiGroupTableViewController.newDesiGroupNameTextField.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITextField&gt;"
-                  moduleName = "Desi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Matthew13/Development/Apps/Desi/Desi/NewDesiGroupTableViewController.swift"
-                  timestampString = "454876212.850441"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Desi.NewDesiGroupTableViewController.newDesiGroupNameTextField.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITextField&gt;"
-                  moduleName = "Desi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Matthew13/Development/Apps/Desi/Desi/NewDesiGroupTableViewController.swift"
-                  timestampString = "454876212.858929"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Desi.NewDesiGroupTableViewController.newDesiGroupNameTextField.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITextField&gt;"
-                  moduleName = "Desi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Matthew13/Development/Apps/Desi/Desi/NewDesiGroupTableViewController.swift"
-                  timestampString = "454876212.859093"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Desi.NewDesiGroupTableViewController.init (Desi.NewDesiGroupTableViewController.Type)(style : C.UITableViewStyle) -&gt; Desi.NewDesiGroupTableViewController"
-                  moduleName = "Desi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Matthew13/Development/Apps/Desi/Desi/NewDesiGroupTableViewController.swift"
-                  timestampString = "454876212.859223"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "51">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Desi.NewDesiGroupTableViewController.init (Desi.NewDesiGroupTableViewController.Type)(nibName : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;, bundle : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSBundle&gt;) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Desi.NewDesiGroupTableViewController&gt;"
-                  moduleName = "Desi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Matthew13/Development/Apps/Desi/Desi/NewDesiGroupTableViewController.swift"
-                  timestampString = "454876212.859347"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "76">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Desi.NewDesiGroupTableViewController.init (Desi.NewDesiGroupTableViewController.Type)(coder : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSCoder&gt;) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Desi.NewDesiGroupTableViewController&gt;"
-                  moduleName = "Desi"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Matthew13/Development/Apps/Desi/Desi/NewDesiGroupTableViewController.swift"
-                  timestampString = "454876212.859472"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "54">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Desi/NewDesiGroupTableViewController.swift"
-            timestampString = "460178254.526918"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "NewDesiGroupTableViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Desi/CreateAccountViewController.swift"
             timestampString = "458247796.825118"
             startingColumnNumber = "9223372036854775807"
@@ -395,6 +271,22 @@
             startingLineNumber = "81"
             endingLineNumber = "81"
             landmarkName = "usernameCheck(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Desi/NewGroupViewController.swift"
+            timestampString = "475536241.459969"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
