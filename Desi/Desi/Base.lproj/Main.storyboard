@@ -357,24 +357,15 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxR-P0-dLQ">
-                                            <rect key="frame" x="566" y="27" width="26" height="26"/>
-                                            <state key="normal" image="glyphicons-193-circle-remove">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="centerX" secondItem="t2T-I8-v6f" secondAttribute="centerX" id="0nb-MW-vRO"/>
-                                        <constraint firstItem="fxR-P0-dLQ" firstAttribute="trailing" secondItem="1Yo-32-kxh" secondAttribute="trailingMargin" id="7H0-qS-0Fg"/>
                                         <constraint firstItem="Ym8-7N-fPu" firstAttribute="top" secondItem="t2T-I8-v6f" secondAttribute="bottom" constant="8" id="Ati-mv-NZX"/>
                                         <constraint firstItem="t2T-I8-v6f" firstAttribute="top" secondItem="1Yo-32-kxh" secondAttribute="topMargin" id="EB1-x0-fhu"/>
                                         <constraint firstAttribute="centerX" secondItem="Ym8-7N-fPu" secondAttribute="centerX" id="IZu-n6-4Lx"/>
-                                        <constraint firstAttribute="centerY" secondItem="fxR-P0-dLQ" secondAttribute="centerY" id="PHg-fj-dc9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="button" destination="fxR-P0-dLQ" id="lb5-8g-Ttw"/>
                                     <outlet property="groupNameLabel" destination="t2T-I8-v6f" id="zlv-i3-Xxx"/>
                                     <outlet property="groupSumLabel" destination="Ym8-7N-fPu" id="CQt-k8-q9Q"/>
                                     <segue destination="cpa-eK-4Pj" kind="showDetail" identifier="loadTask" id="PGv-sA-jMC"/>
@@ -705,7 +696,7 @@
         <!--Create Group-->
         <scene sceneID="DEy-QH-ZiT">
             <objects>
-                <viewController id="zB8-h7-afa" customClass="NewGroupViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="zB8-h7-afa" customClass="NewGroupViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6W9-WP-VFa"/>
                         <viewControllerLayoutGuide type="bottom" id="vcO-FY-er5"/>
@@ -719,7 +710,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserToAddCell" rowHeight="80" id="7ZG-jC-NkB" customClass="DesiFriendTableViewCell" customModule="Desi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="560" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="560" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7ZG-jC-NkB" id="Kud-wq-cxx">
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="79"/>
@@ -1362,7 +1353,6 @@
     <resources>
         <image name="desiAppIcon1" width="120" height="120"/>
         <image name="glyphicons-137-cogwheel" width="24" height="24"/>
-        <image name="glyphicons-193-circle-remove" width="26" height="26"/>
         <image name="glyphicons-433-plus" width="20" height="20"/>
         <image name="glyphicons-7-user-add" width="28" height="24"/>
     </resources>

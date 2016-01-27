@@ -31,6 +31,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         
         borderTableView(self.tableView)
         
+        
         createButton = self.navigationItem.rightBarButtonItem!
         createButton.enabled = false
         
@@ -166,7 +167,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         let newUserGroup: DesiUserGroup = DesiUserGroup()
         newUserGroup.group = self.newGroup
         newUserGroup.user = user
-        newUserGroup.isGroupAdmin = false
+        newUserGroup.isGroupAdmin = isAdmin
         newUserGroup.points = 0
         return newUserGroup
     }

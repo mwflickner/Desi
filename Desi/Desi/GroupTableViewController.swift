@@ -11,9 +11,11 @@ import Parse
 
 class GroupTableViewController: UITableViewController {
     
-    var userGroup: DesiUserGroup!
+    var myUserGroup: DesiUserGroup!
+    var userGroups = [DesiUserGroup]()
     
     var userGroupTasks = [DesiUserGroupTask]()
+    
     var otherUserGroupTasks = [DesiUserGroupTask]()
     
     var myUserGroupTasks = [DesiUserGroupTask]()
@@ -22,13 +24,7 @@ class GroupTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = self.userGroup.group.groupName
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.title = self.myUserGroup.group.groupName
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,7 +33,7 @@ class GroupTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if self.userGroupTasks.count != 0 {
             return 3
@@ -47,10 +43,10 @@ class GroupTableViewController: UITableViewController {
     
     override func tableView( tableView: UITableView,  titleForHeaderInSection section: Int) -> String {
         switch(section) {
-        case 0: return "New Task"
-        case 1:  return "My Tasks"
-        case 2: return "Other Tasks"
-        default:  return ""
+            case 0: return "New Task"
+            case 1:  return "My Tasks"
+            case 2: return "Other Tasks"
+            default:  return ""
         }
     }
 
@@ -124,10 +120,40 @@ class GroupTableViewController: UITableViewController {
         
         
     }
-*/
-    /*
-    @IBAction func createNewTask(sender: UIButton){
+    */
+    
+    @IBAction func createTaskPressed(sender: UIButton){
         sender.enabled = false
+        
+        let indexPath = NSIndexPath(forRow:0, inSection:0)
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+        
+        let newTask = createNewTask(cell.textField.text!, pointValue: 1)
+        let newUserGroupTasks = buildUserGroupTaskLinkedArray(self.userGroups, task: newTask)
+        
+        let block = ({
+            (success: Bool, error: NSError?) -> Void in
+            if success {
+                print("new UserGroupsTask saved")
+                cell.textField.text = ""
+            }
+            else {
+                print("new UserGroupsTask error")
+                cell.textField.text = ""
+                setErrorColor(cell.textField)
+                
+            }
+        })
+        
+        PFObject.saveAllInBackground(newUserGroupTasks, block: block)
+    }
+    
+    
+    
+    /*
+    @IBAction func createTaskPressed(sender: UIButton){
+        sender.enabled = false
+    
         var indexPath: NSIndexPath
         if self.tasks != nil {
             indexPath = NSIndexPath(forRow: 0, inSection:2)
@@ -136,8 +162,7 @@ class GroupTableViewController: UITableViewController {
             indexPath = NSIndexPath(forRow:0, inSection:0)
         }
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
-        
-        let newTask: DesiTask = DesiTask()
+    
         newTask.taskName = cell.textField.text!
         cell.textField.text = ""
         newTask.members = self.userGroup.group.groupMembers
@@ -211,9 +236,75 @@ class GroupTableViewController: UITableViewController {
         
     }
     
+    func getUserGroupsForGroup(group: DesiGroup){
+        let userGroupsQuery = DesiUserGroup.query()
+        userGroupsQuery!.whereKey("group", equalTo: group)
+        userGroupsQuery!.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            if error == nil {
+                print("Successfully found \(objects!.count) userGroups")
+                if let objects = objects as? [PFObject]{
+                    if let userGroups = objects as? [DesiUserGroup]{
+                        for userGroup in userGroups {
+                            print(userGroup.isGroupAdmin)
+                        }
+                        self.userGroups = userGroups
+                        
+                        // save in to local store
+                    }
+                    else {
+                        print("error")
+                    }
+                }
+                else {
+                    print("error shit")
+                }
+            }
+            else {
+                debugPrint(error)
+            }
+        }
+    }
+    
+    func createNewTask(taskName: String, pointValue: Int) -> DesiTask {
+        let newTask = DesiTask()
+        newTask.taskName = taskName
+        newTask.pointValue = pointValue
+        return newTask
+    }
+    
+    func createNewUserGroupTask(userGroup: DesiUserGroup, isDesi: Bool, task: DesiTask) -> DesiUserGroupTask {
+        let newUserGroupTask = DesiUserGroupTask()
+        newUserGroupTask.userGroup = userGroup
+        newUserGroupTask.isDesi = isDesi
+        newUserGroupTask.task = task
+        return newUserGroupTask
+    }
+    
+    func buildUserGroupTaskLinkedArray(userGroups: [DesiUserGroup], task: DesiTask) -> [DesiUserGroupTask] {
+        var newUserGroupTasks = [DesiUserGroupTask]()
+        let initialUgt = createNewUserGroupTask(self.myUserGroup, isDesi: true, task: task)
+        var previousUgt = initialUgt
+        newUserGroupTasks.append(previousUgt)
+        for userGroup in self.userGroups {
+            if userGroup.user != DesiUser.currentUser()! {
+                let isDesi : Bool = (userGroup.user == DesiUser.currentUser()!)
+                let newUgt = createNewUserGroupTask(userGroup, isDesi: isDesi, task: task)
+                newUgt.previous = previousUgt
+                previousUgt.nextUp = newUgt
+                newUserGroupTasks.append(newUgt)
+                previousUgt = newUgt
+            }
+        }
+        initialUgt.previous = previousUgt
+        previousUgt.nextUp = initialUgt
+        return newUserGroupTasks
+    }
+    
     func getUserGroupTasks(){
+        
         let userGroupQuery = DesiUserGroup.query()
-        userGroupQuery!.whereKey("group", equalTo: self.userGroup.group)
+        userGroupQuery!.whereKey("group", equalTo: self.userGroups[0].group)
         
         let ugTaskQuery = DesiUserGroupTask.query()
         ugTaskQuery!.includeKey("userGroup")
@@ -225,13 +316,12 @@ class GroupTableViewController: UITableViewController {
         ugTaskQuery!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
-                dispatch_async(dispatch_get_main_queue()) {
-                    // The find succeeded.
-                    print("Successfully retrieved \(objects!.count) ugTasks.")
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        let ugTasks = objects as? [DesiUserGroupTask]
-                        self.userGroupTasks = ugTasks!
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) ugTasks.")
+                // Do something with the found objects
+                if let objects = objects as? [PFObject] {
+                    if let ugTasks = objects as? [DesiUserGroupTask] {
+                        self.userGroupTasks = ugTasks
                         for ug in self.userGroupTasks {
                             print("User: \(ug.userGroup.user.username!)")
                             print("Group: \(ug.userGroup.group.groupName)")
@@ -289,7 +379,7 @@ class GroupTableViewController: UITableViewController {
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
             let aTaskView = nav.topViewController as! TaskViewController
-            aTaskView.userGroup = self.userGroup
+            aTaskView.userGroup = self.myUserGroup
             
             if path.section == 1 {
                 aTaskView.taskUserGroupTasks = self.filterUserGroupTasksByTask(self.myDesiTasks[path.row].task)
@@ -303,7 +393,7 @@ class GroupTableViewController: UITableViewController {
             let nav = segue.destinationViewController as! UINavigationController
             let settingsView = nav.topViewController as! GroupSettingsTableViewController
             //settingsView.tasks = self.tasks
-            settingsView.userGroup = self.userGroup
+            settingsView.userGroup = self.myUserGroup
         }
         
     }

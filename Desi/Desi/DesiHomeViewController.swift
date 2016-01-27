@@ -122,8 +122,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
         if let theGroupTableViewController = segue.sourceViewController as? GroupTableViewController {
-            let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroup)
-            self.myUserGroups[groupIndex] = theGroupTableViewController.userGroup
+            let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroups[0])
+            //self.myUserGroups[groupIndex] = theGroupTableViewController.userGroups
             self.tableView.reloadData()
         }
     }
@@ -241,26 +241,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let nav = segue.destinationViewController as! UINavigationController
             let aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
-            aGroupView.userGroup = userGroupAtIndexPath(path)
-            aGroupView.getUserGroupTasks()
-
-            //user has never been in group before
-            if aGroupView.userGroup.user != DesiUser.currentUser() {
-                aGroupView.userGroup.user = DesiUser.currentUser()!
-                aGroupView.userGroup.saveInBackgroundWithBlock({
-                    (success: Bool, error: NSError?) -> Void in
-                    if (success) {
-                        // The object has been saved.
-                        print("usergroup added user pointer")
-                    } else {
-                        // There was a problem, check error.description
-                        print("UserGroup Error: \(error)")
-                        if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                            aGroupView.userGroup.saveEventually()
-                        }
-                    }
-                })
-            }
+            aGroupView.myUserGroup = userGroupAtIndexPath(path)
+            aGroupView.getUserGroupsForGroup(aGroupView.myUserGroup.group)
         }
         
     }
