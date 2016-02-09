@@ -9,67 +9,76 @@
 import UIKit
 import Parse
 
-class TaskTableViewController: UITableViewController {
-    var theTask: DesiTask!
-    var ugTasks: [DesiUserGroupTask]!
+class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var userGroup: DesiUserGroup!
+    var taskUserGroupTasks = [DesiUserGroupTask]()
+    
     var myUgTask: DesiUserGroupTask!
     var desiUgTask: DesiUserGroupTask!
-    var userGroup: DesiUserGroup!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = self.theTask.taskName
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        //self.taskUserGroupTasks
+        self.navigationItem.title = self.taskUserGroupTasks[0].task.taskName
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-         //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         //self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func setMyUgTask(){
+        for ugTask in self.taskUserGroupTasks {
+            if ugTask.userGroup.user == DesiUser.currentUser() {
+                self.myUgTask = ugTask
+                return
+            }
+        }
+        // should not get here
+    }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        if DesiUser.currentUser()!.username == self.theTask.theDesi{
-            return 1
-        }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        if section == 0 {
-            if self.theTask.theDesi == DesiUser.currentUser()?.username{
-                return self.theTask.members.count + 1
-            }
-            return self.theTask.members.count
-        }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //if section == 0 {
+        //    if self.theTask.theDesi == DesiUser.currentUser()?.username{
+        //        return self.theTask.members.count + 1
+        //    }
+        //    return self.theTask.members.count
+        //}
         return 1
         
     }
     
-    /*
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath == 1 {
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 1 {
             return 80
         }
         else {
             return 44
         }
     }
-    */
+    
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         print("Path is \(indexPath.row)")
+        let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
+        return desiCell
+        /*
         if indexPath.section == 0 {
             if (indexPath.row == 0){
                 let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
@@ -123,9 +132,10 @@ class TaskTableViewController: UITableViewController {
         print("returning button cell")
         return groupActionCell
         
-        
+       */
     }
-    
+
+    /*
     @IBAction func wentOutTapped(sender: UIButton) {
         sender.enabled = false
         
@@ -214,6 +224,7 @@ class TaskTableViewController: UITableViewController {
         }
     
     }
+    */
     
     
     
@@ -221,42 +232,7 @@ class TaskTableViewController: UITableViewController {
         
     }
 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    
     
     // MARK: - Navigation
 

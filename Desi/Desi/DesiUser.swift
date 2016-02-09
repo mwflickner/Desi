@@ -23,8 +23,8 @@ class DesiUser: PFUser {
     @NSManaged var firstName: String
     @NSManaged var lastName: String
     @NSManaged var userImg: PFFile
-    @NSManaged var desiPoints: Int
-    @NSManaged var userGroups: [String]
+    @NSManaged var desiScore: Int
+    //@NSManaged var userGroups: [String]
     
     
     /*init(userName: String, firstName: String, lastName: String, userImg: Int) {

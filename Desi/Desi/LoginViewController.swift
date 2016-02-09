@@ -11,8 +11,9 @@ import Parse
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var message: String!
@@ -42,22 +43,19 @@ class LoginViewController: UIViewController {
         
     }
     
-    func verifyUsername(name: String){
-        
-    }
-    
-    
-    @IBAction func signIn(sender: UIButton) {
-        sender.enabled = false
+    @IBAction func loginPressed(sender: UIButton) {
+        self.loginButton.enabled = false
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
-            
-        var username1 = self.username.text
-        username1 = username1!.lowercaseString
-            
-        let userPassword = self.password.text
-            
-        PFUser.logInWithUsernameInBackground(username1!, password:userPassword!) {
+        login()
+    }
+    
+    func login(){
+        var username = self.usernameTextField.text!
+        username = username.lowercaseString
+        let userPassword = self.passwordTextField.text
+        
+        PFUser.logInWithUsernameInBackground(username, password:userPassword!) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 dispatch_async(dispatch_get_main_queue()) {
@@ -65,16 +63,15 @@ class LoginViewController: UIViewController {
                 }
             } else {
                 self.activityIndicator.stopAnimating()
-                    
                 if let message1: AnyObject = error!.userInfo["error"] {
                     self.message = "\(message1)"
-                    sender.enabled = true
+                    self.loginButton.enabled = true
                 }
             }
         }
     }
 
-    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -84,38 +81,8 @@ class LoginViewController: UIViewController {
         if (segue.identifier == "loginSegue"){
             let nav = segue.destinationViewController as! UINavigationController
             let homeView = nav.topViewController as! DesiHomeViewController
-            
-            let query = DesiUserGroup.query()
-            query!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-            query!.includeKey("group.theDesi")
-            query!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-
-                if error == nil {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        print("Successfully retrieved \(objects!.count) scores.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let userGroups = objects as? [DesiUserGroup]
-                            homeView.myUserGroups = userGroups
-                            
-                            //store found userGroups in Localstore
-                            DesiUserGroup.pinAllInBackground(homeView.myUserGroups, withName:"MyUserGroups")
-                            
-                            homeView.tableView.reloadData()
-                            
-                        }
-                    }
-                    
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
-            }
-
+            homeView.getUserGroups()
         }
-        
     }
 
 

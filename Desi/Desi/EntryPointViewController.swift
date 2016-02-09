@@ -41,79 +41,25 @@ class EntryPointViewController: UIViewController {
         }
     }
     
-
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
         if (segue.identifier == "openToGroupsSegue") {
             let nav = segue.destinationViewController as! UINavigationController
             let homeView = nav.topViewController as! DesiHomeViewController
-            let userQuery = DesiUser.query()
-            userQuery!.includeKey("friendList")
-            userQuery!.getObjectInBackgroundWithId(DesiUser.currentUser()!.objectId!)
-            
-            let queryLocal = DesiUserGroup.query()
-            queryLocal!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-            queryLocal!.includeKey("group.theDesi")
-            queryLocal!.fromLocalDatastore()
-            queryLocal!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                   // dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        print("Successfully retrieved \(objects!.count) scores. Swag.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let userGroups = objects as? [DesiUserGroup]
-                            homeView.myUserGroups = userGroups
-                            
-                            //homeView.tableView.reloadData()
-                            
-                        }
-                    //}
-                    
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
-            }
-            
-            let queryNet = DesiUserGroup.query()
-            queryNet!.whereKey("username", equalTo: DesiUser.currentUser()!.username!)
-            queryNet!.includeKey("group.theDesi")
-            queryNet!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        // The find succeeded.
-                        print("Successfully retrieved \(objects!.count) scores. Swag.")
-                        // Do something with the found objects
-                        if let objects = objects as? [PFObject] {
-                            let userGroups = objects as? [DesiUserGroup]
-                            homeView.myUserGroups = userGroups
-                        
-                            homeView.tableView.reloadData()
-                        
-                        }
-                    }
-                    
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
-                }
-            }
-            
+            //let userQuery = DesiUser.query()
+            //userQuery!.includeKey("friendList")
+            //userQuery!.getObjectInBackgroundWithId(DesiUser.currentUser()!.objectId!)
+            //homeView.getLocalUserGroups()
+            homeView.getUserGroups()
         }
+        
         if (segue.identifier == "openToLoginSegue") {
             
         }
-        
     }
 
 
