@@ -318,6 +318,9 @@
                                             <state key="normal" title="Create!">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="createTaskPressed:" destination="bKd-KZ-MoS" eventType="touchUpInside" id="gb3-Tw-gvW"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f2Z-bw-gjX">
                                             <rect key="frame" x="8" y="24" width="476" height="30"/>

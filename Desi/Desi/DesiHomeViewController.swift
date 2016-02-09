@@ -242,6 +242,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let aGroupView = nav.topViewController as! GroupTableViewController
             //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.myUserGroup = userGroupAtIndexPath(path)
+            aGroupView.getUserGroupTasksForGroup()
             aGroupView.getUserGroupsForGroup(aGroupView.myUserGroup.group)
         }
         

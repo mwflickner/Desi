@@ -118,17 +118,20 @@ class GroupTableViewController: UITableViewController {
             index = sender.tag - 100
         }
         
-        
     }
     */
+    
+    @IBAction func cancelToGroupVC(segue:UIStoryboardSegue){
+        
+    }
     
     @IBAction func createTaskPressed(sender: UIButton){
         sender.enabled = false
         
         let indexPath = NSIndexPath(forRow:0, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
-        
         let newTask = createNewTask(cell.textField.text!, pointValue: 1)
+        print(newTask.taskName)
         let newUserGroupTasks = buildUserGroupTaskLinkedArray(self.userGroups, task: newTask)
         
         let block = ({
@@ -146,94 +149,6 @@ class GroupTableViewController: UITableViewController {
         })
         
         PFObject.saveAllInBackground(newUserGroupTasks, block: block)
-    }
-    
-    
-    
-    /*
-    @IBAction func createTaskPressed(sender: UIButton){
-        sender.enabled = false
-    
-        var indexPath: NSIndexPath
-        if self.tasks != nil {
-            indexPath = NSIndexPath(forRow: 0, inSection:2)
-        }
-        else {
-            indexPath = NSIndexPath(forRow:0, inSection:0)
-        }
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
-    
-        newTask.taskName = cell.textField.text!
-        cell.textField.text = ""
-        newTask.members = self.userGroup.group.groupMembers
-        newTask.theDesi = DesiUser.currentUser()!.username!
-        newTask.groupId = self.userGroup.group.objectId!
-        newTask.setDesiIndex()
-        newTask.saveInBackgroundWithBlock({
-            (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                self.tasks.append(newTask)
-                print("new task saved")
-                
-                //self.tasks.append(newTask)
-                //self.tableView.reloadData()
-                for ug in self.userGroups{
-                    let newUGT: DesiUserGroupTask = DesiUserGroupTask()
-                    newUGT.groupId = self.userGroup.group.objectId!
-                    newUGT.taskId = newTask.objectId!
-                    newUGT.task = newTask
-                    
-                    newUGT.userGroup = ug
-                    
-                    
-                    if ug.username == DesiUser.currentUser()?.username{
-                        newUGT.isDesi = true
-                    }
-                    else {
-                        newUGT.isDesi = false
-                    }
-                    newUGT.saveInBackgroundWithBlock({
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                            // The object has been saved.
-                            print("usergrouptask saved")
-                            self.tableView.reloadData()
-                            
-                        } else {
-                            // There was a problem, check error.description
-                            print("UserGroupTask Error: \(error)")
-                            if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                                newUGT.saveEventually()
-                            }
-                        }
-                    })
-                }
-                
-            } else {
-                // There was a problem, check error.description
-                print("UserGroupTask Error: \(error)")
-                if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-    
-                }
-            }
-        })
-    }
-    */
-    
-    /*
-    @IBAction func backToGroupViewController(segue:UIStoryboardSegue) {
-        if let theTaskTableViewController = segue.sourceViewController as? TaskTableViewController {
-            let taskIndex = self.findTaskIndex(theTaskTableViewController.theTask)
-            self.tasks[taskIndex] = theTaskTableViewController.theTask
-            self.tableView.reloadData()
-        }
-
-    }
-    */
-    
-    @IBAction func cancelToGroupVC(segue:UIStoryboardSegue){
-        
     }
     
     func getUserGroupsForGroup(group: DesiGroup){
@@ -301,17 +216,16 @@ class GroupTableViewController: UITableViewController {
         return newUserGroupTasks
     }
     
-    func getUserGroupTasks(){
+    func getUserGroupTasksForGroup(){
         
         let userGroupQuery = DesiUserGroup.query()
-        userGroupQuery!.whereKey("group", equalTo: self.userGroups[0].group)
+        userGroupQuery!.whereKey("group", equalTo: self.myUserGroup.group)
         
         let ugTaskQuery = DesiUserGroupTask.query()
         ugTaskQuery!.includeKey("userGroup")
         ugTaskQuery!.includeKey("userGroup.user")
         ugTaskQuery!.includeKey("userGroup.group")
         ugTaskQuery!.includeKey("task")
-        //ugTaskQuery!.whereKey("userGroup.group", equalTo: self.userGroup.group)
         ugTaskQuery!.whereKey("userGroup", matchesQuery: userGroupQuery!)
         ugTaskQuery!.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
