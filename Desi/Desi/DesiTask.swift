@@ -18,7 +18,10 @@ class DesiTask: PFObject, PFSubclassing {
         return "DesiTask"
     }
     
-    @NSManaged var taskName: String!
+    @NSManaged var taskName: String
     @NSManaged var pointValue: Int
+    @NSManaged var taskType: String
+    @NSManaged var rotationStyle: String
+    @NSManaged var numberOfDesis: Int
     
 }

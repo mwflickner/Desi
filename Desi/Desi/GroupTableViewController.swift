@@ -103,23 +103,6 @@ class GroupTableViewController: UITableViewController {
         }
 
     }
-   /*
-    @IBAction func deleteTask(sender: UIButton){
-        sender.enabled = false
-        var index: Int
-        
-        //other tasks
-        if sender.tag > 199 {
-            index = sender.tag - 200
-            self.otherTasks[index].deleteInBackgroundWithBlock(<#block: PFBooleanResultBlock?##(Bool, NSError?) -> Void#>)
-        }
-        //myTasks
-        else {
-            index = sender.tag - 100
-        }
-        
-    }
-    */
     
     @IBAction func cancelToGroupVC(segue:UIStoryboardSegue){
         
@@ -130,9 +113,9 @@ class GroupTableViewController: UITableViewController {
         
         let indexPath = NSIndexPath(forRow:0, inSection:0)
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! DesiTableViewCell
-        let newTask = createNewTask(cell.textField.text!, pointValue: 1)
+        let newTask = createNewTask(cell.textField.text!, numberOfDesis: 1, pointValue: 1)
         print(newTask.taskName)
-        let newUserGroupTasks = buildUserGroupTaskLinkedArray(self.userGroups, task: newTask)
+        let newUserGroupTasks = buildUserGroupTasks(self.userGroups, task: newTask)
         let block = ({
             (success: Bool, error: NSError?) -> Void in
             if success {
@@ -154,38 +137,29 @@ class GroupTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func createNewTask(taskName: String, pointValue: Int) -> DesiTask {
+    func createNewTask(taskName: String, numberOfDesis: Int, pointValue: Int) -> DesiTask {
         let newTask = DesiTask()
         newTask.taskName = taskName
+        newTask.numberOfDesis = numberOfDesis
         newTask.pointValue = pointValue
         return newTask
     }
     
-    func createNewUserGroupTask(userGroup: DesiUserGroup, isDesi: Bool, task: DesiTask) -> DesiUserGroupTask {
+    func createNewUserGroupTask(userGroup: DesiUserGroup, queueSpot: Int, task: DesiTask) -> DesiUserGroupTask {
         let newUserGroupTask = DesiUserGroupTask()
         newUserGroupTask.userGroup = userGroup
-        newUserGroupTask.isDesi = isDesi
         newUserGroupTask.task = task
+        newUserGroupTask.queueSpot = queueSpot
+        newUserGroupTask.isDesi = queueSpot <= task.numberOfDesis
         return newUserGroupTask
     }
     
-    func buildUserGroupTaskLinkedArray(userGroups: [DesiUserGroup], task: DesiTask) -> [DesiUserGroupTask] {
+    func buildUserGroupTasks(userGroups: [DesiUserGroup], task: DesiTask) -> [DesiUserGroupTask] {
         var newUserGroupTasks = [DesiUserGroupTask]()
-        let initialUgt = createNewUserGroupTask(self.myUserGroup, isDesi: true, task: task)
-        var previousUgt = initialUgt
-        newUserGroupTasks.append(previousUgt)
-        for userGroup in self.userGroups {
-            if userGroup.user != DesiUser.currentUser()! {
-                let isDesi : Bool = (userGroup.user == DesiUser.currentUser()!)
-                let newUgt = createNewUserGroupTask(userGroup, isDesi: isDesi, task: task)
-                //newUgt.previous = previousUgt
-                //previousUgt.nextUp = newUgt
-                newUserGroupTasks.append(newUgt)
-                //previousUgt = newUgt
-            }
+        for (index,userGroup) in self.userGroups.enumerate() {
+            let newUgt = createNewUserGroupTask(userGroup, queueSpot: index, task: task)
+            newUserGroupTasks.append(newUgt)
         }
-        //initialUgt.previous = previousUgt
-        //previousUgt.nextUp = initialUgt
         return newUserGroupTasks
     }
     

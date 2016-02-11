@@ -17,6 +17,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var myUgTask: DesiUserGroupTask!
     var desiUgTask: DesiUserGroupTask!
     
+    var task: DesiTask!
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -24,10 +26,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        //self.taskUserGroupTasks
-        self.navigationItem.title = self.taskUserGroupTasks[0].task.taskName
-        
-        
+        task = self.taskUserGroupTasks[0].task
+        self.navigationItem.title = task.taskName
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,18 +48,24 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Table view data source
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //if section == 0 {
-        //    if self.theTask.theDesi == DesiUser.currentUser()?.username{
-        //        return self.theTask.members.count + 1
-        //    }
-        //    return self.theTask.members.count
-        //}
-        return 1
-        
+        if section == 0 {
+            return self.myUgTask.task.numberOfDesis
+        }
+        if section == 1 {
+            return self.taskUserGroupTasks.count - self.myUgTask.task.numberOfDesis
+        }
+        if let swag = self.myUgTask {
+            let x = self.taskUserGroupTasks.count - 2*swag.task.numberOfDesis
+            if x > 0 {
+                return x
+            }
+        }
+
+        return 0
     }
     
     
@@ -68,7 +74,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 80
         }
         else {
-            return 44
+            return 60
         }
     }
     
@@ -76,63 +82,19 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         print("Path is \(indexPath.row)")
-        let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-        return desiCell
-        /*
         if indexPath.section == 0 {
-            if (indexPath.row == 0){
-                let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-                if (DesiUser.currentUser()!.username == self.theTask.theDesi) {
-                    print("swag")
-                    desiCell.theDesiNameLabel.text = "YOU are the Desi"
-                    desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-                }
-                else {
-                    desiCell.theDesiNameLabel.text = self.theTask.theDesi
-                }
-                //desiCell.theDesiImg.image = theGroup.theDesi.userImg
-                print("returning DesiCell")
-                return desiCell
-            }
-            if (indexPath.row == 1){
-                if self.theTask.members.count > 1 {
-                    let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-                    let nextDesi: String = self.theTask.getUserFromDesi(1)
-                    onDeckCell.onDeckLabel.text = nextDesi
-                    //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
-                    print("returning onDeckCell")
-                    return onDeckCell
-                }
-            }
-            if (indexPath.row >= self.theTask.members.count && DesiUser.currentUser()?.username == self.theTask.theDesi){
-                
-                let groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
-                groupActionCell.actionButton.setTitle("Task Completed", forState: UIControlState.Normal)
-                groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                groupActionCell.actionButton.addTarget(self, action: "wentOutTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-                print("returning button cell")
-                return groupActionCell
-               
-                
-            }
-            
-            let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-            let userGroup: String = self.theTask.getUserFromDesi(indexPath.row)
-            restCell.restOfGroupLabel.text = userGroup
-            //restCell.restOfGroupImg.image = userGroup.user.userImg
-            print("returning other cell")
-            return restCell
-
-
+            let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! DesiTableViewCell
+            desiCell.label1.text = self.taskUserGroupTasks[indexPath.row].userGroup.user.username
+            return desiCell
         }
-        let groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
-        groupActionCell.actionButton.setTitle("Volunteer", forState: UIControlState.Normal)
-        groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-        groupActionCell.actionButton.addTarget(self, action: "volunteerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        print("returning button cell")
-        return groupActionCell
-        
-       */
+        if indexPath.section == 1 {
+            let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! DesiTableViewCell
+            onDeckCell.label1.text = self.taskUserGroupTasks[((indexPath.row + self.task.numberOfDesis) % self.taskUserGroupTasks.count)].userGroup.user.username
+            return onDeckCell
+        }
+        let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! DesiTableViewCell
+        restCell.label1.text = self.taskUserGroupTasks[((indexPath.row + 2*self.task.numberOfDesis) % self.taskUserGroupTasks.count)].userGroup.user.username
+        return restCell
     }
 
     /*
