@@ -71,9 +71,9 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UserToAddCell", forIndexPath: indexPath) as! DesiFriendTableViewCell
-        cell.usernameLabel.text = self.newUserGroups[indexPath.row].user.username
-        cell.desiPointsLabel.text = String(self.newUserGroups[indexPath.row].user.desiScore)
+        let cell = tableView.dequeueReusableCellWithIdentifier("UserToAddCell", forIndexPath: indexPath) as! DesiTableViewCell
+        cell.label1.text = self.newUserGroups[indexPath.row].user.username
+        cell.label2.text = String(self.newUserGroups[indexPath.row].user.desiScore)
         return cell
     }
     

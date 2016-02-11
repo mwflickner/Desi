@@ -79,8 +79,8 @@ class GroupTableViewController: UITableViewController {
             return taskCell
         }
         
-        func setUpCreateTaskCell() -> TextFieldTableViewCell {
-            let createTaskCell = tableView.dequeueReusableCellWithIdentifier("createTaskCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+        func setUpCreateTaskCell() -> DesiTableViewCell {
+            let createTaskCell = tableView.dequeueReusableCellWithIdentifier("createTaskCell", forIndexPath: indexPath) as! DesiTableViewCell
             createTaskCell.button.setTitle("Create!", forState: UIControlState.Normal)
             createTaskCell.button.addTarget(self, action: "createTaskPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             return createTaskCell
@@ -129,7 +129,7 @@ class GroupTableViewController: UITableViewController {
         sender.enabled = false
         
         let indexPath = NSIndexPath(forRow:0, inSection:0)
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! TextFieldTableViewCell
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! DesiTableViewCell
         let newTask = createNewTask(cell.textField.text!, pointValue: 1)
         print(newTask.taskName)
         let newUserGroupTasks = buildUserGroupTaskLinkedArray(self.userGroups, task: newTask)

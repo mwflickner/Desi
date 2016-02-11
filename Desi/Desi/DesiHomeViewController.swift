@@ -22,9 +22,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         self.getLocalUserGroups()
         
-        //self.navigationController!.navigationBar.barTintColor = UIColor.blueColor()
-        //self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        
         if (self.myUserGroups.count == 0){
             print("yoo")
         }
@@ -39,36 +36,27 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.myUserGroups.count + 1
+        if section == 1 {
+            return self.myUserGroups.count
+        }
+        return 0
+        
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if (indexPath.row == 0){
-            let mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
-            mainCell.usernameLabel.text = DesiUser.currentUser()!.username
-            mainCell.nameLabel.text = DesiUser.currentUser()!.firstName + " " + DesiUser.currentUser()!.lastName
-            mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiScore)
-            mainCell.viewFriendsButton.enabled = false
-            mainCell.viewFriendsButton.hidden = true
-            return mainCell
-        }
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-        let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
+        let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
         //cell.groupImgView.image = group.groupImage
         return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 200
-        }
         return 60
     }
     
@@ -104,8 +92,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
         //-1 to account for the profile cell
-        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
-        return myUserGroups[indexPath.row - 1]
+        print("group is \(myUserGroups[indexPath.row ].group.groupName)\n", terminator: "")
+        return myUserGroups[indexPath.row]
     }
     
     @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
@@ -196,7 +184,9 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                     //store found userGroups in Localstore
                     DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
-                    self.tableView.reloadData()
+                    if let _ = self.tableView {
+                        self.tableView.reloadData()
+                    }
                 }
             } else {
                 // Log details of the failure

@@ -8,13 +8,12 @@
 
 import UIKit
 
-class UserSettingsTableViewController: UITableViewController {
+class UserSettingsViewController: UIViewController {
 
     @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,13 +23,6 @@ class UserSettingsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
     
     @IBAction func logout(sender: AnyObject){
         DesiUserGroup.unpinAllObjectsInBackground()
@@ -40,7 +32,6 @@ class UserSettingsTableViewController: UITableViewController {
         let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") 
         self.presentViewController(vc, animated: true, completion: nil)
     }
-
 
     /*
     // MARK: - Navigation

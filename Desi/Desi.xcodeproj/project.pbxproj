@@ -22,11 +22,7 @@
 		F11DBC0D1B59E0AC00B21A2C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC0C1B59E0AC00B21A2C /* Social.framework */; };
 		F11DBC0F1B59E0BB00B21A2C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC0E1B59E0BB00B21A2C /* Accounts.framework */; };
 		F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */; };
-		F11DBC171B5DB69A00B21A2C /* EntryPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC161B5DB69A00B21A2C /* EntryPointViewController.swift */; };
-		F11DBC1B1B61846B00B21A2C /* ProfileMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC1A1B61846B00B21A2C /* ProfileMainTableViewCell.swift */; };
-		F11DBC1D1B61978A00B21A2C /* ProfileGuestViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC1C1B61978A00B21A2C /* ProfileGuestViewTableViewCell.swift */; };
-		F11DBC1F1B619FF000B21A2C /* GuestProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC1E1B619FF000B21A2C /* GuestProfileTableViewController.swift */; };
-		F11DBC211B61AB6300B21A2C /* UserSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC201B61AB6300B21A2C /* UserSettingsTableViewController.swift */; };
+		F11DBC211B61AB6300B21A2C /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */; };
 		F11DBC2B1B62CFC400B21A2C /* DesiFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */; };
 		F12052051B4B33F8004271BF /* OnDeckTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */; };
 		F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */; };
@@ -52,7 +48,7 @@
 		F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD9A1B1970090052F810 /* SampleData.swift */; };
 		F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */; };
 		F1EB822C1B6BE29A0028AD55 /* DesiHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */; };
-		F1EB822E1B6C0E440028AD55 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822D1B6C0E440028AD55 /* TextFieldTableViewCell.swift */; };
+		F1EB822E1B6C0E440028AD55 /* DesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */; };
 		F1F73EF51B6E9247003F88C2 /* DesiNaviagtionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,11 +78,7 @@
 		F11DBC0C1B59E0AC00B21A2C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		F11DBC0E1B59E0BB00B21A2C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroup.swift; sourceTree = "<group>"; };
-		F11DBC161B5DB69A00B21A2C /* EntryPointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPointViewController.swift; sourceTree = "<group>"; };
-		F11DBC1A1B61846B00B21A2C /* ProfileMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMainTableViewCell.swift; sourceTree = "<group>"; };
-		F11DBC1C1B61978A00B21A2C /* ProfileGuestViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileGuestViewTableViewCell.swift; sourceTree = "<group>"; };
-		F11DBC1E1B619FF000B21A2C /* GuestProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestProfileTableViewController.swift; sourceTree = "<group>"; };
-		F11DBC201B61AB6300B21A2C /* UserSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsTableViewController.swift; sourceTree = "<group>"; };
+		F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendTableViewCell.swift; sourceTree = "<group>"; };
 		F12052041B4B33F7004271BF /* OnDeckTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeckTableViewCell.swift; sourceTree = "<group>"; };
 		F12052061B4B470C004271BF /* RestOfGroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestOfGroupTableViewCell.swift; sourceTree = "<group>"; };
@@ -116,7 +108,7 @@
 		F1D9CD9A1B1970090052F810 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersToAddTableViewCell.swift; sourceTree = "<group>"; };
 		F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiHomeViewController.swift; sourceTree = "<group>"; };
-		F1EB822D1B6C0E440028AD55 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiNaviagtionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,15 +191,11 @@
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
 				F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */,
 				F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */,
-				F1EB822D1B6C0E440028AD55 /* TextFieldTableViewCell.swift */,
+				F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */,
 				F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */,
 				F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */,
 				F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */,
-				F11DBC201B61AB6300B21A2C /* UserSettingsTableViewController.swift */,
-				F11DBC1E1B619FF000B21A2C /* GuestProfileTableViewController.swift */,
-				F11DBC1C1B61978A00B21A2C /* ProfileGuestViewTableViewCell.swift */,
-				F11DBC1A1B61846B00B21A2C /* ProfileMainTableViewCell.swift */,
-				F11DBC161B5DB69A00B21A2C /* EntryPointViewController.swift */,
+				F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */,
 				F12052101B4C92BA004271BF /* LoginViewController.swift */,
 				F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */,
 				F1C220EC1B1BD75300D628CA /* NewGroupViewController.swift */,
@@ -367,25 +355,21 @@
 				F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */,
 				F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */,
 				F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */,
-				F1EB822E1B6C0E440028AD55 /* TextFieldTableViewCell.swift in Sources */,
+				F1EB822E1B6C0E440028AD55 /* DesiTableViewCell.swift in Sources */,
 				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
 				F1C220ED1B1BD75300D628CA /* NewGroupViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
-				F11DBC211B61AB6300B21A2C /* UserSettingsTableViewController.swift in Sources */,
+				F11DBC211B61AB6300B21A2C /* UserSettingsViewController.swift in Sources */,
 				F1A0D27C1C4F128700F746F0 /* HelperMethods.swift in Sources */,
 				F1F73EF51B6E9247003F88C2 /* DesiNaviagtionController.swift in Sources */,
 				F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */,
 				F120520B1B4B6BE7004271BF /* GroupSettingsTableViewController.swift in Sources */,
 				F120520D1B4C764E004271BF /* GroupActionsTableViewCell.swift in Sources */,
 				F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */,
-				F11DBC171B5DB69A00B21A2C /* EntryPointViewController.swift in Sources */,
-				F11DBC1B1B61846B00B21A2C /* ProfileMainTableViewCell.swift in Sources */,
 				F168679D1B853BC4005D69F3 /* DesiUserGroupTask.swift in Sources */,
 				F12052111B4C92BA004271BF /* LoginViewController.swift in Sources */,
 				F1EB822C1B6BE29A0028AD55 /* DesiHomeViewController.swift in Sources */,
 				F19C0A8C1B35ECE300B3CD09 /* TheDesiTableViewCell.swift in Sources */,
-				F11DBC1F1B619FF000B21A2C /* GuestProfileTableViewController.swift in Sources */,
-				F11DBC1D1B61978A00B21A2C /* ProfileGuestViewTableViewCell.swift in Sources */,
 				F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */,
 				F12052051B4B33F8004271BF /* OnDeckTableViewCell.swift in Sources */,
 			);
