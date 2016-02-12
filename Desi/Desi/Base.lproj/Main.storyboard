@@ -58,7 +58,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="412"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TheDesiCell" rowHeight="80" id="oCE-cs-sVB" customClass="TheDesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TheDesiCell" rowHeight="80" id="oCE-cs-sVB" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oCE-cs-sVB" id="3W7-tB-OIW">
@@ -83,11 +83,10 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="theDesiImg" destination="vzn-7n-b9a" id="n3Y-W4-Zx2"/>
-                                            <outlet property="theDesiNameLabel" destination="cYH-c5-Lt2" id="va5-EP-ctk"/>
+                                            <outlet property="label1" destination="5au-Cn-51K" id="c0p-QZ-RGG"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OnDeckCell" rowHeight="80" id="eeo-IM-tX8" customClass="OnDeckTableViewCell" customModule="Desi" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OnDeckCell" rowHeight="80" id="eeo-IM-tX8" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="172" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eeo-IM-tX8" id="P3p-PI-QHF">
@@ -112,11 +111,10 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="onDeckImg" destination="9fr-st-CDM" id="xiT-18-fKI"/>
-                                            <outlet property="onDeckLabel" destination="MYD-fO-sz6" id="I0Z-s0-5SY"/>
+                                            <outlet property="label1" destination="MYD-fO-sz6" id="Nyj-Tb-pT1"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestOfGroupCell" rowHeight="80" id="CpB-lV-9Jg" customClass="RestOfGroupTableViewCell" customModule="Desi" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestOfGroupCell" rowHeight="80" id="CpB-lV-9Jg" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="252" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CpB-lV-9Jg" id="Fne-e5-71G">
@@ -135,8 +133,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="restOfGroupImg" destination="NM3-JJ-6cM" id="bmR-xz-S00"/>
-                                            <outlet property="restOfGroupLabel" destination="e0O-7l-D9B" id="Euj-dq-VDR"/>
+                                            <outlet property="label1" destination="e0O-7l-D9B" id="c3q-hM-8Ji"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

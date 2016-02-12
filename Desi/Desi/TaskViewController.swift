@@ -12,7 +12,7 @@ import Parse
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var userGroup: DesiUserGroup!
-    var taskUserGroupTasks = [DesiUserGroupTask]()
+    var taskUserGroupTasks = [Int: DesiUserGroupTask]()
     
     var myUgTask: DesiUserGroupTask!
     var desiUgTask: DesiUserGroupTask!
@@ -26,7 +26,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        task = self.taskUserGroupTasks[0].task
         self.navigationItem.title = task.taskName
     }
 
@@ -35,15 +34,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    func setMyUgTask(){
-        for ugTask in self.taskUserGroupTasks {
-            if ugTask.userGroup.user == DesiUser.currentUser() {
-                self.myUgTask = ugTask
-                return
-            }
-        }
-        // should not get here
-    }
 
     // MARK: - Table view data source
 
@@ -53,18 +43,15 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.myUgTask.task.numberOfDesis
+            return self.task.numberOfDesis
         }
         if section == 1 {
-            return self.taskUserGroupTasks.count - self.myUgTask.task.numberOfDesis
+            return self.task.numberOfDesis
         }
-        if let swag = self.myUgTask {
-            let x = self.taskUserGroupTasks.count - 2*swag.task.numberOfDesis
-            if x > 0 {
-                return x
-            }
+        let x = self.taskUserGroupTasks.count - 2*self.task.numberOfDesis
+        if x > 0 {
+            return x
         }
-
         return 0
     }
     
@@ -84,16 +71,17 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("Path is \(indexPath.row)")
         if indexPath.section == 0 {
             let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! DesiTableViewCell
-            desiCell.label1.text = self.taskUserGroupTasks[indexPath.row].userGroup.user.username
+            desiCell.label1.text = self.taskUserGroupTasks[indexPath.row]!.userGroup.user.username
             return desiCell
         }
         if indexPath.section == 1 {
             let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! DesiTableViewCell
-            onDeckCell.label1.text = self.taskUserGroupTasks[((indexPath.row + self.task.numberOfDesis) % self.taskUserGroupTasks.count)].userGroup.user.username
+            onDeckCell.label1.text = self.taskUserGroupTasks[((indexPath.row + self.task.numberOfDesis) % self.taskUserGroupTasks.count)]!.userGroup.user.username
             return onDeckCell
         }
         let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! DesiTableViewCell
-        restCell.label1.text = self.taskUserGroupTasks[((indexPath.row + 2*self.task.numberOfDesis) % self.taskUserGroupTasks.count)].userGroup.user.username
+        
+        restCell.label1.text = self.taskUserGroupTasks[((indexPath.row + 2*self.task.numberOfDesis) % self.taskUserGroupTasks.count)]!.userGroup.user.username
         return restCell
     }
 

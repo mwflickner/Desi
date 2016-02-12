@@ -110,7 +110,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
         if let theGroupTableViewController = segue.sourceViewController as? GroupTableViewController {
-            let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroups[0])
+            //let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroups[0])
             //self.myUserGroups[groupIndex] = theGroupTableViewController.userGroups
             self.tableView.reloadData()
         }
@@ -230,10 +230,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
             let aGroupView = nav.topViewController as! GroupTableViewController
-            //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.myUserGroup = userGroupAtIndexPath(path)
             aGroupView.getUserGroupTasksForGroup()
-            aGroupView.getUserGroupsForGroup(aGroupView.myUserGroup.group)
         }
         
     }
