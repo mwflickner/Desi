@@ -16,12 +16,11 @@ class GroupTableViewController: UITableViewController {
     
     var userGroupTasks = [DesiUserGroupTask]()
     
-    var filteredUserGroupTasks = [Int: [Int: DesiUserGroupTask]]() // [ relation to user : [Int: UGTask]
-    var taskFilteredUserGroupTasks = [String : [Int: DesiUserGroupTask]]() // [ taskId : Arrary or Set of UGTs ]
+    var filteredUserGroupTasks = [Int: [DesiUserGroupTask]]() // [ relation to user : [Int: UGTask]
+    var taskFilteredUserGroupTasks = [String : [DesiUserGroupTask]]() // [ taskId : [Int: UGTask]
     
     var myUserGroupTasks = [Int: DesiUserGroupTask]()
-    
-    
+
     
     let myDesiTasksInt = 0
     let myOtherTasksInt = 1
@@ -30,9 +29,9 @@ class GroupTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.myUserGroup.group.groupName
-        self.filteredUserGroupTasks[myDesiTasksInt] = [:]
-        self.filteredUserGroupTasks[myOtherTasksInt] = [:]
-        self.filteredUserGroupTasks[otherTasksInt] = [:]
+        self.filteredUserGroupTasks[myDesiTasksInt] = []
+        self.filteredUserGroupTasks[myOtherTasksInt] = []
+        self.filteredUserGroupTasks[otherTasksInt] = []
         
     }
 
@@ -79,20 +78,20 @@ class GroupTableViewController: UITableViewController {
         func setUpTaskCell(isDesi: Bool) -> DesiGroupsTableViewCell {
             let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
             if indexPath.section == 1 {
-                taskCell.groupNameLabel.text = self.filteredUserGroupTasks[myDesiTasksInt]![indexPath.row]!.task.taskName
+                taskCell.groupNameLabel.text = self.filteredUserGroupTasks[myDesiTasksInt]![indexPath.row].task.taskName
                 taskCell.groupSumLabel.text = "You're up!"
             }
             else if indexPath.section == 2 {
                 let myOtherTasks = self.filteredUserGroupTasks[myOtherTasksInt]
                 if myOtherTasks?.count > 0 {
-                    taskCell.groupNameLabel.text = myOtherTasks![indexPath.row]!.task.taskName
+                    taskCell.groupNameLabel.text = myOtherTasks![indexPath.row].task.taskName
                     taskCell.groupSumLabel.text = "You are not the Desi"
                 }
             }
             else if indexPath.section == 3 {
                 let otherTasks = self.filteredUserGroupTasks[otherTasksInt]
                 if otherTasks?.count > 0 {
-                    taskCell.groupNameLabel.text = otherTasks![indexPath.row]!.task.taskName
+                    taskCell.groupNameLabel.text = otherTasks![indexPath.row].task.taskName
                     taskCell.groupSumLabel.text = "Someone else is the Desi"
                 }
             }
@@ -226,24 +225,24 @@ class GroupTableViewController: UITableViewController {
     }
     
     func filterUserGroupTasks(){
-        var myDesiTasks = [Int: DesiUserGroupTask]()
-        var myOtherTasks = [Int: DesiUserGroupTask]()
-        var otherUserGroupTasks = [Int: DesiUserGroupTask]()
+        var myDesiTasks = [DesiUserGroupTask]()
+        var myOtherTasks = [DesiUserGroupTask]()
+        var otherUserGroupTasks = [DesiUserGroupTask]()
 
         for ugTask in self.userGroupTasks {
             self.userGroups.insert(ugTask.userGroup)
             if ugTask.userGroup.user == DesiUser.currentUser()! {
                 if ugTask.isDesi {
-                    myDesiTasks[myDesiTasks.count] = ugTask
+                    myDesiTasks.append(ugTask)
                     self.filteredUserGroupTasks[myDesiTasksInt] = myDesiTasks
                 }
                 else {
-                    myOtherTasks[myOtherTasks.count] = ugTask
+                    myOtherTasks.append(ugTask)
                     self.filteredUserGroupTasks[myOtherTasksInt] = myOtherTasks
                 }
             }
             else {
-                otherUserGroupTasks[myOtherTasks.count] = ugTask
+                otherUserGroupTasks.append(ugTask)
                 self.filteredUserGroupTasks[otherTasksInt] = otherUserGroupTasks
                 
             }
@@ -261,13 +260,13 @@ class GroupTableViewController: UITableViewController {
         for ugTask in self.userGroupTasks {
             var ugTaskHash = self.taskFilteredUserGroupTasks[ugTask.task.objectId!]
             if ugTaskHash != nil {
-                ugTaskHash![ugTaskHash!.count] = ugTask
+                ugTaskHash!.append(ugTask)
                 self.taskFilteredUserGroupTasks[ugTask.task.objectId!] = ugTaskHash
             }
             else {
-                var newTaskHash = [Int: DesiUserGroupTask]()
-                newTaskHash[newTaskHash.count] = ugTask
-                self.taskFilteredUserGroupTasks[ugTask.task.objectId!] = newTaskHash
+                var newUgTask = [DesiUserGroupTask]()
+                newUgTask.append(ugTask)
+                self.taskFilteredUserGroupTasks[ugTask.task.objectId!] = newUgTask
             }
         }
     }
@@ -287,17 +286,17 @@ class GroupTableViewController: UITableViewController {
             aTaskView.userGroup = self.myUserGroup
             
             if path.section == 1 {
-                let task = self.filteredUserGroupTasks[myDesiTasksInt]![path.row]!.task
+                let task = self.filteredUserGroupTasks[myDesiTasksInt]![path.row].task
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
             }
             else if path.section == 2 {
-                let task = self.filteredUserGroupTasks[myOtherTasksInt]![path.row]!.task
+                let task = self.filteredUserGroupTasks[myOtherTasksInt]![path.row].task
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
             }
             else if path.section == 3 {
-                let task = self.filteredUserGroupTasks[otherTasksInt]![path.row]!.task
+                let task = self.filteredUserGroupTasks[otherTasksInt]![path.row].task
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
             }

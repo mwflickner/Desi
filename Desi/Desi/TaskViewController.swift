@@ -12,7 +12,7 @@ import Parse
 class TaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var userGroup: DesiUserGroup!
-    var taskUserGroupTasks = [Int: DesiUserGroupTask]()
+    var taskUserGroupTasks = [DesiUserGroupTask]()
     
     var myUgTask: DesiUserGroupTask!
     var desiUgTask: DesiUserGroupTask!
@@ -71,17 +71,17 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("Path is \(indexPath.row)")
         if indexPath.section == 0 {
             let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! DesiTableViewCell
-            desiCell.label1.text = self.taskUserGroupTasks[indexPath.row]!.userGroup.user.username
+            desiCell.label1.text = self.taskUserGroupTasks[indexPath.row].userGroup.user.username
             return desiCell
         }
         if indexPath.section == 1 {
             let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! DesiTableViewCell
-            onDeckCell.label1.text = self.taskUserGroupTasks[((indexPath.row + self.task.numberOfDesis) % self.taskUserGroupTasks.count)]!.userGroup.user.username
+            onDeckCell.label1.text = self.taskUserGroupTasks[((indexPath.row + self.task.numberOfDesis) % self.taskUserGroupTasks.count)].userGroup.user.username
             return onDeckCell
         }
         let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! DesiTableViewCell
         
-        restCell.label1.text = self.taskUserGroupTasks[((indexPath.row + 2*self.task.numberOfDesis) % self.taskUserGroupTasks.count)]!.userGroup.user.username
+        restCell.label1.text = self.taskUserGroupTasks[((indexPath.row + 2*self.task.numberOfDesis) % self.taskUserGroupTasks.count)].userGroup.user.username
         return restCell
     }
 
