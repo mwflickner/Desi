@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F10D97EC1C7436F4000040D3 /* CreateTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */; };
 		F11DBBF91B59D5F600B21A2C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF61B59D4AC00B21A2C /* QuartzCore.framework */; };
 		F11DBBFA1B59D5F800B21A2C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF41B59D45700B21A2C /* CoreLocation.framework */; };
 		F11DBBFB1B59D5FD00B21A2C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF01B59D42C00B21A2C /* CFNetwork.framework */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskTableViewController.swift; sourceTree = "<group>"; };
 		F11DBBEE1B59D41500B21A2C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F11DBBF01B59D42C00B21A2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F11DBBF21B59D44700B21A2C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -188,6 +190,7 @@
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
 				F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */,
+				F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */,
 				F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */,
 				F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */,
 				F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */,
@@ -357,6 +360,7 @@
 				F1C220ED1B1BD75300D628CA /* NewGroupViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
 				F11DBC211B61AB6300B21A2C /* UserSettingsViewController.swift in Sources */,
+				F10D97EC1C7436F4000040D3 /* CreateTaskTableViewController.swift in Sources */,
 				F1A0D27C1C4F128700F746F0 /* HelperMethods.swift in Sources */,
 				F1F73EF51B6E9247003F88C2 /* DesiNaviagtionController.swift in Sources */,
 				F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */,

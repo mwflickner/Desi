@@ -31,13 +31,13 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         
         borderTableView(self.tableView)
         
-        
         createButton = self.navigationItem.rightBarButtonItem!
         createButton.enabled = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
         
+        self.newGroup.groupName = "Untitled Group"
         self.myNewUserGroup = createUserGroup(DesiUser.currentUser()!, isAdmin: true)
         self.newUserGroups.append(self.myNewUserGroup)
     }
@@ -174,6 +174,10 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func createGroup(){
+        self.myNewUserGroup.group = self.newGroup
+        for userGroup in self.newUserGroups {
+            userGroup.group = self.newGroup
+        }
         self.newGroup.groupName = self.groupNameTextField.text!
         let block = ({
             (success: Bool, error: NSError?) -> Void in
@@ -199,6 +203,9 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         if segue.identifier == "createNewGroup" {
             print("got here")
             createGroup()
+            let homeView = segue.destinationViewController as! DesiHomeViewController
+            homeView.myUserGroups.append(self.myNewUserGroup)
+            homeView.tableView.reloadData()
         }
 
     }

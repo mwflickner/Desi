@@ -20,8 +20,10 @@ class DesiTask: PFObject, PFSubclassing {
     
     @NSManaged var taskName: String
     @NSManaged var pointValue: Int
+    @NSManaged var repeats: Bool
     @NSManaged var taskType: String
     @NSManaged var rotationStyle: String
     @NSManaged var numberOfDesis: Int
+    @NSManaged var taskDueDate: NSDate
     
 }

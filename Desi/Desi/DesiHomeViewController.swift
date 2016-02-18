@@ -117,56 +117,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func leaveGroupFromSettings(segue:UIStoryboardSegue){
-        /*
-        if let groupSettingsViewController = segue.sourceViewController as? GroupSettingsTableViewController {
-            for var i = 0; i < self.myUserGroups.count; ++i {
-                if self.myUserGroups[i].objectId == groupSettingsViewController.userGroup.objectId {
-                    self.myUserGroups.removeAtIndex(i)
-                    println("ug removed")
-                    break
-                }
-            }
-            var oldUG = groupSettingsViewController.userGroup
-            // delete the userGroup
-            groupSettingsViewController.userGroup.deleteInBackgroundWithBlock{
-                (success: Bool, error: NSError?) -> Void in
-                if success {
-                    // group deleted
-                    println("deleted")
-                    //sender.enabled = true
-                    self.tableView.reloadData()
-                    groupSettingsViewController.theGroup.nextDesi()
-                    if oldUG.isGroupAdmin {
-                        groupSettingsViewController.theGroup.theDesi.isGroupAdmin = true
-                    }
-                    groupSettingsViewController.theGroup.theDesi.saveInBackgroundWithBlock({
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                            // The object has been saved.
-                            println("round2")
-                            self.tableView.reloadData()
-                           // self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-                        }
-                        else {
-                            // There was a problem, check error.description
-                            println("usergroup error: \(error)")
-                            if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                                groupSettingsViewController.theGroup.theDesi.saveEventually()
-                            }
-                        }
-                    })
-                    
-                }
-                else {
-                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                        groupSettingsViewController.userGroup.deleteEventually()
-                    }
-                }
-            }
-        }
-        */
+        
     }
-    
     
     func getUserGroups(){
         let query = DesiUserGroup.query()
