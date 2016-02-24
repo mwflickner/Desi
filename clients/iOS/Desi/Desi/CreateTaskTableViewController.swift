@@ -12,6 +12,7 @@ import Parse
 class CreateTaskTableViewController: UITableViewController {
     
     var userGroups = Set<DesiUserGroup>()
+    var outputUserGroups = Set<DesiUserGroup>()
     var newTask = DesiTask()
     var newUserGroupTasks = [DesiUserGroupTask]()
     
@@ -25,10 +26,9 @@ class CreateTaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.outputUserGroups = self.userGroups
         self.membersLabel.text = ""
-        for userGroup in self.userGroups {
-            self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
-        }
+        updateMembersLabel()
         self.newTask.taskName = defaultTaskName
         let pointVal = Int(self.pointValueSlider.value)
         self.newTask.pointValue = pointVal
@@ -61,6 +61,14 @@ class CreateTaskTableViewController: UITableViewController {
         return cell
     }
     */
+    
+    func updateMembersLabel(){
+        self.membersLabel.text = ""
+        for userGroup in self.outputUserGroups {
+            self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
+        }
+        self.tableView.reloadData()
+    }
 
     @IBAction func sliderValueChanged(sender: UISlider) {
         let currentValue = Int(sender.value)
@@ -82,6 +90,10 @@ class CreateTaskTableViewController: UITableViewController {
     @IBAction func taskRepeatingToggled(sender: UISwitch){
         self.newTask.repeats = sender.on
         print(sender.on)
+    }
+    
+    @IBAction func backToCreateTaskView(segue:UIStoryboardSegue){
+        
     }
     
     func createNewTask(taskName: String, numberOfDesis: Int, pointValue: Int) -> DesiTask {
@@ -143,6 +155,13 @@ class CreateTaskTableViewController: UITableViewController {
             groupView.filterUserGroupTasks()
             //groupView.filterUserGroupTasksByTask()
             groupView.tableView.reloadData()
+        }
+        
+        if segue.identifier == "manageTaskMembers" {
+            let nav = segue.destinationViewController as! UINavigationController
+            let manageMembers = nav.topViewController as! TaskMembersTableViewController
+            manageMembers.userGroups = Array(self.userGroups)
+            manageMembers.outputUserGroups = Array(self.outputUserGroups)
         }
     }
 

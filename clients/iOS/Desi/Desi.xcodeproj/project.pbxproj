@@ -51,6 +51,7 @@
 		F1EB822C1B6BE29A0028AD55 /* DesiHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */; };
 		F1EB822E1B6C0E440028AD55 /* DesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */; };
 		F1F73EF51B6E9247003F88C2 /* DesiNaviagtionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */; };
+		F1FC69321C7D44A600C3B7CA /* TaskMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC69311C7D44A600C3B7CA /* TaskMembersTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiHomeViewController.swift; sourceTree = "<group>"; };
 		F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiNaviagtionController.swift; sourceTree = "<group>"; };
+		F1FC69311C7D44A600C3B7CA /* TaskMembersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskMembersTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			children = (
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F1FC69311C7D44A600C3B7CA /* TaskMembersTableViewController.swift */,
 				F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */,
 				F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */,
 				F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */,
@@ -354,6 +357,7 @@
 				F168679F1B8686B1005D69F3 /* DesiTask.swift in Sources */,
 				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
 				F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */,
+				F1FC69321C7D44A600C3B7CA /* TaskMembersTableViewController.swift in Sources */,
 				F10D97F21C769C80000040D3 /* DesiUserGroupTaskLog.swift in Sources */,
 				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
 				F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */,
