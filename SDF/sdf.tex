@@ -128,6 +128,20 @@ Desi must be able to function if
 \item Desi must use algorithms that are scaleable to be efficient (less than $\Theta(n^2)$) with large amounts of data.
 \end{itemize}
 
+\chapter{Status Reports}
+\section{Status Report 2-23-16}
+\subsection{Summary}
+Currently, the massive code restructuring is almost complete. The API calls are working well. On the UI side of things, my graphic designer is closing on a logo, color schemes, and layout designs.
+\subsection{Problems}
+\begin{itemize}
+\item Concurrency on the API calls. What happens if a person tries to do a volunteer completion roughly at the same time as the Desi completes?
+\item People just constantly volunteering to complete tasks for points regardless of whether or not they are actually doing them. Potential Solution: Time Delay after a completion is made. Tasks with deadlines can only be completed around the deadline time.
+\end{itemize}
+\subsection{What's Next?}
+Explore the concurrency problem, add more customizable options for tasks. Implement settings menus. Start logging tasks.
+
+
+
 
 
 
