@@ -11,11 +11,19 @@ import UIKit
 class TaskMembersTableViewController: UITableViewController {
     
     var userGroups = [DesiUserGroup]()
+    var isMember = [Bool]()
     var outputUserGroups = [DesiUserGroup]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        for ug in self.userGroups {
+            if self.outputUserGroups.contains(ug){
+                self.isMember.append(true)
+            }
+            else {
+                self.isMember.append(false)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,8 +46,8 @@ class TaskMembersTableViewController: UITableViewController {
             if cell.accessoryType == .Checkmark {
                 if self.outputUserGroups.count > 1 {
                     cell.accessoryType = .None
-                    self.outputUserGroups.removeAtIndex(self.userGroups.count - (self.userGroups.count - self.outputUserGroups.count) - 1)
-                    // this is buggy
+                    self.outputUserGroups.removeAtIndex(indexPath.row)
+                    self.isMember[indexPath.row] = false
                 }
             }
             else {
@@ -55,7 +63,7 @@ class TaskMembersTableViewController: UITableViewController {
         let firstName = self.userGroups[indexPath.row].user.firstName
         let lastName = self.userGroups[indexPath.row].user.lastName
         cell.label1.text = "\(firstName) \(lastName)"
-        if self.outputUserGroups.contains(self.userGroups[indexPath.row]){
+        if self.isMember[indexPath.row]{
             cell.accessoryType = .Checkmark
         }
         else {

@@ -116,8 +116,8 @@ class CreateTaskTableViewController: UITableViewController {
     func buildUserGroupTasks(userGroups: NSSet, task: DesiTask) -> [DesiUserGroupTask] {
         var newUserGroupTasks = [DesiUserGroupTask]()
         print(self.userGroups.count)
-        for (index,userGroup) in self.userGroups.enumerate() {
-            let newUgt = createNewUserGroupTask(userGroup, queueSpot: index, task: task)
+        for (index,userGroup) in userGroups.enumerate() {
+            let newUgt = createNewUserGroupTask(userGroup as! DesiUserGroup, queueSpot: index, task: task)
             newUserGroupTasks.append(newUgt)
         }
         return newUserGroupTasks
@@ -147,7 +147,7 @@ class CreateTaskTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "createTaskSegue" {
-            self.newUserGroupTasks = buildUserGroupTasks(Set(self.userGroups), task: newTask)
+            self.newUserGroupTasks = buildUserGroupTasks(Set(self.outputUserGroups), task: newTask)
             saveTask()
             let groupView = segue.destinationViewController as! GroupTableViewController
             groupView.userGroupTasks = groupView.userGroupTasks + newUserGroupTasks
@@ -160,8 +160,8 @@ class CreateTaskTableViewController: UITableViewController {
         if segue.identifier == "manageTaskMembers" {
             let nav = segue.destinationViewController as! UINavigationController
             let manageMembers = nav.topViewController as! TaskMembersTableViewController
-            manageMembers.userGroups = Array(self.userGroups)
-            manageMembers.outputUserGroups = Array(self.outputUserGroups)
+            manageMembers.userGroups = self.userGroups
+            manageMembers.outputUserGroups = self.outputUserGroups
         }
     }
 
