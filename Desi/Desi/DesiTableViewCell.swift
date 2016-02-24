@@ -1,17 +1,19 @@
 //
-//  TheDesiTableViewCell.swift
+//  TextFieldTableViewCell.swift
 //  Desi
 //
-//  Created by Matthew Flickner on 6/20/15.
+//  Created by Matthew Flickner on 7/31/15.
 //  Copyright (c) 2015 Desi. All rights reserved.
 //
 
 import UIKit
 
-class TheDesiTableViewCell: UITableViewCell {
+class DesiTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var theDesiNameLabel: UILabel!
-    @IBOutlet weak var theDesiImg: UIImageView!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var label1: UILabel!
+    @IBOutlet weak var label2: UILabel!
+    @IBOutlet weak var button: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

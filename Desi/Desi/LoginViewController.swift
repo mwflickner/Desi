@@ -16,22 +16,22 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var message: String!
+    var message: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        DesiUser.logOut()
-        let isThereUser = DesiUser.currentUser()?.username
-        if isThereUser != nil {
-            print("\(DesiUser.currentUser()!.username)")
+        self.activityIndicator.hidden = true
+        //DesiUser.logOut()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        self.view.hidden = true
+        if DesiUser.currentUser() != nil {
+            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
         else {
-            print("we good its nil")
-            
+            self.view.hidden = false
         }
-        
-        self.activityIndicator.hidden = true
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

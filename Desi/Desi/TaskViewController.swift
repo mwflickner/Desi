@@ -14,20 +14,20 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var userGroup: DesiUserGroup!
     var taskUserGroupTasks = [DesiUserGroupTask]()
     
-    var myUgTask: DesiUserGroupTask!
-    var desiUgTask: DesiUserGroupTask!
+    var myUgTask: DesiUserGroupTask?
+    var desiUgTasks = [DesiUserGroupTask]()
+    var task: DesiTask!
     
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var completeButton: UIBarButtonItem!
+    @IBOutlet weak var optOutButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        //self.taskUserGroupTasks
-        self.navigationItem.title = self.taskUserGroupTasks[0].task.taskName
-        
-        
+        self.navigationItem.title = task.taskName
+        self.updateTaskData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,197 +35,222 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    func setMyUgTask(){
-        for ugTask in self.taskUserGroupTasks {
-            if ugTask.userGroup.user == DesiUser.currentUser() {
-                self.myUgTask = ugTask
-                return
-            }
-        }
-        // should not get here
-    }
 
     // MARK: - Table view data source
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //if section == 0 {
-        //    if self.theTask.theDesi == DesiUser.currentUser()?.username{
-        //        return self.theTask.members.count + 1
-        //    }
-        //    return self.theTask.members.count
-        //}
-        return 1
-        
+        if section == 0 {
+            return self.task.numberOfDesis
+        }
+        if section == 1 {
+            return self.task.numberOfDesis
+        }
+        let x = self.taskUserGroupTasks.count - 2*self.task.numberOfDesis
+        if x > 0 {
+            return x
+        }
+        return 0
     }
-    
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 {
             return 80
         }
         else {
-            return 44
+            return 60
         }
     }
-    
-
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         print("Path is \(indexPath.row)")
-        let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-        return desiCell
-        /*
         if indexPath.section == 0 {
-            if (indexPath.row == 0){
-                let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! TheDesiTableViewCell
-                if (DesiUser.currentUser()!.username == self.theTask.theDesi) {
-                    print("swag")
-                    desiCell.theDesiNameLabel.text = "YOU are the Desi"
-                    desiCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            let desiCell = tableView.dequeueReusableCellWithIdentifier("TheDesiCell", forIndexPath: indexPath) as! DesiTableViewCell
+            let ugTask = self.taskUserGroupTasks[indexPath.row]
+            let firstName = ugTask.userGroup.user.firstName
+            let lastName = ugTask.userGroup.user.lastName
+            let points = ugTask.userGroup.points
+            desiCell.label1.text = "\(firstName) \(lastName)"
+            desiCell.label2.text = String(points)
+            return desiCell
+        }
+        if indexPath.section == 1 {
+            let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! DesiTableViewCell
+            let ugTask = self.taskUserGroupTasks[((indexPath.row + self.task.numberOfDesis) % self.taskUserGroupTasks.count)]
+            let firstName = ugTask.userGroup.user.firstName
+            let lastName = ugTask.userGroup.user.lastName
+            onDeckCell.label1.text = "\(firstName) \(lastName)"
+            let points = ugTask.userGroup.points
+            onDeckCell.label2.text = String(points)
+            return onDeckCell
+        }
+        let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! DesiTableViewCell
+        let ugTask = self.taskUserGroupTasks[((indexPath.row + 2*self.task.numberOfDesis) % self.taskUserGroupTasks.count)]
+        let firstName = ugTask.userGroup.user.firstName
+        let lastName = ugTask.userGroup.user.lastName
+        restCell.label1.text = "\(firstName) \(lastName)"
+        let points = ugTask.userGroup.points
+        restCell.label2.text = String(points)
+        return restCell
+    }
+    
+    func updateTaskData(){
+        self.taskUserGroupTasks.sortInPlace({ $0.queueSpot < $1.queueSpot })
+        for ugTask in taskUserGroupTasks {
+            if ugTask.isDesi {
+                desiUgTasks.append(ugTask)
+            }
+            if ugTask.userGroup.user == DesiUser.currentUser() {
+                self.myUgTask = ugTask
+                if ugTask.isDesi {
+                    self.completeButton.title = "Complete"
                 }
                 else {
-                    desiCell.theDesiNameLabel.text = self.theTask.theDesi
-                }
-                //desiCell.theDesiImg.image = theGroup.theDesi.userImg
-                print("returning DesiCell")
-                return desiCell
-            }
-            if (indexPath.row == 1){
-                if self.theTask.members.count > 1 {
-                    let onDeckCell = tableView.dequeueReusableCellWithIdentifier("OnDeckCell", forIndexPath: indexPath) as! OnDeckTableViewCell
-                    let nextDesi: String = self.theTask.getUserFromDesi(1)
-                    onDeckCell.onDeckLabel.text = nextDesi
-                    //onDeckCell.onDeckImg.image = nextDesi.userImage(nextDesi.userImg)
-                    print("returning onDeckCell")
-                    return onDeckCell
+                    self.completeButton.title = "Volunteer"
                 }
             }
-            if (indexPath.row >= self.theTask.members.count && DesiUser.currentUser()?.username == self.theTask.theDesi){
-                
-                let groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
-                groupActionCell.actionButton.setTitle("Task Completed", forState: UIControlState.Normal)
-                groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                groupActionCell.actionButton.addTarget(self, action: "wentOutTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-                print("returning button cell")
-                return groupActionCell
-               
-                
-            }
-            
-            let restCell = tableView.dequeueReusableCellWithIdentifier("RestOfGroupCell", forIndexPath: indexPath) as! RestOfGroupTableViewCell
-            let userGroup: String = self.theTask.getUserFromDesi(indexPath.row)
-            restCell.restOfGroupLabel.text = userGroup
-            //restCell.restOfGroupImg.image = userGroup.user.userImg
-            print("returning other cell")
-            return restCell
-
-
         }
-        let groupActionCell = tableView.dequeueReusableCellWithIdentifier("GroupActionsCell", forIndexPath: indexPath) as! GroupActionsTableViewCell
-        groupActionCell.actionButton.setTitle("Volunteer", forState: UIControlState.Normal)
-        groupActionCell.actionButton.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-        groupActionCell.actionButton.addTarget(self, action: "volunteerTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        print("returning button cell")
-        return groupActionCell
-        
-       */
+        self.updateActionButtons()
+    }
+    
+    func shouldEnableActionButtons() -> Bool {
+        if self.myUgTask != nil {
+            let lastUpdated = self.myUgTask!.updatedAt
+            let created = self.myUgTask!.createdAt
+            if (lastUpdated!.compare(created!) == .OrderedSame) {
+                return true
+            }
+            let currentDate = NSDate()
+            let secondsInterval = Int(currentDate.timeIntervalSinceDate(lastUpdated!))
+            print(secondsInterval)
+            let minutesInterval = secondsInterval/60
+            print("mintues = \(minutesInterval)")
+            if minutesInterval >= 5 {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func updateActionButtons(){
+        if shouldEnableActionButtons() {
+            if let myUgTask = self.myUgTask {
+                if optOutAllowed(myUgTask){
+                    self.optOutButton.enabled = true
+                }
+                else {
+                    self.optOutButton.enabled = false
+                }
+            }
+            self.completeButton.enabled = true
+        }
+        else {
+            self.completeButton.enabled = false
+            self.optOutButton.enabled = false
+        }
+    }
+    
+    func optOutAllowed(ugTask: DesiUserGroupTask) -> Bool {
+        if ugTask.isDesi {
+            if ugTask.userGroup.points < ugTask.task.pointValue {
+                return false
+            }
+            return true
+        }
+        return false
+    }
+    
+    func completeTask(){
+        let oldDesiUGTasks = self.desiUgTasks
+        for oldDesi in oldDesiUGTasks {
+            let taskPoints = self.task.pointValue
+            oldDesi.userGroup.points += taskPoints
+            //oldDesi.userGroup.user.desiScore += taskPoints
+        }
+        self.desiUgTasks = []
+        let range = Range<Int>(start: 0,end: self.task.numberOfDesis)
+        self.taskUserGroupTasks.removeRange(range)
+        self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
+        for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
+            if index < self.task.numberOfDesis {
+                ugTask.isDesi = true
+                ugTask.queueSpot = index
+                desiUgTasks.append(ugTask)
+            }
+            else {
+                ugTask.queueSpot = index
+                ugTask.isDesi = false
+            }
+        }
+        self.completeButton.title = "Volunteer"
+        self.saveTaskState()
+        self.updateActionButtons()
+    }
+    
+    func volunteerCompleteTask(){
+        self.taskUserGroupTasks = self.taskUserGroupTasks.filter({$0.objectId != myUgTask?.objectId})
+        let count = self.taskUserGroupTasks.count
+        self.myUgTask?.queueSpot = count
+        self.myUgTask?.userGroup.points += 2*self.task.pointValue
+        self.taskUserGroupTasks.append(self.myUgTask!)
+        for (index, ugTask) in self.taskUserGroupTasks.enumerate() {
+            ugTask.queueSpot = index
+        }
+        self.saveTaskState()
+        self.updateActionButtons()
+    }
+    
+    func getUserGroupTasksForTask(task: DesiTask){
+        let query = DesiUserGroupTask.query()
+        query?.includeKey("task")
+        query?.includeKey("userGroup")
+        query?.includeKey("userGroup.user")
+        query?.includeKey("userGroup.group")
+        query?.whereKey("task", equalTo: task)
+        query?.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            if error == nil {
+                if let objects = objects as? [PFObject]{
+                    if let userGroupTasks = objects as? [DesiUserGroupTask]{
+                        self.taskUserGroupTasks = userGroupTasks
+                        self.updateTaskData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func saveTaskState(){
+        print("saving Task state")
+        let block = ({
+            (success: Bool, error: NSError?) -> Void in
+            if success {
+                print("updated")
+            }
+            else {
+                print("new UserGroupsTask error")
+            }
+        })
+        PFObject.saveAllInBackground(self.taskUserGroupTasks, block: block)
     }
 
-    /*
-    @IBAction func wentOutTapped(sender: UIButton) {
+    @IBAction func completeTapped(sender: UIBarButtonItem){
         sender.enabled = false
-        
-        for ugt in self.ugTasks {
-            if ugt.isDesi{
-                ugt.isDesi = false
-                ugt.saveInBackgroundWithBlock({
-                    (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        print("oldDesi updated")
-                    }
-                    else {
-                        print("oldDesi error")
-                    }
-                })
-            }
+        print("meooow")
+        let isVolunteerCompletion = (sender.title == "Volunteer")
+        if !isVolunteerCompletion {
+            completeTask()
+        }
+        else {
+            volunteerCompleteTask()
         }
         
-        for var i = 0; i < self.ugTasks.count; ++i {
-            if self.theTask.members[(self.theTask.desiIndex + 1)%theTask.members.count] == ugTasks[i].userGroup.username {
-                ugTasks[i].isDesi = true
-                self.theTask.theDesi = self.ugTasks[i].userGroup.username
-                self.theTask.desiIndex = (theTask.desiIndex + 1)%(theTask.members.count)
-                ugTasks[i].saveInBackgroundWithBlock({
-                    (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        print("newDesi updated")
-                        sender.enabled = true
-                        self.tableView.reloadData()
-                    }
-                    else {
-                        print("newDesi error")
-                    }
-                })
-                break
-            }
-        }
-        
+        self.tableView.reloadData()
+        sender.enabled = true
     }
-    
-    @IBAction func volunteerTapped(sender: UIButton) {
-        print("volunteer tapped")
-        sender.enabled = false
-        for var i = 0; i < self.ugTasks.count; ++i {
-            print("ugt \(self.ugTasks[i].objectId)")
-        }
-        
-        for ugt in self.ugTasks {
-            print("for loop?")
-            if ugt.isDesi{
-                print("if?")
-                ugt.isDesi = false
-                ugt.saveInBackgroundWithBlock({
-                    (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        print("oldDesi updated")
-                    }
-                    else {
-                        print("oldDesi error")
-                    }
-                })
-            }
-        }
-        self.theTask.theDesi = DesiUser.currentUser()!.username!
-        self.theTask.setDesiIndex()
-        
-        print("hello?")
-        for var i = 0; i < self.ugTasks.count; ++i {
-            if self.ugTasks[i].userGroup.username == self.theTask.theDesi {
-                self.ugTasks[i].isDesi = true
-                //self.theTask.userSwap(self.theTask.desiIndex, index2: i)
-                print("users swapped")
-                self.ugTasks[i].saveInBackgroundWithBlock({
-                    (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        print("newDesi updated")
-                        sender.enabled = true
-                        self.tableView.reloadData()
-                    }
-                    else {
-                        print("newDesi error")
-                    }
-                })
-                
-            }
-        }
-    
-    }
-    */
-    
     
     
     @IBAction func updateDesiGroupSettings(segue:UIStoryboardSegue) {

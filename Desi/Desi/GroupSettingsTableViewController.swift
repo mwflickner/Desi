@@ -55,7 +55,7 @@ class GroupSettingsTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("bigButtonCell", forIndexPath: indexPath) as! TextFieldTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("bigButtonCell", forIndexPath: indexPath) as! DesiTableViewCell
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 cell.button.setTitle("View Members", forState: UIControlState.Normal)

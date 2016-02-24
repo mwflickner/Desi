@@ -22,9 +22,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         self.getLocalUserGroups()
         
-        //self.navigationController!.navigationBar.barTintColor = UIColor.blueColor()
-        //self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        
         if (self.myUserGroups.count == 0){
             print("yoo")
         }
@@ -39,36 +36,27 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.myUserGroups.count + 1
+        if section == 1 {
+            return self.myUserGroups.count
+        }
+        return 0
+        
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if (indexPath.row == 0){
-            let mainCell = tableView.dequeueReusableCellWithIdentifier("ProfileMainCell", forIndexPath: indexPath) as! ProfileMainTableViewCell
-            mainCell.usernameLabel.text = DesiUser.currentUser()!.username
-            mainCell.nameLabel.text = DesiUser.currentUser()!.firstName + " " + DesiUser.currentUser()!.lastName
-            mainCell.desiPointsLabel.text = "Desi Points: " + String(DesiUser.currentUser()!.desiScore)
-            mainCell.viewFriendsButton.enabled = false
-            mainCell.viewFriendsButton.hidden = true
-            return mainCell
-        }
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-        let userGroup = myUserGroups[indexPath.row - 1] as DesiUserGroup
+        let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
         cell.groupNameLabel.text = userGroup.group.groupName
         //cell.groupImgView.image = group.groupImage
         return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 200
-        }
         return 60
     }
     
@@ -104,8 +92,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func userGroupAtIndexPath(indexPath: NSIndexPath) -> DesiUserGroup {
         //-1 to account for the profile cell
-        print("group is \(myUserGroups[indexPath.row - 1].group.groupName)\n", terminator: "")
-        return myUserGroups[indexPath.row - 1]
+        print("group is \(myUserGroups[indexPath.row ].group.groupName)\n", terminator: "")
+        return myUserGroups[indexPath.row]
     }
     
     @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
@@ -122,63 +110,15 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {
         if let theGroupTableViewController = segue.sourceViewController as? GroupTableViewController {
-            let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroups[0])
+            //let groupIndex = self.findUserGroupIndex(theGroupTableViewController.userGroups[0])
             //self.myUserGroups[groupIndex] = theGroupTableViewController.userGroups
             self.tableView.reloadData()
         }
     }
     
     @IBAction func leaveGroupFromSettings(segue:UIStoryboardSegue){
-        /*
-        if let groupSettingsViewController = segue.sourceViewController as? GroupSettingsTableViewController {
-            for var i = 0; i < self.myUserGroups.count; ++i {
-                if self.myUserGroups[i].objectId == groupSettingsViewController.userGroup.objectId {
-                    self.myUserGroups.removeAtIndex(i)
-                    println("ug removed")
-                    break
-                }
-            }
-            var oldUG = groupSettingsViewController.userGroup
-            // delete the userGroup
-            groupSettingsViewController.userGroup.deleteInBackgroundWithBlock{
-                (success: Bool, error: NSError?) -> Void in
-                if success {
-                    // group deleted
-                    println("deleted")
-                    //sender.enabled = true
-                    self.tableView.reloadData()
-                    groupSettingsViewController.theGroup.nextDesi()
-                    if oldUG.isGroupAdmin {
-                        groupSettingsViewController.theGroup.theDesi.isGroupAdmin = true
-                    }
-                    groupSettingsViewController.theGroup.theDesi.saveInBackgroundWithBlock({
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                            // The object has been saved.
-                            println("round2")
-                            self.tableView.reloadData()
-                           // self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-                        }
-                        else {
-                            // There was a problem, check error.description
-                            println("usergroup error: \(error)")
-                            if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                                groupSettingsViewController.theGroup.theDesi.saveEventually()
-                            }
-                        }
-                    })
-                    
-                }
-                else {
-                    if error!.code == PFErrorCode.ErrorConnectionFailed.rawValue {
-                        groupSettingsViewController.userGroup.deleteEventually()
-                    }
-                }
-            }
-        }
-        */
+        
     }
-    
     
     func getUserGroups(){
         let query = DesiUserGroup.query()
@@ -196,7 +136,9 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                     //store found userGroups in Localstore
                     DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
-                    self.tableView.reloadData()
+                    if let _ = self.tableView {
+                        self.tableView.reloadData()
+                    }
                 }
             } else {
                 // Log details of the failure
@@ -240,9 +182,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
             let aGroupView = nav.topViewController as! GroupTableViewController
-            //aGroupView.theGroup = groupAtIndexPath(path)
             aGroupView.myUserGroup = userGroupAtIndexPath(path)
-            aGroupView.getUserGroupsForGroup(aGroupView.myUserGroup.group)
+            aGroupView.getUserGroupTasksForGroup()
         }
         
     }
