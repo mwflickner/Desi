@@ -34,16 +34,17 @@ class TaskMembersTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.outputUserGroups.count > 1 {
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-                if cell.accessoryType == .Checkmark {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            if cell.accessoryType == .Checkmark {
+                if self.outputUserGroups.count > 1 {
                     cell.accessoryType = .None
-                    self.outputUserGroups.removeAtIndex(indexPath.row)
+                    self.outputUserGroups.removeAtIndex(self.userGroups.count - (self.userGroups.count - self.outputUserGroups.count) - 1)
+                    // this is buggy
                 }
-                else {
-                    cell.accessoryType = .Checkmark
-                    self.outputUserGroups.insert(self.userGroups[indexPath.row], atIndex: indexPath.row)
-                }
+            }
+            else {
+                cell.accessoryType = .Checkmark
+                self.outputUserGroups.insert(self.userGroups[indexPath.row], atIndex: indexPath.row)
             }
         }
     }
@@ -56,6 +57,9 @@ class TaskMembersTableViewController: UITableViewController {
         cell.label1.text = "\(firstName) \(lastName)"
         if self.outputUserGroups.contains(self.userGroups[indexPath.row]){
             cell.accessoryType = .Checkmark
+        }
+        else {
+            cell.accessoryType = .None
         }
         return cell
     }
@@ -105,7 +109,7 @@ class TaskMembersTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "backToCreateTaskView" {
             let createTaskView = segue.destinationViewController as! CreateTaskTableViewController
-            createTaskView.userGroups = Set(self.outputUserGroups)
+            createTaskView.outputUserGroups = self.outputUserGroups
             createTaskView.updateMembersLabel()
         }
     }

@@ -11,8 +11,8 @@ import Parse
 
 class CreateTaskTableViewController: UITableViewController {
     
-    var userGroups = Set<DesiUserGroup>()
-    var outputUserGroups = Set<DesiUserGroup>()
+    var userGroups = [DesiUserGroup]()
+    var outputUserGroups = [DesiUserGroup]()
     var newTask = DesiTask()
     var newUserGroupTasks = [DesiUserGroupTask]()
     
@@ -147,7 +147,7 @@ class CreateTaskTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "createTaskSegue" {
-            self.newUserGroupTasks = buildUserGroupTasks(self.userGroups, task: newTask)
+            self.newUserGroupTasks = buildUserGroupTasks(Set(self.userGroups), task: newTask)
             saveTask()
             let groupView = segue.destinationViewController as! GroupTableViewController
             groupView.userGroupTasks = groupView.userGroupTasks + newUserGroupTasks
