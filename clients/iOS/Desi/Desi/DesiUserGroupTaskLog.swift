@@ -18,4 +18,7 @@ class DesiUserGroupTaskLog: PFObject, PFSubclassing {
         return "DesiTask"
     }
 
+    @NSManaged var userGroupTask: DesiUserGroupTask
+    @NSManaged var timeCompleted: NSDate
+    @NSManaged var completionMessage: String
 }
