@@ -141,6 +141,7 @@ class CreateTaskTableViewController: UITableViewController {
             groupView.userGroupTasks = groupView.userGroupTasks + newUserGroupTasks
             print("about to filter")
             groupView.filterUserGroupTasks()
+            //groupView.filterUserGroupTasksByTask()
             groupView.tableView.reloadData()
         }
     }

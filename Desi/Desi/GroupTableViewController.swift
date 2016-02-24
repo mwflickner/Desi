@@ -86,7 +86,10 @@ class GroupTableViewController: UITableViewController {
             let otherDesiUgTasks = self.filteredUserGroupTasks[otherDesiUgTasksInt]
             let ugTask = otherDesiUgTasks![indexPath.row]
             taskCell.groupNameLabel.text = ugTask.task.taskName
-            taskCell.groupSumLabel.text = "Not you is the Desi"
+            let firstName = ugTask.userGroup.user.firstName
+            let lastName = ugTask.userGroup.user.lastName
+            let desiName = "\(firstName) \(lastName)"
+            taskCell.groupSumLabel.text = "\(desiName) is the Desi"
             return taskCell
         }
         if indexPath.section == 2 {
@@ -208,22 +211,6 @@ class GroupTableViewController: UITableViewController {
         }
     }
     
-    func desiUgTasksThatUserNotMemberOf() -> [String: [DesiUserGroupTask]] {
-        var tasks = [String:[DesiUserGroupTask]]()
-        
-        for (_ , ugTasks) in self.taskFilteredUserGroupTasks {
-            var ugTaskArray = [DesiUserGroupTask]()
-            for ugTask in ugTasks {
-                if ugTask.userGroup.user != DesiUser.currentUser(){
-                    if ugTask.isDesi {
-                        ugTaskArray.append(ugTask)
-                        tasks[ugTask.task.objectId!] = ugTaskArray
-                    }
-                }
-            }
-        }
-        return tasks
-    }
 
     
     // MARK: - Navigation
@@ -233,23 +220,25 @@ class GroupTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "loadTask" {
-            
+            if self.taskFilteredUserGroupTasks.count == 0 {
+                self.filterUserGroupTasksByTask()
+            }
             let path = self.tableView.indexPathForSelectedRow!
             let nav = segue.destinationViewController as! UINavigationController
             let aTaskView = nav.topViewController as! TaskViewController
             aTaskView.userGroup = self.myUserGroup
             
-            if path.section == 1 {
+            if path.section == 0 {
                 let task = self.filteredUserGroupTasks[myDesiUgTasksInt]![path.row].task
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
             }
-            else if path.section == 2 {
+            else if path.section == 1 {
                 let task = self.filteredUserGroupTasks[otherDesiUgTasksInt]![path.row].task
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
             }
-            else if path.section == 3 {
+            else if path.section == 2 {
                 let task = self.filteredUserGroupTasks[otherUgTasksInt]![path.row].task
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
