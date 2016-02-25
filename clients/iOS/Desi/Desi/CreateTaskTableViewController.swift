@@ -123,22 +123,6 @@ class CreateTaskTableViewController: UITableViewController {
         return newUserGroupTasks
     }
     
-    func saveTask(){
-        print("swagggg")
-        let block = ({
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                print("new UserGroupsTask saved")
-                self.performSegueWithIdentifier("createTask", sender: self)
-            }
-            else {
-                print("new UserGroupsTask error")
-            }
-        })
-        
-        PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
-    }
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -147,10 +131,26 @@ class CreateTaskTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "createTaskSegue" {
+            let groupView = segue.destinationViewController as! GroupTableViewController
+            func saveTask(){
+                print("swagggg")
+                let block = ({
+                    (success: Bool, error: NSError?) -> Void in
+                    if success {
+                        print("new UserGroupsTask saved")
+                        groupView.filterUserGroupTasksByTask()
+                        
+                    }
+                    else {
+                        print("new UserGroupsTask error")
+                    }
+                })
+                
+                PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
+            }
             self.newUserGroupTasks = buildUserGroupTasks(Set(self.outputUserGroups), task: newTask)
             saveTask()
-            let groupView = segue.destinationViewController as! GroupTableViewController
-            groupView.userGroupTasks = groupView.userGroupTasks + newUserGroupTasks
+            groupView.userGroupTasks = groupView.userGroupTasks + self.newUserGroupTasks
             print("about to filter")
             groupView.filterUserGroupTasks()
             //groupView.filterUserGroupTasksByTask()
