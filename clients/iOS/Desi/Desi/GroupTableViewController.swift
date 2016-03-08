@@ -248,7 +248,7 @@ class GroupTableViewController: UITableViewController {
         if (segue.identifier == "goToCreateTask"){
             let nav = segue.destinationViewController as! UINavigationController
             let createView = nav.topViewController as! CreateTaskTableViewController
-            createView.userGroups = self.userGroups
+            createView.userGroups = Array(self.userGroups)
         }
         
         if (segue.identifier == "GoToGroupSettings"){

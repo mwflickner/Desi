@@ -11,7 +11,8 @@ import Parse
 
 class CreateTaskTableViewController: UITableViewController {
     
-    var userGroups = Set<DesiUserGroup>()
+    var userGroups = [DesiUserGroup]()
+    var outputUserGroups = [DesiUserGroup]()
     var newTask = DesiTask()
     var newUserGroupTasks = [DesiUserGroupTask]()
     
@@ -25,10 +26,9 @@ class CreateTaskTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.outputUserGroups = self.userGroups
         self.membersLabel.text = ""
-        for userGroup in self.userGroups {
-            self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
-        }
+        updateMembersLabel()
         self.newTask.taskName = defaultTaskName
         let pointVal = Int(self.pointValueSlider.value)
         self.newTask.pointValue = pointVal
@@ -61,6 +61,14 @@ class CreateTaskTableViewController: UITableViewController {
         return cell
     }
     */
+    
+    func updateMembersLabel(){
+        self.membersLabel.text = ""
+        for userGroup in self.outputUserGroups {
+            self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
+        }
+        self.tableView.reloadData()
+    }
 
     @IBAction func sliderValueChanged(sender: UISlider) {
         let currentValue = Int(sender.value)
@@ -84,6 +92,10 @@ class CreateTaskTableViewController: UITableViewController {
         print(sender.on)
     }
     
+    @IBAction func backToCreateTaskView(segue:UIStoryboardSegue){
+        
+    }
+    
     func createNewTask(taskName: String, numberOfDesis: Int, pointValue: Int) -> DesiTask {
         let newTask = DesiTask()
         newTask.taskName = taskName
@@ -104,27 +116,11 @@ class CreateTaskTableViewController: UITableViewController {
     func buildUserGroupTasks(userGroups: NSSet, task: DesiTask) -> [DesiUserGroupTask] {
         var newUserGroupTasks = [DesiUserGroupTask]()
         print(self.userGroups.count)
-        for (index,userGroup) in self.userGroups.enumerate() {
-            let newUgt = createNewUserGroupTask(userGroup, queueSpot: index, task: task)
+        for (index,userGroup) in userGroups.enumerate() {
+            let newUgt = createNewUserGroupTask(userGroup as! DesiUserGroup, queueSpot: index, task: task)
             newUserGroupTasks.append(newUgt)
         }
         return newUserGroupTasks
-    }
-    
-    func saveTask(){
-        print("swagggg")
-        let block = ({
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                print("new UserGroupsTask saved")
-                self.performSegueWithIdentifier("createTask", sender: self)
-            }
-            else {
-                print("new UserGroupsTask error")
-            }
-        })
-        
-        PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
     }
     
     // MARK: - Navigation
@@ -135,14 +131,37 @@ class CreateTaskTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "createTaskSegue" {
-            self.newUserGroupTasks = buildUserGroupTasks(self.userGroups, task: newTask)
-            saveTask()
             let groupView = segue.destinationViewController as! GroupTableViewController
-            groupView.userGroupTasks = groupView.userGroupTasks + newUserGroupTasks
+            func saveTask(){
+                print("swagggg")
+                let block = ({
+                    (success: Bool, error: NSError?) -> Void in
+                    if success {
+                        print("new UserGroupsTask saved")
+                        groupView.filterUserGroupTasksByTask()
+                        
+                    }
+                    else {
+                        print("new UserGroupsTask error")
+                    }
+                })
+                
+                PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
+            }
+            self.newUserGroupTasks = buildUserGroupTasks(Set(self.outputUserGroups), task: newTask)
+            saveTask()
+            groupView.userGroupTasks = groupView.userGroupTasks + self.newUserGroupTasks
             print("about to filter")
             groupView.filterUserGroupTasks()
             //groupView.filterUserGroupTasksByTask()
             groupView.tableView.reloadData()
+        }
+        
+        if segue.identifier == "manageTaskMembers" {
+            let nav = segue.destinationViewController as! UINavigationController
+            let manageMembers = nav.topViewController as! TaskMembersTableViewController
+            manageMembers.userGroups = self.userGroups
+            manageMembers.outputUserGroups = self.outputUserGroups
         }
     }
 

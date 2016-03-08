@@ -15,7 +15,10 @@ class DesiUserGroupTaskLog: PFObject, PFSubclassing {
     }
     
     class func parseClassName() -> String {
-        return "DesiTask"
+        return "DesiUserGroupTaskLog"
     }
 
+    @NSManaged var userGroupTask: DesiUserGroupTask
+    @NSManaged var timeCompleted: NSDate
+    @NSManaged var completionMessage: String
 }

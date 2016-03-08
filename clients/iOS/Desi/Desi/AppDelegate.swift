@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DesiGroup.registerSubclass()
         DesiUserGroupTask.registerSubclass()
         DesiTask.registerSubclass()
+        DesiUserGroupTaskLog.registerSubclass()
         
         // [Optional] Power your app with Local Datastore. For more info, go to
         // https://parse.com/docs/ios_guide#localdatastore/iOS
