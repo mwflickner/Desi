@@ -13,6 +13,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var userGroup: DesiUserGroup!
     var taskUserGroupTasks = [DesiUserGroupTask]()
+    var taskLog = [DesiUserGroupTaskLog]()
     
     var myUgTask: DesiUserGroupTask?
     var desiUgTasks = [DesiUserGroupTask]()
@@ -21,6 +22,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var completeButton: UIBarButtonItem!
     @IBOutlet weak var optOutButton: UIBarButtonItem!
+    @IBOutlet weak var segControl : UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,6 +205,25 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.updateActionButtons()
     }
     
+    func optOutOfTask(){
+        if let myUgTask = self.myUgTask {
+            myUgTask.isDesi = false
+            myUgTask.userGroup.points -= 5*self.task.pointValue
+            self.taskUserGroupTasks = self.taskUserGroupTasks.filter({$0.objectId != myUgTask.objectId})
+            myUgTask.queueSpot = self.taskUserGroupTasks.count
+            self.taskUserGroupTasks.append(myUgTask)
+            self.myUgTask = myUgTask
+            for (index, ugTask) in self.taskUserGroupTasks.enumerate() {
+                ugTask.queueSpot = index
+            }
+            self.saveTaskState()
+            self.updateActionButtons()
+        }
+        else {
+            // exception
+        }
+    }
+    
     func getUserGroupTasksForTask(task: DesiTask){
         let query = DesiUserGroupTask.query()
         query?.includeKey("task")
@@ -248,6 +269,14 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             volunteerCompleteTask()
         }
         
+        self.tableView.reloadData()
+        sender.enabled = true
+    }
+    
+    @IBAction func optOutTapped(sender: UIBarButtonItem){
+        sender.enabled = false
+        print("optout")
+        optOutOfTask()
         self.tableView.reloadData()
         sender.enabled = true
     }
