@@ -104,6 +104,10 @@ class MasterViewController: UITableViewController {
         let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
         self.presentViewController(vc, animated: true, completion: nil)
     }
+    
+    @IBAction func backToMasterView(segue: UIStoryboardSegue) {
+        
+    }
 
     
     // MARK: - Navigation
