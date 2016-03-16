@@ -114,7 +114,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let lastName = logEntry.userGroupTask.userGroup.user.lastName
         let verb = logEntry.actionTypeToVerb()
         
-        logCell.label1.text = "\(firstName) \(lastName) \(verb) at \(logEntry.timeCompleted)"
+        logCell.label1.text = "\(firstName) \(lastName) \(verb) at \(logEntry.createdAt)"
         logCell.label2.text = logEntry.actionMessage
         return logCell
     }
@@ -196,7 +196,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             logEntry.userGroupTask = oldDesi
             logEntry.actionMessage = "Task done"
             logEntry.actionType = "completion"
-            logEntry.timeCompleted = NSDate()
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
             //oldDesi.userGroup.user.desiScore += taskPoints
@@ -234,7 +233,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         logEntry.userGroupTask = self.myUgTask!
         logEntry.actionMessage = "Volunteer done"
         logEntry.actionType = "volunteer"
-        logEntry.timeCompleted = NSDate()
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
         self.saveTaskState()
@@ -263,7 +261,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             logEntry.userGroupTask = self.myUgTask!
             logEntry.actionMessage = "Opting out"
             logEntry.actionType = "opt-out"
-            logEntry.timeCompleted = NSDate()
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
             self.saveTaskState()

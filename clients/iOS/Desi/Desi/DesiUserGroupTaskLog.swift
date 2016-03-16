@@ -19,7 +19,6 @@ class DesiUserGroupTaskLog: PFObject, PFSubclassing {
     }
 
     @NSManaged var userGroupTask: DesiUserGroupTask
-    @NSManaged var timeCompleted: NSDate
     @NSManaged var actionMessage: String
     @NSManaged var actionType: String
     
