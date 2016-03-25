@@ -34,7 +34,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         createButton = self.navigationItem.rightBarButtonItem!
         createButton.enabled = false
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         self.newGroup.groupName = "Untitled Group"
@@ -47,7 +47,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    func DismissKeyboard(){
+    func dismissKeyboard(){
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
@@ -135,29 +135,28 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
             let query = DesiUser.query()
             query!.whereKey("username", equalTo: usernameToAdd)
             query!.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                if error == nil {
-                    // The find succeeded.
-                    print("Successfully retrieved \(objects!.count) users. Swag.")
-                    // Do something with the found objects
-                    if let objects = objects as? [PFObject] {
-                        let users = objects as? [DesiUser]
-                        if users!.count == 1 {
-                            let newUser: DesiUser = users![0]
-                            self.newUserGroups.append(self.createUserGroup(newUser, isAdmin: false))
-                            self.tableView.reloadData()
-                        }
-                        else {
-                            setErrorColor(self.memberToAddTextField)
-                        }
-                        sender.enabled = true
-                    }
-                }
-                else {
+                (objects: [PFObject]?, error: NSError?) -> Void in
+                guard error == nil else {
                     // Log details of the failure
                     print("Error: \(error!) \(error!.userInfo)")
                     sender.enabled = true
+                    return
                 }
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) users. Swag.")
+                // Do something with the found objects
+                guard let objects = objects else {
+                    return
+                }
+                guard let users = objects as? [DesiUser] where users.count == 1 else {
+                    setErrorColor(self.memberToAddTextField)
+                    sender.enabled = true
+                    return
+                }
+                let newUser: DesiUser = users[0]
+                self.newUserGroups.append(self.createUserGroup(newUser, isAdmin: false))
+                self.tableView.reloadData()
+                sender.enabled = true
             }
         }
         sender.enabled = true

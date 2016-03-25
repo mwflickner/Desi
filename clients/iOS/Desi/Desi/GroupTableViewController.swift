@@ -120,35 +120,39 @@ class GroupTableViewController: UITableViewController {
         ugTaskQuery!.includeKey("task")
         ugTaskQuery!.whereKey("userGroup", matchesQuery: userGroupQuery!)
         ugTaskQuery!.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error == nil {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) ugTasks.")
-                // Do something with the found objects
-                if let objects = objects as? [PFObject] {
-                    if objects.count > 0 {
-                        if let ugTasks = objects as? [DesiUserGroupTask] {
-                            self.userGroupTasks = ugTasks
-                            for ug in self.userGroupTasks {
-                                print("User: \(ug.userGroup.user.username!)")
-                                print("Group: \(ug.userGroup.group.groupName)")
-                                print("Task: \(ug.task.taskName)")
-                                print("isDesi: \(ug.isDesi) \n")
-                            }
-                            self.filterUserGroupTasks()
-                            self.filterUserGroupTasksByTask()
-                            //store found userGroups in Localstore
-                            self.tableView.reloadData()
-                        }
-                    }
-                    else {
-                        self.getUserGroupsForGroup()
-                    }
-                }
-            }
-            else {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
                 // Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
+                return
+            }
+            
+            // The find succeeded.
+            print("Successfully retrieved \(objects!.count) ugTasks.")
+            // Do something with the found objects
+            guard let objects = objects else {
+                return
+            }
+            if objects.count > 0 {
+                guard let ugTasks = objects as? [DesiUserGroupTask] else {
+                    return
+                }
+                self.userGroupTasks = ugTasks
+                for ug in self.userGroupTasks {
+                    print("User: \(ug.userGroup.user.username!)")
+                    print("Group: \(ug.userGroup.group.groupName)")
+                    print("Task: \(ug.task.taskName)")
+                    print("isDesi: \(ug.isDesi) \n")
+                }
+                self.filterUserGroupTasks()
+                self.filterUserGroupTasksByTask()
+                
+                //store found userGroups in Localstore
+                
+                self.tableView.reloadData()
+            }
+            else {
+                self.getUserGroupsForGroup()
             }
         }
     }
@@ -159,14 +163,18 @@ class GroupTableViewController: UITableViewController {
         userGroupQuery!.includeKey("group")
         userGroupQuery!.whereKey("group", equalTo: self.myUserGroup.group)
         userGroupQuery!.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error == nil {
-                if let objects = objects as? [PFObject]{
-                    if let userGroups = objects as? [DesiUserGroup]{
-                        self.userGroups = Set(userGroups)
-                    }
-                }
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
+                return
             }
+            guard let objects = objects else {
+                return
+            }
+            guard let userGroups = objects as? [DesiUserGroup] else {
+                return
+            }
+            self.userGroups = Set(userGroups)
+
         }
     }
     

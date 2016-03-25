@@ -60,18 +60,18 @@ class GroupSettingsTableViewController: UITableViewController {
             if indexPath.row == 0 {
                 cell.button.setTitle("View Members", forState: UIControlState.Normal)
                 cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.button.addTarget(self, action: "viewMembers:", forControlEvents: UIControlEvents.TouchUpInside)
+                cell.button.addTarget(self, action: #selector(viewMembers), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell
             }
             cell.button.setTitle("Leave Group", forState: UIControlState.Normal)
             cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-            cell.button.addTarget(self, action: "leaveGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+            //cell.button.addTarget(self, action: #selector(leaveGroup), forControlEvents: UIControlEvents.TouchUpInside)
             return cell
         }
         else {
             cell.button.setTitle("Delete Group", forState: UIControlState.Normal)
             cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-            cell.button.addTarget(self, action: "deleteGroup:", forControlEvents: UIControlEvents.TouchUpInside)
+            //cell.button.addTarget(self, action: #selector(deleteGroup), forControlEvents: UIControlEvents.TouchUpInside)
             return cell
         }
     }

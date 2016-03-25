@@ -81,7 +81,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     */
     
     func findUserGroupIndex(userGroup: DesiUserGroup) -> Int {
-        for var i = 0; i < myUserGroups.count; ++i {
+        for i in 0 ..< myUserGroups.count {
             if ((userGroup.objectId == myUserGroups[i].objectId)){
                 return i
             }
@@ -125,24 +125,23 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         query!.includeKey("group")
         query!.whereKey("user", equalTo: DesiUser.currentUser()!)
         query!.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error == nil {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) scores.")
-                // Do something with the found objects
-                if let objects = objects as? [PFObject] {
-                    let userGroups = objects as? [DesiUserGroup]
-                    self.myUserGroups = userGroups!
-                    
-                    //store found userGroups in Localstore
-                    DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
-                    if let _ = self.tableView {
-                        self.tableView.reloadData()
-                    }
-                }
-            } else {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
                 // Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
+                return
+            }
+            // The find succeeded.
+            print("Successfully retrieved \(objects!.count) scores.")
+            // Do something with the found objects
+            guard let userGroups = objects as? [DesiUserGroup] else {
+                return
+            }
+            self.myUserGroups = userGroups
+            //store found userGroups in Localstore
+            DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
+            if let _ = self.tableView {
+                self.tableView.reloadData()
             }
         }
     }
@@ -153,21 +152,20 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         queryLocal!.whereKey("user", equalTo: DesiUser.currentUser()!)
         queryLocal!.fromLocalDatastore()
         queryLocal!.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error == nil {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) scores. Swag.")
-                // Do something with the found objects
-                if let objects = objects as? [PFObject] {
-                    let userGroups = objects as? [DesiUserGroup]
-                    self.myUserGroups = userGroups!
-                    self.tableView.reloadData()
-                }
-            }
-            else {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
                 // Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
+                return
             }
+            // The find succeeded.
+            print("Successfully retrieved \(objects!.count) scores. Swag.")
+            // Do something with the found objects
+            guard let userGroups = objects as? [DesiUserGroup] else {
+                return
+            }
+            self.myUserGroups = userGroups
+            self.tableView.reloadData()
         }
     }
 

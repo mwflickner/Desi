@@ -23,9 +23,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var hasViewedLog: Bool = false
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var completeButton: UIBarButtonItem!
-    @IBOutlet weak var optOutButton: UIBarButtonItem!
     @IBOutlet weak var segControl : UISegmentedControl!
+    @IBOutlet weak var goToCompleteButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,66 +126,21 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if ugTask.userGroup.user == DesiUser.currentUser() {
                 self.myUgTask = ugTask
-                if ugTask.isDesi {
-                    self.completeButton.title = "Complete"
-                }
-                else {
-                    self.completeButton.title = "Volunteer"
-                }
             }
         }
-        self.updateActionButtons()
+        self.updateActionButton()
     }
     
-    func shouldEnableActionButtons() -> Bool {
-        return true
-//        if self.myUgTask != nil {
-//            let lastUpdated = self.myUgTask!.updatedAt
-//            let created = self.myUgTask!.createdAt
-//            if (lastUpdated!.compare(created!) == .OrderedSame) {
-//                return true
-//            }
-//            let currentDate = NSDate()
-//            let secondsInterval = Int(currentDate.timeIntervalSinceDate(lastUpdated!))
-//            print(secondsInterval)
-//            let minutesInterval = secondsInterval/60
-//            print("mintues = \(minutesInterval)")
-//            if minutesInterval >= 5 {
-//                return true
-//            }
-//        }
-//        return false
-    }
-    
-    func updateActionButtons(){
-        if shouldEnableActionButtons() {
-            if let myUgTask = self.myUgTask {
-                if optOutAllowed(myUgTask){
-                    self.optOutButton.enabled = true
-                }
-                else {
-                    self.optOutButton.enabled = false
-                }
-            }
-            self.completeButton.enabled = true
+    func updateActionButton(){
+        if self.myUgTask != nil {
+            self.goToCompleteButton.enabled = true
         }
         else {
-            self.completeButton.enabled = false
-            self.optOutButton.enabled = false
+            self.goToCompleteButton.enabled = false
         }
     }
     
-    func optOutAllowed(ugTask: DesiUserGroupTask) -> Bool {
-        if ugTask.isDesi {
-            if ugTask.userGroup.points < 5 * ugTask.task.pointValue {
-                return false
-            }
-            return true
-        }
-        return false
-    }
-    
-    func completeTask(){
+    func completeTask(message: String){
         let oldDesiUGTasks = self.desiUgTasks
         self.newLogEntries = []
         for oldDesi in oldDesiUGTasks {
@@ -194,14 +148,14 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             oldDesi.userGroup.points += taskPoints
             let logEntry = DesiUserGroupTaskLog()
             logEntry.userGroupTask = oldDesi
-            logEntry.actionMessage = "Task done"
+            logEntry.actionMessage = message
             logEntry.actionType = "completion"
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
             //oldDesi.userGroup.user.desiScore += taskPoints
         }
         self.desiUgTasks = []
-        let range = Range<Int>(start: 0,end: self.task.numberOfDesis)
+        let range: Range<Int> = 0..<self.task.numberOfDesis
         self.taskUserGroupTasks.removeRange(range)
         self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
         for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
@@ -214,12 +168,10 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 ugTask.isDesi = false
             }
         }
-        self.completeButton.title = "Volunteer"
         self.saveTaskState()
-        self.updateActionButtons()
     }
     
-    func volunteerCompleteTask(){
+    func volunteerCompleteTask(message: String){
         self.taskUserGroupTasks = self.taskUserGroupTasks.filter({$0.objectId != myUgTask?.objectId})
         let count = self.taskUserGroupTasks.count
         self.myUgTask?.queueSpot = count
@@ -231,15 +183,14 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.newLogEntries = []
         let logEntry = DesiUserGroupTaskLog()
         logEntry.userGroupTask = self.myUgTask!
-        logEntry.actionMessage = "Volunteer done"
+        logEntry.actionMessage = message
         logEntry.actionType = "volunteer"
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
         self.saveTaskState()
-        self.updateActionButtons()
     }
     
-    func optOutOfTask(){
+    func optOutOfTask(message: String){
         self.desiUgTasks = []
         if let myUgTask = self.myUgTask {
             myUgTask.isDesi = false
@@ -259,12 +210,11 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.newLogEntries = []
             let logEntry = DesiUserGroupTaskLog()
             logEntry.userGroupTask = self.myUgTask!
-            logEntry.actionMessage = "Opting out"
+            logEntry.actionMessage = message
             logEntry.actionType = "opt-out"
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
             self.saveTaskState()
-            self.updateActionButtons()
         }
         else {
             // exception
@@ -279,19 +229,19 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         query?.includeKey("userGroup.group")
         query?.whereKey("task", equalTo: task)
         query?.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error == nil {
-                if let objects = objects as? [PFObject]{
-                    if let userGroupTasks = objects as? [DesiUserGroupTask]{
-                        for ugtTask in userGroupTasks {
-                            print("Task ID: \(ugtTask.task.objectId)")
-                            print("UGT TaskID: \(ugtTask.objectId)")
-                        }
-                        self.taskUserGroupTasks = userGroupTasks
-                        self.updateTaskData()
-                    }
-                }
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
+                return
             }
+            guard let userGroupTasks = objects as? [DesiUserGroupTask] else {
+                return
+            }
+            for ugtTask in userGroupTasks {
+                print("Task ID: \(ugtTask.task.objectId)")
+                print("UGT TaskID: \(ugtTask.objectId)")
+            }
+            self.taskUserGroupTasks = userGroupTasks
+            self.updateTaskData()
         }
     }
     
@@ -306,17 +256,21 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         logQuery?.includeKey("userGroupTask.userGroup.user")
         logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
         logQuery?.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
-            if error == nil {
-                if let objects = objects as? [PFObject]{
-                    if let logEntries = objects as? [DesiUserGroupTaskLog]{
-                        self.taskLog = logEntries
-                        if self.segControl.selectedSegmentIndex == 1 {
-                            self.tableView.reloadData()
-                        }
-                    }
-                }
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
+                return
             }
+            
+            guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
+                return
+            }
+            
+            self.taskLog = logEntries
+            if self.segControl.selectedSegmentIndex == 1 {
+                self.tableView.reloadData()
+            }
+            
+
         }
     }
     
@@ -331,56 +285,26 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 print("new UserGroupsTask error")
             }
         })
-        let ugtTasks : [AnyObject] = self.taskUserGroupTasks
-        let newLogs: [AnyObject] = self.newLogEntries
-        let taskState: [AnyObject] = ugtTasks + newLogs
+        let ugtTasks : [PFObject] = self.taskUserGroupTasks
+        let newLogs: [PFObject] = self.newLogEntries
+        let taskState: [PFObject] = ugtTasks + newLogs
         PFObject.saveAllInBackground(taskState, block: block)
         
-    }
-
-    @IBAction func completeTapped(sender: UIBarButtonItem){
-        sender.enabled = false
-        print("meooow")
-        let isVolunteerCompletion = (sender.title == "Volunteer")
-        if !isVolunteerCompletion {
-            completeTask()
-        }
-        else {
-            volunteerCompleteTask()
-        }
-        
-        self.tableView.reloadData()
-        sender.enabled = true
-    }
-    
-    @IBAction func optOutTapped(sender: UIBarButtonItem){
-        sender.enabled = false
-        print("optout")
-        optOutOfTask()
-        self.tableView.reloadData()
-        sender.enabled = true
     }
     
     @IBAction func segControlChanged(sender: UISegmentedControl){
         sender.enabled = false
-        if sender.selectedSegmentIndex == 1{
-            if !hasViewedLog {
-                self.getTaskLog((self.myUgTask?.task)!)
-                self.hasViewedLog = true
-            }
-            self.tableView.reloadData()
-            sender.enabled = true
+        if !hasViewedLog {
+            self.getTaskLog((self.myUgTask?.task)!)
+            self.hasViewedLog = true
         }
-        else {
-            self.getUserGroupTasksForTask(self.task)
-            sender.enabled = true
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
+        sender.enabled = true
        
     }
     
     
-    @IBAction func updateDesiGroupSettings(segue:UIStoryboardSegue) {
+    @IBAction func cancelToTaskView(segue:UIStoryboardSegue) {
         
     }
 
@@ -390,11 +314,13 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        /*
-        
-        */
+        if segue.identifier == "goToCompletionForm" {
+            let nav = segue.destinationViewController as! DesiNaviagtionController
+            let completion = nav.topViewController as! TaskActionTableViewController
+            if let myUgTask = self.myUgTask {
+                completion.myUgtTask = myUgTask
+            }
+        }
     }
 
 
