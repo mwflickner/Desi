@@ -48,30 +48,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dGr-Df-fRK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="CV5-7N-5li">
-                                    <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                    <items>
-                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="IYb-vS-whB"/>
-                                        <barButtonItem style="plain" id="ygz-Fo-DKx">
-                                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="jGn-lW-aJd">
-                                                <rect key="frame" x="207" y="7" width="185" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <segments>
-                                                    <segment title="" image="glyphicons-44-group"/>
-                                                    <segment title="" image="glyphicons-88-log-book"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="segControlChanged:" destination="mG4-am-nQ6" eventType="valueChanged" id="YXB-mK-dmm"/>
-                                                </connections>
-                                            </segmentedControl>
-                                        </barButtonItem>
-                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="dgc-kZ-q1O"/>
-                                    </items>
-                                </toolbar>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TheDesiCell" rowHeight="80" id="oCE-cs-sVB" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="136" width="600" height="80"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oCE-cs-sVB" id="3W7-tB-OIW">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
@@ -113,7 +92,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OnDeckCell" rowHeight="80" id="eeo-IM-tX8" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="216" width="600" height="80"/>
+                                        <rect key="frame" x="0.0" y="172" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eeo-IM-tX8" id="P3p-PI-QHF">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
@@ -155,7 +134,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestOfGroupCell" rowHeight="80" id="CpB-lV-9Jg" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="296" width="600" height="80"/>
+                                        <rect key="frame" x="0.0" y="252" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CpB-lV-9Jg" id="Fne-e5-71G">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
@@ -190,33 +169,33 @@
                                             <outlet property="label2" destination="TmV-AC-wMS" id="tpZ-RA-Bdu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" rowHeight="80" id="XLS-28-8IU" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="376" width="600" height="80"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" rowHeight="120" id="XLS-28-8IU" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="332" width="600" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XLS-28-8IU" id="42N-GQ-29v">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User action time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LR-nA-j0M">
-                                                    <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User action time" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LR-nA-j0M">
+                                                    <rect key="frame" x="28" y="28" width="544" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fog-Mb-0JM">
-                                                    <rect key="frame" x="8" y="54" width="584" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fog-Mb-0JM">
+                                                    <rect key="frame" x="28" y="74" width="544" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Fog-Mb-0JM" firstAttribute="leading" secondItem="42N-GQ-29v" secondAttribute="leadingMargin" id="FMK-1A-BRE"/>
-                                                <constraint firstItem="Fog-Mb-0JM" firstAttribute="trailing" secondItem="42N-GQ-29v" secondAttribute="trailingMargin" id="PPq-v1-JbG"/>
-                                                <constraint firstItem="9LR-nA-j0M" firstAttribute="top" secondItem="42N-GQ-29v" secondAttribute="topMargin" id="Vic-k2-Lmu"/>
-                                                <constraint firstItem="Fog-Mb-0JM" firstAttribute="bottom" secondItem="42N-GQ-29v" secondAttribute="bottomMargin" id="cHN-Na-L6w"/>
-                                                <constraint firstItem="9LR-nA-j0M" firstAttribute="trailing" secondItem="42N-GQ-29v" secondAttribute="trailingMargin" id="hIO-wW-FSy"/>
-                                                <constraint firstItem="9LR-nA-j0M" firstAttribute="leading" secondItem="42N-GQ-29v" secondAttribute="leadingMargin" id="kMm-pP-aw7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Fog-Mb-0JM" secondAttribute="bottom" constant="20" id="2Fp-Pb-4aU"/>
+                                                <constraint firstItem="Fog-Mb-0JM" firstAttribute="leading" secondItem="42N-GQ-29v" secondAttribute="leadingMargin" constant="20" id="e7K-LX-Qgb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Fog-Mb-0JM" secondAttribute="trailing" constant="20" id="kKy-4R-g4O"/>
+                                                <constraint firstItem="9LR-nA-j0M" firstAttribute="top" secondItem="42N-GQ-29v" secondAttribute="topMargin" constant="20" id="n6K-M3-77T"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9LR-nA-j0M" secondAttribute="trailing" constant="20" id="qpF-cQ-UaL"/>
+                                                <constraint firstItem="9LR-nA-j0M" firstAttribute="leading" secondItem="42N-GQ-29v" secondAttribute="leadingMargin" constant="20" id="rjH-wE-E4a"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -243,6 +222,7 @@
                         <constraints>
                             <constraint firstItem="dGr-Df-fRK" firstAttribute="top" secondItem="Nte-Vz-cNC" secondAttribute="topMargin" id="2Cj-Rp-RjM"/>
                             <constraint firstItem="wGQ-lE-PjU" firstAttribute="top" secondItem="dGr-Df-fRK" secondAttribute="bottom" id="9GX-DV-DqM"/>
+                            <constraint firstItem="wGQ-lE-PjU" firstAttribute="top" secondItem="dGr-Df-fRK" secondAttribute="bottom" id="Ehm-Q9-gbA"/>
                             <constraint firstItem="dGr-Df-fRK" firstAttribute="centerX" secondItem="Nte-Vz-cNC" secondAttribute="centerX" id="NOU-ct-U4c"/>
                             <constraint firstItem="S9m-MV-MSP" firstAttribute="top" secondItem="wGQ-lE-PjU" secondAttribute="bottom" id="Q5J-AL-x61"/>
                             <constraint firstItem="dGr-Df-fRK" firstAttribute="leading" secondItem="Nte-Vz-cNC" secondAttribute="leadingMargin" constant="-20" id="UUT-Mb-pBA"/>
@@ -254,15 +234,27 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tMq-3t-0JZ">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Back" id="myT-cL-hQb">
                             <connections>
                                 <segue destination="y8s-yM-MJG" kind="unwind" unwindAction="cancelToGroupVC:" id="kMF-6m-1s0"/>
                             </connections>
                         </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="IbN-rq-yoe">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="" image="glyphicons-44-group"/>
+                                <segment title="" image="glyphicons-88-log-book"/>
+                            </segments>
+                            <connections>
+                                <action selector="segControlChanged:" destination="mG4-am-nQ6" eventType="valueChanged" id="iEj-2H-8He"/>
+                            </connections>
+                        </segmentedControl>
                     </navigationItem>
                     <connections>
                         <outlet property="goToCompleteButton" destination="N3b-pk-8jM" id="qUs-EW-JYk"/>
-                        <outlet property="segControl" destination="jGn-lW-aJd" id="HCt-Gh-ZYc"/>
+                        <outlet property="segControl" destination="IbN-rq-yoe" id="3ga-hk-FHY"/>
                         <outlet property="tableView" destination="dGr-Df-fRK" id="Vv7-uh-pjW"/>
                     </connections>
                 </viewController>
@@ -513,13 +505,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="v7w-bh-GU4">
-                            <rect key="frame" x="0.0" y="166" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <items>
-                                <barButtonItem title="Item" id="Uq4-79-okl"/>
-                            </items>
-                        </toolbar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="80" id="Gtx-hV-XpS" customClass="DesiGroupsTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="600" height="80"/>
@@ -554,6 +539,40 @@
                                     <segue destination="cpa-eK-4Pj" kind="showDetail" identifier="loadTask" id="PGv-sA-jMC"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" rowHeight="120" id="sxZ-O3-gHI" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="166" width="600" height="120"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sxZ-O3-gHI" id="6rh-Rf-HkY">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User action time" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRd-7E-X6L">
+                                            <rect key="frame" x="28" y="28" width="544" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gf-Fk-me5">
+                                            <rect key="frame" x="28" y="74" width="544" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="VRd-7E-X6L" secondAttribute="trailing" constant="20" id="5Ry-hZ-VZC"/>
+                                        <constraint firstItem="VRd-7E-X6L" firstAttribute="top" secondItem="6rh-Rf-HkY" secondAttribute="topMargin" constant="20" id="A2M-nP-QTk"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="0gf-Fk-me5" secondAttribute="trailing" constant="20" id="D9e-p6-tba"/>
+                                        <constraint firstItem="VRd-7E-X6L" firstAttribute="leading" secondItem="6rh-Rf-HkY" secondAttribute="leadingMargin" constant="20" id="XoN-n5-sXE"/>
+                                        <constraint firstItem="0gf-Fk-me5" firstAttribute="leading" secondItem="6rh-Rf-HkY" secondAttribute="leadingMargin" constant="20" id="fvW-5F-Jzu"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="0gf-Fk-me5" secondAttribute="bottom" constant="20" id="nKs-0d-6Av"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="label1" destination="VRd-7E-X6L" id="UIl-B1-AbT"/>
+                                    <outlet property="label2" destination="0gf-Fk-me5" id="BMn-RR-bRI"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="bKd-KZ-MoS" id="PF0-nq-P0N"/>
@@ -561,11 +580,23 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="YtL-eT-43S">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Back" id="vnr-LT-EEq">
                             <connections>
                                 <segue destination="tiT-Wx-XQ4" kind="unwind" unwindAction="backtoDesiGroupsViewController:" id="eaH-xM-WP3"/>
                             </connections>
                         </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="GF2-f5-PeW">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="" image="glyphicons-44-group"/>
+                                <segment title="" image="glyphicons-88-log-book"/>
+                            </segments>
+                            <connections>
+                                <action selector="segControlChanged:" destination="bKd-KZ-MoS" eventType="valueChanged" id="vlS-gU-oYA"/>
+                            </connections>
+                        </segmentedControl>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="m13-H7-bug">
                                 <connections>
@@ -575,6 +606,9 @@
                             <barButtonItem image="glyphicons-137-cogwheel" id="73Q-uY-hxJ"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segControl" destination="GF2-f5-PeW" id="fFM-0l-ca7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGS-hY-xmn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tiT-Wx-XQ4" userLabel="Exit" sceneMemberID="exit"/>
@@ -978,7 +1012,7 @@
             </objects>
             <point key="canvasLocation" x="1846" y="1233"/>
         </scene>
-        <!--Desi-->
+        <!--Desi Home View Controller-->
         <scene sceneID="BdM-d9-c6P">
             <objects>
                 <viewController id="bYF-b2-mBj" customClass="DesiHomeViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
@@ -1045,6 +1079,40 @@
                                             <segue destination="CCO-6L-Axb" kind="showDetail" identifier="loadGroup" id="bgv-ME-BnP"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" rowHeight="120" id="hXn-4f-FKV" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="146" width="600" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXn-4f-FKV" id="OOL-Lm-Zbh">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User action time" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIZ-hx-GLN">
+                                                    <rect key="frame" x="28" y="28" width="544" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="avb-t7-T2T">
+                                                    <rect key="frame" x="28" y="74" width="544" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="avb-t7-T2T" secondAttribute="trailing" constant="20" id="Qd7-O5-pxJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="WIZ-hx-GLN" secondAttribute="trailing" constant="20" id="WXw-MB-eiZ"/>
+                                                <constraint firstItem="WIZ-hx-GLN" firstAttribute="leading" secondItem="OOL-Lm-Zbh" secondAttribute="leadingMargin" constant="20" id="c9H-mz-7Ao"/>
+                                                <constraint firstItem="WIZ-hx-GLN" firstAttribute="top" secondItem="OOL-Lm-Zbh" secondAttribute="topMargin" constant="20" id="i5T-y4-Y03"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="avb-t7-T2T" secondAttribute="bottom" constant="20" id="iqh-uS-Xte"/>
+                                                <constraint firstItem="avb-t7-T2T" firstAttribute="leading" secondItem="OOL-Lm-Zbh" secondAttribute="leadingMargin" constant="20" id="jZU-8D-iMj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="label1" destination="WIZ-hx-GLN" id="fBm-UH-8m1"/>
+                                            <outlet property="label2" destination="avb-t7-T2T" id="Kh9-ho-Ttx"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -1058,7 +1126,19 @@
                             <constraint firstItem="jEK-1M-fj1" firstAttribute="top" secondItem="Rx1-dG-NDj" secondAttribute="topMargin" id="y8n-hz-2wH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Desi" id="rzK-0z-PIF">
+                    <navigationItem key="navigationItem" id="rzK-0z-PIF">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Jkm-mx-n5a">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="" image="glyphicons-44-group"/>
+                                <segment title="" image="glyphicons-88-log-book"/>
+                            </segments>
+                            <connections>
+                                <action selector="segControlChanged:" destination="bYF-b2-mBj" eventType="valueChanged" id="1ue-cX-33Y"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FrV-iy-dOd">
                             <connections>
                                 <segue destination="KXj-BP-qiD" kind="presentation" id="IRM-Ca-MvL"/>
@@ -1066,6 +1146,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="segControl" destination="Jkm-mx-n5a" id="xn2-bx-amr"/>
                         <outlet property="tableView" destination="jEK-1M-fj1" id="euB-pD-Vgd"/>
                     </connections>
                 </viewController>

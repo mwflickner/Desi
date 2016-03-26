@@ -30,6 +30,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        //tableView.rowHeight = UITableViewAutomaticDimension
+        //tableView.estimatedRowHeight = 120.0
         self.navigationItem.title = task.taskName
         self.updateTaskData()
     }
@@ -68,12 +70,15 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return 80
+        if segControl.selectedSegmentIndex == 0 {
+            if indexPath.section == 1 {
+                return 80
+            }
+            else {
+                return 60
+            }
         }
-        else {
-            return 60
-        }
+        return 120
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -12,8 +12,11 @@ import Parse
 class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segControl: UISegmentedControl!
     
     var myUserGroups = [DesiUserGroup]()
+    var myLogs = [DesiUserGroupTaskLog]()
+    var hasViewedLog = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,28 +39,48 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Table view data source
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        if segControl.selectedSegmentIndex == 0 {
+            return 2
+        }
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
-            return self.myUserGroups.count
+        if segControl.selectedSegmentIndex == 0 {
+            if section == 1 {
+                return self.myUserGroups.count
+            }
+            return 0
         }
-        return 0
-        
+        return self.myLogs.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
-        let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
-        cell.groupNameLabel.text = userGroup.group.groupName
-        //cell.groupImgView.image = group.groupImage
-        return cell
+        if segControl.selectedSegmentIndex == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("DesiGroupCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
+            let userGroup = myUserGroups[indexPath.row] as DesiUserGroup
+            cell.groupNameLabel.text = userGroup.group.groupName
+            //cell.groupImgView.image = group.groupImage
+            return cell
+        }
+        let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
+        let logEntry = self.myLogs[indexPath.row]
+        let firstName = logEntry.userGroupTask.userGroup.user.firstName
+        let lastName = logEntry.userGroupTask.userGroup.user.lastName
+        let verb = logEntry.actionTypeToVerb()
+        let taskName = logEntry.userGroupTask.task.taskName
+        let groupName = logEntry.userGroupTask.userGroup.group.groupName
+        logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) in \(groupName) at \(logEntry.createdAt!)"
+        logCell.label2.text = logEntry.actionMessage
+        return logCell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        if segControl.selectedSegmentIndex == 0 {
+            return 60
+        }
+        return 120
     }
     
     /*
@@ -168,6 +191,50 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.tableView.reloadData()
         }
     }
+    
+    func getTaskLogForUser(user: DesiUser){
+        
+        let userGroupQuery = DesiUserGroup.query()
+        userGroupQuery?.whereKey("user", equalTo: user)
+        
+        let userGroupTaskQuery = DesiUserGroupTask.query()
+        userGroupTaskQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
+        
+        let logQuery = DesiUserGroupTaskLog.query()
+        logQuery?.includeKey("userGroupTask")
+        logQuery?.includeKey("userGroupTask.userGroup")
+        logQuery?.includeKey("userGroupTask.task")
+        logQuery?.includeKey("userGroupTask.userGroup.user")
+        logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        logQuery?.findObjectsInBackgroundWithBlock {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
+                return
+            }
+            
+            guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
+                return
+            }
+            
+            self.myLogs = logEntries
+            if self.segControl.selectedSegmentIndex == 1 {
+                self.tableView.reloadData()
+            }
+            print(logEntries.count)
+        }
+    }
+    
+    @IBAction func segControlChanged(sender: UISegmentedControl){
+        sender.enabled = false
+        if !hasViewedLog {
+            self.getTaskLogForUser(DesiUser.currentUser()!)
+            self.hasViewedLog = true
+        }
+        self.tableView.reloadData()
+        sender.enabled = true
+        
+    }
+
 
     
     // MARK: - Navigation
