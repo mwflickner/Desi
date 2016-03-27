@@ -171,7 +171,6 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         return newUserGroup
     }
     
-    
     func createGroup(){
         self.myNewUserGroup.group = self.newGroup
         for userGroup in self.newUserGroups {

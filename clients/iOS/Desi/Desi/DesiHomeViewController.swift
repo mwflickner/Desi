@@ -25,10 +25,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         self.getLocalUserGroups()
         
-        if (self.myUserGroups.count == 0){
-            print("yoo")
-        }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -129,16 +125,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         return myUserGroups[indexPath.row]
     }
     
-    @IBAction func cancelToDesiGroupsViewController(segue:UIStoryboardSegue) {
+    @IBAction func cancelToDesiHomeViewController(segue:UIStoryboardSegue) {
         
-    }
-    
-    @IBAction func createNewDesiGroup(segue:UIStoryboardSegue) {
-        if let newGroupViewController = segue.sourceViewController as? NewGroupViewController {
-            myUserGroups.append(newGroupViewController.myNewUserGroup)
-            DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
-            self.tableView.reloadData()
-        }
     }
     
     @IBAction func backtoDesiGroupsViewController(segue:UIStoryboardSegue) {

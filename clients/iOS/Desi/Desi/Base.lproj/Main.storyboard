@@ -991,12 +991,12 @@
                     <navigationItem key="navigationItem" title="Create Group" id="lc7-gl-TdW">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BbI-4m-DGZ">
                             <connections>
-                                <segue destination="gMa-EF-plv" kind="unwind" unwindAction="cancelToDesiGroupsViewController:" id="WQm-mV-g3E"/>
+                                <segue destination="gMa-EF-plv" kind="unwind" unwindAction="cancelToDesiHomeViewController:" id="x0n-xs-CL0"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Create" id="Nbx-u2-jWL">
                             <connections>
-                                <segue destination="gMa-EF-plv" kind="unwind" identifier="createNewGroup" unwindAction="createNewDesiGroup:" id="XFD-Hd-y7F"/>
+                                <segue destination="gMa-EF-plv" kind="unwind" identifier="createNewGroup" unwindAction="cancelToDesiHomeViewController:" id="Mq7-mS-AkS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
