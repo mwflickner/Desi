@@ -55,6 +55,16 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         return self.myLogs.count
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if segControl.selectedSegmentIndex == 0 {
+            if section == 1 {
+                return "My Groups"
+            }
+            return nil
+        }
+        return "My Log"
+    }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if segControl.selectedSegmentIndex == 0 {

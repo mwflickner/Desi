@@ -36,7 +36,6 @@ class GroupTableViewController: UITableViewController {
         self.filteredUserGroupTasks[myDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherUgTasksInt] = []
-        
     }
 
     override func didReceiveMemoryWarning() {

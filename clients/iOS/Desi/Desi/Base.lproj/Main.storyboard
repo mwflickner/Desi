@@ -684,8 +684,8 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Create Account">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="rIi-Hs-U9p" kind="presentation" id="YLY-al-bzi"/>
@@ -719,7 +719,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igH-QB-LET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-577" y="79"/>
+            <point key="canvasLocation" x="-1393" y="-443"/>
         </scene>
         <!--Create Account View Controller-->
         <scene sceneID="TQe-jh-TOH">
@@ -813,7 +813,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Back">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -881,13 +881,13 @@
                         <outlet property="password1" destination="KFO-HC-9we" id="bck-TY-RfB"/>
                         <outlet property="password2" destination="5qn-uA-gZj" id="7fK-b4-IzI"/>
                         <outlet property="username" destination="XMl-O9-oHl" id="sbX-NS-5dd"/>
-                        <segue destination="4C5-Am-zAi" kind="show" identifier="createAccountSegue" id="XgU-L5-ffn"/>
+                        <segue destination="TDN-cs-vVp" kind="show" identifier="createAccountSegue" id="Wmb-gF-a0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjH-uc-Sp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="abd-YK-coO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-577" y="854"/>
+            <point key="canvasLocation" x="-1393" y="288"/>
         </scene>
         <!--Create Group-->
         <scene sceneID="DEy-QH-ZiT">
@@ -1152,7 +1152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loU-se-xq3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1038" y="514"/>
+            <point key="canvasLocation" x="812" y="496"/>
         </scene>
         <!--Desi Naviagtion Controller-->
         <scene sceneID="eRq-DK-tvb">
@@ -1170,7 +1170,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PX6-4K-B5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="292" y="514"/>
+            <point key="canvasLocation" x="-514" y="140"/>
         </scene>
         <!--Desi Naviagtion Controller-->
         <scene sceneID="H7T-uP-dK2">
@@ -1297,24 +1297,8 @@
                             </tableViewSection>
                             <tableViewSection id="aNn-pq-JYt">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="mgo-qg-YHw">
-                                        <rect key="frame" x="0.0" y="196" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mgo-qg-YHw" id="fmV-ve-VVB">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Desi Feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0d-SP-XaE">
-                                                    <rect key="frame" x="14" y="11" width="77" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="uzz-BP-V6k">
-                                        <rect key="frame" x="0.0" y="240" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="196" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uzz-BP-V6k" id="828-cI-xqe">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -1337,7 +1321,7 @@
                             <tableViewSection id="O16-bq-ILC">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="JMk-Gj-PEN">
-                                        <rect key="frame" x="0.0" y="284" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="240" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JMk-Gj-PEN" id="oLJ-SW-133">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -1357,7 +1341,7 @@
                             <tableViewSection id="bnY-L4-chD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="tcg-DC-xNR">
-                                        <rect key="frame" x="0.0" y="328" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="284" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tcg-DC-xNR" id="WAM-Yn-rUC">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -1384,7 +1368,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thV-jh-Ez4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="-275"/>
+            <point key="canvasLocation" x="214" y="-511"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PRK-1r-Xxr">
@@ -1400,7 +1384,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfA-eV-eOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="218" y="-1043"/>
+            <point key="canvasLocation" x="214" y="-1247"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="aQ4-gm-7DT">
@@ -1648,6 +1632,7 @@
         <image name="glyphicons-88-log-book" width="22" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GEJ-AW-pIb"/>
+        <segue reference="szl-bT-u5b"/>
+        <segue reference="ri1-sj-4bT"/>
     </inferredMetricsTieBreakers>
 </document>
