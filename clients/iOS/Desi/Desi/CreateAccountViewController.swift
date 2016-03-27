@@ -32,19 +32,6 @@ class CreateAccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //user feedback on text fields
-    func setErrorColor(textField: UITextField) {
-        let errorColor : UIColor = UIColor.redColor()
-        textField.layer.borderColor = errorColor.CGColor
-        textField.layer.borderWidth = 1.5
-    }
-    
-    func setSuccessColor(textField: UITextField) {
-        let successColor : UIColor = UIColor( red: 0.3, green: 0.5, blue:0.3, alpha: 1.0 )
-        textField.layer.borderColor = successColor.CGColor
-        textField.layer.borderWidth = 1.5
-    }
-    
     //check the name fields
     func nameCheck(nameField: UITextField) -> Bool {
         if nameField.text != "" {

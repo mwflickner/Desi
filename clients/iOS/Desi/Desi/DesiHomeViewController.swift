@@ -16,6 +16,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var myUserGroups = [DesiUserGroup]()
     var myLogs = [DesiUserGroupTaskLog]()
+    var refreshControl = UIRefreshControl()
     var hasViewedLog = false
     
     override func viewDidLoad() {
@@ -23,7 +24,10 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
-        self.getLocalUserGroups()
+        self.refreshControl.addTarget(self, action: #selector(getUserGroups), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
+        self.refreshControl.beginRefreshing()
+        //self.getLocalUserGroups()
         
     }
     
@@ -159,6 +163,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 return
             }
             self.myUserGroups = userGroups
+            self.refreshControl.endRefreshing()
             //store found userGroups in Localstore
             DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
             if let _ = self.tableView {
@@ -166,6 +171,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
+    
+    // MARK: - Queries
     
     func getLocalUserGroups(){
         let queryLocal = DesiUserGroup.query()
@@ -190,8 +197,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func getTaskLogForUser(user: DesiUser){
-        
+    func getTaskLogForUser(){
+        let user = DesiUser.currentUser()!
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("user", equalTo: user)
         
@@ -204,6 +211,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         logQuery?.includeKey("userGroupTask.task")
         logQuery?.includeKey("userGroupTask.userGroup.user")
         logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        logQuery?.addDescendingOrder("createdAt")
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             guard error == nil else {
@@ -215,6 +223,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
             self.myLogs = logEntries
+            self.refreshControl.endRefreshing()
             if self.segControl.selectedSegmentIndex == 1 {
                 self.tableView.reloadData()
             }
@@ -225,8 +234,16 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func segControlChanged(sender: UISegmentedControl){
         sender.enabled = false
         if !hasViewedLog {
-            self.getTaskLogForUser(DesiUser.currentUser()!)
+            self.getTaskLogForUser()
             self.hasViewedLog = true
+        }
+        if sender.selectedSegmentIndex == 1 {
+            self.refreshControl.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+            self.refreshControl.addTarget(self, action: #selector(getTaskLogForUser), forControlEvents: UIControlEvents.ValueChanged)
+        }
+        else {
+            self.refreshControl.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+            self.refreshControl.addTarget(self, action: #selector(getUserGroups), forControlEvents: UIControlEvents.ValueChanged)
         }
         self.tableView.reloadData()
         sender.enabled = true

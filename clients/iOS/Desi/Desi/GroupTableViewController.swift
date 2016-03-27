@@ -32,10 +32,14 @@ class GroupTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = self.myUserGroup.group.groupName
+        self.refreshControl = UIRefreshControl()
+        self.tableView.addSubview(refreshControl!)
+        self.refreshControl!.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.beginRefreshing()
         self.filteredUserGroupTasks[myDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherUgTasksInt] = []
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -137,6 +141,7 @@ class GroupTableViewController: UITableViewController {
         
     }
 
+    // MARK: - Queries
     
     func getUserGroupTasksForGroup(){
         let userGroupQuery = DesiUserGroup.query()
@@ -177,12 +182,13 @@ class GroupTableViewController: UITableViewController {
                 self.filterUserGroupTasksByTask()
                 
                 //store found userGroups in Localstore
-                
+                self.refreshControl?.endRefreshing()
                 self.tableView.reloadData()
             }
             else {
                 self.getUserGroupsForGroup()
             }
+            
         }
     }
     
@@ -203,11 +209,13 @@ class GroupTableViewController: UITableViewController {
                 return
             }
             self.userGroups = Set(userGroups)
+            self.refreshControl?.endRefreshing()
 
         }
     }
     
-    func getTaskLogForGroup(group: DesiGroup){
+    func getTaskLogForGroup(){
+        let group = self.myUserGroup.group
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("group", equalTo: group)
         
@@ -220,6 +228,7 @@ class GroupTableViewController: UITableViewController {
         logQuery?.includeKey("userGroupTask.task")
         logQuery?.includeKey("userGroupTask.userGroup.user")
         logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        logQuery?.addDescendingOrder("createdAt")
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             guard error == nil else {
@@ -231,12 +240,15 @@ class GroupTableViewController: UITableViewController {
             }
             
             self.groupLog = logEntries
+            self.refreshControl?.endRefreshing()
             if self.segControl.selectedSegmentIndex == 1 {
                 self.tableView.reloadData()
             }
             print(logEntries.count)
         }
     }
+    
+    // MARK: - Filters
     
     func filterUserGroupTasks(){
         var myDesiUgTasks = [DesiUserGroupTask]()
@@ -282,8 +294,17 @@ class GroupTableViewController: UITableViewController {
     @IBAction func segControlChanged(sender: UISegmentedControl){
         sender.enabled = false
         if !hasViewedLog {
-            self.getTaskLogForGroup(self.myUserGroup.group)
+            self.refreshControl!.beginRefreshing()
+            self.getTaskLogForGroup()
             self.hasViewedLog = true
+        }
+        if sender.selectedSegmentIndex == 1 {
+            self.refreshControl!.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+            self.refreshControl!.addTarget(self, action: #selector(getTaskLogForGroup), forControlEvents: UIControlEvents.ValueChanged)
+        }
+        else {
+            self.refreshControl!.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+            self.refreshControl!.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
         }
         self.tableView.reloadData()
         sender.enabled = true
@@ -320,6 +341,7 @@ class GroupTableViewController: UITableViewController {
                 aTaskView.taskUserGroupTasks = self.taskFilteredUserGroupTasks[task.objectId!]!
                 aTaskView.task = task
             }
+            aTaskView.getUserGroupTasksForTask()
         }
         
         if (segue.identifier == "goToCreateTask"){

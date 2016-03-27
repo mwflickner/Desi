@@ -16,6 +16,12 @@ func setErrorColor(textField: UITextField) {
     textField.layer.borderWidth = 1.5
 }
 
+func setSuccessColor(textField: UITextField) {
+    let successColor : UIColor = UIColor( red: 0.3, green: 0.5, blue:0.3, alpha: 1.0 )
+    textField.layer.borderColor = successColor.CGColor
+    textField.layer.borderWidth = 1.5
+}
+
 func removeErrorColor(textField: UITextField) {
     textField.layer.borderColor = nil
     textField.layer.borderWidth = 0

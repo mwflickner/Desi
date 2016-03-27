@@ -111,7 +111,14 @@ class TaskActionTableViewController: UITableViewController, UITextViewDelegate {
         //performSegueWithIdentifier("completeTaskSeuge", sender: self)
     }
     
-
+    @IBAction func optOutSwitchToggled(sender: UISwitch){
+        if sender.on {
+            self.completeButton.setTitle("Opt-Out", forState: .Normal)
+        }
+        else {
+            self.completeButton.setTitle("Complete", forState: .Normal)
+        }
+    }
 
     
     // MARK: - Navigation
