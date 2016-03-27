@@ -93,7 +93,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if self.segControl.selectedSegmentIndex == 1 {
-            if !loadingMoreLogs && indexPath.row == self.taskLog.count - 1 && self.taskLog.count >= 10 {
+            if !loadingMoreLogs && indexPath.row == self.taskLog.count - 1 && self.taskLog.count >= 10 && self.tableView.tableFooterView != nil {
                 print(self.loadingMoreLogs)
                 self.activityIndicator.startAnimating()
                 self.loadingMoreLogs = true
@@ -310,6 +310,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.loadingMoreLogs = false
                 self.activityIndicator.stopAnimating()
                 print("stoppls")
+                if logEntries.count == 0 {
+                    self.tableView.tableFooterView = nil
+                }
             }
             else {
                 self.refreshControl.endRefreshing()
