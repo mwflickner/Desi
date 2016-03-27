@@ -634,7 +634,7 @@
                                     <constraint firstAttribute="height" constant="30" id="X1j-Ry-PNh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="9qe-yi-0ng">
                                 <rect key="frame" x="290" y="389" width="20" height="20"/>
@@ -745,7 +745,7 @@
                                     <constraint firstAttribute="width" constant="300" id="p4N-oS-JPb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
                                     <action selector="usernameDone:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="CeG-FJ-wL5"/>
                                 </connections>
@@ -756,7 +756,7 @@
                                     <constraint firstAttribute="width" constant="300" id="Q1i-42-r6c"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
                                     <action selector="firstNameDone:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="ee3-hX-c6b"/>
                                 </connections>
@@ -767,7 +767,7 @@
                                     <constraint firstAttribute="width" constant="300" id="EBv-FI-CfQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="password1Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="dcW-Tx-jU8"/>
                                 </connections>
@@ -778,7 +778,7 @@
                                     <constraint firstAttribute="width" constant="300" id="dpN-Fr-gK7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="password2Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="azo-hf-RaV"/>
                                 </connections>
@@ -789,7 +789,7 @@
                                     <constraint firstAttribute="width" constant="300" id="U72-9s-YlQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                 <connections>
                                     <action selector="email1Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="KZ2-aO-aVd"/>
                                 </connections>
@@ -800,7 +800,7 @@
                                     <constraint firstAttribute="width" constant="300" id="djQ-VF-WwH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                 <connections>
                                     <action selector="email2Done:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="7Sm-uG-Jjx"/>
                                 </connections>
@@ -841,7 +841,7 @@
                                     <constraint firstAttribute="width" constant="300" id="ozL-Qt-26t"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
                                     <action selector="lastNameDone:" destination="rIi-Hs-U9p" eventType="editingDidEnd" id="p33-VH-7Vc"/>
                                 </connections>
@@ -956,7 +956,7 @@
                                     <constraint firstAttribute="width" constant="188" id="xhy-0z-53H"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
                                     <action selector="enableAdd:" destination="zB8-h7-afa" eventType="valueChanged" id="dns-XF-3pJ"/>
                                 </connections>
@@ -1633,6 +1633,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="szl-bT-u5b"/>
-        <segue reference="ri1-sj-4bT"/>
+        <segue reference="Wmb-gF-a0V"/>
     </inferredMetricsTieBreakers>
 </document>
