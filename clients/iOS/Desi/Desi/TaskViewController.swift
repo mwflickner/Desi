@@ -23,6 +23,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var refreshControl = UIRefreshControl()
     
     var hasViewedLog: Bool = false
+    var oldestLoadedLog: DesiUserGroupTaskLog?
+    var loadingMoreLogs: Bool = false
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segControl : UISegmentedControl!
@@ -32,7 +35,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        
+        self.activityIndicator.hidesWhenStopped = true
+        self.tableView.tableFooterView = self.activityIndicator
         self.tableView.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForTask), forControlEvents: .ValueChanged)
         self.refreshControl.beginRefreshing()
@@ -85,6 +89,18 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         return 120
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if self.segControl.selectedSegmentIndex == 1 {
+            if !loadingMoreLogs && indexPath.row == self.taskLog.count - 1 && self.taskLog.count >= 10 {
+                print(self.loadingMoreLogs)
+                self.activityIndicator.startAnimating()
+                self.loadingMoreLogs = true
+                self.getTaskLog()
+            }
+        }
+        //self.tableView.tableFooterView = nil
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -263,6 +279,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func getTaskLog(){
         let task = self.task
+        let shouldLoadOldLogs = self.oldestLoadedLog != nil && self.loadingMoreLogs
         let userGroupTaskQuery = DesiUserGroupTask.query()
         userGroupTaskQuery?.whereKey("task", equalTo: task)
         
@@ -272,7 +289,11 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         logQuery?.includeKey("userGroupTask.task")
         logQuery?.includeKey("userGroupTask.userGroup.user")
         logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        if shouldLoadOldLogs {
+            logQuery?.whereKey("createdAt", lessThan: (self.oldestLoadedLog?.createdAt)!)
+        }
         logQuery?.addDescendingOrder("createdAt")
+        logQuery?.limit = 10
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             guard error == nil else {
@@ -282,9 +303,18 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
                 return
             }
+            self.oldestLoadedLog = logEntries.last
             print(logEntries.count)
-            self.refreshControl.endRefreshing()
-            self.taskLog = logEntries
+            if shouldLoadOldLogs {
+                self.taskLog += logEntries
+                self.loadingMoreLogs = false
+                self.activityIndicator.stopAnimating()
+                print("stoppls")
+            }
+            else {
+                self.refreshControl.endRefreshing()
+                self.taskLog = logEntries
+            }
             self.tableView.reloadData()
         }
     }
