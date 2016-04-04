@@ -194,7 +194,7 @@ class CreateAccountViewController: UIViewController {
     
     func createAccount(){
         let newUser = DesiUser()
-        newUser.username = self.username.text
+        newUser.username = self.username.text?.lowercaseString
         newUser.password = self.password1.text
         newUser.email = self.email1.text
         newUser.firstName = self.firstName.text!

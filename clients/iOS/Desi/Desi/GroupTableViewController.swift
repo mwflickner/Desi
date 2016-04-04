@@ -9,22 +9,28 @@
 import UIKit
 import Parse
 
-class GroupTableViewController: UITableViewController {
+class GroupTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var myUserGroup: DesiUserGroup!
     var userGroups = Set<DesiUserGroup>()
     
     var userGroupTasks = [DesiUserGroupTask]()
     
-    var filteredUserGroupTasks = [Int: [DesiUserGroupTask]]() // [ relation to user : [Int: The Desi UGTask]
+    var filteredUserGroupTasks = [Int: [DesiUserGroupTask]]() // [ relation to user : [The Desi UGTask]
     var taskFilteredUserGroupTasks = [String : [DesiUserGroupTask]]() // [ taskId : UGTask]
     
     var myUserGroupTasks = [Int: DesiUserGroupTask]()
     
     var groupLog = [DesiUserGroupTaskLog]()
+    var refreshControl = UIRefreshControl()
     var hasViewedLog: Bool = false
     
+    var oldestLoadedLog: DesiUserGroupTaskLog?
+    var loadingMoreLogs: Bool = false
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    
     @IBOutlet weak var segControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
     
     let myDesiUgTasksInt = 0
     let otherDesiUgTasksInt = 1
@@ -32,10 +38,13 @@ class GroupTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = self.myUserGroup.group.groupName
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         self.refreshControl = UIRefreshControl()
-        self.tableView.addSubview(refreshControl!)
-        self.refreshControl!.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
-        self.refreshControl?.beginRefreshing()
+        self.tableView.addSubview(refreshControl)
+        self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.beginRefreshing()
         self.filteredUserGroupTasks[myDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherUgTasksInt] = []
@@ -49,10 +58,10 @@ class GroupTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if self.segControl.selectedSegmentIndex == 0 {
             if self.userGroupTasks.count != 0 {
-                return 3
+                return 2
             }
             return 1
         }
@@ -60,19 +69,19 @@ class GroupTableViewController: UITableViewController {
         
     }
     
-    override func tableView( tableView: UITableView,  titleForHeaderInSection section: Int) -> String {
+    func tableView( tableView: UITableView,  titleForHeaderInSection section: Int) -> String? {
         if self.segControl.selectedSegmentIndex == 0 {
             switch(section) {
             case 0:  return "My Desi Tasks"
             case 1: return "My Other Tasks"
             case 2: return "Other Group Tasks"
-            default:  return ""
+            default:  return nil
             }
         }
         return "\(self.myUserGroup.group.groupName) Log"
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.segControl.selectedSegmentIndex == 0 {
             if self.userGroupTasks.count != 0 {
                 switch(section){
@@ -87,7 +96,7 @@ class GroupTableViewController: UITableViewController {
         return self.groupLog.count
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if segControl.selectedSegmentIndex == 0 {
             return 80
         }
@@ -95,7 +104,7 @@ class GroupTableViewController: UITableViewController {
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.segControl.selectedSegmentIndex == 0 {
             let taskCell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! DesiGroupsTableViewCell
             if indexPath.section == 0 {
@@ -182,7 +191,7 @@ class GroupTableViewController: UITableViewController {
                 self.filterUserGroupTasksByTask()
                 
                 //store found userGroups in Localstore
-                self.refreshControl?.endRefreshing()
+                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
             }
             else {
@@ -209,7 +218,7 @@ class GroupTableViewController: UITableViewController {
                 return
             }
             self.userGroups = Set(userGroups)
-            self.refreshControl?.endRefreshing()
+            self.refreshControl.endRefreshing()
 
         }
     }
@@ -240,7 +249,7 @@ class GroupTableViewController: UITableViewController {
             }
             
             self.groupLog = logEntries
-            self.refreshControl?.endRefreshing()
+            self.refreshControl.endRefreshing()
             if self.segControl.selectedSegmentIndex == 1 {
                 self.tableView.reloadData()
             }
@@ -294,17 +303,17 @@ class GroupTableViewController: UITableViewController {
     @IBAction func segControlChanged(sender: UISegmentedControl){
         sender.enabled = false
         if !hasViewedLog {
-            self.refreshControl!.beginRefreshing()
+            self.refreshControl.beginRefreshing()
             self.getTaskLogForGroup()
             self.hasViewedLog = true
         }
         if sender.selectedSegmentIndex == 1 {
-            self.refreshControl!.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-            self.refreshControl!.addTarget(self, action: #selector(getTaskLogForGroup), forControlEvents: UIControlEvents.ValueChanged)
+            self.refreshControl.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+            self.refreshControl.addTarget(self, action: #selector(getTaskLogForGroup), forControlEvents: UIControlEvents.ValueChanged)
         }
         else {
-            self.refreshControl!.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-            self.refreshControl!.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
+            self.refreshControl.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+            self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
         }
         self.tableView.reloadData()
         sender.enabled = true
