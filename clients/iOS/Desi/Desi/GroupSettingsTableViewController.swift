@@ -12,20 +12,28 @@ import Parse
 class GroupSettingsTableViewController: UITableViewController {
     
     var tasks: [DesiTask]!
-    var userGroup: DesiUserGroup!
+    var userGroups = [DesiUserGroup]()
+    var myUserGroup: DesiUserGroup!
+    var isAdmin = false
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var updateNameButton: UIButton!
+    @IBOutlet weak var membersLabel: UILabel!
+    @IBOutlet weak var leaveGroupButton: UIButton!
+    @IBOutlet weak var deleteGroupButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("groupName is \(self.userGroup.group.groupName)")
+        print("groupName is \(self.myUserGroup.group.groupName)")
         print("\(DesiUser.currentUser()?.username)")
-        self.navigationItem.title = "\(self.userGroup.group.groupName) Settings"
-
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.isAdmin = self.myUserGroup.isGroupAdmin
+        self.navigationItem.title = "Group Settings"
+        self.nameTextField.text = self.myUserGroup.group.groupName
+        if !isAdmin {
+            self.nameTextField.enabled = false
+            self.updateNameButton.enabled = false
+        }
+        updateMembersLabel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,99 +44,66 @@ class GroupSettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        if userGroup.isGroupAdmin {
-            return 2
+        if isAdmin {
+            return 3
         }
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         if section == 0 {
-            return 2
+            return 1
         }
-        return 1
-    }
-
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("bigButtonCell", forIndexPath: indexPath) as! DesiTableViewCell
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                cell.button.setTitle("View Members", forState: UIControlState.Normal)
-                cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-                cell.button.addTarget(self, action: #selector(viewMembers), forControlEvents: UIControlEvents.TouchUpInside)
-                return cell
+        if section == 1 {
+            return 1
+        }
+        if section == 2 {
+            if isAdmin {
+                return 2
             }
-            cell.button.setTitle("Leave Group", forState: UIControlState.Normal)
-            cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-            //cell.button.addTarget(self, action: #selector(leaveGroup), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell
+            return 1
         }
-        else {
-            cell.button.setTitle("Delete Group", forState: UIControlState.Normal)
-            cell.button.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-            //cell.button.addTarget(self, action: #selector(deleteGroup), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell
-        }
+        return 0
     }
     
-    @IBAction func viewMembers(sender: UIButton){
-        print("view")
-        //performSegueWithIdentifier("goToViewGroupMembers", sender: self)
+    func updateMembersLabel(){
+        self.membersLabel.text = ""
+        for userGroup in self.userGroups {
+            self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
+        }
+        self.tableView.reloadData()
     }
     
-    /*
-    @IBAction func leaveGroup(sender: UIButton){
+    func updateGroupName(){
+        let newName = self.nameTextField.text
+        self.myUserGroup.group.groupName = newName!
+        
+        let block = ({
+            (success: Bool, error: NSError?) -> Void in
+            guard success else {
+                print("new groupName error")
+                return
+            }
+            print("new GroupNameSaved")
+        })
+        
+        self.myUserGroup.saveInBackgroundWithBlock(block)
+    }
+    
+    @IBAction func updateNamePressed(sender: UIButton){
         sender.enabled = false
-        for task in self.tasks {
-            if task.theDesi == DesiUser.currentUser()!.username {
-                //go to next Desi in task
-                //query for next UGT based on new Desi's username and taskID
-                //set that UGT to isDesi to true
-            }
-            //query for user's UGT for given task (use taskID)
-            //remove user from task.members
-        }
-        
-        if self.userGroup.isDesi {
-            println("got here")
-            self.theGroup.nextDesi()
-        }
-        // remove username from group members
-        for var i = 0; i < self.theGroup.groupMembers.count; ++i {
-            println("group : \(theGroup.groupMembers[i]) current user: \(DesiUser.currentUser()?.username)")
-            if theGroup.groupMembers[i] == DesiUser.currentUser()?.username {
-                println("removing")
-                theGroup.groupMembers.removeAtIndex(i)
-                --theGroup.numberOfUsers
-                break
-            }
-        }
-        
-        // remove usergroup from the user's list of groups
-        for var i = 0; i < DesiUser.currentUser()?.userGroups.count; ++i{
-            println("user : \(DesiUser.currentUser()?.userGroups[i]) self.userGroup: \(self.userGroup.objectId)")
-            if DesiUser.currentUser()?.userGroups[i] == self.userGroup.objectId{
-                DesiUser.currentUser()!.userGroups.removeAtIndex(i)
-                break
-            }
-        }
-        self.performSegueWithIdentifier("leaveGroupFromSettingsSegue", sender: self)
-        
+        updateGroupName()
+        sender.enabled = true
     }
-    */
-
-    //this function will need cloud code
-    /*
-    @IBAction func deleteGroup(sender: UIButton){
+    
+    @IBAction func leaveGroupPressed(sender: UIButton){
         sender.enabled = false
-        
     }
-    */
+    
+    @IBAction func deleteGroupPressed(sender:UIButton){
+        sender.enabled = false
+    }
+    
 
 
     /*

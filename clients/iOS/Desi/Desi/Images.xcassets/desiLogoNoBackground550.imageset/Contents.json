@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "desiAppIcon1.jpg"
+      "filename" : "desiLogoNoBackground550.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

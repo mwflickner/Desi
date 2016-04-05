@@ -359,11 +359,12 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             createView.userGroups = Array(self.userGroups)
         }
         
-        if (segue.identifier == "GoToGroupSettings"){
+        if (segue.identifier == "goToGroupSettings"){
             let nav = segue.destinationViewController as! UINavigationController
             let settingsView = nav.topViewController as! GroupSettingsTableViewController
             //settingsView.tasks = self.tasks
-            settingsView.userGroup = self.myUserGroup
+            settingsView.myUserGroup = self.myUserGroup
+            settingsView.userGroups = Array(self.userGroups)
         }
         
     }
