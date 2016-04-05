@@ -101,6 +101,7 @@ class CreateTaskTableViewController: UITableViewController {
         newTask.taskName = taskName
         newTask.numberOfDesis = numberOfDesis
         newTask.pointValue = pointValue
+        newTask.optOutCost = 5*pointValue
         return newTask
     }
     

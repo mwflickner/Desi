@@ -7,22 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6CE90AB934FDDB43C6BCE5D /* Pods_Desi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EC20805812725F31D58F0A /* Pods_Desi.framework */; };
 		F10D97EC1C7436F4000040D3 /* CreateTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */; };
 		F10D97F21C769C80000040D3 /* DesiUserGroupTaskLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D97F11C769C80000040D3 /* DesiUserGroupTaskLog.swift */; };
-		F11DBBF91B59D5F600B21A2C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF61B59D4AC00B21A2C /* QuartzCore.framework */; };
-		F11DBBFA1B59D5F800B21A2C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF41B59D45700B21A2C /* CoreLocation.framework */; };
-		F11DBBFB1B59D5FD00B21A2C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF01B59D42C00B21A2C /* CFNetwork.framework */; };
-		F11DBBFC1B59D60300B21A2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBF21B59D44700B21A2C /* CoreGraphics.framework */; };
-		F11DBBFD1B59D60600B21A2C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBEE1B59D41500B21A2C /* AudioToolbox.framework */; };
-		F11DBBFF1B59D63100B21A2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBBFE1B59D63100B21A2C /* Security.framework */; };
-		F11DBC011B59D64A00B21A2C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC001B59D64A00B21A2C /* StoreKit.framework */; };
-		F11DBC031B59D65D00B21A2C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC021B59D65D00B21A2C /* SystemConfiguration.framework */; };
-		F11DBC051B59D66C00B21A2C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC041B59D66C00B21A2C /* libz.dylib */; };
-		F11DBC071B59D68900B21A2C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC061B59D68900B21A2C /* libsqlite3.dylib */; };
-		F11DBC091B59D77800B21A2C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC081B59D77800B21A2C /* Bolts.framework */; };
-		F11DBC0B1B59D79000B21A2C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC0A1B59D79000B21A2C /* Parse.framework */; };
-		F11DBC0D1B59E0AC00B21A2C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC0C1B59E0AC00B21A2C /* Social.framework */; };
-		F11DBC0F1B59E0BB00B21A2C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11DBC0E1B59E0BB00B21A2C /* Accounts.framework */; };
 		F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */; };
 		F11DBC211B61AB6300B21A2C /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */; };
 		F11DBC2B1B62CFC400B21A2C /* DesiFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */; };
@@ -32,9 +19,11 @@
 		F120520D1B4C764E004271BF /* GroupActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120520C1B4C764E004271BF /* GroupActionsTableViewCell.swift */; };
 		F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */; };
 		F12052111B4C92BA004271BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12052101B4C92BA004271BF /* LoginViewController.swift */; };
+		F12928BA1C99279100B7A8B9 /* TaskActionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12928B91C99279100B7A8B9 /* TaskActionTableViewController.swift */; };
 		F168679D1B853BC4005D69F3 /* DesiUserGroupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168679C1B853BC4005D69F3 /* DesiUserGroupTask.swift */; };
 		F168679F1B8686B1005D69F3 /* DesiTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168679E1B8686B1005D69F3 /* DesiTask.swift */; };
 		F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */; };
+		F184A6AA1C9540C20023BEE2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F184A6A91C9540C20023BEE2 /* MasterViewController.swift */; };
 		F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TaskViewController.swift */; };
 		F1A0D27C1C4F128700F746F0 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0D27B1C4F128700F746F0 /* HelperMethods.swift */; };
 		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
@@ -65,22 +54,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BA553C17A6B03C19A737C2E /* Pods-Desi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Desi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Desi/Pods-Desi.release.xcconfig"; sourceTree = "<group>"; };
+		6A83B0FC712976BEA34275CC /* Pods-Desi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Desi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Desi/Pods-Desi.debug.xcconfig"; sourceTree = "<group>"; };
+		73EC20805812725F31D58F0A /* Pods_Desi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Desi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskTableViewController.swift; sourceTree = "<group>"; };
 		F10D97F11C769C80000040D3 /* DesiUserGroupTaskLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroupTaskLog.swift; sourceTree = "<group>"; };
-		F11DBBEE1B59D41500B21A2C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		F11DBBF01B59D42C00B21A2C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		F11DBBF21B59D44700B21A2C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F11DBBF41B59D45700B21A2C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		F11DBBF61B59D4AC00B21A2C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		F11DBBFE1B59D63100B21A2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		F11DBC001B59D64A00B21A2C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		F11DBC021B59D65D00B21A2C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		F11DBC041B59D66C00B21A2C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		F11DBC061B59D68900B21A2C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		F11DBC081B59D77800B21A2C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		F11DBC0A1B59D79000B21A2C /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		F11DBC0C1B59E0AC00B21A2C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		F11DBC0E1B59E0BB00B21A2C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroup.swift; sourceTree = "<group>"; };
 		F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -90,9 +68,11 @@
 		F120520C1B4C764E004271BF /* GroupActionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupActionsTableViewCell.swift; sourceTree = "<group>"; };
 		F120520E1B4C8DFD004271BF /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		F12052101B4C92BA004271BF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F12928B91C99279100B7A8B9 /* TaskActionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskActionTableViewController.swift; sourceTree = "<group>"; };
 		F168679C1B853BC4005D69F3 /* DesiUserGroupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroupTask.swift; sourceTree = "<group>"; };
 		F168679E1B8686B1005D69F3 /* DesiTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTask.swift; sourceTree = "<group>"; };
 		F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
+		F184A6A91C9540C20023BEE2 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		F19C0A891B33323600B3CD09 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		F1A0D27B1C4F128700F746F0 /* HelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
 		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
@@ -121,20 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F11DBC071B59D68900B21A2C /* libsqlite3.dylib in Frameworks */,
-				F11DBC051B59D66C00B21A2C /* libz.dylib in Frameworks */,
-				F11DBC031B59D65D00B21A2C /* SystemConfiguration.framework in Frameworks */,
-				F11DBC011B59D64A00B21A2C /* StoreKit.framework in Frameworks */,
-				F11DBC0D1B59E0AC00B21A2C /* Social.framework in Frameworks */,
-				F11DBBFF1B59D63100B21A2C /* Security.framework in Frameworks */,
-				F11DBBF91B59D5F600B21A2C /* QuartzCore.framework in Frameworks */,
-				F11DBBFA1B59D5F800B21A2C /* CoreLocation.framework in Frameworks */,
-				F11DBBFC1B59D60300B21A2C /* CoreGraphics.framework in Frameworks */,
-				F11DBC091B59D77800B21A2C /* Bolts.framework in Frameworks */,
-				F11DBBFB1B59D5FD00B21A2C /* CFNetwork.framework in Frameworks */,
-				F11DBC0B1B59D79000B21A2C /* Parse.framework in Frameworks */,
-				F11DBBFD1B59D60600B21A2C /* AudioToolbox.framework in Frameworks */,
-				F11DBC0F1B59E0BB00B21A2C /* Accounts.framework in Frameworks */,
+				D6CE90AB934FDDB43C6BCE5D /* Pods_Desi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,34 +115,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F11DBBF81B59D5DB00B21A2C /* Frameworks */ = {
+		6AE8DB8C0C820650FA4B8EA0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F11DBC0E1B59E0BB00B21A2C /* Accounts.framework */,
-				F11DBC0C1B59E0AC00B21A2C /* Social.framework */,
-				F11DBC0A1B59D79000B21A2C /* Parse.framework */,
-				F11DBC081B59D77800B21A2C /* Bolts.framework */,
-				F11DBC061B59D68900B21A2C /* libsqlite3.dylib */,
-				F11DBC041B59D66C00B21A2C /* libz.dylib */,
-				F11DBC021B59D65D00B21A2C /* SystemConfiguration.framework */,
-				F11DBC001B59D64A00B21A2C /* StoreKit.framework */,
-				F11DBBFE1B59D63100B21A2C /* Security.framework */,
-				F11DBBF61B59D4AC00B21A2C /* QuartzCore.framework */,
-				F11DBBF41B59D45700B21A2C /* CoreLocation.framework */,
-				F11DBBF21B59D44700B21A2C /* CoreGraphics.framework */,
-				F11DBBF01B59D42C00B21A2C /* CFNetwork.framework */,
-				F11DBBEE1B59D41500B21A2C /* AudioToolbox.framework */,
+				6A83B0FC712976BEA34275CC /* Pods-Desi.debug.xcconfig */,
+				0BA553C17A6B03C19A737C2E /* Pods-Desi.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F1D9CD621B12F4CD0052F810 = {
 			isa = PBXGroup;
 			children = (
-				F11DBBF81B59D5DB00B21A2C /* Frameworks */,
 				F1D9CD6D1B12F4CD0052F810 /* Desi */,
 				F1D9CD831B12F4CD0052F810 /* DesiTests */,
 				F1D9CD6C1B12F4CD0052F810 /* Products */,
+				6AE8DB8C0C820650FA4B8EA0 /* Pods */,
+				F793ABD31092BEA750EAD1D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -193,6 +149,8 @@
 			children = (
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F12928B91C99279100B7A8B9 /* TaskActionTableViewController.swift */,
+				F184A6A91C9540C20023BEE2 /* MasterViewController.swift */,
 				F1FC69311C7D44A600C3B7CA /* TaskMembersTableViewController.swift */,
 				F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */,
 				F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */,
@@ -251,6 +209,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F793ABD31092BEA750EAD1D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73EC20805812725F31D58F0A /* Pods_Desi.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -258,9 +224,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1D9CD8A1B12F4CD0052F810 /* Build configuration list for PBXNativeTarget "Desi" */;
 			buildPhases = (
+				A6BF8452A1C542385AB66825 /* Check Pods Manifest.lock */,
 				F1D9CD671B12F4CD0052F810 /* Sources */,
 				F1D9CD681B12F4CD0052F810 /* Frameworks */,
 				F1D9CD691B12F4CD0052F810 /* Resources */,
+				DDA5E480D2233AC8C0C200E0 /* Embed Pods Frameworks */,
+				0E38B024DD7FDBACAEA84C89 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,6 +271,7 @@
 				TargetAttributes = {
 					F1D9CD6A1B12F4CD0052F810 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = G9788LQTK5;
 					};
 					F1D9CD7F1B12F4CD0052F810 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -348,6 +318,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0E38B024DD7FDBACAEA84C89 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Desi/Pods-Desi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A6BF8452A1C542385AB66825 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DDA5E480D2233AC8C0C200E0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Desi/Pods-Desi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F1D9CD671B12F4CD0052F810 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -360,11 +378,13 @@
 				F1FC69321C7D44A600C3B7CA /* TaskMembersTableViewController.swift in Sources */,
 				F10D97F21C769C80000040D3 /* DesiUserGroupTaskLog.swift in Sources */,
 				F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */,
+				F12928BA1C99279100B7A8B9 /* TaskActionTableViewController.swift in Sources */,
 				F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */,
 				F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */,
 				F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */,
 				F1EB822E1B6C0E440028AD55 /* DesiTableViewCell.swift in Sources */,
 				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
+				F184A6AA1C9540C20023BEE2 /* MasterViewController.swift in Sources */,
 				F1C220ED1B1BD75300D628CA /* NewGroupViewController.swift in Sources */,
 				F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */,
 				F11DBC211B61AB6300B21A2C /* UserSettingsViewController.swift in Sources */,
@@ -507,31 +527,31 @@
 		};
 		F1D9CD8B1B12F4CD0052F810 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A83B0FC712976BEA34275CC /* Pods-Desi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Desi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		F1D9CD8C1B12F4CD0052F810 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BA553C17A6B03C19A737C2E /* Pods-Desi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Desi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

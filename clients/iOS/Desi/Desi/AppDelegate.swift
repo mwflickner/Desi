@@ -27,16 +27,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DesiTask.registerSubclass()
         DesiUserGroupTaskLog.registerSubclass()
         
-        // [Optional] Power your app with Local Datastore. For more info, go to
-        // https://parse.com/docs/ios_guide#localdatastore/iOS
-        Parse.enableLocalDatastore()
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV"
+            $0.clientKey = "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx"
+            $0.server = "https://localhost:1337/parse"
+        }
+        Parse.initializeWithConfiguration(configuration)
         
-        // Initialize Parse.
-        Parse.setApplicationId("z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV",
-            clientKey: "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx")
-        
-        // [Optional] Track statistics around application opens.
-        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+//        
+//        // [Optional] Power your app with Local Datastore. For more info, go to
+//        // https://parse.com/docs/ios_guide#localdatastore/iOS
+//        Parse.enableLocalDatastore()
+//        
+//        // Initialize Parse.
+//        Parse.setApplicationId("z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV",
+//            clientKey: "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx")
+//        
+//        // [Optional] Track statistics around application opens.
+//        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
         return true
     }

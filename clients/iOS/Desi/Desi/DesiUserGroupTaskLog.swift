@@ -19,6 +19,16 @@ class DesiUserGroupTaskLog: PFObject, PFSubclassing {
     }
 
     @NSManaged var userGroupTask: DesiUserGroupTask
-    @NSManaged var timeCompleted: NSDate
-    @NSManaged var completionMessage: String
+    @NSManaged var actionMessage: String
+    @NSManaged var actionType: String
+    
+    func actionTypeToVerb() -> String {
+        if actionType == "completion" {
+            return "completed"
+        }
+        if actionType == "volunteer" {
+            return "volunteered"
+        }
+        return "opted-out"
+    }
 }

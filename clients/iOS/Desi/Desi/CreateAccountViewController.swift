@@ -32,19 +32,6 @@ class CreateAccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //user feedback on text fields
-    func setErrorColor(textField: UITextField) {
-        let errorColor : UIColor = UIColor.redColor()
-        textField.layer.borderColor = errorColor.CGColor
-        textField.layer.borderWidth = 1.5
-    }
-    
-    func setSuccessColor(textField: UITextField) {
-        let successColor : UIColor = UIColor( red: 0.3, green: 0.5, blue:0.3, alpha: 1.0 )
-        textField.layer.borderColor = successColor.CGColor
-        textField.layer.borderWidth = 1.5
-    }
-    
     //check the name fields
     func nameCheck(nameField: UITextField) -> Bool {
         if nameField.text != "" {
@@ -207,7 +194,7 @@ class CreateAccountViewController: UIViewController {
     
     func createAccount(){
         let newUser = DesiUser()
-        newUser.username = self.username.text
+        newUser.username = self.username.text?.lowercaseString
         newUser.password = self.password1.text
         newUser.email = self.email1.text
         newUser.firstName = self.firstName.text!
@@ -242,7 +229,8 @@ class CreateAccountViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "createAccountSegue") {
-            let nav = segue.destinationViewController as! UINavigationController
+            let split = segue.destinationViewController as! UISplitViewController
+            let nav = split.viewControllers.last as! DesiNaviagtionController
             let homeView = nav.topViewController as! DesiHomeViewController
             homeView.myUserGroups = [DesiUserGroup]()
         }

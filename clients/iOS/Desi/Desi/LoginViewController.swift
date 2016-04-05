@@ -15,12 +15,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loginFeedbackLabel: UILabel!
     
     var message: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.activityIndicator.hidden = true
+        self.activityIndicator.hidesWhenStopped = true
+        self.loginFeedbackLabel.hidden = true
         //DesiUser.logOut()
     }
 
@@ -45,6 +48,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginPressed(sender: UIButton) {
         self.loginButton.enabled = false
+        self.loginFeedbackLabel.hidden = true
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
         login()
@@ -63,10 +67,11 @@ class LoginViewController: UIViewController {
                 }
             } else {
                 self.activityIndicator.stopAnimating()
+                self.loginFeedbackLabel.hidden = false
                 if let message1: AnyObject = error!.userInfo["error"] {
                     self.message = "\(message1)"
-                    self.loginButton.enabled = true
                 }
+                self.loginButton.enabled = true
             }
         }
     }
@@ -79,7 +84,8 @@ class LoginViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "loginSegue"){
-            let nav = segue.destinationViewController as! UINavigationController
+            let split = segue.destinationViewController as! UISplitViewController
+            let nav = split.viewControllers.last as! DesiNaviagtionController
             let homeView = nav.topViewController as! DesiHomeViewController
             homeView.getUserGroups()
         }

@@ -23,15 +23,6 @@ class UserSettingsViewController: UIViewController {
 
     // MARK: - Table view data source
 
-    
-    @IBAction func logout(sender: AnyObject){
-        DesiUserGroup.unpinAllObjectsInBackground()
-        DesiUser.logOut()
-        _ = DesiUser.currentUser() // this will now be nil
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") 
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
 
     /*
     // MARK: - Navigation
