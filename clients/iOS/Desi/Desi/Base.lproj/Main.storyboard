@@ -1388,6 +1388,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="deleteGroupPressed:" destination="ALu-Dg-d1K" eventType="touchUpInside" id="GHR-U7-nhK"/>
+                                                        <segue destination="uKm-kH-Qbb" kind="unwind" identifier="deleteGroupSegue" unwindAction="cancelToDesiHomeViewController:" id="LgB-ku-Aoy"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1407,7 +1408,13 @@
                             <outlet property="delegate" destination="ALu-Dg-d1K" id="cA9-BG-Evu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="iNe-ka-AcC"/>
+                    <navigationItem key="navigationItem" id="iNe-ka-AcC">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="YRj-Ri-dbJ">
+                            <connections>
+                                <segue destination="uKm-kH-Qbb" kind="unwind" unwindAction="cancelToGroupVC:" id="Y7L-Ig-LA2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="leaveGroupButton" destination="OTC-dK-gJq" id="0ca-sK-sSm"/>
                         <outlet property="membersLabel" destination="je5-MH-xxs" id="fZO-8E-Z6Q"/>
@@ -1416,6 +1423,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Omf-aa-Cz5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="uKm-kH-Qbb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3316" y="-239"/>
         </scene>

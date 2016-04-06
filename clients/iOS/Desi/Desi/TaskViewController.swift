@@ -68,6 +68,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return self.task.numberOfDesis
             }
             if section == 1 {
+                if self.taskUserGroupTasks.count < 2*self.task.numberOfDesis {
+                    return self.taskUserGroupTasks.count - self.task.numberOfDesis
+                }
                 return self.task.numberOfDesis
             }
             let x = self.taskUserGroupTasks.count - 2*self.task.numberOfDesis
@@ -151,7 +154,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             if ugTask.isDesi {
                 desiUgTasks.append(ugTask)
             }
-            if ugTask.userGroup.user == DesiUser.currentUser() {
+            if ugTask.userGroup.user.username == DesiUser.currentUser()?.username {
                 self.myUgTask = ugTask
             }
         }
@@ -268,8 +271,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return
             }
             for ugtTask in userGroupTasks {
-                print("Task ID: \(ugtTask.task.objectId)")
-                print("UGT TaskID: \(ugtTask.objectId)")
+                print("UGT userName: \(ugtTask.userGroup.user.username)")
             }
             self.taskUserGroupTasks = userGroupTasks
             self.refreshControl.endRefreshing()

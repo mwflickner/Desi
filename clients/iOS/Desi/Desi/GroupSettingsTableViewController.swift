@@ -151,6 +151,12 @@ class GroupSettingsTableViewController: UITableViewController {
         if segue.identifier == "leaveGroupFromSettingsSegue" {
             //print yo whats up
         }
+        
+        if segue.identifier == "deleteGroupSegue" {
+            print("deleting group")
+            let home = segue.destinationViewController as! DesiHomeViewController
+            //home.myUserGroups.filter(not)
+        }
     }
 
 
