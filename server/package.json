@@ -6,19 +6,26 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mwflickner/Desi.git"
   },
+
   "author": "Matthew Flickner",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mwflickner/Desi/issues"
   },
+
   "homepage": "https://github.com/mwflickner/Desi#readme",
   "dependencies": {
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "parse-server": "^2.2.4"
+  },
+
+  "scripts": {
+    "start": "mongod --setParameter failIndexKeyTooLong=false & node desi.js"
   }
 }
