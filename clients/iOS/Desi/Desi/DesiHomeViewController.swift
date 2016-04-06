@@ -145,6 +145,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    // MARK: - Queries
+    
     func getUserGroups(){
         let query = DesiUserGroup.query()
         query!.includeKey("group")
@@ -164,6 +166,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             self.myUserGroups = userGroups
             self.refreshControl.endRefreshing()
+            //self.refreshControl.hidden = true
             //store found userGroups in Localstore
             DesiUserGroup.pinAllInBackground(self.myUserGroups, withName:"MyUserGroups")
             if let _ = self.tableView {
@@ -171,8 +174,6 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
-    // MARK: - Queries
     
     func getLocalUserGroups(){
         let queryLocal = DesiUserGroup.query()

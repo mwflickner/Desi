@@ -30,7 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let configuration = ParseClientConfiguration {
             $0.applicationId = "z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV"
             $0.clientKey = "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx"
-            $0.server = "https://localhost:1337/parse"
+            // HTTPS
+            //$0.server = "https://localhost:1337/parse"
+            // HTTP
+            $0.server = "http://localhost:8081/parse"
         }
         Parse.initializeWithConfiguration(configuration)
         
