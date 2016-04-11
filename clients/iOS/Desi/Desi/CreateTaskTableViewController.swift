@@ -29,12 +29,11 @@ class CreateTaskTableViewController: UITableViewController {
         self.outputUserGroups = self.userGroups
         self.membersLabel.text = ""
         updateMembersLabel()
-        self.newTask.taskName = defaultTaskName
-        let pointVal = Int(self.pointValueSlider.value)
-        self.newTask.pointValue = pointVal
-        self.pointsLabel.text = String(pointVal)
+        let numberOfDesis = 1
+        let pointValue = Int(self.pointValueSlider.value)
+        self.newTask = createNewTask(defaultTaskName, numberOfDesis: numberOfDesis, pointValue: pointValue)
+        self.pointsLabel.text = String(pointValue)
         self.newTask.repeats = self.repeatsSwitch.on
-        self.newTask.numberOfDesis = 1
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,7 +100,9 @@ class CreateTaskTableViewController: UITableViewController {
         newTask.taskName = taskName
         newTask.numberOfDesis = numberOfDesis
         newTask.pointValue = pointValue
+        print(pointValue)
         newTask.optOutCost = 5*pointValue
+        print(newTask.optOutCost)
         return newTask
     }
     

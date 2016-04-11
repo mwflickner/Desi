@@ -12,7 +12,7 @@ import Parse
 class GroupTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var myUserGroup: DesiUserGroup!
-    var userGroups = Set<DesiUserGroup>()
+    var userGroups = [String:DesiUserGroup]()
     
     var userGroupTasks = [DesiUserGroupTask]()
     
@@ -176,6 +176,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             guard let objects = objects else {
                 return
             }
+            print(objects.count)
             if objects.count > 0 {
                 guard let ugTasks = objects as? [DesiUserGroupTask] else {
                     return
@@ -183,9 +184,6 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
                 self.userGroupTasks = ugTasks
                 for ug in self.userGroupTasks {
                     print("User: \(ug.userGroup.user.username!)")
-                    print("Group: \(ug.userGroup.group.groupName)")
-                    print("Task: \(ug.task.taskName)")
-                    print("isDesi: \(ug.isDesi) \n")
                 }
                 self.filterUserGroupTasks()
                 self.filterUserGroupTasksByTask()
@@ -197,6 +195,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             else {
                 self.getUserGroupsForGroup()
             }
+            print(self.userGroups.count)
             
         }
     }
@@ -217,7 +216,10 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             guard let userGroups = objects as? [DesiUserGroup] else {
                 return
             }
-            self.userGroups = Set(userGroups)
+            print(objects.count)
+            for userGroup in userGroups {
+                self.userGroups[userGroup.objectId!] = userGroup
+            }
             self.refreshControl.endRefreshing()
 
         }
@@ -225,6 +227,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func getTaskLogForGroup(){
         let group = self.myUserGroup.group
+        
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("group", equalTo: group)
         
@@ -265,9 +268,9 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         var otherUgTasks = [DesiUserGroupTask]()
 
         for ugTask in self.userGroupTasks {
-            self.userGroups.insert(ugTask.userGroup)
+            self.userGroups[ugTask.userGroup.objectId!] = ugTask.userGroup
             if ugTask.isDesi {
-                if ugTask.userGroup.user == DesiUser.currentUser() {
+                if ugTask.userGroup.user.objectId == DesiUser.currentUser()?.objectId {
                     myDesiUgTasks.append(ugTask)
                 }
                 else {
@@ -356,7 +359,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         if (segue.identifier == "goToCreateTask"){
             let nav = segue.destinationViewController as! UINavigationController
             let createView = nav.topViewController as! CreateTaskTableViewController
-            createView.userGroups = Array(self.userGroups)
+            createView.userGroups = Array(self.userGroups.values)
         }
         
         if (segue.identifier == "goToGroupSettings"){
@@ -364,7 +367,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             let settingsView = nav.topViewController as! GroupSettingsTableViewController
             //settingsView.tasks = self.tasks
             settingsView.myUserGroup = self.myUserGroup
-            settingsView.userGroups = Array(self.userGroups)
+            settingsView.userGroups = Array(self.userGroups.values)
         }
         
     }

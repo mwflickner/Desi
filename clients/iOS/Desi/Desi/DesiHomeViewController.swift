@@ -28,6 +28,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView.addSubview(refreshControl)
         self.refreshControl.beginRefreshing()
         //self.getLocalUserGroups()
+        print(DesiUser.currentUser()!)
         
     }
     
@@ -211,6 +212,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         logQuery?.includeKey("userGroupTask.userGroup")
         logQuery?.includeKey("userGroupTask.task")
         logQuery?.includeKey("userGroupTask.userGroup.user")
+        logQuery?.includeKey("userGroupTask.userGroup.group")
         logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
         logQuery?.addDescendingOrder("createdAt")
         logQuery?.findObjectsInBackgroundWithBlock {
@@ -264,6 +266,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let nav = segue.destinationViewController as! UINavigationController
             let aGroupView = nav.topViewController as! GroupTableViewController
             aGroupView.myUserGroup = userGroupAtIndexPath(path)
+            
             aGroupView.getUserGroupTasksForGroup()
         }
         

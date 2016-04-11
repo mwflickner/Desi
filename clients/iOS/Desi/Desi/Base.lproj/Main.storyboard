@@ -87,10 +87,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="eo6-tX-DUv">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Quq-ie-9hK"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Quq-ie-9hK">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="ozp-2S-l8D" kind="unwind" unwindAction="backToGroupSettings:" id="ugU-Pu-yGS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1iG-4N-CJx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ozp-2S-l8D" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4751" y="-239"/>
         </scene>
@@ -277,6 +283,8 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="BsO-fa-6nh"/>
                                 </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.94117647059999998" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoY-G1-7KE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
@@ -290,7 +298,6 @@
                                                 <segment title="" image="glyphicons-44-group"/>
                                                 <segment title="" image="glyphicons-88-log-book"/>
                                             </segments>
-                                            <color key="tintColor" red="0.94117647059999998" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="segControlChanged:" destination="mG4-am-nQ6" eventType="valueChanged" id="iEj-2H-8He"/>
                                             </connections>
@@ -298,6 +305,8 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="8rc-Vn-zsU"/>
                                 </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.94117647059999998" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -317,6 +326,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="TaskName" id="tMq-3t-0JZ">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="myT-cL-hQb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="y8s-yM-MJG" kind="unwind" unwindAction="cancelToGroupVC:" id="kMF-6m-1s0"/>
                             </connections>
@@ -503,6 +513,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="cDO-TU-d5d">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="55h-UN-Uwb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="nMo-yi-yFy" kind="unwind" unwindAction="cancelToTaskView:" id="2lw-M1-Zg8"/>
                             </connections>
@@ -559,6 +570,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="boZ-Ug-gGx">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="D8y-OK-1Pp">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="Fyz-FX-i7h" kind="unwind" identifier="backToCreateTaskView" unwindAction="backToCreateTaskView:" id="cxP-zB-W3C"/>
                             </connections>
@@ -601,6 +613,8 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="cdt-09-MAv"/>
                                 </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.94117647059999998" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="POe-gN-G2q">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
@@ -689,17 +703,20 @@
                     </view>
                     <navigationItem key="navigationItem" id="NMh-8m-ecQ">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="44Y-sb-q0L">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="VRV-2c-ozU" kind="unwind" unwindAction="cancelToDesiHomeViewController:" id="lEa-Xl-o3R"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="kv5-jZ-68h">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="7mA-0m-ZlX" kind="presentation" identifier="goToCreateTask" id="Mwv-as-kxH"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="glyphicons-137-cogwheel" id="SU0-Eq-dkC">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Fxc-S1-0Tw" kind="presentation" identifier="goToGroupSettings" id="pPR-1v-AyS"/>
                                 </connections>
@@ -1100,11 +1117,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Create Group" id="lc7-gl-TdW">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BbI-4m-DGZ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="gMa-EF-plv" kind="unwind" unwindAction="cancelToDesiHomeViewController:" id="x0n-xs-CL0"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Create" id="Nbx-u2-jWL">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="gMa-EF-plv" kind="unwind" identifier="createNewGroup" unwindAction="cancelToDesiHomeViewController:" id="Mq7-mS-AkS"/>
                             </connections>
@@ -1245,11 +1264,13 @@
                                 <segment title="" image="glyphicons-44-group"/>
                                 <segment title="" image="glyphicons-88-log-book"/>
                             </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="segControlChanged:" destination="bYF-b2-mBj" eventType="valueChanged" id="1ue-cX-33Y"/>
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FrV-iy-dOd">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="KXj-BP-qiD" kind="presentation" id="IRM-Ca-MvL"/>
                             </connections>
@@ -1410,6 +1431,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="iNe-ka-AcC">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="YRj-Ri-dbJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="uKm-kH-Qbb" kind="unwind" unwindAction="cancelToGroupVC:" id="Y7L-Ig-LA2"/>
                             </connections>
@@ -1445,10 +1467,10 @@
             </objects>
             <point key="canvasLocation" x="3316" y="496"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="WeE-Pv-hfH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KXj-BP-qiD" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KXj-BP-qiD" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aa1-QB-Unc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1463,7 +1485,7 @@
             </objects>
             <point key="canvasLocation" x="1038" y="1233"/>
         </scene>
-        <!--Master View Controller-->
+        <!--Home-->
         <scene sceneID="NOQ-Te-AcI">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="Pk1-Z4-n0K" customClass="MasterViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
@@ -1604,16 +1626,16 @@
                             <outlet property="delegate" destination="Pk1-Z4-n0K" id="Ub6-zI-9If"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3Hw-69-goV"/>
+                    <navigationItem key="navigationItem" title="Home" id="3Hw-69-goV"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thV-jh-Ez4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="214" y="-511"/>
         </scene>
-        <!--Navigation Controller-->
+        <!-- -->
         <scene sceneID="PRK-1r-Xxr">
             <objects>
-                <navigationController id="gnj-Wu-AwD" sceneMemberID="viewController">
+                <navigationController title=" " id="gnj-Wu-AwD" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="k4o-zS-e7E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1657,10 +1679,10 @@
             </objects>
             <point key="canvasLocation" x="1052" y="-1215"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="XCn-ai-lXp">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7mA-0m-ZlX" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7mA-0m-ZlX" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jn8-y7-mXt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1805,11 +1827,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="6H5-BP-65s">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="4Vw-Od-fWk">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="nDx-5U-hbz" kind="unwind" unwindAction="cancelToGroupVC:" id="CZU-IL-EvG"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="gbd-K3-mt4">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="nDx-5U-hbz" kind="unwind" identifier="createTaskSegue" unwindAction="cancelToGroupVC:" id="0UK-n2-92E"/>
                             </connections>
@@ -1828,10 +1852,10 @@
             </objects>
             <point key="canvasLocation" x="3316" y="1233"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="5K0-tf-Wup">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c18-M1-wx9" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c18-M1-wx9" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aa3-6s-irB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1864,10 +1888,10 @@
             </objects>
             <point key="canvasLocation" x="4751" y="496"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="ePN-bn-nzs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0pe-3R-1OR" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0pe-3R-1OR" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nAu-Z6-Tnf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1882,10 +1906,10 @@
             </objects>
             <point key="canvasLocation" x="1852" y="496"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="Bxy-WO-i1w">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fxc-S1-0Tw" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fxc-S1-0Tw" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7h8-NR-MTA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1900,10 +1924,10 @@
             </objects>
             <point key="canvasLocation" x="2594" y="-239"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Desi Naviagtion Controller-->
         <scene sceneID="Kqm-EZ-K1B">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TeQ-fg-NMO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TeQ-fg-NMO" customClass="DesiNaviagtionController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vlx-se-iuM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

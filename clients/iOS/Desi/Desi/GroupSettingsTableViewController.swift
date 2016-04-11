@@ -68,6 +68,7 @@ class GroupSettingsTableViewController: UITableViewController {
     
     func updateMembersLabel(){
         self.membersLabel.text = ""
+        print(self.userGroups.count)
         for userGroup in self.userGroups {
             self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
         }
@@ -102,6 +103,10 @@ class GroupSettingsTableViewController: UITableViewController {
     
     @IBAction func deleteGroupPressed(sender:UIButton){
         sender.enabled = false
+    }
+    
+    @IBAction func backToGroupSettings(sender: UIStoryboardSegue){
+        
     }
     
 

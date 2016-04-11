@@ -150,11 +150,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func updateTaskData(){
         self.taskUserGroupTasks.sortInPlace({ $0.queueSpot < $1.queueSpot })
+        self.desiUgTasks = []
         for ugTask in taskUserGroupTasks {
             if ugTask.isDesi {
                 desiUgTasks.append(ugTask)
             }
-            if ugTask.userGroup.user.username == DesiUser.currentUser()?.username {
+            if ugTask.userGroup.user.objectId == DesiUser.currentUser()?.objectId {
                 self.myUgTask = ugTask
             }
         }
@@ -176,7 +177,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.newLogEntries = []
         for oldDesi in oldDesiUGTasks {
             let taskPoints = self.task.pointValue
+            print(taskPoints)
             oldDesi.userGroup.points += taskPoints
+            print(oldDesi.userGroup.points)
             let logEntry = DesiUserGroupTaskLog()
             logEntry.userGroupTask = oldDesi
             logEntry.actionMessage = message
@@ -185,18 +188,20 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.newLogEntries.append(logEntry)
             //oldDesi.userGroup.user.desiScore += taskPoints
         }
-        self.desiUgTasks = []
-        let range: Range<Int> = 0..<self.task.numberOfDesis
-        self.taskUserGroupTasks.removeRange(range)
-        self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
-        for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
-            ugTask.queueSpot = index
-            if index < self.task.numberOfDesis {
-                ugTask.isDesi = true
-                desiUgTasks.append(ugTask)
-            }
-            else {
-                ugTask.isDesi = false
+        if self.taskUserGroupTasks.count > 1 {
+            self.desiUgTasks = []
+            let range: Range<Int> = 0..<self.task.numberOfDesis
+            self.taskUserGroupTasks.removeRange(range)
+            self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
+            for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
+                ugTask.queueSpot = index
+                if index < self.task.numberOfDesis {
+                    ugTask.isDesi = true
+                    desiUgTasks.append(ugTask)
+                }
+                else {
+                    ugTask.isDesi = false
+                }
             }
         }
         self.saveTaskState()
@@ -226,6 +231,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let myUgTask = self.myUgTask {
             myUgTask.isDesi = false
             myUgTask.userGroup.points -= self.task.optOutCost
+            print(self.task.optOutCost)
+            print(myUgTask.userGroup.points)
             self.taskUserGroupTasks = self.taskUserGroupTasks.filter({$0.objectId != myUgTask.objectId})
             myUgTask.queueSpot = self.taskUserGroupTasks.count
             self.taskUserGroupTasks.append(myUgTask)

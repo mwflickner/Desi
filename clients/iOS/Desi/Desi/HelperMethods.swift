@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+let desiColor = UIColor(netHex:0xF04D4D)
 
 func setErrorColor(textField: UITextField) {
     let errorColor : UIColor = UIColor.redColor()

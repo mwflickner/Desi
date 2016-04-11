@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         DesiUser.registerSubclass()
         DesiUserGroup.registerSubclass()
         DesiGroup.registerSubclass()
@@ -31,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.applicationId = "z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV"
             $0.clientKey = "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx"
             // HTTPS
-            //$0.server = "https://localhost:1337/parse"
+            $0.server = "https://localhost:1337/parse"
             // HTTP
-            $0.server = "http://localhost:8081/parse"
+            //$0.server = "http://localhost:8081/parse"
         }
         Parse.initializeWithConfiguration(configuration)
         
