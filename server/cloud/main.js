@@ -23,15 +23,32 @@ Parse.Cloud.afterDelete("DesiGroup", function(request) {
   });
 
   var userGroupTaskQuery = new Parse.Query("DesiUserGroupTask");
+  userGroupTaskQuery.include("task");
   userGroupTaskQuery.matchesQuery("userGroup", userGroupQuery);
   userGroupTaskQuery.find({
     success: function(userGroupTasks) {
+      var tasks = new Set();
+      for(var i = 0; i < userGroupTasks.length; i++){
+        var task = userGroupTasks[i].get("task");
+        tasks.add(task);
+      }
+      var taskArray = Array.from(tasks);
+
       Parse.Object.destroyAll(userGroupTasks, {
         success: function() {
             console.log("Succesfully removed related userGroupsTasks");
         },
         error: function(error) {
           console.error("Error deleting related userGroupTasks " + error.code + ": " + error.message);
+        }
+      });
+
+      Parse.Object.destroyAll(taskArray, {
+        success: function() {
+            console.log("Succesfully removed related tasks");
+        },
+        error: function(error) {
+          console.error("Error deleting related tasks " + error.code + ": " + error.message);
         }
       });
     },
@@ -55,24 +72,6 @@ Parse.Cloud.afterDelete("DesiGroup", function(request) {
     },
     error: function(error) {
       console.error("Error finding related userGroupsTaskLogs " + error.code + ": " + error.message);
-    }
-  });
-
-  var taskQuery = new Parse.Query("DesiTask");
-  taskQuery.matchesKeyInQuery("objectId" ,"task", userGroupTaskQuery);
-  taskQuery.find({
-    success: function(tasks) {
-      Parse.Object.destroyAll(tasks, {
-        success: function() {
-            console.log("Succesfully removed related tasks");
-        },
-        error: function(error) {
-          console.error("Error deleting related tasks " + error.code + ": " + error.message);
-        }
-      });
-    },
-    error: function(error) {
-      console.error("Error finding related tasks " + error.code + ": " + error.message);
     }
   });
 });
