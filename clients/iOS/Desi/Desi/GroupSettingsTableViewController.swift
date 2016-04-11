@@ -109,7 +109,23 @@ class GroupSettingsTableViewController: UITableViewController {
         
     }
     
-
+    func deleteGroup(group: DesiGroup){
+        let block = {
+            (deleteSuccessful: Bool, error: NSError?) -> Void in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            guard deleteSuccessful else {
+                print("delete failed")
+                return
+            }
+            
+            print("succesfully deleted group")
+        }
+        group.deleteInBackgroundWithBlock(block)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -160,7 +176,9 @@ class GroupSettingsTableViewController: UITableViewController {
         if segue.identifier == "deleteGroupSegue" {
             print("deleting group")
             let home = segue.destinationViewController as! DesiHomeViewController
-            //home.myUserGroups.filter(not)
+            self.deleteGroup(self.myUserGroup.group)
+            home.myUserGroups = home.myUserGroups.filter({$0.objectId != myUserGroup.objectId})
+            home.tableView.reloadData()
         }
     }
 

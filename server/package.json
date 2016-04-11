@@ -26,6 +26,6 @@
   },
 
   "scripts": {
-    "start": "mongod --setParameter failIndexKeyTooLong=false & node desi.js"
+    "start": "node desi.js"
   }
 }

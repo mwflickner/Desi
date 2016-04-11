@@ -22,12 +22,12 @@ var api = new ParseServer({
   cloud: process.env.PATH_TO_CLOUD, // Absolute path to your Cloud Code
   appId: process.env.APP_ID,
   clientKey: process.env.CLIENT_KEY,
-  dotNetKey: process.env.DOT_NET_KEY,
-  javascriptKey: process.env.JAVASCRIPT_KEY,
-  restAPIKey: process.env.REST_API_KEY,
+  //dotNetKey: process.env.DOT_NET_KEY,
+  //javascriptKey: process.env.JAVASCRIPT_KEY,
+  //restAPIKey: process.env.REST_API_KEY,
   masterKey: process.env.MASTER_KEY, // Keep this key secret!
-  fileKey: process.env.FILE_KEY,
-  serverURL: process.env.API_URL // Don't forget to change to https if needed
+  //fileKey: process.env.FILE_KEY,
+  serverURL: process.env.SERVER_URL // Don't forget to change to https if needed
 });
 
 // routes
