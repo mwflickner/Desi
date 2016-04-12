@@ -75,3 +75,7 @@ Parse.Cloud.afterDelete("DesiGroup", function(request) {
     }
   });
 });
+
+Parse.Cloud.afterDelete("DesiUserGroup", function(request){
+
+});

@@ -265,11 +265,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Desi/GroupTableViewController.swift"
-            timestampString = "481443966.459469"
+            timestampString = "482133567.203123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -281,27 +281,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Desi/GroupTableViewController.swift"
-            timestampString = "481443966.459469"
+            timestampString = "482138720.877709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Desi/GroupTableViewController.swift"
-            timestampString = "481767380.371476"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "filterUserGroupTasks()"
             landmarkType = "5">
          </BreakpointContent>
@@ -313,11 +297,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Desi/GroupTableViewController.swift"
-            timestampString = "481766207.653423"
+            timestampString = "482138720.877709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
             landmarkName = "filterUserGroupTasksByTask()"
             landmarkType = "5">
          </BreakpointContent>
@@ -329,11 +313,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Desi/GroupTableViewController.swift"
-            timestampString = "481766207.653423"
+            timestampString = "482138720.877709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>

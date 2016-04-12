@@ -39,3 +39,8 @@ func isValidUsername(testStr: String) -> Bool {
     let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
     return usernameTest.evaluateWithObject(testStr)
 }
+
+func dateToString(date: NSDate) -> String {
+    let timestamp = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+    return timestamp
+}

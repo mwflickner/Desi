@@ -45,6 +45,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView.addSubview(refreshControl)
         self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl.beginRefreshing()
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.filteredUserGroupTasks[myDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherUgTasksInt] = []
@@ -65,9 +66,19 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             }
             return 1
         }
-        return 1
-        
+        return self.groupLog.count
     }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if segControl.selectedSegmentIndex == 1 {
+            if section < self.groupLog.count {
+                return 10
+            }
+        }
+        return 0
+    }
+    
+    
     
     func tableView( tableView: UITableView,  titleForHeaderInSection section: Int) -> String? {
         if self.segControl.selectedSegmentIndex == 0 {
@@ -78,7 +89,10 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             default:  return nil
             }
         }
-        return "\(self.myUserGroup.group.groupName) Log"
+        if section == 0 {
+            return "\(self.myUserGroup.group.groupName) Log"
+        }
+        return nil
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,14 +107,17 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             }
             return 0
         }
-        return self.groupLog.count
+        return 2
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if segControl.selectedSegmentIndex == 0 {
             return 80
         }
-        return 120.0
+        if indexPath.row == 0 {
+            return 60
+        }
+        return 80
     }
 
     
@@ -134,15 +151,23 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             // this should never execute
             return taskCell
         }
-        let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
-        let logEntry = self.groupLog[indexPath.row]
-        let firstName = logEntry.userGroupTask.userGroup.user.firstName
-        let lastName = logEntry.userGroupTask.userGroup.user.lastName
-        let verb = logEntry.actionTypeToVerb()
-        let taskName = logEntry.userGroupTask.task.taskName
-        logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) at \(logEntry.createdAt!)"
-        logCell.label2.text = logEntry.actionMessage
-        return logCell
+        if indexPath.row == 0 {
+            let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
+            let logEntry = self.groupLog[indexPath.section]
+            let firstName = logEntry.userGroupTask.userGroup.user.firstName
+            let lastName = logEntry.userGroupTask.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()
+            let taskName = logEntry.userGroupTask.task.taskName
+            let time = dateToString(logEntry.createdAt!)
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) at \(time)"
+            logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
+            return logCell
+
+        }
+        let logMessageCell = tableView.dequeueReusableCellWithIdentifier("LogMessageCell", forIndexPath: indexPath) as! DesiTableViewCell
+        let logEntry = self.groupLog[indexPath.section]
+        logMessageCell.label2.text = logEntry.actionMessage
+        return logMessageCell
     }
     
     

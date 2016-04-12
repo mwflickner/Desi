@@ -40,8 +40,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForTask), forControlEvents: .ValueChanged)
         self.refreshControl.beginRefreshing()
-        //tableView.rowHeight = UITableViewAutomaticDimension
-        //tableView.estimatedRowHeight = 120.0
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.navigationItem.title = task.taskName
         self.updateTaskData()
     }
@@ -57,9 +56,21 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         switch self.segControl.selectedSegmentIndex {
             case 0:  return 3
-            case 1:  return 1
+            case 1:  return self.taskLog.count
             default:  return 0
         }
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.segControl.selectedSegmentIndex == 0 {
+            if section == 0 {
+                return "The Desi:"
+            }
+            if section == 1 {
+                return "On Deck:"
+            }
+        }
+        return nil
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,7 +90,16 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             return 0
         }
-        return self.taskLog.count
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if segControl.selectedSegmentIndex == 1 {
+            if section < self.taskLog.count {
+                return 10
+            }
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -91,7 +111,10 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return 60
             }
         }
-        return 120
+        if indexPath.row == 0 {
+            return 60
+        }
+        return 80
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -137,15 +160,22 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             restCell.label2.text = String(points)
             return restCell
         }
-        let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
-        let logEntry = self.taskLog[indexPath.row]
-        let firstName = logEntry.userGroupTask.userGroup.user.firstName
-        let lastName = logEntry.userGroupTask.userGroup.user.lastName
-        let verb = logEntry.actionTypeToVerb()
-        
-        logCell.label1.text = "\(firstName) \(lastName) \(verb) at \(logEntry.createdAt!)"
-        logCell.label2.text = logEntry.actionMessage
-        return logCell
+        if indexPath.row == 0 {
+            let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
+            let logEntry = self.taskLog[indexPath.section]
+            let firstName = logEntry.userGroupTask.userGroup.user.firstName
+            let lastName = logEntry.userGroupTask.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()
+            let time = dateToString(logEntry.createdAt!)
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) at \(time)"
+            logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
+            return logCell
+
+        }
+        let logMessageCell = tableView.dequeueReusableCellWithIdentifier("LogMessageCell", forIndexPath: indexPath) as! DesiTableViewCell
+        let logEntry = self.taskLog[indexPath.section]
+        logMessageCell.label2.text = logEntry.actionMessage
+        return logMessageCell
     }
     
     func updateTaskData(){

@@ -27,9 +27,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.refreshControl.addTarget(self, action: #selector(getUserGroups), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
         self.refreshControl.beginRefreshing()
-        //self.getLocalUserGroups()
-        print(DesiUser.currentUser()!)
-        
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+        self.navigationItem.title = "Desi"
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,7 +42,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if segControl.selectedSegmentIndex == 0 {
             return 2
         }
-        return 1
+        return myLogs.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,7 +52,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             return 0
         }
-        return self.myLogs.count
+        return 2
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -61,9 +60,22 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             if section == 1 {
                 return "My Groups"
             }
-            return nil
         }
-        return "My Log"
+        else {
+            if section == 0 {
+                return "My Log"
+            }
+        }
+        return nil
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if segControl.selectedSegmentIndex == 1 {
+            if section < self.myLogs.count {
+                return 10
+            }
+        }
+        return 0
     }
     
     
@@ -75,23 +87,34 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             //cell.groupImgView.image = group.groupImage
             return cell
         }
-        let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
-        let logEntry = self.myLogs[indexPath.row]
-        let firstName = logEntry.userGroupTask.userGroup.user.firstName
-        let lastName = logEntry.userGroupTask.userGroup.user.lastName
-        let verb = logEntry.actionTypeToVerb()
-        let taskName = logEntry.userGroupTask.task.taskName
-        let groupName = logEntry.userGroupTask.userGroup.group.groupName
-        logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) in \(groupName) at \(logEntry.createdAt!)"
+        if indexPath.row == 0 {
+            let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
+            let logEntry = self.myLogs[indexPath.section]
+            let firstName = logEntry.userGroupTask.userGroup.user.firstName
+            let lastName = logEntry.userGroupTask.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()
+            let taskName = logEntry.userGroupTask.task.taskName
+            let groupName = logEntry.userGroupTask.userGroup.group.groupName
+            let date = dateToString(logEntry.createdAt!)
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) in \(groupName) at \(date)"
+            logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
+            return logCell
+        }
+        let logCell = tableView.dequeueReusableCellWithIdentifier("LogMessageCell", forIndexPath: indexPath) as! DesiTableViewCell
+        let logEntry = self.myLogs[indexPath.section]
         logCell.label2.text = logEntry.actionMessage
         return logCell
+
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if segControl.selectedSegmentIndex == 0 {
             return 60
         }
-        return 120
+        if indexPath.row == 0 {
+            return 80
+        }
+        return 80
     }
     
     /*

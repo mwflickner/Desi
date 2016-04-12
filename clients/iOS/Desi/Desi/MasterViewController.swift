@@ -31,6 +31,34 @@ class MasterViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 5
     }
+    
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView: UIView = UIView()
+//        headerView.backgroundColor = desiColor
+//        return headerView
+//    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+            case 0: return 0
+            case 1: return 0
+            case 2: return 0
+            case 3: return 0
+            case 4: return 30
+            default: return 0
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+            case 0: return 0
+            case 1: return 0
+            case 2: return 0
+            case 3: return 0
+            case 4: return 0
+            default: return 0
+        }
+    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
