@@ -112,8 +112,18 @@ class GroupSettingsTableViewController: UITableViewController {
     func assignNewAdminIfNeeded(){
         let admins: [DesiUserGroup] = self.userGroups.filter({$0.isGroupAdmin})
         if self.myUserGroup.isGroupAdmin && admins.count == 1 {
-            var swag: [DesiUserGroup] = self.userGroups.filter({$0.objectId != DesiUser.currentUser()?.objectId})
+            var swag: [DesiUserGroup] = self.userGroups.filter({$0.objectId != myUserGroup.objectId})
             swag[0].isGroupAdmin = true
+            let block = ({
+                (success: Bool, error: NSError?) -> Void in
+                if success {
+                    print("admins updated")
+                }
+                else {
+                    print("new UserGroups error")
+                }
+            })
+            PFObject.saveAllInBackground(swag, block: block)
         }
     }
     
@@ -130,7 +140,7 @@ class GroupSettingsTableViewController: UITableViewController {
                 return
             }
             
-            print("succesfully deleted group")
+            print("succesfully left group")
         }
         userGroup.deleteInBackgroundWithBlock(block)
     }
@@ -211,6 +221,7 @@ class GroupSettingsTableViewController: UITableViewController {
                 self.deleteGroup(self.myUserGroup.group)
             }
             else {
+                self.assignNewAdminIfNeeded()
                 self.leaveGroup(self.myUserGroup)
             }
             home.myUserGroups = home.myUserGroups.filter({$0.objectId != myUserGroup.objectId})

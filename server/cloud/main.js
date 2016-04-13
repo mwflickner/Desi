@@ -77,11 +77,15 @@ Parse.Cloud.afterDelete("DesiGroup", function(request) {
 });
 
 Parse.Cloud.afterDelete("DesiUserGroup", function(request){
+  console.log("userGroup afterDelete");
   var userGroupTaskQuery = new Parse.Query("DesiUserGroupTask");
   userGroupTaskQuery.include("isDesi");
-  userGroupTaskQuery.matchesQuery("userGroup", userGroupQuery);
+  userGroupTaskQuery.equalTo("userGroup", request.object);
   userGroupTaskQuery.find({
     success: function(userGroupTasks) {
+      console.log("swagggg");
+      console.log(userGroupTasks);
+      console.log(userGroupTasks.length);
       for(var i = 0; i < userGroupTasks.length; i++){
         var isDesi = userGroupTasks[i].get("isDesi");
         console.log(isDesi);

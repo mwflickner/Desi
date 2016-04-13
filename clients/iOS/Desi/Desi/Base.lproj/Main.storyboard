@@ -1407,7 +1407,8 @@
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <state key="normal" title="Leave Group"/>
                                                     <connections>
-                                                        <action selector="leaveGroupPressed:" destination="ALu-Dg-d1K" eventType="touchUpInside" id="Q58-sI-Cps"/>
+                                                        <action selector="leaveGroupPressed:" destination="ALu-Dg-d1K" eventType="touchUpInside" id="o8q-PE-CSt"/>
+                                                        <segue destination="uKm-kH-Qbb" kind="unwind" identifier="leaveGroupSegue" unwindAction="cancelToDesiHomeViewController:" id="HFe-6s-FnU"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
