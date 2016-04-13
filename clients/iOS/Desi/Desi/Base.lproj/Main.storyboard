@@ -536,9 +536,11 @@
             </objects>
             <point key="canvasLocation" x="5507" y="496"/>
         </scene>
-        <!--Task Members Table View Controller-->
+        <!--Task Members-->
         <scene sceneID="shb-WX-0ce">
             <objects>
+                <exit id="Fyz-FX-i7h" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="paH-ug-BVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="wRg-yu-Wuf" customClass="TaskMembersTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fVb-08-E6W">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -570,7 +572,7 @@
                             <outlet property="delegate" destination="wRg-yu-Wuf" id="8LV-se-2p8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="boZ-Ug-gGx">
+                    <navigationItem key="navigationItem" title="Task Members" id="boZ-Ug-gGx">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="D8y-OK-1Pp">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -579,8 +581,6 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="paH-ug-BVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Fyz-FX-i7h" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4751" y="1233"/>
         </scene>
@@ -763,6 +763,7 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bM9-ew-m5g">
                                 <rect key="frame" x="133" y="345" width="335" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="335" id="SHC-fh-2en"/>
                                     <constraint firstAttribute="height" constant="30" id="X1j-Ry-PNh"/>
@@ -793,7 +794,7 @@
                                     <action selector="loginPressed:" destination="BQg-er-EZC" eventType="touchUpInside" id="Vss-gK-c6R"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="desiLogo" translatesAutoresizingMaskIntoConstraints="NO" id="MH8-FX-I3T">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="full-rect-red-background480" translatesAutoresizingMaskIntoConstraints="NO" id="MH8-FX-I3T">
                                 <rect key="frame" x="50" y="40" width="500" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="hhD-kO-bsH"/>
@@ -801,6 +802,7 @@
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sAW-yb-j1r">
                                 <rect key="frame" x="133" y="307" width="335" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="092-L8-v1B"/>
                                     <constraint firstAttribute="width" constant="335" id="2rd-Cz-1H5"/>
@@ -884,6 +886,7 @@
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XMl-O9-oHl">
                                 <rect key="frame" x="150" y="176" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="p4N-oS-JPb"/>
                                 </constraints>
@@ -895,6 +898,7 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uhx-Di-Rrs">
                                 <rect key="frame" x="150" y="100" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Q1i-42-r6c"/>
                                 </constraints>
@@ -906,6 +910,7 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KFO-HC-9we">
                                 <rect key="frame" x="150" y="214" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="EBv-FI-CfQ"/>
                                 </constraints>
@@ -917,6 +922,7 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5qn-uA-gZj">
                                 <rect key="frame" x="150" y="252" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="dpN-Fr-gK7"/>
                                 </constraints>
@@ -928,6 +934,7 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YR3-IJ-ieR">
                                 <rect key="frame" x="150" y="290" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="U72-9s-YlQ"/>
                                 </constraints>
@@ -939,6 +946,7 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vuY-2c-wgr">
                                 <rect key="frame" x="150" y="328" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="djQ-VF-WwH"/>
                                 </constraints>
@@ -965,13 +973,13 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnJ-ZY-zed">
                                 <rect key="frame" x="232" y="404" width="136" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="136" id="udf-cC-yrz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Create Account">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -980,6 +988,7 @@
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USo-wp-tZ4">
                                 <rect key="frame" x="150" y="138" width="300" height="30"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="ozL-Qt-26t"/>
                                 </constraints>
@@ -1712,7 +1721,7 @@
             </objects>
             <point key="canvasLocation" x="2594" y="1233"/>
         </scene>
-        <!--Create Task Table View Controller-->
+        <!--Create Task-->
         <scene sceneID="Mhv-92-fgx">
             <objects>
                 <tableViewController id="Rbn-Z8-do9" customClass="CreateTaskTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
@@ -1840,7 +1849,7 @@
                             <outlet property="delegate" destination="Rbn-Z8-do9" id="9Id-cl-Y6Y"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="6H5-BP-65s">
+                    <navigationItem key="navigationItem" title="Create Task" id="6H5-BP-65s">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="4Vw-Od-fWk">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -1959,13 +1968,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="desiLogo" width="3300" height="3300"/>
+        <image name="full-rect-red-background480" width="880" height="480"/>
         <image name="glyphicons-137-cogwheel" width="24" height="24"/>
         <image name="glyphicons-44-group" width="35" height="22"/>
         <image name="glyphicons-88-log-book" width="22" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="szl-bT-u5b"/>
         <segue reference="ri1-sj-4bT"/>
+        <segue reference="szl-bT-u5b"/>
     </inferredMetricsTieBreakers>
 </document>

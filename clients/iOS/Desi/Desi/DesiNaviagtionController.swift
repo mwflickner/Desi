@@ -14,6 +14,7 @@ class DesiNaviagtionController: UINavigationController, UIViewControllerTransiti
         super.viewDidLoad()
         let color = desiColor
         self.navigationBar.barTintColor = color
+        self.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         // Do any additional setup after loading the view.
     }

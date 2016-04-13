@@ -26,7 +26,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         self.refreshControl.addTarget(self, action: #selector(getUserGroups), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
-        self.refreshControl.beginRefreshing()
+        //self.refreshControl.beginRefreshing()
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.navigationItem.title = "Desi"
     }

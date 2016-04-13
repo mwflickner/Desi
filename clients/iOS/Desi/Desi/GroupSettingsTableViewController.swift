@@ -109,6 +109,32 @@ class GroupSettingsTableViewController: UITableViewController {
         
     }
     
+    func assignNewAdminIfNeeded(){
+        let admins: [DesiUserGroup] = self.userGroups.filter({$0.isGroupAdmin})
+        if self.myUserGroup.isGroupAdmin && admins.count == 1 {
+            var swag: [DesiUserGroup] = self.userGroups.filter({$0.objectId != DesiUser.currentUser()?.objectId})
+            swag[0].isGroupAdmin = true
+        }
+    }
+    
+    func leaveGroup(userGroup: DesiUserGroup){
+        let block = {
+            (deleteSuccessful: Bool, error: NSError?) -> Void in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            guard deleteSuccessful else {
+                print("delete failed")
+                return
+            }
+            
+            print("succesfully deleted group")
+        }
+        userGroup.deleteInBackgroundWithBlock(block)
+    }
+    
     func deleteGroup(group: DesiGroup){
         let block = {
             (deleteSuccessful: Bool, error: NSError?) -> Void in
@@ -169,14 +195,24 @@ class GroupSettingsTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if segue.identifier == "leaveGroupFromSettingsSegue" {
-            //print yo whats up
-        }
         
         if segue.identifier == "deleteGroupSegue" {
             print("deleting group")
             let home = segue.destinationViewController as! DesiHomeViewController
             self.deleteGroup(self.myUserGroup.group)
+            home.myUserGroups = home.myUserGroups.filter({$0.objectId != myUserGroup.objectId})
+            home.tableView.reloadData()
+        }
+        
+        if segue.identifier == "leaveGroupSegue" {
+            print("leaving group")
+            let home = segue.destinationViewController as! DesiHomeViewController
+            if self.userGroups.count == 1 {
+                self.deleteGroup(self.myUserGroup.group)
+            }
+            else {
+                self.leaveGroup(self.myUserGroup)
+            }
             home.myUserGroups = home.myUserGroups.filter({$0.objectId != myUserGroup.objectId})
             home.tableView.reloadData()
         }

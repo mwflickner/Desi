@@ -3,55 +3,55 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "desiLogo29.png",
+      "filename" : "desiIcon29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "desiLogo58.png",
+      "filename" : "desiIcon58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "desiLogo87.png",
+      "filename" : "desiIcon87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "desiLogo80.png",
+      "filename" : "desiIcon80.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "desiLogo120.png",
+      "filename" : "desiIcon120-1.png",
       "scale" : "3x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "desiLogo57.png",
+      "filename" : "desiIcon57.png",
       "scale" : "1x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "desiLogo114.png",
+      "filename" : "desiIcon114.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "desiLogo120-1.png",
+      "filename" : "desiIcon120.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "desiLogo180.png",
+      "filename" : "desiIcon180.png",
       "scale" : "3x"
     }
   ],

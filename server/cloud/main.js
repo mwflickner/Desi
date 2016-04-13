@@ -77,5 +77,27 @@ Parse.Cloud.afterDelete("DesiGroup", function(request) {
 });
 
 Parse.Cloud.afterDelete("DesiUserGroup", function(request){
+  var userGroupTaskQuery = new Parse.Query("DesiUserGroupTask");
+  userGroupTaskQuery.include("isDesi");
+  userGroupTaskQuery.matchesQuery("userGroup", userGroupQuery);
+  userGroupTaskQuery.find({
+    success: function(userGroupTasks) {
+      for(var i = 0; i < userGroupTasks.length; i++){
+        var isDesi = userGroupTasks[i].get("isDesi");
+        console.log(isDesi);
+      }
 
+      Parse.Object.destroyAll(userGroupTasks, {
+        success: function() {
+            console.log("Succesfully removed related userGroupsTasks");
+        },
+        error: function(error) {
+          console.error("Error deleting related userGroupTasks " + error.code + ": " + error.message);
+        }
+      });
+    },
+    error: function(error) {
+      console.error("Error finding related userGroupsTasks " + error.code + ": " + error.message);
+    }
+  });
 });
