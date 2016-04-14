@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 let desiColor = UIColor(netHex:0xF04D4D)
 
@@ -43,4 +44,55 @@ func isValidUsername(testStr: String) -> Bool {
 func dateToString(date: NSDate) -> String {
     let timestamp = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
     return timestamp
+}
+
+func findUserByUsername(username: String, block: PFQueryArrayResultBlock){
+    let query = DesiUser.query()
+    query!.whereKey("username", equalTo: username)
+    query!.findObjectsInBackgroundWithBlock(block)
+}
+
+func createUserGroup(user: DesiUser, isAdmin: Bool, group: DesiGroup) -> DesiUserGroup {
+    let newUserGroup: DesiUserGroup = DesiUserGroup()
+    newUserGroup.group = group
+    newUserGroup.user = user
+    newUserGroup.isGroupAdmin = isAdmin
+    newUserGroup.points = 0
+    return newUserGroup
+}
+
+func deleteGroup(group: DesiGroup){
+    let block = {
+        (deleteSuccessful: Bool, error: NSError?) -> Void in
+        guard error == nil else {
+            print(error)
+            return
+        }
+        
+        guard deleteSuccessful else {
+            print("delete failed")
+            return
+        }
+        
+        print("succesfully deleted group")
+    }
+    group.deleteInBackgroundWithBlock(block)
+}
+
+func leaveGroup(userGroup: DesiUserGroup){
+    let block = {
+        (deleteSuccessful: Bool, error: NSError?) -> Void in
+        guard error == nil else {
+            print(error)
+            return
+        }
+        
+        guard deleteSuccessful else {
+            print("delete failed")
+            return
+        }
+        
+        print("succesfully left group")
+    }
+    userGroup.deleteInBackgroundWithBlock(block)
 }

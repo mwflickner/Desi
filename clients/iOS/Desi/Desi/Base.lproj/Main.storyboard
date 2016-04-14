@@ -42,7 +42,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" id="wiv-Io-QIa" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="searchCell" id="wiv-Io-QIa" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wiv-Io-QIa" id="ctO-bt-WtH">
@@ -67,6 +67,10 @@
                                         <constraint firstItem="s18-IC-9f8" firstAttribute="leading" secondItem="32K-fW-qGG" secondAttribute="trailing" constant="20" id="vaY-YG-V9D"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="s18-IC-9f8" id="JPd-7F-yjH"/>
+                                    <outlet property="textField" destination="32K-fW-qGG" id="u1y-xQ-u73"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="memberCell" id="fkY-ga-V6h" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="600" height="44"/>
@@ -97,7 +101,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="Quq-ie-9hK">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="ozp-2S-l8D" kind="unwind" unwindAction="backToGroupSettings:" id="ugU-Pu-yGS"/>
+                                <segue destination="ozp-2S-l8D" kind="unwind" identifier="backToGroupSettings" unwindAction="backToGroupSettings:" id="ugU-Pu-yGS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

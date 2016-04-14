@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class GroupMembersTableViewController: UITableViewController {
 
@@ -36,21 +37,6 @@ class GroupMembersTableViewController: UITableViewController {
     }
     
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-//            if cell.accessoryType == .Checkmark {
-//                if self.outputUserGroups.count > 1 {
-//                    cell.accessoryType = .None
-//                    self.outputUserGroups.removeAtIndex(indexPath.row)
-//                    self.isMember[indexPath.row] = false
-//                }
-//            }
-//            else {
-//                cell.accessoryType = .Checkmark
-//                self.outputUserGroups.insert(self.userGroups[indexPath.row], atIndex: indexPath.row)
-//            }
-//        }
-//    }
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return "Members:"
@@ -58,39 +44,21 @@ class GroupMembersTableViewController: UITableViewController {
         return nil
     }
     
-    func alertAdminActions() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        let makeAdminHander = { (action:UIAlertAction!) -> Void in
-            print("swag")
-        }
-        
-        let makeAdminAction = UIAlertAction(title: "Make Admin", style: .Default, handler: makeAdminHander)
-        alertController.addAction(makeAdminAction)
-        
-        let removeUserHandler = { (action:UIAlertAction!) -> Void in
-            print("hello")
-        }
-        let removeUserAction = UIAlertAction(title: "Remove From Group", style: .Destructive, handler: removeUserHandler)
-        alertController.addAction(removeUserAction)
-        
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.myUserGroup.isGroupAdmin {
-            alertAdminActions()
+        let selectable: Bool = (indexPath.section == 1 &&
+                                self.myUserGroup.isGroupAdmin &&
+                                self.myUserGroup.user.objectId != self.userGroups[indexPath.row].user.objectId)
+        if selectable {
+            alertAdminActions(indexPath)
         }
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("searchCell", forIndexPath: indexPath) as! DesiTableViewCell
+            cell.button.addTarget(self, action: #selector(addUserToGroup), forControlEvents: .TouchUpInside)
             return cell
         }
         
@@ -106,6 +74,76 @@ class GroupMembersTableViewController: UITableViewController {
         }
         return cell
     }
+    
+    @IBAction func addUserToGroup(sender: UIButton){
+        sender.enabled = false
+        let path = NSIndexPath(forRow: 0, inSection: 0)
+        let cell = tableView.cellForRowAtIndexPath(path) as! DesiTableViewCell
+        let usernameToAdd = cell.textField.text!
+        print(usernameToAdd)
+        let block = {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            guard error == nil else {
+                print("Error: \(error!) \(error!.userInfo)")
+                sender.enabled = true
+                return
+            }
+            // The find succeeded.
+            print("Successfully retrieved \(objects!.count) users. Swag.")
+            // Do something with the found objects
+            guard let users = objects as? [DesiUser] where users.count == 1 else {
+                setErrorColor(cell.textField)
+                sender.enabled = true
+                return
+            }
+            let newUser: DesiUser = users[0]
+            let newUserGroup = createUserGroup(newUser, isAdmin: false, group: self.myUserGroup.group)
+            newUserGroup.saveInBackgroundWithBlock {
+                (success: Bool, error: NSError?) -> Void in
+                if success {
+                    print("new usergroup saved")
+                }
+                else {
+                    print("new UserGroup error error")
+                }
+            }
+            self.userGroups.append(newUserGroup)
+            self.tableView.reloadData()
+            sender.enabled = true
+        }
+        findUserByUsername(usernameToAdd, block: block)
+        sender.enabled = true
+    }
+    
+    func alertAdminActions(indexPath: NSIndexPath) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let makeAdminHander = { (action:UIAlertAction!) -> Void in
+            self.userGroups[indexPath.row].isGroupAdmin = !self.userGroups[indexPath.row].isGroupAdmin
+            self.tableView.reloadData()
+        }
+        
+        let adminTitle : String = self.userGroups[indexPath.row].isGroupAdmin ? "Remove as Admin" : "Make Admin"
+        
+        let makeAdminAction = UIAlertAction(title: adminTitle, style: .Default, handler: makeAdminHander)
+        alertController.addAction(makeAdminAction)
+        
+        let removeUserHandler = { (action:UIAlertAction!) -> Void in
+            let ugToDelete = self.userGroups[indexPath.row]
+            leaveGroup(ugToDelete)
+            self.userGroups.removeAtIndex(indexPath.row)
+            self.tableView.reloadData()
+        }
+        
+        let removeUserAction = UIAlertAction(title: "Remove From Group", style: .Destructive, handler: removeUserHandler)
+        alertController.addAction(removeUserAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
     
     
     /*
@@ -151,10 +189,15 @@ class GroupMembersTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "backToGroupSettings" {
+            print("swaggg")
             let groupSettingsView = segue.destinationViewController as! GroupSettingsTableViewController
+            print(self.userGroups.count)
+            print(groupSettingsView.userGroups.count)
             groupSettingsView.userGroups = self.userGroups
             groupSettingsView.myUserGroup = self.myUserGroup
-            groupSettingsView.tableView.reloadData()
+            print(self.userGroups.count)
+            print(groupSettingsView.userGroups.count)
+            groupSettingsView.updateMembersLabel()
         }
     }
 

@@ -365,7 +365,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func saveTaskState(){
         print("saving Task state")
-        let block = ({
+        let block = {
             (success: Bool, error: NSError?) -> Void in
             if success {
                 print("updated")
@@ -373,7 +373,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             else {
                 print("new UserGroupsTask error")
             }
-        })
+        }
         let ugtTasks : [PFObject] = self.taskUserGroupTasks
         let newLogs: [PFObject] = self.newLogEntries
         let taskState: [PFObject] = ugtTasks + newLogs
