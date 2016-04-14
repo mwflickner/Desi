@@ -83,9 +83,9 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
     func tableView( tableView: UITableView,  titleForHeaderInSection section: Int) -> String? {
         if self.segControl.selectedSegmentIndex == 0 {
             switch(section) {
-            case 0:  return "My Desi Tasks"
-            case 1: return "My Other Tasks"
-            case 2: return "Other Group Tasks"
+            case 0:  return "My Desi Tasks:"
+            case 1: return "My Other Tasks:"
+            case 2: return "Other Group Tasks:"
             default:  return nil
             }
         }

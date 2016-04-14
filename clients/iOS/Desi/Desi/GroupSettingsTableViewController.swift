@@ -203,6 +203,14 @@ class GroupSettingsTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         
+        if segue.identifier == "showMembers" {
+            let nav = segue.destinationViewController as! DesiNaviagtionController
+            let membersView = nav.topViewController as! GroupMembersTableViewController
+            membersView.userGroups = self.userGroups
+            membersView.myUserGroup = self.myUserGroup
+            
+        }
+        
         if segue.identifier == "deleteGroupSegue" {
             print("deleting group")
             let home = segue.destinationViewController as! DesiHomeViewController

@@ -24,6 +24,7 @@ class TaskActionTableViewController: UITableViewController, UITextViewDelegate {
         super.viewDidLoad()
         self.messageField.delegate = self
         print(self.myUgtTask.userGroup.user.firstName)
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.nameLabel.text = self.myUgtTask.userGroup.user.firstName
         self.userPointsLabel.text = "\(self.myUgtTask.userGroup.points) points"
         self.taskNameLabel.text = self.myUgtTask.task.taskName

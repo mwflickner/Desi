@@ -58,12 +58,12 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if segControl.selectedSegmentIndex == 0 {
             if section == 1 {
-                return "My Groups"
+                return "My Groups:"
             }
         }
         else {
             if section == 0 {
-                return "My Log"
+                return "My Log:"
             }
         }
         return nil

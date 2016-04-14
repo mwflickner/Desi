@@ -33,10 +33,10 @@
             </objects>
             <point key="canvasLocation" x="1780" y="-1215"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Group Members-->
         <scene sceneID="3rA-Zj-Bzj">
             <objects>
-                <tableViewController id="fNh-4A-OCj" sceneMemberID="viewController">
+                <tableViewController id="fNh-4A-OCj" customClass="GroupMembersTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GnH-a0-hkT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,16 +49,23 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="32K-fW-qGG">
-                                            <rect key="frame" x="8" y="7" width="483" height="30"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="32K-fW-qGG">
+                                            <rect key="frame" x="8" y="7" width="518" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s18-IC-9f8">
-                                            <rect key="frame" x="546" y="6" width="46" height="30"/>
-                                            <state key="normal" title="Button"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s18-IC-9f8">
+                                            <rect key="frame" x="546" y="6" width="30" height="30"/>
+                                            <state key="normal" title="Add"/>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="s18-IC-9f8" firstAttribute="trailing" secondItem="ctO-bt-WtH" secondAttribute="trailingMargin" constant="-16" id="3sU-1X-Vke"/>
+                                        <constraint firstItem="s18-IC-9f8" firstAttribute="centerY" secondItem="ctO-bt-WtH" secondAttribute="centerY" id="Qej-ZI-L7L"/>
+                                        <constraint firstItem="32K-fW-qGG" firstAttribute="centerY" secondItem="ctO-bt-WtH" secondAttribute="centerY" id="b6o-nK-a7l"/>
+                                        <constraint firstItem="32K-fW-qGG" firstAttribute="leading" secondItem="ctO-bt-WtH" secondAttribute="leadingMargin" id="iER-7R-798"/>
+                                        <constraint firstItem="s18-IC-9f8" firstAttribute="leading" secondItem="32K-fW-qGG" secondAttribute="trailing" constant="20" id="vaY-YG-V9D"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="memberCell" id="fkY-ga-V6h" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
@@ -86,7 +93,7 @@
                             <outlet property="delegate" destination="fNh-4A-OCj" id="yT9-3c-y42"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="eo6-tX-DUv">
+                    <navigationItem key="navigationItem" title="Group Members" id="eo6-tX-DUv">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="Quq-ie-9hK">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -539,8 +546,6 @@
         <!--Task Members-->
         <scene sceneID="shb-WX-0ce">
             <objects>
-                <exit id="Fyz-FX-i7h" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="paH-ug-BVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="wRg-yu-Wuf" customClass="TaskMembersTableViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fVb-08-E6W">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -581,6 +586,8 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <exit id="Fyz-FX-i7h" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="paH-ug-BVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4751" y="1233"/>
         </scene>
@@ -1389,7 +1396,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="TeQ-fg-NMO" kind="showDetail" id="TH9-zv-v2H"/>
+                                            <segue destination="TeQ-fg-NMO" kind="showDetail" identifier="showMembers" id="TH9-zv-v2H"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

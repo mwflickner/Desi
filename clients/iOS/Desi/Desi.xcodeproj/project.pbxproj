@@ -26,6 +26,7 @@
 		F184A6AA1C9540C20023BEE2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F184A6A91C9540C20023BEE2 /* MasterViewController.swift */; };
 		F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TaskViewController.swift */; };
 		F1A0D27C1C4F128700F746F0 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0D27B1C4F128700F746F0 /* HelperMethods.swift */; };
+		F1BE52C41CBEFAAE0092B320 /* GroupMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */; };
 		F1C220EB1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */; };
 		F1C220ED1B1BD75300D628CA /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C220EC1B1BD75300D628CA /* NewGroupViewController.swift */; };
 		F1D9CD711B12F4CD0052F810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */; };
@@ -75,6 +76,7 @@
 		F184A6A91C9540C20023BEE2 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		F19C0A891B33323600B3CD09 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		F1A0D27B1C4F128700F746F0 /* HelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
+		F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersTableViewController.swift; sourceTree = "<group>"; };
 		F1C220EA1B1BCFBB00D628CA /* DesiGroupsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroupsTableViewCell.swift; sourceTree = "<group>"; };
 		F1C220EC1B1BD75300D628CA /* NewGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		F1D9CD6B1B12F4CD0052F810 /* Desi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Desi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 			children = (
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */,
 				F12928B91C99279100B7A8B9 /* TaskActionTableViewController.swift */,
 				F184A6A91C9540C20023BEE2 /* MasterViewController.swift */,
 				F1FC69311C7D44A600C3B7CA /* TaskMembersTableViewController.swift */,
@@ -373,6 +376,7 @@
 			files = (
 				F11DBC2B1B62CFC400B21A2C /* DesiFriendTableViewCell.swift in Sources */,
 				F168679F1B8686B1005D69F3 /* DesiTask.swift in Sources */,
+				F1BE52C41CBEFAAE0092B320 /* GroupMembersTableViewController.swift in Sources */,
 				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
 				F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */,
 				F1FC69321C7D44A600C3B7CA /* TaskMembersTableViewController.swift in Sources */,
