@@ -16,6 +16,15 @@ class TaskMembersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateIsMember()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func updateIsMember(){
         for ug in self.userGroups {
             if self.outputUserGroups.contains(ug){
                 self.isMember.append(true)
@@ -24,11 +33,6 @@ class TaskMembersTableViewController: UITableViewController {
                 self.isMember.append(false)
             }
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -119,6 +123,11 @@ class TaskMembersTableViewController: UITableViewController {
             let createTaskView = segue.destinationViewController as! CreateTaskTableViewController
             createTaskView.outputUserGroups = self.outputUserGroups
             createTaskView.updateMembersLabel()
+        }
+        
+        if segue.identifier == "backToTaskSettings" {
+            let settingsView = segue.destinationViewController as! TaskSettingsTableViewController
+            settingsView.outputUserGroups = self.outputUserGroups
         }
     }
 

@@ -49,7 +49,10 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         self.filteredUserGroupTasks[myDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherDesiUgTasksInt] = []
         self.filteredUserGroupTasks[otherUgTasksInt] = []
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -218,35 +221,26 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
                 self.tableView.reloadData()
             }
             else {
-                self.getUserGroupsForGroup()
+                let block = {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    guard error == nil else {
+                        return
+                    }
+                    guard let objects = objects else {
+                        return
+                    }
+                    guard let userGroups = objects as? [DesiUserGroup] else {
+                        return
+                    }
+                    print(objects.count)
+                    for userGroup in userGroups {
+                        self.userGroups[userGroup.objectId!] = userGroup
+                    }
+                    self.refreshControl.endRefreshing()
+                }
+                getUserGroupsForGroup(self.myUserGroup.group, block: block)
             }
             print(self.userGroups.count)
-            
-        }
-    }
-    
-    func getUserGroupsForGroup(){
-        let userGroupQuery = DesiUserGroup.query()
-        userGroupQuery!.includeKey("user")
-        userGroupQuery!.includeKey("group")
-        userGroupQuery!.whereKey("group", equalTo: self.myUserGroup.group)
-        userGroupQuery!.findObjectsInBackgroundWithBlock {
-            (objects: [PFObject]?, error: NSError?) -> Void in
-            guard error == nil else {
-                return
-            }
-            guard let objects = objects else {
-                return
-            }
-            guard let userGroups = objects as? [DesiUserGroup] else {
-                return
-            }
-            print(objects.count)
-            for userGroup in userGroups {
-                self.userGroups[userGroup.objectId!] = userGroup
-            }
-            self.refreshControl.endRefreshing()
-
         }
     }
     

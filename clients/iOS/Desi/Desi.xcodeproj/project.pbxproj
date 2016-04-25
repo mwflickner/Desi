@@ -10,6 +10,7 @@
 		D6CE90AB934FDDB43C6BCE5D /* Pods_Desi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EC20805812725F31D58F0A /* Pods_Desi.framework */; };
 		F10D97EC1C7436F4000040D3 /* CreateTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */; };
 		F10D97F21C769C80000040D3 /* DesiUserGroupTaskLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D97F11C769C80000040D3 /* DesiUserGroupTaskLog.swift */; };
+		F11594991CC445E9006E086D /* TaskSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11594981CC445E9006E086D /* TaskSettingsTableViewController.swift */; };
 		F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */; };
 		F11DBC211B61AB6300B21A2C /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */; };
 		F11DBC2B1B62CFC400B21A2C /* DesiFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */; };
@@ -60,6 +61,7 @@
 		73EC20805812725F31D58F0A /* Pods_Desi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Desi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskTableViewController.swift; sourceTree = "<group>"; };
 		F10D97F11C769C80000040D3 /* DesiUserGroupTaskLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroupTaskLog.swift; sourceTree = "<group>"; };
+		F11594981CC445E9006E086D /* TaskSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSettingsTableViewController.swift; sourceTree = "<group>"; };
 		F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroup.swift; sourceTree = "<group>"; };
 		F11DBC201B61AB6300B21A2C /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		F11DBC2A1B62CFC400B21A2C /* DesiFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiFriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
+				F11594981CC445E9006E086D /* TaskSettingsTableViewController.swift */,
 				F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */,
 				F12928B91C99279100B7A8B9 /* TaskActionTableViewController.swift */,
 				F184A6A91C9540C20023BEE2 /* MasterViewController.swift */,
@@ -377,6 +380,7 @@
 				F11DBC2B1B62CFC400B21A2C /* DesiFriendTableViewCell.swift in Sources */,
 				F168679F1B8686B1005D69F3 /* DesiTask.swift in Sources */,
 				F1BE52C41CBEFAAE0092B320 /* GroupMembersTableViewController.swift in Sources */,
+				F11594991CC445E9006E086D /* TaskSettingsTableViewController.swift in Sources */,
 				F120520F1B4C8DFD004271BF /* CreateAccountViewController.swift in Sources */,
 				F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */,
 				F1FC69321C7D44A600C3B7CA /* TaskMembersTableViewController.swift in Sources */,

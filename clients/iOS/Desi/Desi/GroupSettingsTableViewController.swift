@@ -174,7 +174,6 @@ class GroupSettingsTableViewController: UITableViewController {
             let membersView = nav.topViewController as! GroupMembersTableViewController
             membersView.userGroups = self.userGroups
             membersView.myUserGroup = self.myUserGroup
-            
         }
         
         if segue.identifier == "deleteGroupSegue" {

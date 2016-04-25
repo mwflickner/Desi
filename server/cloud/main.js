@@ -79,7 +79,7 @@ Parse.Cloud.afterDelete("DesiGroup", function(request) {
 Parse.Cloud.afterDelete("DesiUserGroup", function(request){
   console.log("userGroup afterDelete");
   var userGroupTaskQuery = new Parse.Query("DesiUserGroupTask");
-  userGroupTaskQuery.include("isDesi");
+  userGroupTaskQuery.include("userGroup");
   userGroupTaskQuery.equalTo("userGroup", request.object);
   userGroupTaskQuery.find({
     success: function(userGroupTasks) {
@@ -88,6 +88,27 @@ Parse.Cloud.afterDelete("DesiUserGroup", function(request){
       console.log(userGroupTasks.length);
       for(var i = 0; i < userGroupTasks.length; i++){
         var isDesi = userGroupTasks[i].get("isDesi");
+        if (isDesi){
+          var otherUgtQuery = new Parse.Query("DesiUserGroupTask");
+          otherUgtQuery.include("task");
+          otherUgtQuery.include("userGroup");
+          otherUgtQuery.notEqualTo("userGroup", request.object);
+          console.log(userGroupTasks[i].get("task"));
+          otherUgtQuery.matchesQuery("task", userGroupsTasks[i].get("task"));
+          console.log("about to search");
+          otherUgtQuery.find({
+            success: function(otherUgts){
+              console.log("here");
+              if (otherUgts.length > 0){
+                otherUgts[0].set("isDesi", true);
+                otherUgts[0].save();
+              }
+            },
+            error: function(error){
+              console.error("Error finding other ugts " + error.code + ": " + error.message);
+            }
+          });
+        }
         console.log(isDesi);
       }
 
@@ -102,6 +123,28 @@ Parse.Cloud.afterDelete("DesiUserGroup", function(request){
     },
     error: function(error) {
       console.error("Error finding related userGroupsTasks " + error.code + ": " + error.message);
+    }
+  });
+});
+
+Parse.Cloud.afterDelete("DesiTask", function(request){
+  console.log("task afterDelete");
+  var userGroupTaskQuery = new Parse.Query("DesiUserGroupTask");
+  userGroupTaskQuery.include("task");
+  userGroupTaskQuery.equalTo("task", request.object);
+  userGroupTaskQuery.find({
+    success: function(userGroupTasks){
+      Parse.Object.destroyAll(userGroupTasks, {
+        success: function(){
+          console.log("Succesfully removed related UGTs");
+        },
+        error: function(error){
+          console.error("Error deleting related UGTS" + error.code + ": " + error.message);
+        }
+      });
+    },
+    error: function(error){
+      console.error("Error finding related UGTs " + error.code + ": " + error.message);
     }
   });
 });

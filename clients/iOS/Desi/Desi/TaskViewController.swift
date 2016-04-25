@@ -41,8 +41,16 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForTask), forControlEvents: .ValueChanged)
         self.refreshControl.beginRefreshing()
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         self.navigationItem.title = task.taskName
         self.updateTaskData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -419,6 +427,19 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let myUgTask = self.myUgTask {
                 completion.myUgtTask = myUgTask
             }
+        }
+        
+        if segue.identifier == "goToTaskSettings" {
+            let nav = segue.destinationViewController as! DesiNaviagtionController
+            let settings = nav.topViewController as! TaskSettingsTableViewController
+            settings.userGroupTasks = self.taskUserGroupTasks
+            var userGroupsForTask = [DesiUserGroup]()
+            for ugt in self.taskUserGroupTasks {
+                userGroupsForTask.append(ugt.userGroup)
+            }
+            settings.userGroupsForTask = userGroupsForTask
+            settings.task = self.task
+            settings.myUgTask = self.myUgTask!
         }
     }
 

@@ -52,6 +52,14 @@ func findUserByUsername(username: String, block: PFQueryArrayResultBlock){
     query!.findObjectsInBackgroundWithBlock(block)
 }
 
+func getUserGroupsForGroup(group: DesiGroup, block: PFQueryArrayResultBlock){
+    let userGroupQuery = DesiUserGroup.query()
+    userGroupQuery!.includeKey("user")
+    userGroupQuery!.includeKey("group")
+    userGroupQuery!.whereKey("group", equalTo: group)
+    userGroupQuery!.findObjectsInBackgroundWithBlock(block)
+}
+
 func createUserGroup(user: DesiUser, isAdmin: Bool, group: DesiGroup) -> DesiUserGroup {
     let newUserGroup: DesiUserGroup = DesiUserGroup()
     newUserGroup.group = group
@@ -59,6 +67,24 @@ func createUserGroup(user: DesiUser, isAdmin: Bool, group: DesiGroup) -> DesiUse
     newUserGroup.isGroupAdmin = isAdmin
     newUserGroup.points = 0
     return newUserGroup
+}
+
+func deleteTask(task: DesiTask){
+    let block = {
+        (deleteSuccessful: Bool, error: NSError?) -> Void in
+        guard error == nil else {
+            print(error)
+            return
+        }
+        
+        guard deleteSuccessful else {
+            print("delete failed")
+            return
+        }
+        
+        print("succesfully deleted group")
+    }
+    task.deleteInBackgroundWithBlock(block)
 }
 
 func deleteGroup(group: DesiGroup){
