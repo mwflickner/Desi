@@ -5,15 +5,15 @@ var http = require('http');
 var https = require('https');
 var ParseServer = require('parse-server').ParseServer;
 
-var desiKey = fs.readFileSync('server.key');
-var desiCert = fs.readFileSync('server.crt');
+//var desiKey = fs.readFileSync('server.key');
+//var desiCert = fs.readFileSync('server.crt');
 var HTTP_PORT = process.env.HTTP_PORT;
-var HTTPS_PORT = process.env.HTTPS_PORT;
+//var HTTPS_PORT = process.env.HTTPS_PORT;
 
-var options = {
-  key: desiKey,
-  cert: desiCert
-};
+//var options = {
+//  key: desiKey,
+//  cert: desiCert
+//};
 
 var app = express();
 
@@ -32,7 +32,8 @@ var api = new ParseServer({
 
 // routes
 app.get('/hey', function(req, res) {
-    res.send('HEY!');
+   console.log("HEY!"); 
+   res.send('HEY!');
 });
 
 // Serve the Parse API on the /parse URL prefix
@@ -42,9 +43,9 @@ http.createServer(app).listen(HTTP_PORT, function(){
   console.log("Desi Server running HTTP");
 });
 
-https.createServer(options, app).listen(HTTPS_PORT, function(){
-  console.log('Desi Server running HTTPS');
-});
+//https.createServer(options, app).listen(HTTPS_PORT, function(){
+//  console.log('Desi Server running HTTPS');
+//});
 
 
 
