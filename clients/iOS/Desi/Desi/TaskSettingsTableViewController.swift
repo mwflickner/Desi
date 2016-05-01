@@ -107,6 +107,29 @@ class TaskSettingsTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "deleteTask" {
+            var shouldPerf: Bool = false
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete the task?", preferredStyle: .ActionSheet)
+            
+            let cancelHandler = { (action:UIAlertAction!) -> Void in
+                shouldPerf = false
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHandler)
+            alertController.addAction(cancelAction)
+            
+            let deleteHandler = { (action:UIAlertAction!) -> Void in
+                shouldPerf = true
+            }
+            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: deleteHandler)
+            alertController.addAction(deleteAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            return shouldPerf
+        }
+        return true
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

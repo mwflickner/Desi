@@ -493,7 +493,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fq-Fk-a64">
-                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                                     <state key="normal" title="Delete Task">
                                                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
@@ -504,10 +504,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="3fq-Fk-a64" firstAttribute="trailing" secondItem="j6Q-1p-awV" secondAttribute="trailingMargin" id="2dO-4i-N6g"/>
-                                                <constraint firstItem="3fq-Fk-a64" firstAttribute="centerY" secondItem="j6Q-1p-awV" secondAttribute="centerY" id="LFF-aM-FGV"/>
-                                                <constraint firstItem="3fq-Fk-a64" firstAttribute="leading" secondItem="j6Q-1p-awV" secondAttribute="leadingMargin" id="qbI-1d-V51"/>
-                                                <constraint firstItem="3fq-Fk-a64" firstAttribute="centerX" secondItem="j6Q-1p-awV" secondAttribute="centerX" id="wsn-cR-dkJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3fq-Fk-a64" secondAttribute="trailing" constant="-8" id="Qbq-lq-g5B"/>
+                                                <constraint firstItem="3fq-Fk-a64" firstAttribute="leading" secondItem="j6Q-1p-awV" secondAttribute="leadingMargin" constant="-8" id="ceU-XT-q1g"/>
+                                                <constraint firstItem="3fq-Fk-a64" firstAttribute="top" secondItem="j6Q-1p-awV" secondAttribute="topMargin" constant="-8" id="eVb-Rr-rjt"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3fq-Fk-a64" secondAttribute="bottom" constant="-8" id="jIf-7e-Zl2"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1679,7 +1679,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTC-dK-gJq">
-                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                                     <state key="normal" title="Leave Group"/>
                                                     <connections>
                                                         <action selector="leaveGroupPressed:" destination="ALu-Dg-d1K" eventType="touchUpInside" id="o8q-PE-CSt"/>
@@ -1688,10 +1688,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="OTC-dK-gJq" firstAttribute="leading" secondItem="iof-zF-ibY" secondAttribute="leadingMargin" id="Pcg-5V-Q8B"/>
-                                                <constraint firstItem="OTC-dK-gJq" firstAttribute="centerX" secondItem="iof-zF-ibY" secondAttribute="centerX" id="dUS-hV-fdE"/>
-                                                <constraint firstItem="OTC-dK-gJq" firstAttribute="trailing" secondItem="iof-zF-ibY" secondAttribute="trailingMargin" id="pAb-PH-nos"/>
-                                                <constraint firstItem="OTC-dK-gJq" firstAttribute="centerY" secondItem="iof-zF-ibY" secondAttribute="centerY" id="pet-YB-cMR"/>
+                                                <constraint firstItem="OTC-dK-gJq" firstAttribute="leading" secondItem="iof-zF-ibY" secondAttribute="leadingMargin" constant="-8" id="f70-Tr-VNr"/>
+                                                <constraint firstItem="OTC-dK-gJq" firstAttribute="top" secondItem="iof-zF-ibY" secondAttribute="topMargin" constant="-8" id="hZs-fK-gRE"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="OTC-dK-gJq" secondAttribute="bottom" constant="-8" id="iQI-i7-9PO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="OTC-dK-gJq" secondAttribute="trailing" constant="-8" id="s3b-Pc-Xf3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
