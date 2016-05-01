@@ -174,8 +174,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let firstName = logEntry.userGroupTask.userGroup.user.firstName
             let lastName = logEntry.userGroupTask.userGroup.user.lastName
             let verb = logEntry.actionTypeToVerb()
-            let time = dateToString(logEntry.createdAt!)
-            logCell.label1.text = "\(firstName) \(lastName) \(verb) at \(time)"
+            let cost = logEntry.points >= 0 ? "+\(logEntry.points)" : "\(logEntry.points)"
+            let date = dateToString(logEntry.createdAt!)
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) (\(cost)) on \(date)"
             logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
             return logCell
 
@@ -222,6 +223,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             logEntry.userGroupTask = oldDesi
             logEntry.actionMessage = message
             logEntry.actionType = "completion"
+            logEntry.points = taskPoints
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
             //oldDesi.userGroup.user.desiScore += taskPoints
@@ -259,6 +261,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         logEntry.userGroupTask = self.myUgTask!
         logEntry.actionMessage = message
         logEntry.actionType = "volunteer"
+        logEntry.points = 2*self.task.pointValue
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
         self.saveTaskState()
@@ -288,6 +291,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             logEntry.userGroupTask = self.myUgTask!
             logEntry.actionMessage = message
             logEntry.actionType = "opt-out"
+            logEntry.points = -self.task.optOutCost
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
             self.saveTaskState()

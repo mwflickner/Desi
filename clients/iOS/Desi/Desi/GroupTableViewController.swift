@@ -160,9 +160,10 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             let firstName = logEntry.userGroupTask.userGroup.user.firstName
             let lastName = logEntry.userGroupTask.userGroup.user.lastName
             let verb = logEntry.actionTypeToVerb()
+            let cost = logEntry.points >= 0 ? "(+\(logEntry.points))" : "(\(logEntry.points))"
             let taskName = logEntry.userGroupTask.task.taskName
             let time = dateToString(logEntry.createdAt!)
-            logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) at \(time)"
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) \(cost) \(taskName) at \(time)"
             logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
             return logCell
 

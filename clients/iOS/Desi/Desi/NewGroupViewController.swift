@@ -161,22 +161,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func createGroup(){
-        self.myNewUserGroup.group = self.newGroup
-        for userGroup in self.newUserGroups {
-            userGroup.group = self.newGroup
-        }
-        self.newGroup.groupName = self.groupNameTextField.text!
-        let block = ({
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                print("new UserGroups saved")
-            }
-            else {
-                print("new UserGroups error")
-            }
-        })
         
-        PFObject.saveAllInBackground(self.newUserGroups, block: block)
     }
 
 
@@ -188,11 +173,26 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "createNewGroup" {
-            print("got here")
-            createGroup()
             let homeView = segue.destinationViewController as! DesiHomeViewController
-            homeView.myUserGroups.append(self.myNewUserGroup)
-            homeView.tableView.reloadData()
+            homeView.refreshControl.beginRefreshing()
+            self.myNewUserGroup.group = self.newGroup
+            for userGroup in self.newUserGroups {
+                userGroup.group = self.newGroup
+            }
+            self.newGroup.groupName = self.groupNameTextField.text!
+            let block = {
+                (success: Bool, error: NSError?) -> Void in
+                guard success else {
+                    print("new UserGroups error")
+                    homeView.refreshControl.endRefreshing()
+                    return
+                }
+                print("new UserGroups created")
+                homeView.myUserGroups.append(self.myNewUserGroup)
+                homeView.refreshControl.endRefreshing()
+                homeView.tableView.reloadData()
+            }
+            PFObject.saveAllInBackground(self.newUserGroups, block: block)
         }
 
     }

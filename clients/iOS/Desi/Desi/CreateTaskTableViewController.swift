@@ -134,29 +134,24 @@ class CreateTaskTableViewController: UITableViewController {
         
         if segue.identifier == "createTaskSegue" {
             let groupView = segue.destinationViewController as! GroupTableViewController
-            func saveTask(){
-                print("swagggg")
-                let block = ({
-                    (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        print("new UserGroupsTask saved")
-                        groupView.filterUserGroupTasksByTask()
-                        
-                    }
-                    else {
-                        print("new UserGroupsTask error")
-                    }
-                })
-                
-                PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
-            }
+            groupView.refreshControl.beginRefreshing()
             self.newUserGroupTasks = buildUserGroupTasks(Set(self.outputUserGroups), task: newTask)
-            saveTask()
-            groupView.userGroupTasks = groupView.userGroupTasks + self.newUserGroupTasks
-            print("about to filter")
-            groupView.filterUserGroupTasks()
-            //groupView.filterUserGroupTasksByTask()
-            groupView.tableView.reloadData()
+            let block = {
+                (success: Bool, error: NSError?) -> Void in
+                guard success else {
+                    print("new UserGroupsTask error")
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                print("new UserGroupsTask saved")
+                groupView.userGroupTasks = groupView.userGroupTasks + self.newUserGroupTasks
+                print("about to filter")
+                groupView.filterUserGroupTasks()
+                groupView.filterUserGroupTasksByTask()
+                groupView.refreshControl.endRefreshing()
+                groupView.tableView.reloadData()
+            }
+            PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
         }
         
         if segue.identifier == "manageTaskMembers" {

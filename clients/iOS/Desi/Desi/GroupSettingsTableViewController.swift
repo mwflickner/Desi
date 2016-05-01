@@ -96,11 +96,45 @@ class GroupSettingsTableViewController: UITableViewController {
     }
     
     @IBAction func leaveGroupPressed(sender: UIButton){
-        sender.enabled = false
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to leave the group?", preferredStyle: .ActionSheet)
+        
+        let cancelHandler = { (action:UIAlertAction!) -> Void in
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHandler)
+        alertController.addAction(cancelAction)
+        
+        let leaveHandler = { (action:UIAlertAction!) -> Void in
+            if self.userGroups.count == 1 {
+                self.performSegueWithIdentifier("deleteGroupSegue", sender: self)
+            }
+            else {
+                self.assignNewAdminIfNeeded()
+                self.performSegueWithIdentifier("leaveGroupSegue", sender: self)
+            }
+        }
+        let leaveAction = UIAlertAction(title: "Leave", style: .Destructive, handler: leaveHandler)
+        alertController.addAction(leaveAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func deleteGroupPressed(sender:UIButton){
-        //sender.enabled = false
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete the group?", preferredStyle: .ActionSheet)
+        
+        let cancelHandler = { (action:UIAlertAction!) -> Void in
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHandler)
+        alertController.addAction(cancelAction)
+        
+        let deleteHandler = { (action:UIAlertAction!) -> Void in
+            self.performSegueWithIdentifier("deleteGroupSegue", sender: self)
+        }
+        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: deleteHandler)
+        alertController.addAction(deleteAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func backToGroupSettings(sender: UIStoryboardSegue){
@@ -164,29 +198,6 @@ class GroupSettingsTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
-    
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier == "deleteGroupSegue" {
-            var shouldPerf: Bool = false
-            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete the group?", preferredStyle: .ActionSheet)
-            
-            let cancelHandler = { (action:UIAlertAction!) -> Void in
-                shouldPerf = false
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHandler)
-            alertController.addAction(cancelAction)
-            
-            let deleteHandler = { (action:UIAlertAction!) -> Void in
-               shouldPerf = true
-            }
-            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: deleteHandler)
-            alertController.addAction(deleteAction)
-            
-            presentViewController(alertController, animated: true, completion: nil)
-            return shouldPerf
-        }
-        return true
-    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -201,13 +212,9 @@ class GroupSettingsTableViewController: UITableViewController {
                 guard error == nil else {
                     return
                 }
-                guard let objects = objects else {
-                    return
-                }
                 guard let userGroups = objects as? [DesiUserGroup] else {
                     return
                 }
-                print(objects.count)
                 for userGroup in userGroups {
                     group.userGroups[userGroup.objectId!] = userGroup
                 }
@@ -226,23 +233,54 @@ class GroupSettingsTableViewController: UITableViewController {
         if segue.identifier == "deleteGroupSegue" {
             print("deleting group")
             let home = segue.destinationViewController as! DesiHomeViewController
-            deleteGroup(self.myUserGroup.group)
-            home.myUserGroups = home.myUserGroups.filter({$0.objectId != myUserGroup.objectId})
-            home.tableView.reloadData()
-        }
+            home.refreshControl.beginRefreshing()
+            let block = {
+                (deleteSuccessful: Bool, error: NSError?) -> Void in
+                guard error == nil else {
+                    print(error)
+                    home.refreshControl.endRefreshing()
+                    return
+                }
+                
+                guard deleteSuccessful else {
+                    print("delete failed")
+                    home.refreshControl.endRefreshing()
+                    return
+                }
+                
+                print("succesfully deleted group")
+                home.myUserGroups = home.myUserGroups.filter({$0.objectId != self.myUserGroup.objectId})
+                home.refreshControl.endRefreshing()
+                home.tableView.reloadData()
+
+            }
+            self.myUserGroup.group.deleteInBackgroundWithBlock(block)
+                    }
         
         if segue.identifier == "leaveGroupSegue" {
             print("leaving group")
             let home = segue.destinationViewController as! DesiHomeViewController
-            if self.userGroups.count == 1 {
-                deleteGroup(self.myUserGroup.group)
+            home.refreshControl.beginRefreshing()
+            let block = {
+                (deleteSuccessful: Bool, error: NSError?) -> Void in
+                guard error == nil else {
+                    print(error)
+                    home.refreshControl.endRefreshing()
+                    return
+                }
+                
+                guard deleteSuccessful else {
+                    print("delete failed")
+                    home.refreshControl.endRefreshing()
+                    return
+                }
+                
+                print("succesfully left group")
+                home.myUserGroups = home.myUserGroups.filter({$0.objectId != self.myUserGroup.objectId})
+                home.refreshControl.endRefreshing()
+                home.tableView.reloadData()
             }
-            else {
-                self.assignNewAdminIfNeeded()
-                leaveGroup(self.myUserGroup)
-            }
-            home.myUserGroups = home.myUserGroups.filter({$0.objectId != myUserGroup.objectId})
-            home.tableView.reloadData()
+            self.myUserGroup.deleteInBackgroundWithBlock(block)
         }
     }
 

@@ -96,7 +96,8 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             let taskName = logEntry.userGroupTask.task.taskName
             let groupName = logEntry.userGroupTask.userGroup.group.groupName
             let date = dateToString(logEntry.createdAt!)
-            logCell.label1.text = "\(firstName) \(lastName) \(verb) for \(taskName) in \(groupName) at \(date)"
+            let cost = logEntry.points >= 0 ? "(+\(logEntry.points))" : "(\(logEntry.points))"
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) \(cost) \(taskName) in \(groupName) at \(date)"
             logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
             return logCell
         }

@@ -101,35 +101,27 @@ class TaskSettingsTableViewController: UITableViewController {
         print(sender.on)
     }
     
+    @IBAction func deleteTaskPressed(sender: UIButton){
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete the task?", preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let deleteHandler = { (action:UIAlertAction!) -> Void in
+            self.performSegueWithIdentifier("deleteTaskSegue", sender: self)
+        }
+        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: deleteHandler)
+        alertController.addAction(deleteAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func backToTaskSettingsView(segue:UIStoryboardSegue){
         
     }
 
     
     // MARK: - Navigation
-    
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier == "deleteTask" {
-            var shouldPerf: Bool = false
-            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete the task?", preferredStyle: .ActionSheet)
-            
-            let cancelHandler = { (action:UIAlertAction!) -> Void in
-                shouldPerf = false
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHandler)
-            alertController.addAction(cancelAction)
-            
-            let deleteHandler = { (action:UIAlertAction!) -> Void in
-                shouldPerf = true
-            }
-            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: deleteHandler)
-            alertController.addAction(deleteAction)
-            
-            presentViewController(alertController, animated: true, completion: nil)
-            return shouldPerf
-        }
-        return true
-    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -190,13 +182,32 @@ class TaskSettingsTableViewController: UITableViewController {
             }
         }
         
-        if segue.identifier == "deleteTask" {
+        if segue.identifier == "deleteTaskSegue" {
             let groupView = segue.destinationViewController as! GroupTableViewController
-            groupView.userGroupTasks = groupView.userGroupTasks.filter({$0.task.objectId != self.task.objectId})
-            groupView.filterUserGroupTasks()
-            groupView.filterUserGroupTasksByTask()
-            self.tableView.reloadData()
-            deleteTask(self.task)
+            groupView.refreshControl.beginRefreshing()
+            let block = {
+                (deleteSuccessful: Bool, error: NSError?) -> Void in
+                guard error == nil else {
+                    print(error)
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                
+                guard deleteSuccessful else {
+                    print("delete failed")
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                
+                print("succesfully deleted task")
+                groupView.userGroupTasks = groupView.userGroupTasks.filter({$0.task.objectId != self.task.objectId})
+                groupView.filterUserGroupTasks()
+                groupView.filterUserGroupTasksByTask()
+                groupView.refreshControl.endRefreshing()
+                groupView.tableView.reloadData()
+            }
+            
+            self.task.deleteInBackgroundWithBlock(block)
         }
     }
  
