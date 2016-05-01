@@ -26,5 +26,6 @@ class DesiTask: PFObject, PFSubclassing {
     @NSManaged var rotationStyle: String
     @NSManaged var numberOfDesis: Int
     @NSManaged var taskDueDate: NSDate
+    @NSManaged var updateCounter: Int
     
 }

@@ -21,6 +21,7 @@ class DesiUserGroupTaskLog: PFObject, PFSubclassing {
     @NSManaged var userGroupTask: DesiUserGroupTask
     @NSManaged var actionMessage: String
     @NSManaged var actionType: String
+    @NSManaged var updateCounter: Int
     
     func actionTypeToVerb() -> String {
         if actionType == "completion" {

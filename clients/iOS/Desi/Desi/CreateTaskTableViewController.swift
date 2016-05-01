@@ -100,6 +100,7 @@ class CreateTaskTableViewController: UITableViewController {
         newTask.taskName = taskName
         newTask.numberOfDesis = numberOfDesis
         newTask.pointValue = pointValue
+        newTask.updateCounter = 0
         print(pointValue)
         newTask.optOutCost = 5*pointValue
         print(newTask.optOutCost)
@@ -111,6 +112,7 @@ class CreateTaskTableViewController: UITableViewController {
         newUserGroupTask.userGroup = userGroup
         newUserGroupTask.task = task
         newUserGroupTask.queueSpot = queueSpot
+        newUserGroupTask.updateCounter = 0
         newUserGroupTask.isDesi = queueSpot < task.numberOfDesis
         return newUserGroupTask
     }

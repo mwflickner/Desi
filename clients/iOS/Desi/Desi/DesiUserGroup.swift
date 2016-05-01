@@ -21,8 +21,8 @@ class DesiUserGroup: PFObject, PFSubclassing {
     
     @NSManaged var user: DesiUser
     @NSManaged var group: DesiGroup
-    
     @NSManaged var isGroupAdmin: Bool
-    @NSManaged var points: Int  
+    @NSManaged var points: Int
+    @NSManaged var updateCounter: Int
     
 }

@@ -66,6 +66,7 @@ func createUserGroup(user: DesiUser, isAdmin: Bool, group: DesiGroup) -> DesiUse
     newUserGroup.user = user
     newUserGroup.isGroupAdmin = isAdmin
     newUserGroup.points = 0
+    newUserGroup.updateCounter = 0
     return newUserGroup
 }
 

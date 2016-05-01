@@ -38,6 +38,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         view.addGestureRecognizer(tap)
         
         self.newGroup.groupName = "Untitled Group"
+        self.newGroup.updateCounter = 0
         self.myNewUserGroup = createUserGroup(DesiUser.currentUser()!, isAdmin: true, group: self.newGroup)
         self.newUserGroups.append(self.myNewUserGroup)
     }
