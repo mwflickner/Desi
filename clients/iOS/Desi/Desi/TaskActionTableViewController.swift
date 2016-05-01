@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class TaskActionTableViewController: UITableViewController, UITextViewDelegate {
     
@@ -31,12 +32,13 @@ class TaskActionTableViewController: UITableViewController, UITextViewDelegate {
         self.taskPointsLabel.text = "\(self.myUgtTask.task.pointValue) points"
         self.messageField.text = ""
         self.completeButton.enabled = false
-        
         if (self.myUgtTask.isDesi){
-            self.completeButton.setTitle("Complete", forState: .Normal)
+            let pointValue = self.myUgtTask.task.pointValue
+            self.completeButton.setTitle("Complete (+\(pointValue))", forState: .Normal)
         }
         else {
-            self.completeButton.setTitle("Volunteer", forState: .Normal)
+            let pointValue = self.myUgtTask.task.pointValue*2
+            self.completeButton.setTitle("Volunteer (+\(pointValue))", forState: .Normal)
         }
     }
 
@@ -114,12 +116,15 @@ class TaskActionTableViewController: UITableViewController, UITextViewDelegate {
     
     @IBAction func optOutSwitchToggled(sender: UISwitch){
         if sender.on {
-            self.completeButton.setTitle("Opt-Out", forState: .Normal)
+            let cost = self.myUgtTask.task.optOutCost
+            self.completeButton.setTitle("Opt-Out (-\(cost))", forState: .Normal)
         }
         else {
-            self.completeButton.setTitle("Complete", forState: .Normal)
+            let pointVal = self.myUgtTask.task.pointValue
+            self.completeButton.setTitle("Complete (+\(pointVal))", forState: .Normal)
         }
     }
+    
 
     
     // MARK: - Navigation
@@ -130,16 +135,30 @@ class TaskActionTableViewController: UITableViewController, UITextViewDelegate {
         // Pass the selected object to the new view controller.
         if segue.identifier == "completeTaskSegue" {
             let taskView = segue.destinationViewController as! TaskViewController
-            if !self.myUgtTask.isDesi {
-                taskView.volunteerCompleteTask(self.messageField.text)
+            let block = {
+                (objects: [PFObject]?, error: NSError?) -> Void in
+                guard error == nil else {
+                    return
+                }
+                guard let userGroupTasks = objects as? [DesiUserGroupTask] else {
+                    return
+                }
+                taskView.taskUserGroupTasks = userGroupTasks
+                taskView.updateTaskData()
+                self.myUgtTask = taskView.myUgTask!
+                print("data queried and updated")
+                if !self.myUgtTask.isDesi {
+                    taskView.volunteerCompleteTask(self.messageField.text)
+                }
+                else if self.optOutSwitch.on {
+                    taskView.optOutOfTask(self.messageField.text)
+                }
+                else {
+                    taskView.completeTask(self.messageField.text)
+                }
+                taskView.tableView.reloadData()
             }
-            else if optOutSwitch.on {
-                taskView.optOutOfTask(self.messageField.text)
-            }
-            else {
-                taskView.completeTask(self.messageField.text)
-            }
-            taskView.tableView.reloadData()
+            getUserGroupTasksForTask(self.myUgtTask.task, block: block)
         }
     }
 

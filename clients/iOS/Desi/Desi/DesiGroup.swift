@@ -24,7 +24,6 @@ class DesiGroup: PFObject, PFSubclassing {
     @NSManaged var groupImg: PFFile
     @NSManaged var isPrivate: Bool
     @NSManaged var groupDescription: String
-    @NSManaged var updateCounter: Int
 
 
 }

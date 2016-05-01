@@ -13,22 +13,13 @@ Parse.Cloud.define('hello', function(req, res) {
 //   console.log(request.object.get("updateCounter"));
 // });
 
-Parse.Cloud.beforeSave("DesiUserGroupTask", function(request, response){
-  request.object.increment("updateCounter");
-  console.log(request.object.get("updateCounter"));
-  if (request.object.get("updateCounter") > 1){
-    response.error("Concurrency Error");
-  }
-  else {
-    response.success();
-  }
-});
+// Parse.Cloud.beforeSave("DesiUserGroupTask", function(request, response){
+  
+// });
 
-Parse.Cloud.afterSave("DesiUserGroupTask", function(request){
-  console.log(request.object.get("updateCounter"));
-  request.object.decrement("updateCounter");
-  console.log(request.object.get("updateCounter"));
-});
+// Parse.Cloud.afterSave("DesiUserGroupTask", function(request){
+  
+// });
 
 
 Parse.Cloud.afterDelete("DesiGroup", function(request) {

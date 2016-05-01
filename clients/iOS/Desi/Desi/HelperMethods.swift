@@ -60,13 +60,21 @@ func getUserGroupsForGroup(group: DesiGroup, block: PFQueryArrayResultBlock){
     userGroupQuery!.findObjectsInBackgroundWithBlock(block)
 }
 
+func getUserGroupTasksForTask(task: DesiTask, block: PFQueryArrayResultBlock){
+    let userGroupTaskQuery = DesiUserGroupTask.query()
+    userGroupTaskQuery?.includeKey("userGroup")
+    userGroupTaskQuery?.includeKey("userGroup.user")
+    userGroupTaskQuery?.includeKey("task")
+    userGroupTaskQuery?.whereKey("task", equalTo: task)
+    userGroupTaskQuery?.findObjectsInBackgroundWithBlock(block)
+}
+
 func createUserGroup(user: DesiUser, isAdmin: Bool, group: DesiGroup) -> DesiUserGroup {
     let newUserGroup: DesiUserGroup = DesiUserGroup()
     newUserGroup.group = group
     newUserGroup.user = user
     newUserGroup.isGroupAdmin = isAdmin
     newUserGroup.points = 0
-    newUserGroup.updateCounter = 0
     return newUserGroup
 }
 

@@ -221,7 +221,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let logEntry = DesiUserGroupTaskLog()
             logEntry.userGroupTask = oldDesi
             logEntry.actionMessage = message
-            logEntry.updateCounter = 0
             logEntry.actionType = "completion"
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
@@ -259,7 +258,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         let logEntry = DesiUserGroupTaskLog()
         logEntry.userGroupTask = self.myUgTask!
         logEntry.actionMessage = message
-        logEntry.updateCounter = 0
         logEntry.actionType = "volunteer"
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
@@ -289,7 +287,6 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let logEntry = DesiUserGroupTaskLog()
             logEntry.userGroupTask = self.myUgTask!
             logEntry.actionMessage = message
-            logEntry.updateCounter = 0
             logEntry.actionType = "opt-out"
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)

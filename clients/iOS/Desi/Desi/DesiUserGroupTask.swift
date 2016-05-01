@@ -22,7 +22,6 @@ class DesiUserGroupTask: PFObject, PFSubclassing {
     @NSManaged var task: DesiTask
     @NSManaged var isDesi: Bool
     @NSManaged var queueSpot: Int
-    @NSManaged var updateCounter: Int
 
    
 }
