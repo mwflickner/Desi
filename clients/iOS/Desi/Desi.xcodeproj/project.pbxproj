@@ -37,7 +37,6 @@
 		F1D9CD871B12F4CD0052F810 /* DesiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD861B12F4CD0052F810 /* DesiTests.swift */; };
 		F1D9CD931B12FB340052F810 /* DesiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD921B12FB340052F810 /* DesiUser.swift */; };
 		F1D9CD951B12FD910052F810 /* DesiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD941B12FD910052F810 /* DesiGroup.swift */; };
-		F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D9CD9A1B1970090052F810 /* SampleData.swift */; };
 		F1EB822A1B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */; };
 		F1EB822C1B6BE29A0028AD55 /* DesiHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */; };
 		F1EB822E1B6C0E440028AD55 /* DesiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */; };
@@ -92,7 +91,6 @@
 		F1D9CD861B12F4CD0052F810 /* DesiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesiTests.swift; sourceTree = "<group>"; };
 		F1D9CD921B12FB340052F810 /* DesiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUser.swift; sourceTree = "<group>"; };
 		F1D9CD941B12FD910052F810 /* DesiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiGroup.swift; sourceTree = "<group>"; };
-		F1D9CD9A1B1970090052F810 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		F1EB82291B6AF2840028AD55 /* GroupMembersToAddTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersToAddTableViewCell.swift; sourceTree = "<group>"; };
 		F1EB822B1B6BE29A0028AD55 /* DesiHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiHomeViewController.swift; sourceTree = "<group>"; };
 		F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTableViewCell.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 				F168679C1B853BC4005D69F3 /* DesiUserGroupTask.swift */,
 				F10D97F11C769C80000040D3 /* DesiUserGroupTaskLog.swift */,
 				F168679E1B8686B1005D69F3 /* DesiTask.swift */,
-				F1D9CD9A1B1970090052F810 /* SampleData.swift */,
 				F1D9CD771B12F4CD0052F810 /* Images.xcassets */,
 				F1D9CD791B12F4CD0052F810 /* LaunchScreen.xib */,
 				F1D9CD6E1B12F4CD0052F810 /* Supporting Files */,
@@ -389,7 +386,6 @@
 				F12928BA1C99279100B7A8B9 /* TaskActionTableViewController.swift in Sources */,
 				F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */,
 				F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */,
-				F1D9CD9B1B1970090052F810 /* SampleData.swift in Sources */,
 				F1EB822E1B6C0E440028AD55 /* DesiTableViewCell.swift in Sources */,
 				F12052071B4B470C004271BF /* RestOfGroupTableViewCell.swift in Sources */,
 				F184A6AA1C9540C20023BEE2 /* MasterViewController.swift in Sources */,

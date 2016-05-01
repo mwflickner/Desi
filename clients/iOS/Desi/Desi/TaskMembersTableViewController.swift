@@ -25,11 +25,20 @@ class TaskMembersTableViewController: UITableViewController {
     }
     
     func updateIsMember(){
+        self.isMember = []
         for ug in self.userGroups {
-            if self.outputUserGroups.contains(ug){
-                self.isMember.append(true)
+            var foundMatch = true
+            for outputUg in self.outputUserGroups {
+                if outputUg.objectId == ug.objectId {
+                    self.isMember.append(true)
+                    foundMatch = true
+                    break
+                }
+                else {
+                    foundMatch = false
+                }
             }
-            else {
+            if !foundMatch {
                 self.isMember.append(false)
             }
         }
@@ -127,7 +136,8 @@ class TaskMembersTableViewController: UITableViewController {
         
         if segue.identifier == "backToTaskSettings" {
             let settingsView = segue.destinationViewController as! TaskSettingsTableViewController
-            settingsView.outputUserGroups = self.outputUserGroups
+            settingsView.userGroupsForTask = self.outputUserGroups
+            settingsView.updateMembersLabel()
         }
     }
 

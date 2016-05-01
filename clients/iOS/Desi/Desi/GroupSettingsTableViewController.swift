@@ -34,6 +34,7 @@ class GroupSettingsTableViewController: UITableViewController {
             self.updateNameButton.enabled = false
         }
         updateMembersLabel()
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,9 +56,9 @@ class GroupSettingsTableViewController: UITableViewController {
             return 1
         }
         if section == 2 {
-            if isAdmin {
-                return 2
-            }
+//            if isAdmin {
+//                return 2
+//            }
             return 1
         }
         return 0
@@ -99,7 +100,7 @@ class GroupSettingsTableViewController: UITableViewController {
     }
     
     @IBAction func deleteGroupPressed(sender:UIButton){
-        sender.enabled = false
+        //sender.enabled = false
     }
     
     @IBAction func backToGroupSettings(sender: UIStoryboardSegue){
@@ -163,11 +164,57 @@ class GroupSettingsTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "deleteGroupSegue" {
+            var shouldPerf: Bool = false
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete the group?", preferredStyle: .ActionSheet)
+            
+            let cancelHandler = { (action:UIAlertAction!) -> Void in
+                shouldPerf = false
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHandler)
+            alertController.addAction(cancelAction)
+            
+            let deleteHandler = { (action:UIAlertAction!) -> Void in
+               shouldPerf = true
+            }
+            let deleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: deleteHandler)
+            alertController.addAction(deleteAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            return shouldPerf
+        }
+        return true
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "backToGroup" {
+            let group = segue.destinationViewController as! GroupTableViewController
+            print("okay then")
+            let block = {
+                (objects: [PFObject]?, error: NSError?) -> Void in
+                guard error == nil else {
+                    return
+                }
+                guard let objects = objects else {
+                    return
+                }
+                guard let userGroups = objects as? [DesiUserGroup] else {
+                    return
+                }
+                print(objects.count)
+                for userGroup in userGroups {
+                    group.userGroups[userGroup.objectId!] = userGroup
+                }
+                group.refreshControl.endRefreshing()
+            }
+            getUserGroupsForGroup(self.myUserGroup.group, block: block)
+        }
         
         if segue.identifier == "showMembers" {
             let nav = segue.destinationViewController as! DesiNaviagtionController

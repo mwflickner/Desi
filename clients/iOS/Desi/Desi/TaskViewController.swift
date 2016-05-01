@@ -441,6 +441,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             settings.task = self.task
             settings.myUgTask = self.myUgTask!
         }
+        
+        if segue.identifier == "backToGroup" {
+            let group = segue.destinationViewController as! GroupTableViewController
+            group.refreshControl.beginRefreshing()
+            group.getUserGroupTasksForGroup()
+        }
     }
 
 

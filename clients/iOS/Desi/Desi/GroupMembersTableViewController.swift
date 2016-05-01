@@ -16,6 +16,7 @@ class GroupMembersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,7 +81,17 @@ class GroupMembersTableViewController: UITableViewController {
         let path = NSIndexPath(forRow: 0, inSection: 0)
         let cell = tableView.cellForRowAtIndexPath(path) as! DesiTableViewCell
         let usernameToAdd = cell.textField.text!
-        print(usernameToAdd)
+        for ug in self.userGroups {
+            if ug.user.username == usernameToAdd {
+                let alertController = UIAlertController(title: nil, message: "User is already in the group!", preferredStyle: .Alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(defaultAction)
+                presentViewController(alertController, animated: true, completion: nil)
+                sender.enabled = true
+                return
+            }
+        }
+        
         let block = {
             (objects: [PFObject]?, error: NSError?) -> Void in
             guard error == nil else {
@@ -111,8 +122,8 @@ class GroupMembersTableViewController: UITableViewController {
             self.tableView.reloadData()
             sender.enabled = true
         }
+        
         findUserByUsername(usernameToAdd, block: block)
-        sender.enabled = true
     }
     
     func alertAdminActions(indexPath: NSIndexPath) {
@@ -131,15 +142,15 @@ class GroupMembersTableViewController: UITableViewController {
         let makeAdminAction = UIAlertAction(title: adminTitle, style: .Default, handler: makeAdminHander)
         alertController.addAction(makeAdminAction)
         
-        let removeUserHandler = { (action:UIAlertAction!) -> Void in
-            let ugToDelete = self.userGroups[indexPath.row]
-            leaveGroup(ugToDelete)
-            self.userGroups.removeAtIndex(indexPath.row)
-            self.tableView.reloadData()
-        }
-        
-        let removeUserAction = UIAlertAction(title: "Remove From Group", style: .Destructive, handler: removeUserHandler)
-        alertController.addAction(removeUserAction)
+//        let removeUserHandler = { (action:UIAlertAction!) -> Void in
+//            let ugToDelete = self.userGroups[indexPath.row]
+//            leaveGroup(ugToDelete)
+//            self.userGroups.removeAtIndex(indexPath.row)
+//            self.tableView.reloadData()
+//        }
+//        
+//        let removeUserAction = UIAlertAction(title: "Remove From Group", style: .Destructive, handler: removeUserHandler)
+//        alertController.addAction(removeUserAction)
         
         presentViewController(alertController, animated: true, completion: nil)
     }
@@ -191,12 +202,8 @@ class GroupMembersTableViewController: UITableViewController {
         if segue.identifier == "backToGroupSettings" {
             print("swaggg")
             let groupSettingsView = segue.destinationViewController as! GroupSettingsTableViewController
-            print(self.userGroups.count)
-            print(groupSettingsView.userGroups.count)
             groupSettingsView.userGroups = self.userGroups
             groupSettingsView.myUserGroup = self.myUserGroup
-            print(self.userGroups.count)
-            print(groupSettingsView.userGroups.count)
             groupSettingsView.updateMembersLabel()
         }
     }

@@ -40,12 +40,7 @@ class TaskSettingsTableViewController: UITableViewController {
         self.pointsLabel.text = String(task.pointValue)
         self.repeatsSwitch.on = task.repeats
         updateMembersLabel()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,8 +73,8 @@ class TaskSettingsTableViewController: UITableViewController {
     
     func updateMembersLabel(){
         self.membersLabel.text = ""
-        for userGroupTask in self.userGroupTasks {
-            self.membersLabel.text = self.membersLabel.text! + userGroupTask.userGroup.user.firstName + " " + userGroupTask.userGroup.user.lastName + ", "
+        for userGroup in self.userGroupsForTask {
+            self.membersLabel.text = self.membersLabel.text! + userGroup.user.firstName + " " + userGroup.user.lastName + ", "
         }
         self.tableView.reloadData()
     }
@@ -110,42 +105,6 @@ class TaskSettingsTableViewController: UITableViewController {
         
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-    
-
     
     // MARK: - Navigation
 
@@ -156,23 +115,24 @@ class TaskSettingsTableViewController: UITableViewController {
         if segue.identifier == "goToTaskMembers" {
             let nav = segue.destinationViewController as! DesiNaviagtionController
             let members = nav.topViewController as! TaskMembersTableViewController
-            members.outputUserGroups = self.outputUserGroups
-//            let block = {
-//                (objects: [PFObject]?, error: NSError?) -> Void in
-//                guard error == nil else {
-//                    return
-//                }
-//                guard let userGroups = objects as? [DesiUserGroup] else {
-//                    return
-//                }
-//                members.userGroups = userGroups
-//                members.updateIsMember()
-//                print("here")
-//                members.tableView.reloadData()
-//                //members.refreshControl!.endRefreshing()
-//            }
-//            getUserGroupsForGroup(self.myUgTask.userGroup.group, block: block)
-            //members.userGroups = self.userGroupsForGroup
+            members.outputUserGroups = self.userGroupsForTask
+            let block = {
+                (objects: [PFObject]?, error: NSError?) -> Void in
+                guard error == nil else {
+                    return
+                }
+                guard let userGroups = objects as? [DesiUserGroup] else {
+                    return
+                }
+                members.userGroups = userGroups
+                members.updateIsMember()
+                print("here")
+                members.tableView.reloadData()
+                //members.refreshControl!.endRefreshing()
+            }
+            if self.userGroupsForGroup.count == 0 {
+                getUserGroupsForGroup(self.myUgTask.userGroup.group, block: block)
+            }
             
             print("swag")
         }

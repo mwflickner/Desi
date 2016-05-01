@@ -116,9 +116,27 @@ class MasterViewController: UITableViewController {
     }
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        func displayLogoutAlert(){
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .ActionSheet)
+            
+            let cancelHander = { (action:UIAlertAction!) -> Void in
+                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHander)
+            alertController.addAction(cancelAction)
+            
+            let logoutHandler = { (action:UIAlertAction!) -> Void in
+                self.logout()
+            }
+            let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: logoutHandler)
+            alertController.addAction(logoutAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        
         if indexPath.section == 4 {
             if indexPath.row == 0 {
-                logout()
+                displayLogoutAlert()
             }
         }
     }

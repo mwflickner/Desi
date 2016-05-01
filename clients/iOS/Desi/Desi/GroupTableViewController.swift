@@ -220,26 +220,24 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
             }
-            else {
-                let block = {
-                    (objects: [PFObject]?, error: NSError?) -> Void in
-                    guard error == nil else {
-                        return
-                    }
-                    guard let objects = objects else {
-                        return
-                    }
-                    guard let userGroups = objects as? [DesiUserGroup] else {
-                        return
-                    }
-                    print(objects.count)
-                    for userGroup in userGroups {
-                        self.userGroups[userGroup.objectId!] = userGroup
-                    }
-                    self.refreshControl.endRefreshing()
+            let block = {
+                (objects: [PFObject]?, error: NSError?) -> Void in
+                guard error == nil else {
+                    return
                 }
-                getUserGroupsForGroup(self.myUserGroup.group, block: block)
+                guard let objects = objects else {
+                    return
+                }
+                guard let userGroups = objects as? [DesiUserGroup] else {
+                    return
+                }
+                print(objects.count)
+                for userGroup in userGroups {
+                    self.userGroups[userGroup.objectId!] = userGroup
+                }
+                self.refreshControl.endRefreshing()
             }
+            getUserGroupsForGroup(self.myUserGroup.group, block: block)
             print(self.userGroups.count)
         }
     }
