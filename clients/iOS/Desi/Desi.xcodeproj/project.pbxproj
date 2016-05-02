@@ -25,6 +25,9 @@
 		F168679F1B8686B1005D69F3 /* DesiTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168679E1B8686B1005D69F3 /* DesiTask.swift */; };
 		F16867A11B86A1BB005D69F3 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */; };
 		F184A6AA1C9540C20023BEE2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F184A6A91C9540C20023BEE2 /* MasterViewController.swift */; };
+		F18D0F3D1CD6D6F2009C1A89 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F18D0F3A1CD6D6F2009C1A89 /* FBSDKCoreKit.framework */; };
+		F18D0F3E1CD6D6F2009C1A89 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F18D0F3B1CD6D6F2009C1A89 /* FBSDKLoginKit.framework */; };
+		F18D0F3F1CD6D6F2009C1A89 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F18D0F3C1CD6D6F2009C1A89 /* FBSDKShareKit.framework */; };
 		F19C0A8A1B33323600B3CD09 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0A891B33323600B3CD09 /* TaskViewController.swift */; };
 		F1A0D27C1C4F128700F746F0 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A0D27B1C4F128700F746F0 /* HelperMethods.swift */; };
 		F1BE52C41CBEFAAE0092B320 /* GroupMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */; };
@@ -75,6 +78,10 @@
 		F168679E1B8686B1005D69F3 /* DesiTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTask.swift; sourceTree = "<group>"; };
 		F16867A01B86A1BB005D69F3 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
 		F184A6A91C9540C20023BEE2 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		F18D0F3A1CD6D6F2009C1A89 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../../../FacebookSDK/FacebookSDKs-iOS-20160412/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		F18D0F3B1CD6D6F2009C1A89 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../../../FacebookSDK/FacebookSDKs-iOS-20160412/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		F18D0F3C1CD6D6F2009C1A89 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../../../FacebookSDK/FacebookSDKs-iOS-20160412/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		F18D0F401CD6DC7F009C1A89 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F19C0A891B33323600B3CD09 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		F1A0D27B1C4F128700F746F0 /* HelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
 		F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersTableViewController.swift; sourceTree = "<group>"; };
@@ -103,7 +110,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F18D0F3F1CD6D6F2009C1A89 /* FBSDKShareKit.framework in Frameworks */,
 				D6CE90AB934FDDB43C6BCE5D /* Pods_Desi.framework in Frameworks */,
+				F18D0F3D1CD6D6F2009C1A89 /* FBSDKCoreKit.framework in Frameworks */,
+				F18D0F3E1CD6D6F2009C1A89 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				F1D9CD701B12F4CD0052F810 /* AppDelegate.swift */,
+				F18D0F401CD6DC7F009C1A89 /* Bridging-Header.h */,
 				F1D9CD741B12F4CD0052F810 /* Main.storyboard */,
 				F11594981CC445E9006E086D /* TaskSettingsTableViewController.swift */,
 				F1BE52C31CBEFAAD0092B320 /* GroupMembersTableViewController.swift */,
@@ -215,6 +226,9 @@
 		F793ABD31092BEA750EAD1D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F18D0F3A1CD6D6F2009C1A89 /* FBSDKCoreKit.framework */,
+				F18D0F3B1CD6D6F2009C1A89 /* FBSDKLoginKit.framework */,
+				F18D0F3C1CD6D6F2009C1A89 /* FBSDKShareKit.framework */,
 				73EC20805812725F31D58F0A /* Pods_Desi.framework */,
 			);
 			name = Frameworks;
@@ -542,6 +556,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.desi-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Desi/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -558,6 +573,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.desi-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Desi/Bridging-Header.h";
 			};
 			name = Release;
 		};

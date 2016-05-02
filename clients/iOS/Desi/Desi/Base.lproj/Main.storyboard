@@ -353,6 +353,7 @@
                         <outlet property="goToCompleteButton" destination="N3b-pk-8jM" id="qUs-EW-JYk"/>
                         <outlet property="segControl" destination="IbN-rq-yoe" id="3ga-hk-FHY"/>
                         <outlet property="tableView" destination="dGr-Df-fRK" id="Vv7-uh-pjW"/>
+                        <segue destination="y8s-yM-MJG" kind="unwind" identifier="deleteOneTimeTaskSegue" unwindAction="cancelToGroupVC:" id="z5C-k1-yTb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4X-hx-AIE" userLabel="First Responder" sceneMemberID="firstResponder"/>

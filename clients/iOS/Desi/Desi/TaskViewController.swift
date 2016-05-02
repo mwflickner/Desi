@@ -226,25 +226,27 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             logEntry.points = taskPoints
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
-            //oldDesi.userGroup.user.desiScore += taskPoints
         }
-        if self.taskUserGroupTasks.count > 1 {
-            self.desiUgTasks = []
-            let range: Range<Int> = 0..<self.task.numberOfDesis
-            self.taskUserGroupTasks.removeRange(range)
-            self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
-            for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
-                ugTask.queueSpot = index
-                if index < self.task.numberOfDesis {
-                    ugTask.isDesi = true
-                    desiUgTasks.append(ugTask)
-                }
-                else {
-                    ugTask.isDesi = false
+        if !self.task.repeats {
+            if self.taskUserGroupTasks.count > 1 {
+                self.desiUgTasks = []
+                let range: Range<Int> = 0..<self.task.numberOfDesis
+                self.taskUserGroupTasks.removeRange(range)
+                self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
+                for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
+                    ugTask.queueSpot = index
+                    if index < self.task.numberOfDesis {
+                        ugTask.isDesi = true
+                        desiUgTasks.append(ugTask)
+                    }
+                    else {
+                        ugTask.isDesi = false
+                    }
                 }
             }
         }
         self.saveTaskState()
+        
     }
     
     func volunteerCompleteTask(message: String){
@@ -377,20 +379,20 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func saveTaskState(){
         print("saving Task state")
-        let block = {
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                print("updated")
-            }
-            else {
-                print("new UserGroupsTask error")
-            }
-        }
         let ugtTasks : [PFObject] = self.taskUserGroupTasks
         let newLogs: [PFObject] = self.newLogEntries
         let taskState: [PFObject] = ugtTasks + newLogs
+        let block = {
+            (success: Bool, error: NSError?) -> Void in
+            guard success else {
+                print("task state save error")
+                return
+            }
+            if !self.task.repeats {
+                self.performSegueWithIdentifier("deleteOneTimeTaskSegue", sender: self)
+            }
+        }
         PFObject.saveAllInBackground(taskState, block: block)
-        
     }
     
     // MARK: - IBActions
@@ -450,6 +452,32 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             let group = segue.destinationViewController as! GroupTableViewController
             group.refreshControl.beginRefreshing()
             group.getUserGroupTasksForGroup()
+        }
+        
+        if segue.identifier == "deleteOneTimeTaskSegue" {
+            let groupView = segue.destinationViewController as! GroupTableViewController
+            let block = {
+                (deleteSuccessful: Bool, error: NSError?) -> Void in
+                guard error == nil else {
+                    print(error)
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                
+                guard deleteSuccessful else {
+                    print("delete failed")
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                
+                print("succesfully deleted task")
+                groupView.userGroupTasks = groupView.userGroupTasks.filter({$0.task.objectId != self.task.objectId})
+                groupView.filterUserGroupTasks()
+                groupView.filterUserGroupTasksByTask()
+                groupView.refreshControl.endRefreshing()
+                groupView.tableView.reloadData()
+            }
+            self.task.deleteInBackgroundWithBlock(block)
         }
     }
 
