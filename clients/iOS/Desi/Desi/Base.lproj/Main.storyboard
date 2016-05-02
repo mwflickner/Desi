@@ -1080,6 +1080,14 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNN-5L-9qO" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="216" y="501" width="168" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="168" id="3e0-Pw-SHM"/>
+                                    <constraint firstAttribute="height" constant="48" id="kXI-EH-Z8q"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.8769818387533489" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1089,6 +1097,8 @@
                             <constraint firstItem="MH8-FX-I3T" firstAttribute="top" secondItem="ckA-w2-0yq" secondAttribute="bottom" constant="20" id="8eY-Ql-GGt"/>
                             <constraint firstAttribute="centerX" secondItem="bM9-ew-m5g" secondAttribute="centerX" id="HYT-3c-oix"/>
                             <constraint firstItem="sAW-yb-j1r" firstAttribute="top" secondItem="MH8-FX-I3T" secondAttribute="bottom" constant="17" id="Ikq-mk-9Jv"/>
+                            <constraint firstItem="zNN-5L-9qO" firstAttribute="top" secondItem="ZZI-KA-P2t" secondAttribute="bottom" constant="8" id="MTa-jt-URa"/>
+                            <constraint firstItem="zNN-5L-9qO" firstAttribute="centerX" secondItem="qFq-5S-Zry" secondAttribute="centerX" id="QDP-wd-e0U"/>
                             <constraint firstAttribute="centerX" secondItem="ZZI-KA-P2t" secondAttribute="centerX" id="ZfK-Tv-S8L"/>
                             <constraint firstItem="MH8-FX-I3T" firstAttribute="centerX" secondItem="qFq-5S-Zry" secondAttribute="centerX" id="dXL-zC-NA5"/>
                             <constraint firstItem="ZZI-KA-P2t" firstAttribute="top" secondItem="rxD-Yn-2Oq" secondAttribute="bottom" constant="8" id="ejG-fk-kta"/>
@@ -1104,6 +1114,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="9qe-yi-0ng" id="Ga7-iN-8ey"/>
+                        <outlet property="fbLoginButton" destination="zNN-5L-9qO" id="Cm4-5a-bDB"/>
                         <outlet property="loginButton" destination="rxD-Yn-2Oq" id="fX0-AF-7RN"/>
                         <outlet property="loginFeedbackLabel" destination="1sp-3t-Gjs" id="Mkk-X3-SvI"/>
                         <outlet property="passwordTextField" destination="bM9-ew-m5g" id="oPs-9e-uh1"/>
@@ -2262,6 +2273,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="szl-bT-u5b"/>
-        <segue reference="Wmb-gF-a0V"/>
+        <segue reference="ri1-sj-4bT"/>
     </inferredMetricsTieBreakers>
 </document>
