@@ -15,7 +15,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var segControl: UISegmentedControl!
     
     var myUserGroups = [DesiUserGroup]()
-    var myLogs = [DesiUserGroupTaskLog]()
+    var myLogs = [DesiUserGroupLog]()
     var refreshControl = UIRefreshControl()
     var hasViewedLog = false
     
@@ -90,14 +90,14 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if indexPath.row == 0 {
             let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
             let logEntry = self.myLogs[indexPath.section]
-            let firstName = logEntry.userGroupTask.userGroup.user.firstName
-            let lastName = logEntry.userGroupTask.userGroup.user.lastName
-            let verb = logEntry.actionTypeToVerb()
-            let taskName = logEntry.userGroupTask.task.taskName
-            let groupName = logEntry.userGroupTask.userGroup.group.groupName
+            let firstName = logEntry.userGroup.user.firstName
+            let lastName = logEntry.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()!
+            let taskName = logEntry.task.taskName
+            let groupName = logEntry.userGroup.group.groupName
             let date = dateToString(logEntry.createdAt!)
             let cost = logEntry.points >= 0 ? "(+\(logEntry.points))" : "(\(logEntry.points))"
-            logCell.label1.text = "\(firstName) \(lastName) \(verb) \(cost) \(taskName) in \(groupName) at \(date)"
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) \(cost) \(taskName) in \(groupName) on \(date)"
             logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
             return logCell
         }
@@ -228,16 +228,12 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("user", equalTo: user)
         
-        let userGroupTaskQuery = DesiUserGroupTask.query()
-        userGroupTaskQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
-        
-        let logQuery = DesiUserGroupTaskLog.query()
-        logQuery?.includeKey("userGroupTask")
-        logQuery?.includeKey("userGroupTask.userGroup")
-        logQuery?.includeKey("userGroupTask.task")
-        logQuery?.includeKey("userGroupTask.userGroup.user")
-        logQuery?.includeKey("userGroupTask.userGroup.group")
-        logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        let logQuery = DesiUserGroupLog.query()
+        logQuery?.includeKey("userGroup")
+        logQuery?.includeKey("task")
+        logQuery?.includeKey("userGroup.user")
+        logQuery?.includeKey("userGroup.group")
+        logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
         logQuery?.addDescendingOrder("createdAt")
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
@@ -245,7 +241,7 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 return
             }
             
-            guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
+            guard let logEntries = objects as? [DesiUserGroupLog] else {
                 return
             }
             

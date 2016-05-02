@@ -13,8 +13,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var userGroup: DesiUserGroup!
     var taskUserGroupTasks = [DesiUserGroupTask]()
-    var taskLog = [DesiUserGroupTaskLog]()
-    var newLogEntries = [DesiUserGroupTaskLog]()
+    var taskLog = [DesiUserGroupLog]()
+    var newLogEntries = [DesiUserGroupLog]()
     
     var myUgTask: DesiUserGroupTask?
     var desiUgTasks = [DesiUserGroupTask]()
@@ -23,7 +23,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var refreshControl = UIRefreshControl()
     
     var hasViewedLog: Bool = false
-    var oldestLoadedLog: DesiUserGroupTaskLog?
+    var oldestLoadedLog: DesiUserGroupLog?
     var loadingMoreLogs: Bool = false
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
@@ -171,9 +171,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         if indexPath.row == 0 {
             let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
             let logEntry = self.taskLog[indexPath.section]
-            let firstName = logEntry.userGroupTask.userGroup.user.firstName
-            let lastName = logEntry.userGroupTask.userGroup.user.lastName
-            let verb = logEntry.actionTypeToVerb()
+            let firstName = logEntry.userGroup.user.firstName
+            let lastName = logEntry.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()!
             let cost = logEntry.points >= 0 ? "+\(logEntry.points)" : "\(logEntry.points)"
             let date = dateToString(logEntry.createdAt!)
             logCell.label1.text = "\(firstName) \(lastName) \(verb) (\(cost)) on \(date)"
@@ -219,11 +219,12 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             print(taskPoints)
             oldDesi.userGroup.points += taskPoints
             print(oldDesi.userGroup.points)
-            let logEntry = DesiUserGroupTaskLog()
-            logEntry.userGroupTask = oldDesi
+            let logEntry = DesiUserGroupLog()
+            logEntry.userGroup = oldDesi.userGroup
             logEntry.actionMessage = message
             logEntry.actionType = "completion"
             logEntry.points = taskPoints
+            logEntry.task = self.task
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
         }
@@ -259,10 +260,11 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             ugTask.queueSpot = index
         }
         self.newLogEntries = []
-        let logEntry = DesiUserGroupTaskLog()
-        logEntry.userGroupTask = self.myUgTask!
+        let logEntry = DesiUserGroupLog()
+        logEntry.userGroup = (self.myUgTask?.userGroup)!
         logEntry.actionMessage = message
         logEntry.actionType = "volunteer"
+        logEntry.task = self.task
         logEntry.points = 2*self.task.pointValue
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
@@ -289,10 +291,11 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
             self.newLogEntries = []
-            let logEntry = DesiUserGroupTaskLog()
-            logEntry.userGroupTask = self.myUgTask!
+            let logEntry = DesiUserGroupLog()
+            logEntry.userGroup = (self.myUgTask?.userGroup)!
             logEntry.actionMessage = message
             logEntry.actionType = "opt-out"
+            logEntry.task = self.task
             logEntry.points = -self.task.optOutCost
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
@@ -333,15 +336,15 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func getTaskLog(){
         let task = self.task
         let shouldLoadOldLogs = self.oldestLoadedLog != nil && self.loadingMoreLogs
-        let userGroupTaskQuery = DesiUserGroupTask.query()
-        userGroupTaskQuery?.whereKey("task", equalTo: task)
+        let userGroupQuery = DesiUserGroup.query()
+        userGroupQuery?.whereKey("group", equalTo: self.userGroup.group)
         
-        let logQuery = DesiUserGroupTaskLog.query()
-        logQuery?.includeKey("userGroupTask")
-        logQuery?.includeKey("userGroupTask.userGroup")
-        logQuery?.includeKey("userGroupTask.task")
-        logQuery?.includeKey("userGroupTask.userGroup.user")
-        logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        let logQuery = DesiUserGroupLog.query()
+        logQuery?.includeKey("userGroup")
+        logQuery?.includeKey("task")
+        logQuery?.includeKey("userGroup.user")
+        logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
+        logQuery?.whereKey("task", equalTo: self.task)
         if shouldLoadOldLogs {
             logQuery?.whereKey("createdAt", lessThan: (self.oldestLoadedLog?.createdAt)!)
         }
@@ -353,7 +356,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return
             }
             
-            guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
+            guard let logEntries = objects as? [DesiUserGroupLog] else {
                 return
             }
             self.oldestLoadedLog = logEntries.last

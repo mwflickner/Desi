@@ -21,11 +21,11 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
     
     var myUserGroupTasks = [Int: DesiUserGroupTask]()
     
-    var groupLog = [DesiUserGroupTaskLog]()
+    var groupLog = [DesiUserGroupLog]()
     var refreshControl = UIRefreshControl()
     var hasViewedLog: Bool = false
     
-    var oldestLoadedLog: DesiUserGroupTaskLog?
+    var oldestLoadedLog: DesiUserGroupLog?
     var loadingMoreLogs: Bool = false
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
@@ -157,16 +157,15 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         if indexPath.row == 0 {
             let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
             let logEntry = self.groupLog[indexPath.section]
-            let firstName = logEntry.userGroupTask.userGroup.user.firstName
-            let lastName = logEntry.userGroupTask.userGroup.user.lastName
-            let verb = logEntry.actionTypeToVerb()
+            let firstName = logEntry.userGroup.user.firstName
+            let lastName = logEntry.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()!
             let cost = logEntry.points >= 0 ? "(+\(logEntry.points))" : "(\(logEntry.points))"
-            let taskName = logEntry.userGroupTask.task.taskName
+            let taskName = logEntry.task.taskName
             let time = dateToString(logEntry.createdAt!)
-            logCell.label1.text = "\(firstName) \(lastName) \(verb) \(cost) \(taskName) at \(time)"
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) \(cost) \(taskName) on \(time)"
             logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
             return logCell
-
         }
         let logMessageCell = tableView.dequeueReusableCellWithIdentifier("LogMessageCell", forIndexPath: indexPath) as! DesiTableViewCell
         let logEntry = self.groupLog[indexPath.section]
@@ -249,15 +248,11 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("group", equalTo: group)
         
-        let userGroupTaskQuery = DesiUserGroupTask.query()
-        userGroupTaskQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
-        
-        let logQuery = DesiUserGroupTaskLog.query()
-        logQuery?.includeKey("userGroupTask")
-        logQuery?.includeKey("userGroupTask.userGroup")
-        logQuery?.includeKey("userGroupTask.task")
-        logQuery?.includeKey("userGroupTask.userGroup.user")
-        logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        let logQuery = DesiUserGroupLog.query()
+        logQuery?.includeKey("userGroup")
+        logQuery?.includeKey("task")
+        logQuery?.includeKey("userGroup.user")
+        logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
         logQuery?.addDescendingOrder("createdAt")
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
@@ -265,7 +260,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
                 return
             }
             
-            guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
+            guard let logEntries = objects as? [DesiUserGroupLog] else {
                 return
             }
             
