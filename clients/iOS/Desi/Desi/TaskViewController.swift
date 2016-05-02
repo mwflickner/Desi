@@ -245,7 +245,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
         }
-        self.saveTaskState()
+        self.saveTaskState(false)
         
     }
     
@@ -266,7 +266,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         logEntry.points = 2*self.task.pointValue
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
-        self.saveTaskState()
+        self.saveTaskState(false)
     }
     
     func optOutOfTask(message: String){
@@ -296,7 +296,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             logEntry.points = -self.task.optOutCost
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
-            self.saveTaskState()
+            self.saveTaskState(true)
         }
         else {
             // exception
@@ -377,7 +377,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Saves
     
-    func saveTaskState(){
+    func saveTaskState(isOptOut: Bool){
         print("saving Task state")
         let ugtTasks : [PFObject] = self.taskUserGroupTasks
         let newLogs: [PFObject] = self.newLogEntries
@@ -388,7 +388,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 print("task state save error")
                 return
             }
-            if !self.task.repeats {
+            if !self.task.repeats && !isOptOut {
                 self.performSegueWithIdentifier("deleteOneTimeTaskSegue", sender: self)
             }
         }
