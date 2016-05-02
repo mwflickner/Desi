@@ -32,4 +32,5 @@ class DesiUserGroupTaskLog: PFObject, PFSubclassing {
         }
         return "opted-out"
     }
+    
 }

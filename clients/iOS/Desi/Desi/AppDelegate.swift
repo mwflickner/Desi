@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DesiUserGroupTask.registerSubclass()
         DesiTask.registerSubclass()
         DesiUserGroupTaskLog.registerSubclass()
+        DesiUserGroupLog.registerSubclass()
         
         let configuration = ParseClientConfiguration {
             $0.applicationId = "z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV"
