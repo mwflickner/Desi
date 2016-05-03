@@ -137,6 +137,31 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         //self.tableView.tableFooterView = nil
     }
     
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if self.segControl.selectedSegmentIndex == 1 {
+//            if self.taskLog[indexPath.section].userGroup.user.objectId == DesiUser.currentUser()?.objectId || self.userGroup.isGroupAdmin {
+//                let alertController = UIAlertController(title: nil, message: "Log Actions:", preferredStyle: .ActionSheet)
+//                
+//                let cancelHander = { (action:UIAlertAction!) -> Void in
+//                    self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//                }
+//                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHander)
+//                alertController.addAction(cancelAction)
+//                
+//                let undoActionHandler = { (action:UIAlertAction!) -> Void in
+//                    print("undoing")
+//                }
+//                let logoutAction = UIAlertAction(title: "Undo Action", style: .Destructive, handler: undoActionHandler)
+//                alertController.addAction(logoutAction)
+//                
+//                presentViewController(alertController, animated: true, completion: nil)
+//            }
+//            else {
+//                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//            }
+//        }
+//    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if segControl.selectedSegmentIndex == 0 {
             if indexPath.section == 0 {
