@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
+import ParseFacebookUtilsV4
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -17,7 +18,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginFeedbackLabel: UILabel!
     
-    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+    @IBOutlet weak var fbLoginButton: UIButton!
     
     var message: String?
 
@@ -26,26 +27,31 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         self.activityIndicator.hidden = true
         self.activityIndicator.hidesWhenStopped = true
         self.loginFeedbackLabel.hidden = true
-        self.fbLoginButton.delegate = self
-        
-        // Support Coming Soon
-        self.fbLoginButton.enabled = false
-        self.fbLoginButton.hidden = true
-        self.fbLoginButton.delegate = self
-        //DesiUser.logOut()
+        if FBSDKAccessToken.currentAccessToken() != nil {
+            if DesiUser.currentUser() == nil {
+                FBSDKAccessToken.setCurrentAccessToken(nil)
+                FBSDKProfile.setCurrentProfile(nil)
+            }
+        }
+
     }
 
     override func viewDidAppear(animated: Bool) {
         self.view.hidden = true
-//        if (FBSDKAccessToken.currentAccessToken() != nil)
-//        {
-//            self.performSegueWithIdentifier("loginSegue", sender: self)
-//        }
-        if DesiUser.currentUser() != nil {
-            self.performSegueWithIdentifier("loginSegue", sender: self)
+        if DesiUser.currentUser() == nil {
+            if FBSDKAccessToken.currentAccessToken() != nil {
+                getFacebookUserDetails()
+            }
+            else {
+                self.view.hidden = false
+            }
         }
         else {
-            self.view.hidden = false
+            guard FBSDKAccessToken.currentAccessToken() != nil else {
+                DesiUser.logOut()
+                return
+            }
+            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
 
@@ -54,44 +60,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("User Logged In")
-        
-        if error != nil {
-            // Process error
-        }
-        
-        if result.isCancelled {
-            // Handle cancellations
-        }
-        else {
-            // If you ask for multiple permissions at once, you
-            // should check if specific permissions missing
-            if result.grantedPermissions.contains("email")
-            {
-                // Do work
-            }
-        }
-    }
-    
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         print("User Logged Out")
-    }
-    
-    func returnUserData() {
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            guard error != nil else {
-                // Process error
-                print("Error: \(error)")
-                return
-            }
-            print("fetched user: \(result)")
-            let userName : NSString = result.valueForKey("name") as! NSString
-            print("User Name is: \(userName)")
-            let userEmail : NSString = result.valueForKey("email") as! NSString
-            print("User Email is: \(userEmail)")
-        })
     }
     
     @IBAction func backToLoginViewController(segue:UIStoryboardSegue) {
@@ -106,13 +76,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         login()
     }
     
+    @IBAction func loginFacebookPressed(sender: UIButton){
+        loginWithFacebook()
+    }
+    
     
     func login(){
         var username = self.usernameTextField.text!
         username = username.lowercaseString
         let userPassword = self.passwordTextField.text
-        
-        PFUser.logInWithUsernameInBackground(username, password:userPassword!) {
+        DesiUser.logInWithUsernameInBackground(username, password:userPassword!) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 dispatch_async(dispatch_get_main_queue()) {
@@ -128,7 +101,59 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         }
     }
-
+    
+    func loginWithFacebook() {
+        let permissions = ["public_profile", "email", "user_friends"]
+        PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions, block: {
+            (user: PFUser?, error: NSError?) -> Void in
+            guard user != nil else {
+                print("no user")
+                return
+            }
+            print(user)
+            self.getFacebookUserDetails()
+        })
+        
+    }
+    
+    func getFacebookUserDetails() {
+        let parameters = ["fields": "id, email, first_name, last_name"]
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: parameters)
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            guard error == nil else {
+                print(error)
+                DesiUser.logOut()
+                return
+            }
+            print("fetched user: \(result)")
+            let userId: String = result.valueForKey("id") as! String
+            let firstName: String = result.valueForKey("first_name") as! String
+            let lastName: String = result.valueForKey("last_name") as! String
+            let email : String = result.valueForKey("email") as! String
+            print(userId)
+            print(firstName)
+            print(lastName)
+            print(email)
+            print("meow")
+            let user = DesiUser.currentUser()!
+            user.firstName = firstName
+            user.lastName = lastName
+            user.email = email
+            user.username = email
+            user.saveInBackgroundWithBlock({
+                (success: Bool, error: NSError?) -> Void in
+                guard success else {
+                    print("user save error")
+                    DesiUser.logOut()
+                    return
+                }
+                print("user saved")
+                //self.performSegueWithIdentifier("loginSegue", sender: self)
+            })
+        })
+    }
+    
+    
 
     // MARK: - Navigation
 
