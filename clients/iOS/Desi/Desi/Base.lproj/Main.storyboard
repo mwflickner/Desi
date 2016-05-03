@@ -6,10 +6,10 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Settings-->
         <scene sceneID="kzA-D4-SE1">
             <objects>
-                <tableViewController id="EnB-LX-1rp" sceneMemberID="viewController">
+                <tableViewController id="EnB-LX-1rp" customClass="UserSettingsViewController" customModule="Desi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="CZU-06-HnA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -65,7 +65,7 @@
                             <outlet property="delegate" destination="EnB-LX-1rp" id="dHn-Q5-Y1n"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="vKo-kf-biv">
+                    <navigationItem key="navigationItem" title="Settings" id="vKo-kf-biv">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="Nsg-50-DPT">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
