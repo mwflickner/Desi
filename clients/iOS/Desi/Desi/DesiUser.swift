@@ -24,17 +24,5 @@ class DesiUser: PFUser {
     @NSManaged var lastName: String
     @NSManaged var userImg: PFFile
     @NSManaged var desiScore: Int
-    //@NSManaged var userGroups: [String]
-    
-    
-    /*init(userName: String, firstName: String, lastName: String, userImg: Int) {
-        self.userName = userName
-        self.firstName = firstName
-        self.lastName = lastName
-        self.userImg = userImg
-        //self.groupsIn = groupsIn
-    }
-    */
-    
     
 }

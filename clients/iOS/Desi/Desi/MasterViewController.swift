@@ -31,6 +31,40 @@ class MasterViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 5
     }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: UIView = UIView()
+        headerView.backgroundColor = UIColor.lightGrayColor()
+        return headerView
+    }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let headerView: UIView = UIView()
+        headerView.backgroundColor = UIColor.lightGrayColor()
+        return headerView
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+            case 0: return 15
+            case 1: return 0
+            case 2: return 0
+            case 3: return 15
+            case 4: return 15
+            default: return 0
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+            case 0: return 0
+            case 1: return 0
+            case 2: return 0
+            case 3: return 0
+            case 4: return 15
+            default: return 0
+        }
+    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -88,9 +122,29 @@ class MasterViewController: UITableViewController {
     }
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        func displayLogoutAlert(){
+            let firstName = DesiUser.currentUser()!.firstName
+            let lastName = DesiUser.currentUser()!.lastName
+            let alertController = UIAlertController(title: nil, message: "Currently logged in as \(firstName) \(lastName)", preferredStyle: .ActionSheet)
+            
+            let cancelHander = { (action:UIAlertAction!) -> Void in
+                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHander)
+            alertController.addAction(cancelAction)
+            
+            let logoutHandler = { (action:UIAlertAction!) -> Void in
+                self.logout()
+            }
+            let logoutAction = UIAlertAction(title: "Logout", style: .Destructive, handler: logoutHandler)
+            alertController.addAction(logoutAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+        
         if indexPath.section == 4 {
             if indexPath.row == 0 {
-                logout()
+                displayLogoutAlert()
             }
         }
     }

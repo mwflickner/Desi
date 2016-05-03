@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import Parse
 import Bolts
+import ParseFacebookUtilsV4
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,20 +22,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         DesiUser.registerSubclass()
         DesiUserGroup.registerSubclass()
         DesiGroup.registerSubclass()
         DesiUserGroupTask.registerSubclass()
         DesiTask.registerSubclass()
-        DesiUserGroupTaskLog.registerSubclass()
+        DesiUserGroupLog.registerSubclass()
         
         let configuration = ParseClientConfiguration {
             $0.applicationId = "z11ABMvoETvaadRXWPPFR7MhuPxwno77TIJXelvV"
             $0.clientKey = "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx"
-            $0.server = "https://localhost:1337/parse"
+            
+            // HTTPS-Production
+//            $0.server = "https://desi-app.com/parse"
+            
+            // HTTP- Local
+            $0.server = "http://localhost:8081/parse"
         }
         Parse.initializeWithConfiguration(configuration)
-        
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
 //        
 //        // [Optional] Power your app with Local Datastore. For more info, go to
 //        // https://parse.com/docs/ios_guide#localdatastore/iOS
@@ -46,9 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        // [Optional] Track statistics around application opens.
 //        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        return true
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -64,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+        FBSDKAppEvents.activateApp()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     

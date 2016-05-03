@@ -8,7 +8,9 @@
 
 import Foundation
 import UIKit
+import Parse
 
+let desiColor = UIColor(netHex:0xF04D4D)
 
 func setErrorColor(textField: UITextField) {
     let errorColor : UIColor = UIColor.redColor()
@@ -37,4 +39,41 @@ func isValidUsername(testStr: String) -> Bool {
     let usernameRegEx = "^[a-z0-9_-]{4,16}$"
     let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
     return usernameTest.evaluateWithObject(testStr)
+}
+
+func dateToString(date: NSDate) -> String {
+    let timestamp = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+    return timestamp
+}
+
+func findUserByUsername(username: String, block: PFQueryArrayResultBlock){
+    let query = DesiUser.query()
+    query!.whereKey("username", equalTo: username)
+    query!.findObjectsInBackgroundWithBlock(block)
+}
+
+func getUserGroupsForGroup(group: DesiGroup, block: PFQueryArrayResultBlock){
+    let userGroupQuery = DesiUserGroup.query()
+    userGroupQuery!.includeKey("user")
+    userGroupQuery!.includeKey("group")
+    userGroupQuery!.whereKey("group", equalTo: group)
+    userGroupQuery!.findObjectsInBackgroundWithBlock(block)
+}
+
+func getUserGroupTasksForTask(task: DesiTask, block: PFQueryArrayResultBlock){
+    let userGroupTaskQuery = DesiUserGroupTask.query()
+    userGroupTaskQuery?.includeKey("userGroup")
+    userGroupTaskQuery?.includeKey("userGroup.user")
+    userGroupTaskQuery?.includeKey("task")
+    userGroupTaskQuery?.whereKey("task", equalTo: task)
+    userGroupTaskQuery?.findObjectsInBackgroundWithBlock(block)
+}
+
+func createUserGroup(user: DesiUser, isAdmin: Bool, group: DesiGroup) -> DesiUserGroup {
+    let newUserGroup: DesiUserGroup = DesiUserGroup()
+    newUserGroup.group = group
+    newUserGroup.user = user
+    newUserGroup.isGroupAdmin = isAdmin
+    newUserGroup.points = 0
+    return newUserGroup
 }

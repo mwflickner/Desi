@@ -38,7 +38,7 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         view.addGestureRecognizer(tap)
         
         self.newGroup.groupName = "Untitled Group"
-        self.myNewUserGroup = createUserGroup(DesiUser.currentUser()!, isAdmin: true)
+        self.myNewUserGroup = createUserGroup(DesiUser.currentUser()!, isAdmin: true, group: self.newGroup)
         self.newUserGroups.append(self.myNewUserGroup)
     }
 
@@ -126,15 +126,12 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         self.createButton.enabled = false
     }
 
-    
     @IBAction func addUserToGroup(sender: UIButton){
         print("add pressed")
         sender.enabled = false
         if !userInGroupAlready(){
             let usernameToAdd = self.memberToAddTextField.text!
-            let query = DesiUser.query()
-            query!.whereKey("username", equalTo: usernameToAdd)
-            query!.findObjectsInBackgroundWithBlock {
+            let block = {
                 (objects: [PFObject]?, error: NSError?) -> Void in
                 guard error == nil else {
                     // Log details of the failure
@@ -154,40 +151,17 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
                     return
                 }
                 let newUser: DesiUser = users[0]
-                self.newUserGroups.append(self.createUserGroup(newUser, isAdmin: false))
+                self.newUserGroups.append(createUserGroup(newUser, isAdmin: false, group: self.newGroup))
                 self.tableView.reloadData()
                 sender.enabled = true
             }
+            findUserByUsername(usernameToAdd, block: block)
         }
         sender.enabled = true
     }
     
-    func createUserGroup(user: DesiUser, isAdmin: Bool) -> DesiUserGroup {
-        let newUserGroup: DesiUserGroup = DesiUserGroup()
-        newUserGroup.group = self.newGroup
-        newUserGroup.user = user
-        newUserGroup.isGroupAdmin = isAdmin
-        newUserGroup.points = 0
-        return newUserGroup
-    }
-    
     func createGroup(){
-        self.myNewUserGroup.group = self.newGroup
-        for userGroup in self.newUserGroups {
-            userGroup.group = self.newGroup
-        }
-        self.newGroup.groupName = self.groupNameTextField.text!
-        let block = ({
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                print("new UserGroups saved")
-            }
-            else {
-                print("new UserGroups error")
-            }
-        })
         
-        PFObject.saveAllInBackground(self.newUserGroups, block: block)
     }
 
 
@@ -199,11 +173,26 @@ class NewGroupViewController: UIViewController, UITableViewDelegate, UITableView
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "createNewGroup" {
-            print("got here")
-            createGroup()
             let homeView = segue.destinationViewController as! DesiHomeViewController
-            homeView.myUserGroups.append(self.myNewUserGroup)
-            homeView.tableView.reloadData()
+            homeView.refreshControl.beginRefreshing()
+            self.myNewUserGroup.group = self.newGroup
+            for userGroup in self.newUserGroups {
+                userGroup.group = self.newGroup
+            }
+            self.newGroup.groupName = self.groupNameTextField.text!
+            let block = {
+                (success: Bool, error: NSError?) -> Void in
+                guard success else {
+                    print("new UserGroups error")
+                    homeView.refreshControl.endRefreshing()
+                    return
+                }
+                print("new UserGroups created")
+                homeView.myUserGroups.append(self.myNewUserGroup)
+                homeView.refreshControl.endRefreshing()
+                homeView.tableView.reloadData()
+            }
+            PFObject.saveAllInBackground(self.newUserGroups, block: block)
         }
 
     }

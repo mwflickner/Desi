@@ -29,12 +29,11 @@ class CreateTaskTableViewController: UITableViewController {
         self.outputUserGroups = self.userGroups
         self.membersLabel.text = ""
         updateMembersLabel()
-        self.newTask.taskName = defaultTaskName
-        let pointVal = Int(self.pointValueSlider.value)
-        self.newTask.pointValue = pointVal
-        self.pointsLabel.text = String(pointVal)
+        let numberOfDesis = 1
+        let pointValue = Int(self.pointValueSlider.value)
+        self.newTask = createNewTask(defaultTaskName, numberOfDesis: numberOfDesis, pointValue: pointValue)
+        self.pointsLabel.text = String(pointValue)
         self.newTask.repeats = self.repeatsSwitch.on
-        self.newTask.numberOfDesis = 1
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,7 +100,9 @@ class CreateTaskTableViewController: UITableViewController {
         newTask.taskName = taskName
         newTask.numberOfDesis = numberOfDesis
         newTask.pointValue = pointValue
+        print(pointValue)
         newTask.optOutCost = 5*pointValue
+        print(newTask.optOutCost)
         return newTask
     }
     
@@ -133,29 +134,24 @@ class CreateTaskTableViewController: UITableViewController {
         
         if segue.identifier == "createTaskSegue" {
             let groupView = segue.destinationViewController as! GroupTableViewController
-            func saveTask(){
-                print("swagggg")
-                let block = ({
-                    (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        print("new UserGroupsTask saved")
-                        groupView.filterUserGroupTasksByTask()
-                        
-                    }
-                    else {
-                        print("new UserGroupsTask error")
-                    }
-                })
-                
-                PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
-            }
+            groupView.refreshControl.beginRefreshing()
             self.newUserGroupTasks = buildUserGroupTasks(Set(self.outputUserGroups), task: newTask)
-            saveTask()
-            groupView.userGroupTasks = groupView.userGroupTasks + self.newUserGroupTasks
-            print("about to filter")
-            groupView.filterUserGroupTasks()
-            //groupView.filterUserGroupTasksByTask()
-            groupView.tableView.reloadData()
+            let block = {
+                (success: Bool, error: NSError?) -> Void in
+                guard success else {
+                    print("new UserGroupsTask error")
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                print("new UserGroupsTask saved")
+                groupView.userGroupTasks = groupView.userGroupTasks + self.newUserGroupTasks
+                print("about to filter")
+                groupView.filterUserGroupTasks()
+                groupView.filterUserGroupTasksByTask()
+                groupView.refreshControl.endRefreshing()
+                groupView.tableView.reloadData()
+            }
+            PFObject.saveAllInBackground(self.newUserGroupTasks, block: block)
         }
         
         if segue.identifier == "manageTaskMembers" {

@@ -13,8 +13,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var userGroup: DesiUserGroup!
     var taskUserGroupTasks = [DesiUserGroupTask]()
-    var taskLog = [DesiUserGroupTaskLog]()
-    var newLogEntries = [DesiUserGroupTaskLog]()
+    var taskLog = [DesiUserGroupLog]()
+    var newLogEntries = [DesiUserGroupLog]()
     
     var myUgTask: DesiUserGroupTask?
     var desiUgTasks = [DesiUserGroupTask]()
@@ -23,7 +23,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     var refreshControl = UIRefreshControl()
     
     var hasViewedLog: Bool = false
-    var oldestLoadedLog: DesiUserGroupTaskLog?
+    var oldestLoadedLog: DesiUserGroupLog?
     var loadingMoreLogs: Bool = false
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
@@ -40,10 +40,17 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.addSubview(self.refreshControl)
         self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForTask), forControlEvents: .ValueChanged)
         self.refreshControl.beginRefreshing()
-        //tableView.rowHeight = UITableViewAutomaticDimension
-        //tableView.estimatedRowHeight = 120.0
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         self.navigationItem.title = task.taskName
         self.updateTaskData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,9 +64,21 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         switch self.segControl.selectedSegmentIndex {
             case 0:  return 3
-            case 1:  return 1
+            case 1:  return self.taskLog.count
             default:  return 0
         }
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.segControl.selectedSegmentIndex == 0 {
+            if section == 0 {
+                return "The Desi:"
+            }
+            if section == 1 {
+                return "On Deck:"
+            }
+        }
+        return nil
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,6 +87,9 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return self.task.numberOfDesis
             }
             if section == 1 {
+                if self.taskUserGroupTasks.count < 2*self.task.numberOfDesis {
+                    return self.taskUserGroupTasks.count - self.task.numberOfDesis
+                }
                 return self.task.numberOfDesis
             }
             let x = self.taskUserGroupTasks.count - 2*self.task.numberOfDesis
@@ -76,7 +98,16 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             return 0
         }
-        return self.taskLog.count
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if segControl.selectedSegmentIndex == 1 {
+            if section < self.taskLog.count {
+                return 10
+            }
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -88,7 +119,10 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return 60
             }
         }
-        return 120
+        if indexPath.row == 0 {
+            return 60
+        }
+        return 80
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -102,6 +136,31 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         //self.tableView.tableFooterView = nil
     }
+    
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if self.segControl.selectedSegmentIndex == 1 {
+//            if self.taskLog[indexPath.section].userGroup.user.objectId == DesiUser.currentUser()?.objectId || self.userGroup.isGroupAdmin {
+//                let alertController = UIAlertController(title: nil, message: "Log Actions:", preferredStyle: .ActionSheet)
+//                
+//                let cancelHander = { (action:UIAlertAction!) -> Void in
+//                    self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//                }
+//                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelHander)
+//                alertController.addAction(cancelAction)
+//                
+//                let undoActionHandler = { (action:UIAlertAction!) -> Void in
+//                    print("undoing")
+//                }
+//                let logoutAction = UIAlertAction(title: "Undo Action", style: .Destructive, handler: undoActionHandler)
+//                alertController.addAction(logoutAction)
+//                
+//                presentViewController(alertController, animated: true, completion: nil)
+//            }
+//            else {
+//                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//            }
+//        }
+//    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if segControl.selectedSegmentIndex == 0 {
@@ -134,24 +193,33 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             restCell.label2.text = String(points)
             return restCell
         }
-        let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
-        let logEntry = self.taskLog[indexPath.row]
-        let firstName = logEntry.userGroupTask.userGroup.user.firstName
-        let lastName = logEntry.userGroupTask.userGroup.user.lastName
-        let verb = logEntry.actionTypeToVerb()
-        
-        logCell.label1.text = "\(firstName) \(lastName) \(verb) at \(logEntry.createdAt!)"
-        logCell.label2.text = logEntry.actionMessage
-        return logCell
+        if indexPath.row == 0 {
+            let logCell = tableView.dequeueReusableCellWithIdentifier("LogCell", forIndexPath: indexPath) as! DesiTableViewCell
+            let logEntry = self.taskLog[indexPath.section]
+            let firstName = logEntry.userGroup.user.firstName
+            let lastName = logEntry.userGroup.user.lastName
+            let verb = logEntry.actionTypeToVerb()!
+            let cost = logEntry.points >= 0 ? "+\(logEntry.points)" : "\(logEntry.points)"
+            let date = dateToString(logEntry.createdAt!)
+            logCell.label1.text = "\(firstName) \(lastName) \(verb) (\(cost)) on \(date)"
+            logCell.separatorInset = UIEdgeInsetsMake(0.1, logCell.bounds.size.width, 0.1, 0.1)
+            return logCell
+
+        }
+        let logMessageCell = tableView.dequeueReusableCellWithIdentifier("LogMessageCell", forIndexPath: indexPath) as! DesiTableViewCell
+        let logEntry = self.taskLog[indexPath.section]
+        logMessageCell.label2.text = logEntry.actionMessage
+        return logMessageCell
     }
     
     func updateTaskData(){
         self.taskUserGroupTasks.sortInPlace({ $0.queueSpot < $1.queueSpot })
+        self.desiUgTasks = []
         for ugTask in taskUserGroupTasks {
             if ugTask.isDesi {
                 desiUgTasks.append(ugTask)
             }
-            if ugTask.userGroup.user == DesiUser.currentUser() {
+            if ugTask.userGroup.user.objectId == DesiUser.currentUser()?.objectId {
                 self.myUgTask = ugTask
             }
         }
@@ -173,30 +241,38 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.newLogEntries = []
         for oldDesi in oldDesiUGTasks {
             let taskPoints = self.task.pointValue
+            print(taskPoints)
             oldDesi.userGroup.points += taskPoints
-            let logEntry = DesiUserGroupTaskLog()
-            logEntry.userGroupTask = oldDesi
+            print(oldDesi.userGroup.points)
+            let logEntry = DesiUserGroupLog()
+            logEntry.userGroup = oldDesi.userGroup
             logEntry.actionMessage = message
             logEntry.actionType = "completion"
+            logEntry.points = taskPoints
+            logEntry.task = self.task
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
-            //oldDesi.userGroup.user.desiScore += taskPoints
         }
-        self.desiUgTasks = []
-        let range: Range<Int> = 0..<self.task.numberOfDesis
-        self.taskUserGroupTasks.removeRange(range)
-        self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
-        for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
-            ugTask.queueSpot = index
-            if index < self.task.numberOfDesis {
-                ugTask.isDesi = true
-                desiUgTasks.append(ugTask)
-            }
-            else {
-                ugTask.isDesi = false
+        if !self.task.repeats {
+            if self.taskUserGroupTasks.count > 1 {
+                self.desiUgTasks = []
+                let range: Range<Int> = 0..<self.task.numberOfDesis
+                self.taskUserGroupTasks.removeRange(range)
+                self.taskUserGroupTasks = self.taskUserGroupTasks + oldDesiUGTasks
+                for (index,ugTask) in self.taskUserGroupTasks.enumerate() {
+                    ugTask.queueSpot = index
+                    if index < self.task.numberOfDesis {
+                        ugTask.isDesi = true
+                        desiUgTasks.append(ugTask)
+                    }
+                    else {
+                        ugTask.isDesi = false
+                    }
+                }
             }
         }
-        self.saveTaskState()
+        self.saveTaskState(false)
+        
     }
     
     func volunteerCompleteTask(message: String){
@@ -209,13 +285,15 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             ugTask.queueSpot = index
         }
         self.newLogEntries = []
-        let logEntry = DesiUserGroupTaskLog()
-        logEntry.userGroupTask = self.myUgTask!
+        let logEntry = DesiUserGroupLog()
+        logEntry.userGroup = (self.myUgTask?.userGroup)!
         logEntry.actionMessage = message
         logEntry.actionType = "volunteer"
+        logEntry.task = self.task
+        logEntry.points = 2*self.task.pointValue
         self.taskLog.append(logEntry)
         self.newLogEntries.append(logEntry)
-        self.saveTaskState()
+        self.saveTaskState(false)
     }
     
     func optOutOfTask(message: String){
@@ -223,6 +301,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let myUgTask = self.myUgTask {
             myUgTask.isDesi = false
             myUgTask.userGroup.points -= self.task.optOutCost
+            print(self.task.optOutCost)
+            print(myUgTask.userGroup.points)
             self.taskUserGroupTasks = self.taskUserGroupTasks.filter({$0.objectId != myUgTask.objectId})
             myUgTask.queueSpot = self.taskUserGroupTasks.count
             self.taskUserGroupTasks.append(myUgTask)
@@ -236,13 +316,15 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
             self.newLogEntries = []
-            let logEntry = DesiUserGroupTaskLog()
-            logEntry.userGroupTask = self.myUgTask!
+            let logEntry = DesiUserGroupLog()
+            logEntry.userGroup = (self.myUgTask?.userGroup)!
             logEntry.actionMessage = message
             logEntry.actionType = "opt-out"
+            logEntry.task = self.task
+            logEntry.points = -self.task.optOutCost
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
-            self.saveTaskState()
+            self.saveTaskState(true)
         }
         else {
             // exception
@@ -268,8 +350,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return
             }
             for ugtTask in userGroupTasks {
-                print("Task ID: \(ugtTask.task.objectId)")
-                print("UGT TaskID: \(ugtTask.objectId)")
+                print("UGT userName: \(ugtTask.userGroup.user.username)")
             }
             self.taskUserGroupTasks = userGroupTasks
             self.refreshControl.endRefreshing()
@@ -280,15 +361,15 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     func getTaskLog(){
         let task = self.task
         let shouldLoadOldLogs = self.oldestLoadedLog != nil && self.loadingMoreLogs
-        let userGroupTaskQuery = DesiUserGroupTask.query()
-        userGroupTaskQuery?.whereKey("task", equalTo: task)
+        let userGroupQuery = DesiUserGroup.query()
+        userGroupQuery?.whereKey("group", equalTo: self.userGroup.group)
         
-        let logQuery = DesiUserGroupTaskLog.query()
-        logQuery?.includeKey("userGroupTask")
-        logQuery?.includeKey("userGroupTask.userGroup")
-        logQuery?.includeKey("userGroupTask.task")
-        logQuery?.includeKey("userGroupTask.userGroup.user")
-        logQuery?.whereKey("userGroupTask", matchesQuery: userGroupTaskQuery!)
+        let logQuery = DesiUserGroupLog.query()
+        logQuery?.includeKey("userGroup")
+        logQuery?.includeKey("task")
+        logQuery?.includeKey("userGroup.user")
+        logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
+        logQuery?.whereKey("task", equalTo: self.task)
         if shouldLoadOldLogs {
             logQuery?.whereKey("createdAt", lessThan: (self.oldestLoadedLog?.createdAt)!)
         }
@@ -300,7 +381,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return
             }
             
-            guard let logEntries = objects as? [DesiUserGroupTaskLog] else {
+            guard let logEntries = objects as? [DesiUserGroupLog] else {
                 return
             }
             self.oldestLoadedLog = logEntries.last
@@ -324,22 +405,22 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Saves
     
-    func saveTaskState(){
+    func saveTaskState(isOptOut: Bool){
         print("saving Task state")
-        let block = ({
-            (success: Bool, error: NSError?) -> Void in
-            if success {
-                print("updated")
-            }
-            else {
-                print("new UserGroupsTask error")
-            }
-        })
         let ugtTasks : [PFObject] = self.taskUserGroupTasks
         let newLogs: [PFObject] = self.newLogEntries
         let taskState: [PFObject] = ugtTasks + newLogs
+        let block = {
+            (success: Bool, error: NSError?) -> Void in
+            guard success else {
+                print("task state save error")
+                return
+            }
+            if !self.task.repeats && !isOptOut {
+                self.performSegueWithIdentifier("deleteOneTimeTaskSegue", sender: self)
+            }
+        }
         PFObject.saveAllInBackground(taskState, block: block)
-        
     }
     
     // MARK: - IBActions
@@ -380,6 +461,51 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let myUgTask = self.myUgTask {
                 completion.myUgtTask = myUgTask
             }
+        }
+        
+        if segue.identifier == "goToTaskSettings" {
+            let nav = segue.destinationViewController as! DesiNaviagtionController
+            let settings = nav.topViewController as! TaskSettingsTableViewController
+            settings.userGroupTasks = self.taskUserGroupTasks
+            var userGroupsForTask = [DesiUserGroup]()
+            for ugt in self.taskUserGroupTasks {
+                userGroupsForTask.append(ugt.userGroup)
+            }
+            settings.userGroupsForTask = userGroupsForTask
+            settings.task = self.task
+            settings.myUgTask = self.myUgTask!
+        }
+        
+        if segue.identifier == "backToGroup" {
+            let group = segue.destinationViewController as! GroupTableViewController
+            group.refreshControl.beginRefreshing()
+            group.getUserGroupTasksForGroup()
+        }
+        
+        if segue.identifier == "deleteOneTimeTaskSegue" {
+            let groupView = segue.destinationViewController as! GroupTableViewController
+            let block = {
+                (deleteSuccessful: Bool, error: NSError?) -> Void in
+                guard error == nil else {
+                    print(error)
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                
+                guard deleteSuccessful else {
+                    print("delete failed")
+                    groupView.refreshControl.endRefreshing()
+                    return
+                }
+                
+                print("succesfully deleted task")
+                groupView.userGroupTasks = groupView.userGroupTasks.filter({$0.task.objectId != self.task.objectId})
+                groupView.filterUserGroupTasks()
+                groupView.filterUserGroupTasksByTask()
+                groupView.refreshControl.endRefreshing()
+                groupView.tableView.reloadData()
+            }
+            self.task.deleteInBackgroundWithBlock(block)
         }
     }
 
