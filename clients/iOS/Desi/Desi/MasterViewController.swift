@@ -117,7 +117,9 @@ class MasterViewController: UITableViewController {
     */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         func displayLogoutAlert(){
-            let alertController = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .ActionSheet)
+            let firstName = DesiUser.currentUser()!.firstName
+            let lastName = DesiUser.currentUser()!.lastName
+            let alertController = UIAlertController(title: nil, message: "Currently logged in as \(firstName) \(lastName)", preferredStyle: .ActionSheet)
             
             let cancelHander = { (action:UIAlertAction!) -> Void in
                 self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
