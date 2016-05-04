@@ -253,7 +253,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.taskLog.append(logEntry)
             self.newLogEntries.append(logEntry)
         }
-        if !self.task.repeats {
+        if self.task.repeats {
             if self.taskUserGroupTasks.count > 1 {
                 self.desiUgTasks = []
                 let range: Range<Int> = 0..<self.task.numberOfDesis

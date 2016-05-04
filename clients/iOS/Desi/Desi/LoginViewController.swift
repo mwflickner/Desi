@@ -47,10 +47,6 @@ class LoginViewController: UIViewController {
             }
         }
         else {
-            guard FBSDKAccessToken.currentAccessToken() != nil else {
-                DesiUser.logOut()
-                return
-            }
             self.performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
