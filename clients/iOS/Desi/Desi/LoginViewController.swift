@@ -33,6 +33,8 @@ class LoginViewController: UIViewController {
                 FBSDKProfile.setCurrentProfile(nil)
             }
         }
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
 
     }
 
@@ -54,6 +56,10 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {

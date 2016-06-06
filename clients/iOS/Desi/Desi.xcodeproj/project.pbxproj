@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D6CE90AB934FDDB43C6BCE5D /* Pods_Desi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EC20805812725F31D58F0A /* Pods_Desi.framework */; };
+		3ED6886CCCDC3DA87027DB7E /* Pods_Desi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D15B324D754D1AAD3D9FD04 /* Pods_Desi.framework */; };
 		F10D97EC1C7436F4000040D3 /* CreateTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */; };
 		F11594991CC445E9006E086D /* TaskSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11594981CC445E9006E086D /* TaskSettingsTableViewController.swift */; };
 		F11DBC131B5ABD4900B21A2C /* DesiUserGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */; };
@@ -55,9 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0BA553C17A6B03C19A737C2E /* Pods-Desi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Desi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Desi/Pods-Desi.release.xcconfig"; sourceTree = "<group>"; };
-		6A83B0FC712976BEA34275CC /* Pods-Desi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Desi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Desi/Pods-Desi.debug.xcconfig"; sourceTree = "<group>"; };
-		73EC20805812725F31D58F0A /* Pods_Desi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Desi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D15B324D754D1AAD3D9FD04 /* Pods_Desi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Desi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF03E479482D5E4C9B7D744 /* Pods-Desi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Desi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Desi/Pods-Desi.release.xcconfig"; sourceTree = "<group>"; };
 		F10D97EB1C7436F4000040D3 /* CreateTaskTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTaskTableViewController.swift; sourceTree = "<group>"; };
 		F11594981CC445E9006E086D /* TaskSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSettingsTableViewController.swift; sourceTree = "<group>"; };
 		F11DBC121B5ABD4900B21A2C /* DesiUserGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiUserGroup.swift; sourceTree = "<group>"; };
@@ -96,6 +95,7 @@
 		F1EB822D1B6C0E440028AD55 /* DesiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiTableViewCell.swift; sourceTree = "<group>"; };
 		F1F73EF41B6E9247003F88C2 /* DesiNaviagtionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesiNaviagtionController.swift; sourceTree = "<group>"; };
 		F1FC69311C7D44A600C3B7CA /* TaskMembersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskMembersTableViewController.swift; sourceTree = "<group>"; };
+		F53BDF5D81C50891A33C7591 /* Pods-Desi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Desi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Desi/Pods-Desi.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6CE90AB934FDDB43C6BCE5D /* Pods_Desi.framework in Frameworks */,
+				3ED6886CCCDC3DA87027DB7E /* Pods_Desi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,11 +117,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6AE8DB8C0C820650FA4B8EA0 /* Pods */ = {
+		BB04AC797E149F97CF47BCFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6A83B0FC712976BEA34275CC /* Pods-Desi.debug.xcconfig */,
-				0BA553C17A6B03C19A737C2E /* Pods-Desi.release.xcconfig */,
+				2D15B324D754D1AAD3D9FD04 /* Pods_Desi.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECD3F8E82E4EDA20041A50A3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F53BDF5D81C50891A33C7591 /* Pods-Desi.debug.xcconfig */,
+				DBF03E479482D5E4C9B7D744 /* Pods-Desi.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -132,8 +140,8 @@
 				F1D9CD6D1B12F4CD0052F810 /* Desi */,
 				F1D9CD831B12F4CD0052F810 /* DesiTests */,
 				F1D9CD6C1B12F4CD0052F810 /* Products */,
-				6AE8DB8C0C820650FA4B8EA0 /* Pods */,
-				F793ABD31092BEA750EAD1D5 /* Frameworks */,
+				ECD3F8E82E4EDA20041A50A3 /* Pods */,
+				BB04AC797E149F97CF47BCFB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -210,14 +218,6 @@
 				F1D9CD851B12F4CD0052F810 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F793ABD31092BEA750EAD1D5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				73EC20805812725F31D58F0A /* Pods_Desi.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,7 +531,7 @@
 		};
 		F1D9CD8B1B12F4CD0052F810 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A83B0FC712976BEA34275CC /* Pods-Desi.debug.xcconfig */;
+			baseConfigurationReference = F53BDF5D81C50891A33C7591 /* Pods-Desi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -542,7 +542,6 @@
 				);
 				INFOPLIST_FILE = Desi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.desi-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -552,7 +551,7 @@
 		};
 		F1D9CD8C1B12F4CD0052F810 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BA553C17A6B03C19A737C2E /* Pods-Desi.release.xcconfig */;
+			baseConfigurationReference = DBF03E479482D5E4C9B7D744 /* Pods-Desi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -563,7 +562,6 @@
 				);
 				INFOPLIST_FILE = Desi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.desi-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
