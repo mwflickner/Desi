@@ -28,6 +28,7 @@ class CreateTaskTableViewController: UITableViewController {
         super.viewDidLoad()
         self.outputUserGroups = self.userGroups
         self.membersLabel.text = ""
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
         updateMembersLabel()
         let numberOfDesis = 1
         let pointValue = Int(self.pointValueSlider.value)

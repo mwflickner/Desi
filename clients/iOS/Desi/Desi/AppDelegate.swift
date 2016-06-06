@@ -36,10 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.clientKey = "f4glsdzgHRnAidmKfpI3VUzNVNbrXGb2buO5bhJx"
             
             // HTTPS-Production
-//            $0.server = "https://desi-app.com/parse"
+            $0.server = "https://desi-app.com/parse"
             
             // HTTP- Local
-            $0.server = "http://localhost:8081/parse"
+//            $0.server = "http://localhost:8081/parse"
         }
         Parse.initializeWithConfiguration(configuration)
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
