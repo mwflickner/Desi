@@ -41,7 +41,8 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationItem.title = self.myUserGroup.group.groupName
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.refreshControl = UIRefreshControl()
+        self.activityIndicator.hidesWhenStopped = true
+        self.tableView.tableFooterView = self.activityIndicator
         self.tableView.addSubview(refreshControl)
         self.refreshControl.addTarget(self, action: #selector(getUserGroupTasksForGroup), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl.beginRefreshing()
@@ -123,6 +124,17 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         return 80
     }
 
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if self.segControl.selectedSegmentIndex == 1 {
+            if !loadingMoreLogs && indexPath.section == self.groupLog.count - 1 && self.groupLog.count >= 10 && self.tableView.tableFooterView != nil {
+                print(self.loadingMoreLogs)
+                self.activityIndicator.startAnimating()
+                self.loadingMoreLogs = true
+                self.getTaskLogForGroup()
+            }
+        }
+        //self.tableView.tableFooterView = nil
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.segControl.selectedSegmentIndex == 0 {
@@ -244,7 +256,7 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func getTaskLogForGroup(){
         let group = self.myUserGroup.group
-        
+        let shouldLoadOldLogs = self.oldestLoadedLog != nil && self.loadingMoreLogs
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("group", equalTo: group)
         
@@ -253,7 +265,11 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
         logQuery?.includeKey("task")
         logQuery?.includeKey("userGroup.user")
         logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
+        if shouldLoadOldLogs {
+            logQuery?.whereKey("createdAt", lessThan: (self.oldestLoadedLog?.createdAt)!)
+        }
         logQuery?.addDescendingOrder("createdAt")
+        logQuery?.limit = 10
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             guard error == nil else {
@@ -263,13 +279,21 @@ class GroupTableViewController: UIViewController, UITableViewDataSource, UITable
             guard let logEntries = objects as? [DesiUserGroupLog] else {
                 return
             }
-            
-            self.groupLog = logEntries
-            self.refreshControl.endRefreshing()
-            if self.segControl.selectedSegmentIndex == 1 {
-                self.tableView.reloadData()
-            }
+            self.oldestLoadedLog = logEntries.last
             print(logEntries.count)
+            if shouldLoadOldLogs {
+                self.groupLog += logEntries
+                self.loadingMoreLogs = false
+                self.activityIndicator.stopAnimating()
+                if logEntries.count == 0 {
+                    self.tableView.tableFooterView = nil
+                }
+            }
+            else {
+                self.refreshControl.endRefreshing()
+                self.groupLog = logEntries
+            }
+            self.tableView.reloadData()
         }
     }
     
