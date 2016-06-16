@@ -228,12 +228,15 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("user", equalTo: user)
         
+        let bigUgQuery = DesiUserGroup.query()
+        bigUgQuery?.whereKey("group", matchesKey: "group", inQuery: userGroupQuery!)
+        
         let logQuery = DesiUserGroupLog.query()
         logQuery?.includeKey("userGroup")
         logQuery?.includeKey("task")
         logQuery?.includeKey("userGroup.user")
         logQuery?.includeKey("userGroup.group")
-        logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
+        logQuery?.whereKey("userGroup", matchesQuery: bigUgQuery!)
         logQuery?.addDescendingOrder("createdAt")
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
