@@ -127,7 +127,7 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if self.segControl.selectedSegmentIndex == 1 {
-            if !loadingMoreLogs && indexPath.row == self.taskLog.count - 1 && self.taskLog.count >= 10 && self.tableView.tableFooterView != nil {
+            if !loadingMoreLogs && indexPath.section == self.taskLog.count - 1 && self.taskLog.count >= 10 && self.tableView.tableFooterView != nil {
                 print(self.loadingMoreLogs)
                 self.activityIndicator.startAnimating()
                 self.loadingMoreLogs = true
@@ -359,8 +359,8 @@ class TaskViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func getTaskLog(){
-        let task = self.task
-        let shouldLoadOldLogs = self.oldestLoadedLog != nil && self.loadingMoreLogs
+        print(self.oldestLoadedLog)
+        let shouldLoadOldLogs = (self.oldestLoadedLog != nil) && self.loadingMoreLogs
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("group", equalTo: self.userGroup.group)
         

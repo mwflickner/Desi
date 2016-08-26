@@ -1496,7 +1496,7 @@
                                             <segue destination="0pe-3R-1OR" kind="showDetail" identifier="loadGroup" id="Vha-e2-UrM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" rowHeight="60" id="cSU-OO-dKC" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogCell" rowHeight="60" id="cSU-OO-dKC" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="82" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cSU-OO-dKC" id="7ux-Zw-Pfq">
@@ -1520,7 +1520,7 @@
                                             <outlet property="label1" destination="Vda-Bn-AJQ" id="U9d-l7-TaO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogMessageCell" rowHeight="80" id="xWt-jj-m5R" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogMessageCell" rowHeight="80" id="xWt-jj-m5R" customClass="DesiTableViewCell" customModule="Desi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="142" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xWt-jj-m5R" id="soU-ES-baA">

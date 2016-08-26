@@ -17,15 +17,21 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     var myUserGroups = [DesiUserGroup]()
     var myLogs = [DesiUserGroupLog]()
     var refreshControl = UIRefreshControl()
+    
     var hasViewedLog = false
+    var oldestLoadedLog: DesiUserGroupLog?
+    var loadingMoreLogs: Bool = false
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
+        self.activityIndicator.hidesWhenStopped = true
+        self.tableView.tableFooterView = self.activityIndicator
         self.refreshControl.addTarget(self, action: #selector(getUserGroups), forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(refreshControl)
+        self.tableView.addSubview(self.refreshControl)
         //self.refreshControl.beginRefreshing()
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         self.navigationItem.title = "Desi"
@@ -76,6 +82,18 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         return 0
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if self.segControl.selectedSegmentIndex == 1 {
+            if !loadingMoreLogs && indexPath.section == self.myLogs.count - 1 && self.myLogs.count >= 10 && self.tableView.tableFooterView != nil {
+                print(self.loadingMoreLogs)
+                self.activityIndicator.startAnimating()
+                self.loadingMoreLogs = true
+                self.getTaskLogForUser()
+            }
+        }
+        //self.tableView.tableFooterView = nil
     }
     
     
@@ -224,17 +242,25 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func getTaskLogForUser(){
+        let shouldLoadOldLogs = self.oldestLoadedLog != nil && self.loadingMoreLogs
         let user = DesiUser.currentUser()!
         let userGroupQuery = DesiUserGroup.query()
         userGroupQuery?.whereKey("user", equalTo: user)
+        
+        let bigUgQuery = DesiUserGroup.query()
+        bigUgQuery?.whereKey("group", matchesKey: "group", inQuery: userGroupQuery!)
         
         let logQuery = DesiUserGroupLog.query()
         logQuery?.includeKey("userGroup")
         logQuery?.includeKey("task")
         logQuery?.includeKey("userGroup.user")
         logQuery?.includeKey("userGroup.group")
-        logQuery?.whereKey("userGroup", matchesQuery: userGroupQuery!)
+        logQuery?.whereKey("userGroup", matchesQuery: bigUgQuery!)
+        if shouldLoadOldLogs {
+            logQuery?.whereKey("createdAt", lessThan: (self.oldestLoadedLog?.createdAt)!)
+        }
         logQuery?.addDescendingOrder("createdAt")
+        logQuery?.limit = 10
         logQuery?.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             guard error == nil else {
@@ -244,13 +270,21 @@ class DesiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             guard let logEntries = objects as? [DesiUserGroupLog] else {
                 return
             }
-            
-            self.myLogs = logEntries
-            self.refreshControl.endRefreshing()
-            if self.segControl.selectedSegmentIndex == 1 {
-                self.tableView.reloadData()
+            self.oldestLoadedLog = logEntries.last
+            if shouldLoadOldLogs {
+                self.myLogs += logEntries
+                self.loadingMoreLogs = false
+                self.activityIndicator.stopAnimating()
+                if logEntries.count == 0 {
+                    self.tableView.tableFooterView = nil
+                }
             }
-            print(logEntries.count)
+            else {
+                self.refreshControl.endRefreshing()
+                self.myLogs = logEntries
+            }
+        
+            self.tableView.reloadData()
         }
     }
     
