@@ -1,4 +1,6 @@
 # Desi
+This is the repository for the original iteration 1.0 of Desi, my senior thesis project presented at LMU in May 2016.
+The current version of Desi on the App Store has been extensively reworked from this and contains next to none of the code in this repo.
 
 ## About
 Desi is an iOS application written in Swift and built on the Parse SDK.
